@@ -1,0 +1,409 @@
+/* css초기화 */
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* --------------------------------------------------------------------------------- */
+
+html, body {
+  background: #0D0D0D;
+  color: #FDFDFD;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-family:"Noto Sans KR";
+}
+input{ font-family:"Noto Sans KR";}
+
+
+*,
+::before,
+::after{
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: #FDFDFD;
+}
+
+/* ------------------------------------------------------------ */
+
+/* 페이지 전체를 묶는 클래스 */
+.a-jun-page{display: flex; flex-direction: column; height: 100%; padding: 0px 0 0; justify-content: center;}
+
+/* 헤더 a */
+.a-nav-menu{
+  z-index: 500;
+  position: fixed; 
+  top: 0; 
+  width: 100%; height: 60px; 
+  color: #FDFDFD; font-size: 15px; 
+  z-index: 100;
+  padding: 0 3%;
+}
+
+.a-main-logo{
+  position: relative;
+  z-index: 5001;
+  float: left;
+  /* background: url("../images/샘플로고.svg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 60px; 
+}
+
+@media (min-width: 1250px){
+  
+  .a-nav-menu {
+      padding: 0 50px;
+  }
+
+}
+
+/* 입력 영역 */
+.a-input-area{
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.a-btn{
+  background-color: #F05454;
+  color: #FDFDFD;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-align: center;
+  width: 100%;
+  border-radius: 15px;
+  font-size: 16px;
+  font-family : inherit;
+  height: 40px;
+  cursor: pointer;
+  border: none;
+}
+
+.a-btn:disabled{ opacity: 0.5;}
+
+/* 아이콘 출력 부분 */
+.checkEmail, .checkPassword, .checkInput{ width: 35px; height: 30px; display: flex; align-items: center; justify-content: center;}
+
+/* ------------------------------------------------------------ */
+
+/* ----- 로그인 ----- */
+
+/* 배경화면 */
+.loginBackground{
+  height: 100vh;
+}
+
+.loginBackground::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: url("../../images/common/background/loginBackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 500ms ease 0s;
+}
+
+.loginBackground::after {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: rgb(18, 18, 24);
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+/* 로그인폼 */
+
+.a-login-area > div{width: 250px; text-align: center;}
+
+#login-form > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin: 15px 0;
+  background-color: #FDFDFD;
+  border-radius: 10px;
+}
+#login-form > div svg{
+  margin-left:7px;
+  margin-right: 3px;
+}
+#login-form input{
+  border: none;
+  outline: none;
+}
+
+/* 아이디 저장 체크박스 */
+.save-icon{
+  margin: 0 5px;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: #fdfdfd 1px solid;
+  background-color: #fdfdfd;
+  border-radius: 20%;
+}
+input[id="saveId"]:checked + label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+}
+.save-chk{ text-align: left; font-size: 12px; }
+.save-chk > *{ cursor: pointer; }
+
+/* 로그인 실패하면 나오는 문구 */
+.login-fail{ font-size: 13px; width: 160px; color: #ff6c6c; font-weight: 600; }
+
+#login-btn{ margin: 10px 0;}
+
+.a-login-footer{display: flex; justify-content: center;}
+.a-login-footer span{margin: 10px; cursor: pointer;}
+
+/* ------------------------------------------------------------ */
+
+/* ----- 회원가입 ----- */
+
+
+/* 배경화면 */
+.signUpBackground{
+  height: 100vh;
+}
+
+.signUpBackground::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: url("../../images/common/background/signUpBackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 500ms ease 0s;
+}
+
+.signUpBackground::after {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: rgb(18, 18, 24);
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+/* 회원가입 폼 */
+
+.jun::placeholder{ font-size: 13px; }
+.a-signUp-form-area{ color: #323232;}
+
+
+#signUp-form li{ margin: 10px 0;}
+#signUp-form li > div > input{
+  width: 250px;
+  height: 40px;
+  font-size: 15px;
+  outline: none; 
+  border: #6b6b6b 0.5px solid; 
+  padding: 5px 8px; 
+  border-radius: 6px;
+}
+
+#signUp-form li > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 약관 */
+.termsArea > div{ 
+  margin: auto;
+  display: flex; flex-direction: column; 
+  align-items: center; justify-content: center;}
+.termsArea > div > div{
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  text-align: left;
+  font-size: 13px;
+}
+input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px;
+}
+
+
+/* 이메일 인증번호 */
+#emailCheck-btn{
+  width: 80px;
+  height: 30px;
+  font-size: 14px;
+  line-height: 28px;
+  text-align: center;
+  background-color: #ff6c6c;
+  border: #fdfdfd solid 0px;
+  border-radius: 5px;
+  color: #FDFDFD;
+  font-weight: 500;
+  cursor: pointer;
+}
+#emailCheck-btn:active{color:#323232; font-weight: 700;}
+
+#emailCheck-code{width: 100px; height:30px; border-radius: 5px; border: 0.5px #323232 solid; outline: none; padding: 0 10px;}
+#emailCheck-code::placeholder{
+  text-align: center;
+  font-size: 12px;
+}
+.checkEmailTime{ width: 40px; height:30px; font-size: 15px; text-align: center; line-height: 28px; }
+
+/* 중복인 경우 테두리 추가 */
+.duplication{ border: #ff6c6c 2px solid !important;}
+.unique{ border: #40c91d 2px solid !important;}
+
+
+/* ------------------------------------------------------------ */
+
+/* ----- 비밀번호 찾기 ----- */
+
+/* 배경화면 */
+.changePwBackground{
+  height: 100vh;
+}
+
+.changePwBackground::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: url("../../images/common/background/changePwBackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 500ms ease 0s;
+}
+
+.changePwBackground::after {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: rgb(18, 18, 24);
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.a-changePw-area > div{width: 250px; text-align: center;}
+
+#changePw-form > div:first-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin: 15px 0;
+  background-color: #FDFDFD;
+  border-radius: 10px;
+}
+#changePw-form > div:first-child svg{
+  margin-left: 7px;
+  margin-right: 3px;
+}
+#changePw-form input{
+  border: none;
+  outline: none;
+}
+
+.a-changePw-notice{
+  color: #FDFDFD; font-size: 12px;
+  margin: 10px 0;
+}
+
+.findPw-notice{
+  color: #F05454;
+  margin: 15spx;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
