@@ -48,24 +48,18 @@ function signUpValidate(){
 
 }
 
+// jsp에 작성해놓기 (el로 닉네임 값을 받아와야하므로)
 function signUpSuccess(){
 
   Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }
+    position: 'center',
+    icon: 'success',
+    title: '회원가입 성공',
+    html: "\'홍길동\' 님의 가입이 완료되었습니다. <br> 가입한 이메일로 로그인해주세요.",
+    confirmButtonColor: '#F05454',
+    confirmButtonText: '확인',
+    timerProgressBar: true,
+    timer: 2000
   })
 
 }
@@ -78,23 +72,32 @@ function emailCheck(){
     width: '400px',
     title: '이메일 인증번호 입력',
     input: 'text',
-    inputAttributes: {
-      autocapitalize: 'off'
-    },
+    
     confirmButtonText: '확인',
     confirmButtonColor:'#44DE1D',
 
     showCancelButton: true,
     cancelButtonText: '취소',
     cancelButtonColor:'#F82F2F',
+    
+    footer : "번호가 일치하지 않습니다.",
 
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: value
-      })
+  }).then(function(result){
+    // result = input창에 입력한 값
+    
+    if(result.length == 0){
+      console.log(result.length);
     }
-  })
+
+    if(result.isConfirmed){
+      console.log(result.value);
+    }else{
+      console.log("취소");
+    }
+
+  });
+
+
 }
 
 
@@ -149,6 +152,7 @@ $("#userEmail").on("input", function(){
 
           $(this).removeAttr("class", "unique");
           $(this).addClass("duplication");
+          $("#emailCheck-btn").attr("disabled", true);
           signUpCheckObj.email = false;
 
         }
@@ -249,6 +253,8 @@ $("#userNickName").on("input", function(){
   const checkNickName = $(this).next();
 
   if( userNickName.length == 0 ){ // 빈칸
+    $(this).removeAttr("class", "unique");
+    $(this).removeAttr("class", "duplication");
     checkNickName.html("");
     signUpCheckObj.nickName = false;
 
@@ -365,25 +371,6 @@ $("#terms1, #terms2").on("change", function(){
   signUpValidate();
 
 });
-
-
-function termsShow2(){
-
-  Swal.fire({
-    title: '사이트 이용 약관',
-    input: 'checkbox',
-    inputValue: 0,
-    inputPlaceholder:
-      '사이트 이용 약관에 동의합니다.',
-    confirmButtonText:
-      '확인',
-    inputValidator: (result) => {
-      return !result && 'You need to agree with T&C'
-    }
-  })
-  
-
-}
 
 
 
