@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>비밀번호 재설정</title>
 
 <!-- BootStrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -28,30 +28,28 @@
     </nav>
     
     <!-- 배경 이미지 -->
-    <div src="https://drive.google.com/uc?id=1A0jC7rpB0PCLSn-BQfEKXMGSRXi3kQYu" class="changePwBackground">
+    <div class="resetPwBackground" style="height: 100vh; background-color: #272727;">
   
       <!-- 비밀번호 찾기 창 -->
       <main class="a-input-area a-changePw-area">
   
         <div style="font-size: 30px; font-weight: bold; margin: 20px 0;">
-          비밀번호 찾기
+          새 비밀번호 설정
         </div>
   
         <div class="a-changePw-form-area">
 
-          <form action="changePw" id="changePw-form" method="post">
+          <form action="resetPw" id="changePw-form" method="post">
             
             <div>
 
-              <!-- 이메일 입력 영역 -->
-              
+              <!-- 비밀번호 입력 영역 -->
               <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.99992 6.99998C8.28908 6.99998 9.33325 5.95581 9.33325 4.66665C9.33325 3.37748 8.28908 2.33331 6.99992 2.33331C5.71075 2.33331 4.66658 3.37748 4.66658 4.66665C4.66658 5.95581 5.71075 6.99998 6.99992 6.99998ZM6.99992 8.16665C5.44242 8.16665 2.33325 8.94831 2.33325 10.5V11.6666H11.6666V10.5C11.6666 8.94831 8.55742 8.16665 6.99992 8.16665Z" fill="#787878"/>
+                <path d="M6.99992 9.91665C7.64158 9.91665 8.16658 9.39165 8.16658 8.74998C8.16658 8.10831 7.64158 7.58331 6.99992 7.58331C6.35825 7.58331 5.83325 8.10831 5.83325 8.74998C5.83325 9.39165 6.35825 9.91665 6.99992 9.91665ZM10.4999 4.66665H9.91658V3.49998C9.91658 1.88998 8.60992 0.583313 6.99992 0.583313C5.38992 0.583313 4.08325 1.88998 4.08325 3.49998H5.19158C5.19158 2.50248 6.00242 1.69165 6.99992 1.69165C7.99742 1.69165 8.80825 2.50248 8.80825 3.49998V4.66665H3.49992C2.85825 4.66665 2.33325 5.19165 2.33325 5.83331V11.6666C2.33325 12.3083 2.85825 12.8333 3.49992 12.8333H10.4999C11.1416 12.8333 11.6666 12.3083 11.6666 11.6666V5.83331C11.6666 5.19165 11.1416 4.66665 10.4999 4.66665ZM10.4999 11.6666H3.49992V5.83331H10.4999V11.6666Z" fill="#787878"/>
                 </svg>
-                  
-              <input type="email" id="memberEmail" name="memberEmail" class="a-input" placeholder="이메일을 입력해주세요." autocomplete="off" autofocus>
+              <input type="password" id="memberPw" name="memberPw" class="a-input" placeholder="새로운 비밀번호를 입력해주세요.">
 
-              <!-- 이메일 검사 아이콘 영역 -->
+              <!-- 비밀번호 검사 아이콘 영역 -->
               <div class="checkInput"></div>
   
             </div>
@@ -63,22 +61,14 @@
             </div>
             
             <div class="a-changePw-notice">
-              <!-- 느낌표 아이콘 -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.31 7.526c-.099-.807.528-1.526 1.348-1.526.771 0 1.377.676 1.28 1.451l-.757 6.053c-.035.283-.276.496-.561.496s-.526-.213-.562-.496l-.748-5.978zm1.31 10.724c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z" fill="#FDFDFD"/></svg>
-              기존에 가입하신 이메일을 입력해주세요. <br><br>
-              이메일로 비밀번호 변경 링크를 발송해드립니다.
-  
+				영문,숫자,특수문자 6~20 글자로 <br><br> 
+				새로운 비밀번호를 설정해주세요.  
             </div>
 
-            <button id="findPw-btn" class="a-btn" disabled>확인</button>
+            <button id="resetPw-btn" class="a-btn" disabled>확인</button>
   
           </form>
   
-        </div>
-  
-        <div class="a-login-footer">
-          <span onclick="location.href='login'">로그인</span>
-          <span onclick="location.href='signUp'">회원가입</span>
         </div>
   
       </main>

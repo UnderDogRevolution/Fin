@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService;
@@ -80,6 +81,14 @@ public class MemberController {
 	}
 	
 	
+	// 로그아웃
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		// 최근 페이지로 보내는 법
+		return "redirect:/";
+	}
+	
 	
 	
 	// 회원가입 화면 호출
@@ -93,8 +102,10 @@ public class MemberController {
 	@RequestMapping(value="signUp", method=RequestMethod.POST)
 	public String signUp( Model model) {
 		
-		return null;
+		return "redirect:/";
 	}
+	
+	// 기타 중복검사 기능 들어올 자리
 	
 	
 	
@@ -104,6 +115,13 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
+	
+	
+	// 비밀번호 재설정 화면 호출	(*자리에 회원마다 특정 주소값 얻어와야할듯 { } 사용해서)
+	@RequestMapping(value="resetPw/*", method=RequestMethod.GET)
+	public String resetPw() {
+		return "member/resetPw";
+	}
 	
 	
 }
