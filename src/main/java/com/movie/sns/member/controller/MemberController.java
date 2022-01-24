@@ -18,8 +18,6 @@ import com.movie.sns.member.model.vo.Member;
 
 
 
-
-
 @Controller
 @RequestMapping("/member/*")
 //@SessionAttributes
@@ -81,6 +79,30 @@ public class MemberController {
 		return path;
 	}
 	
+	
+	
+	
+	// 회원가입 화면 호출
+	@RequestMapping(value="signUp", method=RequestMethod.GET)
+	public String signUp() {
+		return "member/signUp";
+	}
+	
+	
+	// 회원가입 수행
+	@RequestMapping(value="signUp", method=RequestMethod.POST)
+	public String signUp( Model model) {
+		
+		return null;
+	}
+	
+	
+	
+	// 비밀번호 찾기 화면 호출
+	@RequestMapping(value="findPw", method=RequestMethod.GET)
+	public String findPw() {
+		return "member/findPw";
+	}
 	
 	
 	

@@ -51,7 +51,7 @@ table {
 /* --------------------------------------------------------------------------------- */
 
 html, body {
-  background: #0D0D0D;
+  /* background: #272727; */
   color: #FDFDFD;
   height: 100%;
   padding: 0px;
@@ -72,6 +72,7 @@ a {
   text-decoration: none;
   color: #FDFDFD;
 }
+
 
 /* ------------------------------------------------------------ */
 
@@ -99,14 +100,36 @@ a {
   background-size: contain;
   width: 100px;
   height: 60px; 
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 58px;
+  text-align: center;
+  color: #ED1B1B;
+  opacity: 0.8;
+  cursor: pointer;
+  user-select: none;
 }
 
-@media (min-width: 1250px){
-  
-  .a-nav-menu {
-      padding: 0 50px;
+@media (min-width: 576px){
+  .a-main-logo{
+    width: 150px;
+    font-size: 30px;
   }
-
+}
+@media (min-width: 768px){
+  .a-main-logo{
+    width: 180px;
+    font-size: 35px;
+  }
+}
+@media (min-width: 1200px){
+  .a-nav-menu {
+    padding: 0 50px;
+  }
+  .a-main-logo{
+    width: 200px;
+    font-size: 35px;
+  }
 }
 
 /* 입력 영역 */
@@ -122,6 +145,8 @@ a {
   align-items: center;
 }
 
+.a-input{ font-size: 14px; }
+
 .a-btn{
   background-color: #F05454;
   color: #FDFDFD;
@@ -135,16 +160,54 @@ a {
   height: 40px;
   cursor: pointer;
   border: none;
+  line-height: 1;
 }
 
-.a-btn:disabled{ opacity: 0.5;}
+.a-btn:disabled{ opacity: 0.5; cursor: default;}
 
 /* 아이콘 출력 부분 */
-.checkEmail, .checkPassword, .checkInput{ width: 35px; height: 30px; display: flex; align-items: center; justify-content: center;}
+.checkEmail, .checkPassword, .checkInput{ 
+  width: 35px; height: 30px; 
+  display: flex; align-items: center; justify-content: center;
+}
 
 /* ------------------------------------------------------------ */
 
+
+/* ----- 시작페이지 ----- */
+
+.startPage{
+  width: 100%; height: 100vh; 
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+}
+.startPage-content{
+  width: 400px; height: 200px; 
+  font-size: 30px; text-align: center; line-height: 50px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; 
+}
+
+.welcome-msg{cursor: default; user-select: none;}
+
+/* 배경이 로딩된 후 어둡게하기 */
+.backstretch::after {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+  background: rgb(18, 18, 24);
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+#start-btn{opacity: 0.5; width: 200px; margin: 20px;}
+#start-btn:hover{opacity: 1.0;} 
+
+
+
 /* ----- 로그인 ----- */
+
 
 /* 배경화면 */
 .loginBackground{
@@ -157,7 +220,7 @@ a {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("../../images/common/background/loginBackground.jpg");
+  background: url("https://drive.google.com/uc?id=17zOhn9D0ZhcnEq3CMd2T0JCv6aGY1ywj");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -244,7 +307,7 @@ input[id="saveId"]:checked + label {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("../../images/common/background/signUpBackground.jpg");
+  background: url("https://drive.google.com/uc?id=1io1zmYAn1sZ5htUMZa2cxpWJ27lb4cFe");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -352,7 +415,7 @@ input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("../../images/common/background/changePwBackground.jpg");
+  background: url("https://drive.google.com/uc?id=1A0jC7rpB0PCLSn-BQfEKXMGSRXi3kQYu");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -407,3 +470,20 @@ input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
   line-height: 1.4;
   word-wrap: break-word;
 }
+
+/* 약관 */
+
+#info-terms, #site-terms{
+  padding: 20px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d8d9df;
+  font-size: 12px;
+  color: #98989f;
+  line-height: 1.6em;
+  overflow: auto;
+  resize: none;
+  outline: none;
+}
+
+.a-modal{color: #323232; font-size: 25px; font-weight: bold;}

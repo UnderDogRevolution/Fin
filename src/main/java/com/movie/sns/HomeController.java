@@ -42,7 +42,7 @@ public class HomeController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String mainPageForward() {
 		
-		return "mainPage";
+		return "startPage";
 	}
 	
 	
