@@ -19,17 +19,17 @@ const loginCheckObj = {
 
 
 // 이메일 유효성 검사
-$("#userEmail").on("input", function(){
+$("#memberEmail").on("input", function(){
 
-  const userEmail = $(this).val();
+  const memberEmail = $(this).val();
   const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
   const checkInput = $(this).next();
 
-  if(userEmail.length == 0){
+  if(memberEmail.length == 0){
     checkInput.html("");
     loginCheckObj.email = false;
   }
-  else if(regExp.test(userEmail)){
+  else if(regExp.test(memberEmail)){
     checkInput.html(validIcon);
     loginCheckObj.email = true;
   }
@@ -43,18 +43,18 @@ $("#userEmail").on("input", function(){
 });
 
 // 비밀번호 유효성 검사
-$("#userPw").on("input",function(){
+$("#memberPw").on("input",function(){
 
-  const userPw = $(this).val();
+  const memberPw = $(this).val();
   // 영문, 숫자, 특수문자 6~20 글자
   const regExp = /^[a-zA-Z\d$`~!@$!%*#^?&\\(\\)\-_=+]{6,20}$/;
   const checkInput = $(this).next();
 
-  if(userPw.length == 0){
+  if(memberPw.length == 0){
     checkInput.html("");
     loginCheckObj.password = false;
   }
-  else if(regExp.test(userPw)){
+  else if(regExp.test(memberPw)){
     checkInput.html(validIcon);
     loginCheckObj.password = true;
   }
@@ -91,7 +91,7 @@ $("#login-form").on("submit", function(){
   $.ajax({
 
     url : "login",
-    data : {"userEmail" : userEmail, "userPw" : userPw, "saveId" : saveId},
+    data : {"memberEmail" : memberEmail, "memberPw" : memberPw,
     type : "POST",
 
     success : function(result){
