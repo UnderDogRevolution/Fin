@@ -1,5 +1,6 @@
 package com.movie.sns.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,9 +43,39 @@ public class MemberController {
 						HttpServletRequest req, HttpServletResponse resp) {
 		
 		
+		Member loginMember = service.login(member);
+		
+		String path = null;	// 주소 저장용
+		
+		if(loginMember != null) {
+			
+			
+			model.addAttribute(loginMember);
+			
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
+			
+			if(saveId != null) {
+				cookie.setMaxAge(60*60*24*30);
+			}else {
+				cookie.setMaxAge(0);
+			}
+			
+			cookie.setPath(req.getContextPath());
+			
+			resp.addCookie(cookie);
+			
+			
+		}else {
+			
+			ra.addFlashAttribute("memberId", member.getMemberEmail());
+			
+		}
+		
+	
+		
 		
 		// 로그인 실패 시 파라미터값으로 넘어온 id를 ra에 담아서 되돌려보내기
-		String path = null;
+		
 		
 		
 		return path;
