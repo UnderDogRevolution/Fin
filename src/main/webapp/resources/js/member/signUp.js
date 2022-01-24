@@ -97,6 +97,34 @@ function emailCheck(){
 
   });
 
+}
+
+
+// 이메일 전송 함수
+function sendEmail(){
+
+  const memberEmail = $("#memberEmail").val();
+  const signUpEmail = $("#signUpEmail");
+
+  signUpEmail.val(memberEmail);
+
+  $.ajax({
+
+    url : "../email/sendEmail",
+    type : "post",
+
+    success : function(result){
+      if(result == 1){
+        console.log("메일 발송 성공");
+      }else if(result == -1){
+        console.log("예외 발생");
+      }else{
+        console.log("발송 실패");
+      }
+    }
+
+  })
+
 
 }
 
@@ -106,21 +134,21 @@ function emailCheck(){
 
 // 이메일 유효성 검사 + 중복 확인
 // 이메일 유효성 검사
-$("#userEmail").on("input", function(){
+$("#memberEmail").on("input", function(){
 
-  const userEmail = $(this).val();
+  const memberEmail = $(this).val();
   const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
   const checkInput = $(this).next();
 
   // 값이 없는 경우
-  if(userEmail.length == 0){
+  if(memberEmail.length == 0){
     checkInput.html("");
     $(this).removeAttr("class", "unique");
     $(this).removeAttr("class", "duplication");
     $("#emailCheck-btn").attr("disabled", true);
     signUpCheckObj.email = false;
   }
-  else if(regExp.test(userEmail)){
+  else if(regExp.test(memberEmail)){
 
     checkInput.html(validIcon);
 
@@ -135,7 +163,7 @@ $("#userEmail").on("input", function(){
     $.ajax({ 
 
       url : "emailDupCheck",                         
-      data : {"userEmail" : userEmail},               
+      data : {"memberEmail" : memberEmail},               
       type : "GET",                             
 
       success : function(result){
@@ -196,18 +224,18 @@ $("#userEmail").on("input", function(){
 
 // -------------------------------------------------------------------------
 // 비밀번호 유효성 검사
-$("#userPw").on("input",function(){
+$("#memberPw").on("input",function(){
 
-  const userPw = $("#userPw").val();
+  const memberPw = $("#memberPw").val();
   // 영문, 숫자, 특수문자 6~20 글자
   const regExp = /^[a-zA-Z\d$`~!@$!%*#^?&\\(\\)\-_=+]{6,20}$/;
-  const checkPw1 = $("#userPw").next();
+  const checkPw1 = $("#memberPw").next();
 
-  if(userPw.length == 0){
+  if(memberPw.length == 0){
     checkPw1.html("");
     signUpCheckObj.password = false;
   }
-  else if( regExp.test( userPw ) ){
+  else if( regExp.test( memberPw ) ){
     checkPw1.html(validIcon);
     signUpCheckObj.password = true;
   }
@@ -221,17 +249,17 @@ $("#userPw").on("input",function(){
 });
 
 // 비밀번호 확인 검사
-$("#userPw, #userPw2").on("input",function(){
+$("#memberPw, #memberPw2").on("input",function(){
 
-  const userPw = $("#userPw").val();
-  const userPw2 = $("#userPw2").val();
-  const checkPw2 = $("#userPw2").next();
+  const memberPw = $("#memberPw").val();
+  const memberPw2 = $("#memberPw2").val();
+  const checkPw2 = $("#memberPw2").next();
 
-  if(userPw2.trim().length == 0){
+  if(memberPw2.trim().length == 0){
     checkPw2.html("");
     signUpCheckObj.password2 = false;
   }
-  else if( userPw == userPw2 ){
+  else if( memberPw == memberPw2 ){
     checkPw2.html(validIcon);
     signUpCheckObj.password2 = true;
   }
@@ -246,19 +274,19 @@ $("#userPw, #userPw2").on("input",function(){
 
 // -------------------------------------------------------------------------
 // 닉네임 유효성 검사 ( + 중복 확인 )
-$("#userNickName").on("input", function(){
+$("#memberNickName").on("input", function(){
 
-  const userNickName = $(this).val(); // 입력 받은 이름
+  const memberNickName = $(this).val(); // 입력 받은 이름
   const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
   const checkNickName = $(this).next();
 
-  if( userNickName.length == 0 ){ // 빈칸
+  if( memberNickName.length == 0 ){ // 빈칸
     $(this).removeAttr("class", "unique");
     $(this).removeAttr("class", "duplication");
     checkNickName.html("");
     signUpCheckObj.nickName = false;
 
-  }else if(regExp.test(userNickName)){ 
+  }else if(regExp.test(memberNickName)){ 
     
     // ************* ajax 만들면 지울 부분 ******************
     $(this).removeAttr("class", "duplication");
@@ -273,7 +301,7 @@ $("#userNickName").on("input", function(){
     $.ajax({ 
 
       url : "nickNameDupCheck",                         
-      data : {"userNickName" : userNickName},               
+      data : {"memberNickName" : memberNickName},               
       type : "GET",                             
 
       success : function(result){
@@ -328,7 +356,7 @@ $("#userNickName").on("input", function(){
 
 // -------------------------------------------------------------------------
 // 이름 유효성 검사
-$("#userName").on("input", function(){
+$("#memberName").on("input", function(){
 
   const inputName = $(this).val(); // 입력 받은 이름
   const regExp = /^[a-zA-Z가-힣]{2,20}$/;
@@ -371,8 +399,6 @@ $("#terms1, #terms2").on("change", function(){
   signUpValidate();
 
 });
-
-
 
 
 

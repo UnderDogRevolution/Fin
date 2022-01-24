@@ -47,7 +47,7 @@
               <li>
 
                 <div>
-                  <input type="email" class="jun" id="userEmail" name="userEmail" class="a-input" placeholder="이메일 (example@gmail.com)" autocomplete="off" autofocus>
+                  <input type="email" class="jun" id="memberEmail" name="memberEmail" class="a-input" placeholder="이메일 (example@gmail.com)" autocomplete="off" autofocus>
 
                   <!-- 이메일 유효성 결과 -->
                   <div class="checkInput"></div>
@@ -57,7 +57,7 @@
 
                   <div style="margin-top: 10px; width: 285px; display: flex; align-items: center; justify-content: space-between;">
 
-                    <button class="a-btn" id="emailCheck-btn" onclick=emailCheck(); type="button" style="width:100%" disabled>
+                    <button class="a-btn" id="emailCheck-btn" onclick=sendEmail(); type="button" style="width:100%" disabled>
                       이메일 인증
                     </button>
 
@@ -85,7 +85,7 @@
               <!-- 비밀번호 -->
               <li>
                 <div>
-                  <input type="password" class="jun" id="userPw" name="userPw" class="a-input" placeholder="비밀번호 (문자,숫자,특수 6 ~ 20 글자)">
+                  <input type="password" class="jun" id="memberPw" name="memberPw" class="a-input" placeholder="비밀번호 (문자,숫자,특수 6 ~ 20 글자)">
 
                   <!-- 비밀번호 유효성 결과 -->
                   <div class="checkInput"></div>
@@ -95,7 +95,7 @@
               <!-- 비밀번호 확인 -->
               <li>
                 <div>
-                  <input type="password" class="jun" id="userPw2" name="userPw2" class="a-input" placeholder="비밀번호 확인">
+                  <input type="password" class="jun" id="memberPw2" name="memberPw2" class="a-input" placeholder="비밀번호 확인">
 
                   <!-- 비밀번호 확인 유효성 결과 -->
                   <div class="checkInput"></div>
@@ -105,7 +105,7 @@
               <!-- 닉네임 -->
               <li>
                 <div>
-                  <input type="text" class="jun" id="userNickName" name="userNickName" class="a-input" placeholder="닉네임 (한글, 영어, 숫자 2 ~ 20 글자)" autocomplete="off" maxlength="20">
+                  <input type="text" class="jun" id="memberNickName" name="memberNickName" class="a-input" placeholder="닉네임 (한글, 영어, 숫자 2 ~ 20 글자)" autocomplete="off" maxlength="20">
 
                   <!-- 닉네임 유효성(중복) 결과 -->
                   <div class="checkInput"></div>
@@ -115,7 +115,7 @@
               <!-- 이름 -->
               <li>
                 <div> 
-                  <input type="text" class="jun" id="userName" name="userName" class="a-input" placeholder="이름 (한글, 영어 2 ~ 20 글자)" autocomplete="off" maxlength="20">
+                  <input type="text" class="jun" id="memberName" name="memberName" class="a-input" placeholder="이름 (한글, 영어 2 ~ 20 글자)" autocomplete="off" maxlength="20">
 
                   <!-- 이름 유효성 결과 -->
                   <div class="checkInput"></div>
@@ -169,8 +169,8 @@
         </div>
   
         <div class="a-login-footer">
-          <span onclick="location.href='login.html'">로그인</span>
-          <span onclick="location.href='findPw.html'">비밀번호 찾기</span>
+          <span onclick="location.href='login'">로그인</span>
+          <span onclick="location.href='findPw'">비밀번호 찾기</span>
         </div>
   
       </main>
@@ -220,6 +220,10 @@
   
   <%-- 약관 include --%>
   <jsp:include page="terms.jsp"></jsp:include>
+  
+  <form action="../email/sendEmail" method="post" id="sendEmailForm">
+  	<input type="hidden" id="signUpEmail" name="signUpEmail">
+  </form>
 
 
 
