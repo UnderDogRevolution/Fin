@@ -94,7 +94,6 @@ a {
   position: relative;
   z-index: 5001;
   float: left;
-  /* background: url("../images/샘플로고.svg"); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -220,7 +219,7 @@ a {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("https://drive.google.com/uc?id=17zOhn9D0ZhcnEq3CMd2T0JCv6aGY1ywj");
+  background: url("../../images/backgrounds/loginBackground.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -307,7 +306,7 @@ input[id="saveId"]:checked + label {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("https://drive.google.com/uc?id=1io1zmYAn1sZ5htUMZa2cxpWJ27lb4cFe");
+  background: url("../../images/backgrounds/signUpBackground.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -415,7 +414,7 @@ input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
   top: 0px;
   left: 0px;
   z-index: 0;
-  background: url("https://drive.google.com/uc?id=1A0jC7rpB0PCLSn-BQfEKXMGSRXi3kQYu");
+  background: url("../../images/backgrounds/changePwBackground.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

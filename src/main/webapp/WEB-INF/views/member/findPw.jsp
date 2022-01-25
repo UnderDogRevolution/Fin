@@ -28,7 +28,7 @@
     </nav>
     
     <!-- 배경 이미지 -->
-    <div src="https://drive.google.com/uc?id=1A0jC7rpB0PCLSn-BQfEKXMGSRXi3kQYu" class="changePwBackground">
+    <div src="${contextPath}/resources/images/backgrounds/changePwBackground.jpg" class="changePwBackground">
   
       <!-- 비밀번호 찾기 창 -->
       <main class="a-input-area a-changePw-area">

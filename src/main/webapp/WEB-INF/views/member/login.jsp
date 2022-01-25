@@ -28,7 +28,7 @@
     </nav>
     
     <!-- 배경 이미지 -->
-    <div src="https://drive.google.com/uc?id=17zOhn9D0ZhcnEq3CMd2T0JCv6aGY1ywj" class="loginBackground">
+    <div src= "${contextPath}/resources/images/backgrounds/loginBackground.jpg" class="loginBackground">
   
       <!-- 로그인 창 -->
       <main class="a-input-area a-login-area">

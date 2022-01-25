@@ -28,7 +28,7 @@
     </nav>
     
     <!-- 배경 이미지 -->
-    <div src="https://drive.google.com/uc?id=1io1zmYAn1sZ5htUMZa2cxpWJ27lb4cFe" class="signUpBackground">
+    <div src="${contextPath}/resources/images/backgrounds/signUpBackground.jpg" class="signUpBackground">
   
       <!-- 회원가입 창 -->
       <main class="a-input-area a-signUp-area">
