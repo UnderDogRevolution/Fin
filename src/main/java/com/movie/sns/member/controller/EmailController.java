@@ -46,7 +46,8 @@ public class EmailController {
 			messageHelper.setFrom(setfrom);
 			messageHelper.setTo(tomail);
 			messageHelper.setSubject(title);
-			messageHelper.setText(content + key, true); 	
+			messageHelper.setText(content + key, true); 
+			
 			mailSender.send(message);
 			
 			return 1;
