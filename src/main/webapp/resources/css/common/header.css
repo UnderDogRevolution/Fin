@@ -74,7 +74,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 1050;
     align-items: center;
     background-color: #272727;
     border-bottom: 3px solid #942d2d;

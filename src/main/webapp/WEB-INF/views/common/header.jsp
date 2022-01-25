@@ -69,11 +69,11 @@
 					<li><i class="far fa-edit boardwrap" style="padding-top: 5px;">
 							<div class="boardMenu">
 
-								<div>
-									<a href=""> 피드 </a>
+								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Write()">
+									<a href="" onclick="return false;" > 피드 </a>
 								</div>
-								<div>
-									<a href=""> 리뷰 </a>
+								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Review()">
+									<a href="" onclick="return false;" > 리뷰 </a>
 								</div>
 
 							</div>

@@ -9,10 +9,9 @@
 </head>
 <body>
     <jsp:include page="feed.jsp"></jsp:include>
-	    
-
 	
 	<jsp:include page="side.jsp"></jsp:include>
+	<jsp:include page="crud-post.jsp"></jsp:include>
 	
 </body>
 </html>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- JSTL c태그 사용을 위한 taglib 추가 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="padding-top: 122px; padding-right: 30%;"> <!-- 마진으로 하면 오류가 난다 무슨 문제인지는 모르겠다. -->
+<div id="asdf" style="padding-top: 122px; padding-right: 30%;"> <!-- 마진으로 하면 오류가 난다 무슨 문제인지는 모르겠다. -->
 
     
-    <div class="post"style="width: 500px;">
+    <div class="post"style="width: 500px; ">
         <div class="post-header" style="display: flex; align-items: center;">
             <div style="width: 60px; height: 60px;  border-radius: 50px; border: 1px solid black; overflow:hidden; align-items: flex-start;">
             <img src="${contextPath}/resources/images/temp/raraland.jpg" alt="" style="width: 100%; height: 100%;"><!-- resoures -->
@@ -126,4 +126,4 @@
     
 </div>
     <script src="${contextPath}/resources/js/post/post.js"></script>
-    <script src="${contextPath}/resources/js/post/moviedb.js"></script>
+    
