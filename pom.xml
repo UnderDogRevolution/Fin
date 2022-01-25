@@ -105,20 +105,23 @@
 		    <version>2.8.9</version>
 		</dependency>
 		
-		<!-- 이메일 인증 -->
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		
+		<!-- 메일 관련 -->
+		
+		<!-- 메일 전송 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.7</version>
+		   <groupId>org.springframework</groupId>
+		   <artifactId>spring-context-support</artifactId>
+		   <version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
+		   <groupId>com.sun.mail</groupId>
+		   <artifactId>javax.mail</artifactId>
+		   <version>1.6.2</version>
 		</dependency>
-
 		
 			
 	
