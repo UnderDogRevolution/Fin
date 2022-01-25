@@ -21,7 +21,7 @@
 		<div class="header">
 
 			<div class="logo">
-				<a href="">Montage</a>
+				<a href="main">Montage</a>
 
 			</div>
 			<div></div>
