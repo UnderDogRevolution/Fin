@@ -110,20 +110,34 @@ function sendEmail(){
 
   $.ajax({
 
-    url : "../email/sendEmail",
+    url : "../mail/sendMail",
     type : "post",
+    data : {"memberEmail" : memberEmail},
 
     success : function(result){
+
       if(result == 1){
         console.log("메일 발송 성공");
-      }else if(result == -1){
-        console.log("예외 발생");
       }else{
-        console.log("발송 실패");
+        console.log("예외 발생");
       }
+
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+          console.log(request.responseText);
+      }
+   
     }
 
-  })
+  });
 
 
 }
