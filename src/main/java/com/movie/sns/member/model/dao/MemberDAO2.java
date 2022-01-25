@@ -1,11 +1,13 @@
 package com.movie.sns.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 
 @Repository
@@ -54,15 +56,45 @@ public class MemberDAO2 {
 		return sqlSession.update("memberMapper.secession", memberNo);
 	}
 
-	/*	
-		*//*************** 회원 정보 로직 ***************//*
-														 * 
-														 * //첨부파일을 DB에서 불러오기 UserImgsVO getProfile(int userNo) throws
-														 * Exception;
-														 * 
-														 * //프로필 사진 등록 void insertUserImg(UserImgsVO file) throws
-														 * Exception;
-														 * 
-														 * //프로필 사진 삭제 void deleteUserImg(int userNo) throws Exception;
-														 */
+	/** 이미지 목록 삽입
+	 * @param imgList
+	 * @return result
+	 */
+	public int insertImgList(List<Image> imgList) {
+		return sqlSession.insert("memberMapper.insertImgList", imgList);
+	}
+ 
+	
+	/** 기존에 있었지만 삭제된 이미지 DELETE
+	 * @param map
+	 * @return result
+	 */
+	public int deleteImages(Map<String, Object> map) {
+		return sqlSession.delete("memberMapper.deleteImages", map);
+	}
+
+	
+	/** 프로필 이미지 수정
+	 * @param img
+	 * @return result
+	 */
+	public int updateImage(Image img) {
+		return sqlSession.update("memberMapper.updateBoardImage", img);
+	}
+
+	
+	/** 프로필 이미지 삽입
+	 * @param img
+	 * @return result
+	 */
+	public int insertImage(Image img) {
+		return sqlSession.insert("memberMapper.insertImage", img);
+	}
+	
+	/** 이미지 파일명 목록 조회
+	 * @return dbImgList
+	 */ 
+	public List<String> selectImgList() {
+		return sqlSession.selectList("memberMapper.selectImgList");
+	}
 }

@@ -382,7 +382,7 @@
   </div>
   </form>
   
-<!--   <script>
+   <script>
 		// 비밀번호 입력 + 약관 동의가 체크 되었을 때에만 탈퇴 진행
 		function secessionValidate(){
 
@@ -395,21 +395,12 @@
 				return false;
 			}
 			
-			// 2) 약관 동의가 체크 되어있지 않으면 false 리턴 
-			if( !document.getElementById("agree").checked  ){
-				alert("약관에 동의해주세요.");
-				return false;
-			}
-			
-			
-			// 3) confirm을 이용하여 정말 탈퇴할 것인지 물어보기
+			// 2) confirm을 이용하여 정말 탈퇴할 것인지 물어보기
 			
 			return confirm("정말로 탈퇴 하시겠습니까???");
 			
-			
-			
 		}
-	</script> -->
+	</script>
 </body>
 
 </html>

@@ -92,7 +92,7 @@
 	 <insert id="signUp" parameterType="Member">
 	 	INSERT INTO MEMBER VALUES(
 	 		SEQ_MEMBER_NO.NEXTVAL, #{memberId}, #{memberPw},
-	 		#{memberName}, #{memberPhone}, #{memberEmail}, #{memberAddress},
+	 	<!-- 	#{memberName}, #{memberPhone}, #{memberEmail}, #{memberAddress}, //번호,주소 안쓰이고 생일, 닉네임으로 변경-->
 	 		DEFAULT, DEFAULT, DEFAULT )
 	 </insert>
 	 
@@ -102,8 +102,8 @@
 	 <update id="updateMember">
 	 	UPDATE MEMBER SET 
 	 	MEMBER_EMAIL = #{memberEmail},
-	 	MEMBER_PHONE = #{memberPhone},
-	 	MEMBER_ADDR = #{memberAddress}
+	 	MEMBER_NICKNAME = #{memberNickName},
+	 	MEMBER_BIRTH = #{memberBirth}
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </update>
 	 
@@ -120,6 +120,10 @@
 	 	MEMBER_PW = #{newPw}
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </update>
+	
+	
+	
+	
 	 <!--
 	 	SQL 구문에 파라미터 작성하는 방법 
 	 	1. 파라미터가 단일 자료형 : #{변수명(아무거나)}
@@ -127,6 +131,72 @@
 	 	3. 파라미터가 Map         : #{key}  -> 해당 위치에 value가 작성됨. 
 	 	4. 파라미터가 List/Set    : 동적 SQL foreach 태그 사용 
 	 -->
+	 
+	 <!-- 게시글 이미지 목록 삽입 -->
+	
+	<!-- 파일 정보 List(imgList) 반복 삽입 -->
+	
+	<!-- 동적 SQL : 마이바티스의 핵심 기능으로 SQL 수행 중 
+					조건, 반복, 특정 구문 추가 등을 동적으로 수행할 수 있음. -->
+					
+	<!--  <foreach> 태그
+		- collection : 반복 접근할 컬렉션 형태의 파라미터
+		- item : collection에서 반복 시 마다 순차적으로 하나씩 접근한 요소
+		- index : 현재 반복 인덱스
+		- open : forEach 시작 전 추가할 구문
+		- close : forEach 종료 후 추가할 구문
+		- separator : 반복 시 마다 SQL 사이에 추가할 구분자
+	 -->
+	
+	<insert id="insertImgList" parameterType="list">
+		INSERT INTO MEMBER_IMG
+		SELECT SEQ_IMG_NO.NEXTVAL, A.* FROM
+		
+		<foreach collection="list" item="img"
+				open="("    close=") A"   separator=" UNION ALL ">
+			SELECT #{img.imgPath} IMG_PATH, 
+				   #{img.imgName} IMG_NM,
+				   #{img.imgOriginal} IMG_ORIGINAL,
+				   #{img.imgLevel} IMG_LEVEL,
+				   #{img.MemberNo} MEMBER_NO 
+			FROM DUAL 
+		</foreach>
+		
+	</insert>
+
+	<!-- 기존에 있었지만 삭제된 이미지 DELETE -->
+	<!-- 파라미터 타입이 Map인 경우  #{Key}를 작성하면 Value가 출력됨 -->
+	<delete id="deleteImages" parameterType="map">
+		DELETE FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{MemberNo}
+		AND IMG_LEVEL IN ( ${deleteImages} )
+	</delete> 
+
+
+
+	<!-- 게시글 이미지 수정 -->
+	<update id="updateImage">
+		UPDATE MEMBER_IMG SET
+		IMG_PATH = #{imgPath},
+		IMG_NM = #{imgName},
+		IMG_ORIGINAL = #{imgOriginal}
+		WHERE MEMBER_NO = #{memberNo}
+		AND IMG_LEVEL = #{imgLevel}
+	</update>
+	
+	<!-- 게시글 이미지 삽입 -->
+	<insert id="insertImage">
+		INSERT INTO MEMBER_IMG VALUES
+		(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, #{imgOriginal}, #{imgLevel}, #{memberNo})
+	</insert>
+
+
+
+
+	<!-- 이미지 파일명 목록 조회 -->
+	<select id="selectImgList" resultType="string">
+		SELECT IMG_NM FROM MEMBER_IMG
+	</select>
 	 
 	 
 	<!-- 회원 탈퇴 -->

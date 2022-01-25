@@ -1,11 +1,10 @@
 package com.movie.sns.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService2;
 import com.movie.sns.member.model.vo.Member;
 
 import com.movie.sns.common.Util;
-
-
-
-
 
 @Controller
 @RequestMapping("/member/*")
@@ -48,11 +43,11 @@ public class MemberController2 {
 		public String updateMember(/*HttpSession session*/ 
 									@ModelAttribute("loginMember") Member loginMember,
 									@RequestParam Map<String, String> param, // 모든 파라미터를 Map형식으로 저장,
+									@RequestParam("deleteImages") String deleteImages,
+									@RequestParam("images") List<MultipartFile> images,
 									Member member, // 비어있는 Member객체 생성
-									RedirectAttributes ra) {
-			// 회원 정보 수정 시 필요한 값
-			// 1. 입력된 파라미터(이메일, 전화번호, 주소)
-			// 2. 로그인한 회원의 회원 번호(Session에서 얻어옴)
+									RedirectAttributes ra, HttpSession session) {
+			
 			
 			// 기존 세션데이터 얻어오는 방식
 			//int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
@@ -61,29 +56,34 @@ public class MemberController2 {
 			// 1. 파라미터를 객체에 set하는 역할 -> 커맨드 객체 생성
 			// 2. @SessionAttributes를 이용해 등록된 Session 데이터를 얻어오는 역할
 			//    --> @ModelAttribute("Session키값")
-			
+			// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+			String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
+			String serverPath = session.getServletContext().getRealPath(webPath);
+						
 			// member에 회원번호, 수정된 파라미터를 모두 담기
+			
 			member.setMemberNo( loginMember.getMemberNo() );
 			member.setMemberNickName( param.get("updateNickName") );
 			member.setMemberEmail( param.get("updateEmail") );
-			member.setMemberbirth( param.get("updatebirth") );
+			member.setMemberBirth( param.get("updateBirth") );
 			
 			
 			// 회원 정보 수정 Service 호출 후 결과 반환 받기
-			int result = service.updateMember(member);
+			int result = service.updateMember(member, images, webPath, serverPath, deleteImages);
 			
 			
 			// sweetalert 를 이용해서 수정 성공/실패 출력
 			String title = null;
 			String text = null;
 			String icon = null;
+			
 			if(result > 0) { // 수정 성공
 				
 				// Session 로그인 회원 정보를 DB와 동기화
 				// -> Session에 저장된 회원 정보 객체(Member)를 참조하는 loginMember 활용
 				loginMember.setMemberNickName(param.get("updateNickName"));
 				loginMember.setMemberEmail(param.get("updateEmail"));
-				loginMember.setMemberbirth(param.get("updatebirth"));
+				loginMember.setMemberBirth(param.get("updateBirth"));
 				
 				
 				title = "회원 정보 수정 성공";
@@ -193,8 +193,7 @@ public class MemberController2 {
 
 		
 		
-		
-		
+
 		
 		/* 스프링 예외 처리 방법
 		 * 

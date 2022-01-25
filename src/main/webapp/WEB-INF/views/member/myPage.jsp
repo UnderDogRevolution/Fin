@@ -373,7 +373,7 @@
             수정</label>
         </div>
 
-        <img src="img/user.png" class="img-thumbnail" alt="..."><br>
+        <img src="${img0}" class="img-thumbnail" alt="..."><br>
         <label for="exampleFormControlInput1" class="form-label"></label>
         <br>
 
@@ -391,19 +391,19 @@
 
         <div class="row-mb-3-con">
           <label for="nickInput" class="col-form-label text-end">닉네임</label>
-          <input type="input" class="col-inputform" id="nickInput">
+          <input type="input" class="col-inputform" id="nickInput" value="${loginMember.memberNickName}">
         </div>
 
         <br>
         <div class="row-mb-3-con">
           <label for="currentEmail" class="col-form-label text-end">이메일</label>
-          <input type="input" class="col-inputform" id="currentEmail" name="currentEmail">
+          <input type="email" class="col-inputform" id="currentEmail" name="currentEmail" value="${loginMember.memberEmail}">
         </div>
         <br>
 
         <div class="row-mb-3-con">
           <label for="currentBirth" class="col-form-label text-end">생일</label>
-          <input type="date" class="col-inputform" id="currentBirth" name="currentBirth">
+          <input type="date" class="col-inputform" id="currentBirth" name="currentBirth" value="${loginMember.memberBirth}">
         </div>
 
         <button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>

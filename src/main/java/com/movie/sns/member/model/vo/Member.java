@@ -10,7 +10,7 @@ public class Member {
 	private String memberEmail;		// 이메일
 	private String enrollDate;		// 가입일	(string, date 아직 확정 아님)
 	private String modifyDate;		// 수정일
-	private String memberbirth; //생일
+	private String memberBirth; //생일
 	private int memberStatusCode;	// 회원상태
 	private int memberGradeCode;	// 회원등급
 	
@@ -89,13 +89,13 @@ public class Member {
 	}
 
 
-	public String getMemberbirth() {
-		return memberbirth;
+	public String getMemberBirth() {
+		return memberBirth;
 	}
 
 
-	public void setMemberbirth(String memberbirth) {
-		this.memberbirth = memberbirth;
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
 	}
 
 
@@ -123,7 +123,7 @@ public class Member {
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberNickName=" + memberNickName
 				+ ", memberPw=" + memberPw + ", memberEmail=" + memberEmail + ", enrollDate=" + enrollDate
-				+ ", modifyDate=" + modifyDate + ", memberbirth=" + memberbirth + ", memberStatusCode="
+				+ ", modifyDate=" + modifyDate + ", memberBirth=" + memberBirth + ", memberStatusCode="
 				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + "]";
 	}
 
