@@ -112,7 +112,7 @@
     background-color: gray;
     position: relative;
 }
-       .search-result{
+.search-result{
     width: 80%;
     background-color: powderblue;
     margin: auto; display: flex;
@@ -203,4 +203,8 @@
 .rating-star:nth-child(2n)::before{
     right: 1px;
     left: initial;
+}
+
+html::-webkit-scrollbar{
+    display: none;
 }
