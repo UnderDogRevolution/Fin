@@ -28,9 +28,11 @@ public class MemberController {
 	private MemberService service;
 	
 	
+	
 	// 로그인 화면 전환
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String login() {
+		
 		return "member/login";
 	}
 	
