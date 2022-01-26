@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="../common/header.jsp"></jsp:include>
 <title>myboard</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/board/myboard.css">
+
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	
 	
   <main>
         <div class="container">

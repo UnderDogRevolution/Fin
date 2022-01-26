@@ -19,7 +19,7 @@ import com.movie.sns.member.model.vo.Member;
 
 
 @Service
-public abstract class MemberService2Impl implements MemberService2{
+public class MemberService2Impl implements MemberService2{
 
 	@Autowired
 	private MemberDAO2 dao;
@@ -172,6 +172,14 @@ public abstract class MemberService2Impl implements MemberService2{
 
 			return result;
 		}
+
+		@Override
+		public int updateMember(Member member) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		
 	
 	
 
