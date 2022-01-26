@@ -128,10 +128,16 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>5.2.10.RELEASE</version>
 		</dependency>
-
-
-
-
+		
+			<!-- 2022-01-26 이승윤 쿼리 로그 
+				https://zaman.tistory.com/3	 -->
+		 <dependency>             
+		    <groupId>org.lazyluke</groupId>             
+		    <artifactId>log4jdbc-remix</artifactId>             
+		    <version>0.2.7</version>         
+		  </dependency>
+		
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

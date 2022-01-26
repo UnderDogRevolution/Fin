@@ -144,10 +144,9 @@ function Review(){
 // 	Review()
 // })
 
-const inputContent = document.getElementsByClassName("modal-text")[0]
+const inputContent = document.querySelectorAll(".insert-container-textarea > textarea")[0];
 
 inputContent.addEventListener("input", function(){
-	console.log("확인");
     const countBox = document.getElementsByClassName("content-count")[0]
     // 바이트로 세는 것은 나중에 하자
     let count = inputContent.value.length
@@ -173,8 +172,8 @@ const input = document.getElementsByClassName("moviedb-input")[0];
 const searchResult = document.getElementsByClassName("search-result")[0];
 
 (async function(){
-    movieGenres = await fetch("https://api.themoviedb.org/3/genre/movie/list?api_key="+key+"&language=ko-KR").then(res => res.json())
-    tvGenres = await fetch("https://api.themoviedb.org/3/genre/tv/list?api_key="+key+"&language=ko-KR").then(res => res.json())
+    movieGenres = await fetch("https://api.themoviedb.org/3/genre/movie/list?api_key="+key+"&language=ko-KR").then(res => res.json());
+    tvGenres = await fetch("https://api.themoviedb.org/3/genre/tv/list?api_key="+key+"&language=ko-KR").then(res => res.json());
 })()
 
 function searchGenre(type, id){
@@ -196,10 +195,10 @@ function searchGenre(type, id){
 // fetch() HTTP 요청 전송 기능을 제공하는 Web API이다. (자바스크립트 내장 라이브러리)
 // Server와의 비동기 요청 방식을 기능한다.
 input.addEventListener("input", async function(){
-    search = this.value
-    console.log(search)
-    await fetchMovie(page)
-})
+    search = this.value;
+    console.log(search);
+    await fetchMovie(page);
+});
 //API 서버에서 데이터 가져오는 함수
 
 
@@ -334,3 +333,139 @@ async function fetchMovie(page){
 
 // 감독이랑 배우를 데리고 오고자 한다.
 // 영화를 검색하면
+
+const inputTextarea = document.querySelectorAll(".insert-container-textarea > textarea")[0];
+const inputDiv = document.querySelectorAll(".insert-container-textarea > div")[0];
+// const space = document.querySelectorAll(".insert-container-textarea > div")[1];
+
+inputDiv.addEventListener("click", function(){
+    this.classList.remove("top");
+    inputTextarea.classList.add("top");
+    inputTextarea.focus();
+})
+
+inputTextarea.addEventListener("blur", function(){
+    this.classList.remove("top");
+    inputDiv.classList.add("top");
+})
+//전과 다르다 전과 다른 내용을 어딘가에 저장한다.
+let beforeAttachTag;
+inputTextarea.addEventListener("input",function(){
+    beforeAttachTag = document.getElementsByClassName("attach");
+    changeContent();
+    const attachTag = document.getElementsByClassName("attach");
+    if(beforeAttachTag != null){
+    console.log(beforeAttachTag[0].innerText);
+    console.log(attachTag[0].innerText);
+    for(let i=0; i < attachTag.length; i++){
+        console.log(beforeAttachTag[0].innerText);
+        console.log(attachTag[0].innerText);
+        if(beforeAttachTag[i].innerText.length >0){
+            console.log(beforeAttachTag[i].innerText);
+            console.log(attachTag[i].innerText);
+            if(beforeAttachTag[i].innerText != attachTag[i].innerText){
+                console.log("확인");
+    
+    
+
+
+
+
+    let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
+    tagListUl.innerHTML ="";
+    if(attachTag.length >0){ // 태그가 존재한다.
+        let tagName = attachTag[attachTag.length-1].innerText;
+        if(attachTag[attachTag.length-1].innerText.indexOf('#') == '0'){ // innerText를 깜박했따
+            tagName = tagName.replace('#', "");
+            if(tagName.length >0){
+                $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
+                    url: contextPath + "/post/searchTag",
+                    data: { "tagName": tagName },
+                    type: "POST",
+                    dataType : "JSON",
+                    success: function (tagList) {
+                        for(const items of tagList){
+                            tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
+                            const li = document.querySelectorAll(".modal-side > ul > li")
+                            for(const items2 of li){
+                                items2.addEventListener("click", function(){
+                                    attachTag[attachTag.length-1].innerText = items2.innerText;
+                                    inputTextarea.value = inputDiv.innerText;
+                                })
+                            }
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log("ajax 실패");
+                        console.log(req.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+            
+                })
+            }
+        }else if(attachTag[attachTag.length-1].innerText.indexOf('@') == 0){
+            tagName = tagName.replace('@', "");
+            if(tagName.length >0){
+                $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
+                    url: contextPath + "/post/searchUser",
+                    data: { "tagName": tagName },
+                    type: "POST",
+                    dataType : "JSON",
+                    success: function (tagList) {
+                        for(const items of tagList){
+                            tagListUl.innerHTML += '<li>@'+ items.memberNickName +'</li>';
+                            const li = document.querySelectorAll(".modal-side > ul > li")
+                            for(const items2 of li){
+                                items2.addEventListener("click", function(){
+                                    attachTag[attachTag.length-1].innerText = items2.innerText;
+                                    inputTextarea.value = inputDiv.innerText;
+                                })
+                            }
+
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log("ajax 실패");
+                        console.log(req.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+            
+                })
+            }
+        }
+    }
+}
+}
+}
+    }
+    
+})
+
+function autoComplete(arr){ // 배열 매개변수
+    for(const items of arr){
+        console.log(items.innerText);
+        items.addEventListener("click",function(){
+
+        })
+    }
+}
+
+function changeContent(){
+    const content = inputTextarea.value.replaceAll("\n","<br>");
+    const tagRegExp = /#[ㄱ-힣a-zA-Z\d]*/g;
+    const userRegExp = /@[ㄱ-힣a-zA-Z\d]*/g;
+    const movieRegExp = /\*[ㄱ-힣a-zA-Z\d]*/g;
+    let change = content.replace(tagRegExp, function(target){
+        return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
+    })
+    change = change.replace(userRegExp, function(target){
+        return "<a href='#' class='attach' style='color: purple;'>" + target + "</a>";
+    })
+    change = change.replace(movieRegExp, function(target){
+        return "<a href='#' class='attach' style='color: yellow;'>" + target + "</a>";
+    })
+    inputDiv.innerHTML = change;
+}
+
