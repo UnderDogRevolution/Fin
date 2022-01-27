@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 
+
 @Repository
 public class MemberDAO2 {
 
@@ -63,7 +64,6 @@ public class MemberDAO2 {
 	public int insertImgList(List<Image> imgList) {
 		return sqlSession.insert("memberMapper.insertImgList", imgList);
 	}
- 
 	
 	/** 기존에 있었지만 삭제된 이미지 DELETE
 	 * @param map

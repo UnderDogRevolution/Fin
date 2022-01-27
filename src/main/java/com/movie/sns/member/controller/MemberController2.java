@@ -108,12 +108,12 @@ public class MemberController2 {
 		// 비밀번호 수정 화면 전환
 		@RequestMapping(value="updatePw", method=RequestMethod.GET)
 		public String updatePw() {
-			return "member/updatePw";
+			return "member/resetPw";
 		}
 		
 		
 		// 비밀번호 수정
-		@RequestMapping(value="updatePw", method=RequestMethod.POST)
+		@RequestMapping(value="resetPw", method=RequestMethod.POST)
 		public String updatePw(@ModelAttribute("loginMember") Member loginMember,
 							   String currentPw, String newPw1, RedirectAttributes ra) {
 			
@@ -192,7 +192,37 @@ public class MemberController2 {
 	    }
 
 		
-		
+	    // 바라는 점 화면 전환
+	    @RequestMapping(value="ask", method=RequestMethod.GET )
+	    public String ask(Member member) {
+	       return "member/ask";
+	    }
+
+
+	    // 바라는 점
+	    @RequestMapping(value="ask", method=RequestMethod.POST )
+	    public String ask(@ModelAttribute("loginMember") Member loginMember,  
+	    					String currentPw, SessionStatus status, RedirectAttributes ra) {
+	       
+	    	
+	       int result = service.secession(loginMember.getMemberNo(),  currentPw);
+	       
+	       String path = null;
+	       
+	       if(result > 0) { // 성공
+	          Util.swalSetMessage("바라는 점 제출 성공", "제출되었습니다.", "success", ra);
+	          status.setComplete(); // 세션만료
+	          
+	          path = "/";
+	          
+	       }else { // 실패
+	          Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error", ra);
+	          path = "ask";
+	       }
+	       
+	       
+	       return "redirect:" + path;
+	    }
 
 		
 		/* 스프링 예외 처리 방법
