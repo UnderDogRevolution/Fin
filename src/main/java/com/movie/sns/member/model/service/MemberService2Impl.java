@@ -172,14 +172,5 @@ public class MemberService2Impl implements MemberService2{
 			return result;
 		}
 
-		@Override
-		public int updateMember(Member member) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-		
-	
-	
 
 }
