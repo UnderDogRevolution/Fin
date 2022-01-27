@@ -63,12 +63,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-side" style="width: 100px; height: 100px; background-color: white; color: black; position: absolute; z-index: 2000; right: -25%;">
+                    <ul>
+                        
+                    </ul>
+                </div>
                 <div class="insert-container-textarea">
-                    <textarea class="modal-text"name="" id="" cols="60" rows="5" ></textarea>
+                    <textarea name="" id="" cols="60" rows="5" ></textarea>
+                    <div></div>
+                    
+                    <!-- <div></div> -->
                 </div>
                 <div class="insert-rating" style="display: flex; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
-                            
                         <input type="radio" name="html">
                         <input type="radio" name="html">
                         <input type="radio" name="html">
@@ -97,8 +104,13 @@
         </div>
     </div>
     </div>
+
+    
 </div>
 <div id="fileArea">
     <input type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
+<script>
+    const contextPath = "${contextPath}";
+</script>
 <script src="${contextPath}/resources/js/post/crud-post.js"></script>
