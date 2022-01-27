@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,10 +19,11 @@ import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
 
 
+// 로그인필터
 
 @Controller
 @RequestMapping("/member/*")
-//@SessionAttributes
+@SessionAttributes({"loginMember"})
 public class MemberController {
 	
 	@Autowired
@@ -31,6 +33,7 @@ public class MemberController {
 	
 	// 로그인 화면 전환
 	@RequestMapping(value="login", method=RequestMethod.GET)
+	
 	public String login() {
 		
 		return "member/login";
@@ -65,17 +68,21 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
+			path = "redirect:/";
+			
 			
 		}else {
 			
-			ra.addFlashAttribute("memberId", member.getMemberEmail());
+			ra.addFlashAttribute("memberEmail", member.getMemberEmail());
+			
+			path = "redirect:/member/login";
 			
 		}
 		
 	
 		
 		
-		// 로그인 실패 시 파라미터값으로 넘어온 id를 ra에 담아서 되돌려보내기
+		// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
 		
 		
 		
@@ -84,7 +91,9 @@ public class MemberController {
 	
 	
 	// 로그아웃
+	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
+		
 		status.setComplete();
 		
 		// 최근 페이지로 보내는 법
@@ -95,7 +104,7 @@ public class MemberController {
 	
 	// 회원가입 화면 호출
 	@RequestMapping(value="signUp", method=RequestMethod.GET)
-	public String signUp() {
+	public String signUp(@ModelAttribute("loginMember") Member loginMember) {
 		return "member/signUp";
 	}
 	

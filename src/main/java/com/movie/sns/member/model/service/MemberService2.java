@@ -47,6 +47,4 @@ public interface MemberService2 {
 	 */
 	int secession(int memberNo, String currentPw);
 
-	int updateMember(Member member);
-
 }
