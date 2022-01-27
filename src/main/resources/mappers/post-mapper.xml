@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="postMapper">
+
+	<resultMap type="Tag" id="Tag_rm">
+		<id property="tagNo" column="TAG_NO"/>
+		<result property="tagName" column="TAG_NM"/>
+	</resultMap>
+	
+	<select id="selectTag" resultMap="Tag_rm">
+		SELECT TAG_NM
+		FROM TAG
+		WHERE TAG_NM LIKE '%'||#{tagName}||'%'
+	</select>
+	
+	<resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
+	 	<id property="memberNo" column="MEMBER_NO" />
+	 
+	 	<result property="memberId" 	  column="MEMBER_ID"/>
+	 	<result property="memberPw" 	  column="MEMBER_PW"/>
+	 	<result property="memberName" 	  column="MEMBER_NM"/>
+	 	<result property="memberNickName" column="MEMBER_NICKNM"/>
+	 	<result property="memberPhone" 	  column="MEMBER_PHONE"/>
+	 	<result property="memberEmail"    column="MEMBER_EMAIL"/>
+	 	<result property="memberAddress"  column="MEMBER_ADDR"/>
+	 	<result property="enrollDate" 	  column="ENROLL_DT"/>
+	 	<result property="statusCode" 	  column="STATUS_CD"/>
+	 	<result property="gradeCode" 	  column="GRADE_CD"/>
+	 
+	 </resultMap>
+	 
+	 <select id="selectUser" resultMap="member_rm">
+		SELECT MEMBER_NICKNM
+		FROM MEMBER
+		WHERE MEMBER_NICKNM LIKE '%'||#{tagName}||'%'
+	</select>
+	
+	
+</mapper>
