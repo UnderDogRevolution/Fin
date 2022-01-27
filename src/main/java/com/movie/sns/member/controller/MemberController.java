@@ -70,10 +70,10 @@ public class MemberController {
 			
 			path = "redirect:/main";
 			
-			
 		}else {
 			
 			// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
+			ra.addFlashAttribute("failMessage", "이메일 주소 또는 비밀번호를 확인해주세요");
 			path = "redirect:/member/login";
 			
 		}

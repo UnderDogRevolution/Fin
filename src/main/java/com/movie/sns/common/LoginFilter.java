@@ -42,6 +42,7 @@ public class LoginFilter implements Filter{
 			
 			// 피드 홈으로 보내도록 주소 변경하기
 			resp.sendRedirect("/main");
+			chain.doFilter(request, response);
 			
 		}else {
 			
