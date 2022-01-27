@@ -47,4 +47,11 @@ public interface MemberService2 {
 	 */
 	int secession(int memberNo, String currentPw);
 
+	
+	/** 바라는 점
+	 * @param member
+	 * @return
+	 */
+	int ask(Member member);
+
 }

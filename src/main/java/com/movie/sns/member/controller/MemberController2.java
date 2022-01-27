@@ -113,7 +113,7 @@ public class MemberController2 {
 		
 		
 		// 비밀번호 수정
-		@RequestMapping(value="resetPw", method=RequestMethod.POST)
+		@RequestMapping(value="updatePw", method=RequestMethod.POST)
 		public String updatePw(@ModelAttribute("loginMember") Member loginMember,
 							   String currentPw, String newPw1, RedirectAttributes ra) {
 			
@@ -201,11 +201,12 @@ public class MemberController2 {
 
 	    // 바라는 점
 	    @RequestMapping(value="ask", method=RequestMethod.POST )
-	    public String ask(@ModelAttribute("loginMember") Member loginMember,  
+	    public String ask(@ModelAttribute("loginMember") Member loginMember, Member member,
 	    					String currentPw, SessionStatus status, RedirectAttributes ra) {
 	       
+	    	member.setMemberNo( loginMember.getMemberNo() );
 	    	
-	       int result = service.secession(loginMember.getMemberNo(),  currentPw);
+	       int result = service.ask(member);
 	       
 	       String path = null;
 	       
