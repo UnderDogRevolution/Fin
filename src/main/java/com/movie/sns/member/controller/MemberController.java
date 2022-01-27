@@ -24,7 +24,7 @@ import com.movie.sns.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes("loginMember")
+@SessionAttributes({"loginMember"})
 public class MemberController {
 	
 	@Autowired
@@ -45,8 +45,8 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@RequestParam(value="saveId", required=false) String saveId,
 						Member member, Model model, RedirectAttributes ra,
-						HttpServletRequest req, HttpServletResponse resp,
-						HttpSession session) {
+						HttpServletRequest req, HttpServletResponse resp
+						) {
 		
 		
 		Member loginMember = service.login(member);
@@ -73,9 +73,7 @@ public class MemberController {
 			path = "redirect:/main";
 			
 			System.out.println(loginMember);
-			int memberNo2 = ((Member)session.getAttribute("loginMember")).getMemberNo();
 			
-			System.out.println(memberNo2);
 			
 		}else {
 			
