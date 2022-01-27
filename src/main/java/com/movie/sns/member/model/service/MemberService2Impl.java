@@ -19,7 +19,6 @@ import com.movie.sns.member.model.vo.Member;
 
 
 @Service
-public abstract class MemberService2Impl implements MemberService2{
 
 	@Autowired
 	private MemberDAO2 dao;
@@ -62,12 +61,11 @@ public abstract class MemberService2Impl implements MemberService2{
 		@Override
 		public int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath,
 				String deleteImages) {
+			
 			int result = dao.updateMember(member);
 			
 			// 3) 기존에 있었지만 삭제된 이미지 DELETE 처리
 						if(result > 0) {
-							// 마이바티스는 SQL 수행 시 파라미터를 1개만 받을 수 있다!
-							// 전달할 파라미터가 다수인 경우 Map과 같은 컬렉션 객체를 이용하면 된다!
 							
 							if( !deleteImages.equals("") ) { // 삭제할 이미지 있을 경우
 								Map<String, Object> map = new HashMap<String, Object>();
