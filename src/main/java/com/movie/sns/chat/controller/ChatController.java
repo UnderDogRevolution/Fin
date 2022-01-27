@@ -1,10 +1,17 @@
 package com.movie.sns.chat.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.movie.sns.member.model.vo.Member;
+
 
 @Controller
+@SessionAttributes({"loginMember"})
 @RequestMapping("/chat/*")
 public class ChatController {
 	
@@ -17,7 +24,8 @@ public class ChatController {
 	
 	
 	@RequestMapping(value="myChat", method=RequestMethod.GET)
-	public String mainPageForward() {
+	public String mainPageForward(Model model ,@ModelAttribute("loginMember")Member loginMember) {
+		System.out.println(loginMember.getMemberNo());
 		String message = "apc'de'f";		
 		String[] one = message.split("'");
 		System.out.println(one[0] + "'" +"리소시스머시기 이미지 경로"+ "'" +one[1]);
