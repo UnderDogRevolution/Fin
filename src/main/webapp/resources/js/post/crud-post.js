@@ -348,99 +348,9 @@ inputTextarea.addEventListener("blur", function(){
     this.classList.remove("top");
     inputDiv.classList.add("top");
 })
-//전과 다르다 전과 다른 내용을 어딘가에 저장한다.
-// let beforeAttachTag;
+
 inputTextarea.addEventListener("input",function(){
-    // beforeAttachTag = document.getElementsByClassName("attach");
     changeContent();
-    const attachTag = document.getElementsByClassName("attach");
-    // if(beforeAttachTag != null){
-    // console.log(beforeAttachTag[0].innerText);
-    // console.log(attachTag[0].innerText);
-    // for(let i=0; i < attachTag.length; i++){
-        // console.log(beforeAttachTag[0].innerText);
-        // console.log(attachTag[0].innerText);
-        // if(beforeAttachTag[i].innerText.length >0){
-            // console.log(beforeAttachTag[i].innerText);
-            // console.log(attachTag[i].innerText);
-            // if(beforeAttachTag[i].innerText != attachTag[i].innerText){
-                console.log("확인");
-    
-    
-
-
-
-
-    let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
-    tagListUl.innerHTML ="";
-    if(attachTag.length >0){ // 태그가 존재한다.
-        let tagName = attachTag[attachTag.length-1].innerText;
-        if(attachTag[attachTag.length-1].innerText.indexOf('#') == '0'){ // innerText를 깜박했따
-            tagName = tagName.replace('#', "");
-            if(tagName.length >0){
-                $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
-                    url: contextPath + "/post/searchTag",
-                    data: { "tagName": tagName },
-                    type: "POST",
-                    dataType : "JSON",
-                    success: function (tagList) {
-                        for(const items of tagList){
-                            tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
-                            const li = document.querySelectorAll(".modal-side > ul > li")
-                            for(const items2 of li){
-                                items2.addEventListener("click", function(){
-                                    attachTag[attachTag.length-1].innerText = items2.innerText;
-                                    inputTextarea.value = inputDiv.innerText;
-                                })
-                            }
-                        }
-                    },
-                    error: function (req, status, error) {
-                        console.log("ajax 실패");
-                        console.log(req.responseText);
-                        console.log(status);
-                        console.log(error);
-                    }
-            
-                })
-            }
-        }else if(attachTag[attachTag.length-1].innerText.indexOf('@') == 0){
-            tagName = tagName.replace('@', "");
-            if(tagName.length >0){
-                $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
-                    url: contextPath + "/post/searchUser",
-                    data: { "tagName": tagName },
-                    type: "POST",
-                    dataType : "JSON",
-                    success: function (tagList) {
-                        for(const items of tagList){
-                            tagListUl.innerHTML += '<li>@'+ items.memberNickName +'</li>';
-                            const li = document.querySelectorAll(".modal-side > ul > li")
-                            for(const items2 of li){
-                                items2.addEventListener("click", function(){
-                                    attachTag[attachTag.length-1].innerText = items2.innerText;
-                                    inputTextarea.value = inputDiv.innerText;
-                                })
-                            }
-
-                        }
-                    },
-                    error: function (req, status, error) {
-                        console.log("ajax 실패");
-                        console.log(req.responseText);
-                        console.log(status);
-                        console.log(error);
-                    }
-            
-                })
-            }
-        }
-    }
-// }
-// }
-// }
-    // }
-    
 })
 
 function autoComplete(arr){ // 배열 매개변수
@@ -454,9 +364,9 @@ function autoComplete(arr){ // 배열 매개변수
 
 function changeContent(){
     const content = inputTextarea.value.replaceAll("\n","<br>");
-    const tagRegExp = /#[ㄱ-힣a-zA-Z\d]*/g;
-    const userRegExp = /@[ㄱ-힣a-zA-Z\d]*/g;
-    const movieRegExp = /\*[ㄱ-힣a-zA-Z\d]*/g;
+    const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
+    const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
+    const movieRegExp = /\*[ㄱ-힣a-zA-Z\d]{1,}/g;
     let change = content.replace(tagRegExp, function(target){
         return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
     })
@@ -469,4 +379,100 @@ function changeContent(){
     inputDiv.innerHTML = change;
     // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
 }
+// const bef = []
+let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
 
+// MUtationObserver는 신이야!
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation =>{
+        tagListUl.innerHTML ="";
+        if(mutation.removedNodes.length > 0){
+            for(let i=0; i < mutation.removedNodes.length; i++){
+                 if(mutation.addedNodes[i].innerText != null){
+
+                    // console.log(mutation.addedNodes);
+                    // console.log(mutation.addedNodes[i].innerText);
+                    if(mutation.removedNodes[i].innerText != mutation.addedNodes[i].innerText){
+                        let tagName = mutation.addedNodes[i].innerText;
+                        // console.log(mutation.addedNodes[i].innerText.indexOf('#'));
+                        if(  tagName != null && tagName.length >0 ){
+
+                            if(tagName.indexOf('#') > -1){
+                                tagName = tagName.replace('#', "");
+                                $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
+                                    url: contextPath + "/post/searchTag",
+                                    data: { "tagName": tagName },
+                                    type: "POST",
+                                    dataType : "JSON",
+                                    success: function (tagList) {
+                                        for(const items of tagList){
+                                            tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
+                                            const li = document.querySelectorAll(".modal-side > ul > li")
+                                            for(const items2 of li){
+                                                items2.addEventListener("click", function(){
+                                                    attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                    inputTextarea.value = inputDiv.innerText;
+                                                })
+                                            }
+                                        }
+                                    },
+                                    error: function (req, status, error) {
+                                        console.log("ajax 실패");
+                                        console.log(req.responseText);
+                                        console.log(status);
+                                        console.log(error);
+                                    }
+                            
+                                })
+                            }else if(tagName.indexOf('@') > -1){
+                                tagName = tagName.replace('@', "");
+                                if(tagName.length >0){
+                                    $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
+                                        url: contextPath + "/post/searchUser",
+                                        data: { "tagName": tagName },
+                                        type: "POST",
+                                        dataType : "JSON",
+                                        success: function (tagList) {
+                                            for(const items of tagList){
+                                                tagListUl.innerHTML += '<li>@'+ items.memberNickName +'</li>';
+                                                const li = document.querySelectorAll(".modal-side > ul > li")
+                                                for(const items2 of li){
+                                                    items2.addEventListener("click", function(){
+                                                        attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                        inputTextarea.value = inputDiv.innerText;
+                                                    })
+                                                }
+                    
+                                            }
+                                        },
+                                        error: function (req, status, error) {
+                                            console.log("ajax 실패");
+                                            console.log(req.responseText);
+                                            console.log(status);
+                                            console.log(error);
+                                        }
+                                
+                                    })
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+})
+
+const config = {
+    childList: true, // 텍스트 노드를 포함한 하위 요소의 변경(추가/삭제)을 관찰
+    attributes: false, // 속성 변경을 관찰
+    characterData: false, // characterData 노드 값 변경 관찰
+    subtree: false, // 자손 노드의 변경 관찰
+    attributeOldValue: false, // 변경 전 속성 값을 저장
+    characterDataOldValue: false // 변경 전 데이터 값을 저장
+    // attributeFilter: ["class"], // 관찰할 속성명 리스트
+}
+
+observer.observe(inputDiv, config);
+//observer.disconnect(); //테스트 중에 켜있으면 확인이 안된다.
