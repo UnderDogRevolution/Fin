@@ -133,8 +133,9 @@
 
                 </div><!-- 바디 끝부분  -->
 
-
-
+	<!--web소켓과 비슷한 js 라이브러리
+	 -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
 
 

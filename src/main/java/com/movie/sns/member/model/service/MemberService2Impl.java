@@ -19,6 +19,7 @@ import com.movie.sns.member.model.vo.Member;
 
 
 @Service
+public class MemberService2Impl implements MemberService2{
 
 	@Autowired
 	private MemberDAO2 dao;
@@ -170,6 +171,14 @@ import com.movie.sns.member.model.vo.Member;
 
 			return result;
 		}
+
+		@Override
+		public int updateMember(Member member) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		
 	
 	
 
