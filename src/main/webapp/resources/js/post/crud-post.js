@@ -381,14 +381,13 @@ function changeContent(){
 }
 // const bef = []
 let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
-
 // MUtationObserver는 신이야!
 const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation =>{
         tagListUl.innerHTML ="";
         if(mutation.removedNodes.length > 0){
             for(let i=0; i < mutation.removedNodes.length; i++){
-                 if(mutation.addedNodes[i].innerText != null){
+                 if(mutation.addedNodes[i] != null){
 
                     // console.log(mutation.addedNodes);
                     // console.log(mutation.addedNodes[i].innerText);
@@ -476,3 +475,40 @@ const config = {
 
 observer.observe(inputDiv, config);
 //observer.disconnect(); //테스트 중에 켜있으면 확인이 안된다.
+
+
+function postValidate(){
+    const postVO = {}
+    const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
+    const tagArr = []
+    for(const items of tagName){
+        if(items.innerText.indexOf('#') >-1){
+            tagArr.push(items.innerText.replace('#', ""));
+        }
+    }
+    postVO.postContent = inputTextarea.value;
+    postVO.tagArr = tagArr;
+    console.log(postVO);
+    $.ajax({ 
+        url: contextPath + "/post/insert",
+        data: JSON.stringify(postVO),
+        contentType: "application/json",
+        type: "POST",
+        dataType : "JSON",
+        async : false,
+        success: function (result) {
+            if(result >0){
+                alert("게시글 등록 성공!");
+            }else{
+                alert("게시글 등록 실패!");
+            }
+        },
+        error: function (req, status, error) {
+            console.log("ajax 실패");
+            console.log(req.responseText);
+            console.log(status);
+            console.log(error);
+        }
+
+    })
+}
