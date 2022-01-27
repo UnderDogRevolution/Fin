@@ -19,18 +19,16 @@ import com.movie.sns.member.model.vo.Member;
 // 로그인 하면 접근 못하도록하는 url
 
 
-/* 
+ 
 
 @WebFilter(	filterName = "loginFilter" ,
-			urlPatterns = { "/", "/member/login", "/member/signUp" } )
+			urlPatterns = { "/member/login", "/member/signUp" } )
 public class LoginFilter implements Filter{
 
-	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("필터 실행");
 	}
 
-	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
@@ -45,8 +43,8 @@ public class LoginFilter implements Filter{
 		if(loginMember != null) {
 			
 			// 피드 홈으로 보내도록 주소 변경하기
-			resp.sendRedirect("/main");
-			chain.doFilter(request, response);
+			System.out.println("[로그인 필터 적용] 피드 페이지로 이동");
+			resp.sendRedirect(req.getContextPath()+"/main");
 			
 		}else {
 			
@@ -58,7 +56,6 @@ public class LoginFilter implements Filter{
 		
 	}
 
-	@Override
 	public void destroy() {
 		
 	}
@@ -69,4 +66,4 @@ public class LoginFilter implements Filter{
 	
 }
 
-*/
+
