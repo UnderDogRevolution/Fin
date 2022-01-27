@@ -49,7 +49,7 @@
                 <path d="M6.99992 6.99998C8.28908 6.99998 9.33325 5.95581 9.33325 4.66665C9.33325 3.37748 8.28908 2.33331 6.99992 2.33331C5.71075 2.33331 4.66658 3.37748 4.66658 4.66665C4.66658 5.95581 5.71075 6.99998 6.99992 6.99998ZM6.99992 8.16665C5.44242 8.16665 2.33325 8.94831 2.33325 10.5V11.6666H11.6666V10.5C11.6666 8.94831 8.55742 8.16665 6.99992 8.16665Z" fill="#787878"/>
                 </svg>
                   
-              <input type="email" id="memberEmail" name="memberEmail" class="a-input" placeholder="이메일을 입력해주세요." autocomplete="off" autofocus>
+              <input type="email" id="memberEmail" name="memberEmail" class="a-input" value="${ cookie.saveId.value }" placeholder="이메일을 입력해주세요." autocomplete="off" autofocus>
 
               <!-- 이메일 검사 아이콘 영역 -->
               <div class="checkInput"></div>
@@ -72,13 +72,16 @@
             <section style="display: flex; align-items: center; justify-content: space-between; height: 30px;">
 
               <section class="save-chk">
-                <input type="checkbox" id="saveId" name="saveId" style="display: none;"> 
+              	<c:if test="${ !empty cookie.saveId.value  }">
+					<c:set var="chk" value="checked" />
+				</c:if>
+                <input type="checkbox" id="saveId" name="saveId" ${chk} style="display: none;"> 
                 <label for="saveId" class="save-icon"></label>
-                <label for="saveId">아이디저장</label>
+                <label for="saveId">이메일 저장</label>
               </section>
 
               <section class="login-fail">
-                <span></span>
+                <span>${failMessage}</span>
               </section>
 
             </section>

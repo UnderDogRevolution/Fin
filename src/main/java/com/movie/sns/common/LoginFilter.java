@@ -41,7 +41,8 @@ public class LoginFilter implements Filter{
 		if(loginMember != null) {
 			
 			// 피드 홈으로 보내도록 주소 변경하기
-			resp.sendRedirect("member/myPage");
+			resp.sendRedirect("/main");
+			chain.doFilter(request, response);
 			
 		}else {
 			
