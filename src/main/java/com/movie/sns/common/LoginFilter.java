@@ -17,6 +17,10 @@ import com.movie.sns.member.model.vo.Member;
 
 
 // 로그인 하면 접근 못하도록하는 url
+
+
+/* 
+
 @WebFilter(	filterName = "loginFilter" ,
 			urlPatterns = { "/", "/member/login", "/member/signUp" } )
 public class LoginFilter implements Filter{
@@ -64,3 +68,5 @@ public class LoginFilter implements Filter{
 	
 	
 }
+
+*/

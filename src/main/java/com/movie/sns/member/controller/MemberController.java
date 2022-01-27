@@ -3,6 +3,7 @@ package com.movie.sns.member.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ import com.movie.sns.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember"})
+@SessionAttributes("loginMember")
 public class MemberController {
 	
 	@Autowired
@@ -44,7 +45,8 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@RequestParam(value="saveId", required=false) String saveId,
 						Member member, Model model, RedirectAttributes ra,
-						HttpServletRequest req, HttpServletResponse resp) {
+						HttpServletRequest req, HttpServletResponse resp,
+						HttpSession session) {
 		
 		
 		Member loginMember = service.login(member);
@@ -54,7 +56,7 @@ public class MemberController {
 		if(loginMember != null) {
 			
 			
-			model.addAttribute(loginMember);
+			model.addAttribute("loginMember",loginMember);
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 			
@@ -69,6 +71,11 @@ public class MemberController {
 			resp.addCookie(cookie);
 			
 			path = "redirect:/main";
+			
+			System.out.println(loginMember);
+			int memberNo2 = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+			System.out.println(memberNo2);
 			
 		}else {
 			
@@ -96,7 +103,7 @@ public class MemberController {
 	
 	// 회원가입 화면 호출
 	@RequestMapping(value="signUp", method=RequestMethod.GET)
-	public String signUp(@ModelAttribute("loginMember") Member loginMember) {
+	public String signUp() {
 		return "member/signUp";
 	}
 	
