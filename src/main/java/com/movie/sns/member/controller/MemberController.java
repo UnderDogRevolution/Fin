@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,8 +73,6 @@ public class MemberController {
 			
 			path = "redirect:/main";
 			
-			System.out.println(loginMember);
-			
 			
 		}else {
 			
@@ -106,14 +105,68 @@ public class MemberController {
 	}
 	
 	
-	// 회원가입 수행
-	@RequestMapping(value="signUp", method=RequestMethod.POST)
-	public String signUp( Model model) {
+	// 이메일 중복 검사 ajax
+	@RequestMapping(value="emailDupCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public int emailDupCheck(String memberEmail) {
 		
-		return "redirect:/";
+		int result = service.emailDupCheck(memberEmail);
+		
+		return result;
 	}
 	
-	// 기타 중복검사 기능 들어올 자리
+	
+	// 이메일 인증번호 검사 ajax 삽입 예정
+	
+	
+	
+	
+	// 닉네임 중복 검사 ajax
+	@RequestMapping(value="nickNameDupCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public int nickNameDupCheck(String memberNickName) {
+		
+		int result = service.nickNameDupCheck(memberNickName);
+		
+		return result;
+	}
+	
+	
+	
+	// 회원가입 수행
+	@RequestMapping(value="signUp", method=RequestMethod.POST)
+	public String signUp( Member member, RedirectAttributes ra) {
+		
+		
+		int result = service.signUp(member);
+		
+		String path = null;
+		String signUpMessage;
+		String text;
+		String icon;
+		
+		if(result > 0) {
+			
+			signUpMessage = "회원 가입 성공!";
+			text = member.getMemberNickName() + "님의 가입을 환영합니다.<br> 로그인을 진행해주세요.";
+			icon = "success";
+			path = "redirect:/member/login";
+			
+		}else {
+			
+			signUpMessage = "가입 실패";
+			text = "회원가입을 진행하는 중 문제가 발생했습니다.<br> 관리자에게 문의해주세요.";
+			icon = "error";
+			path = "redirect:/member/signUp";
+			
+		}
+		
+		ra.addFlashAttribute(signUpMessage);
+		ra.addFlashAttribute(icon);
+		ra.addFlashAttribute(text);
+		
+		return path;
+	}
 	
 	
 	

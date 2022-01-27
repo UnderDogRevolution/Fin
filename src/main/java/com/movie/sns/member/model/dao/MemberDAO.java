@@ -23,6 +23,36 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 		
 	}
-	
+
+
+
+	/** 이메일 중복 체크
+	 * @param memberEmail
+	 * @return result
+	 */
+	public int emailDupCheck(String memberEmail) {
+
+		return sqlSession.selectOne("memberMapper.emailDupCheck",memberEmail);
+	}
+
+
+
+	/** 닉네임 중복 체크
+	 * @param memberNickName
+	 * @return result
+	 */
+	public int nickNameDupCheck(String memberNickName) {
+		return sqlSession.selectOne("memberMapper.nickNameDupCheck",memberNickName);
+	}
+
+
+
+	/** 회원 가입 수행
+	 * @param member
+	 * @return member
+	 */
+	public int signUp(Member member) {
+		return sqlSession.insert("memberMapper.signUp", member);
+	}
 	
 }

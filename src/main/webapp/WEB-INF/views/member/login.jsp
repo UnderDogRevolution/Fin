@@ -115,5 +115,22 @@
 
 <script src="${contextPath}/resources/js/member/login.js"></script>
 
+<%-- request scope에 "signUpMessage"이라는 키값이 존재하는 경우 --%>
+<c:if test="${!empty requestScope.signUpMessage}">
+	<script>
+		Swal.fire({
+		    position: 'center',
+		    icon: '${icon}',
+		    title: '${signUpMessage}',
+		    html: '${text}',
+		    confirmButtonColor: '#F05454',
+		    confirmButtonText: '확인',
+		    timerProgressBar: true,
+		    timer: 2000
+		  })
+	</script>
+</c:if>
+
+
 </body>
 </html>
