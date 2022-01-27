@@ -34,7 +34,7 @@
       width: 22%;
       height: 94%;
       line-height: 100%;
-      background-color: #000000;
+      background-color: #0D0D0D;
     }
 
     .form-label {

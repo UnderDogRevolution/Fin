@@ -24,7 +24,7 @@
       width: 22%;
       height: 94%;
       line-height: 100%;
-      background-color: #000000;
+      background-color: #0D0D0D;
     }
 
     .col-form-label {
@@ -164,7 +164,7 @@
             수정</label>
         </div>
 
-        <img src="${img0}" class="img-thumbnail" alt="..."><br>
+        <img src="${img0}" class="img-thumbnail" onerror="this.src='https://cdn-icons.flaticon.com/png/512/4735/premium/4735316.png?token=exp=1643178313~hmac=c4fe7cba3801ff11a640a71814fd7293'"><br>
         <label for="exampleFormControlInput1" class="form-label"></label>
         <br>
 
@@ -201,6 +201,15 @@
       </div>
   </div>
   </form>
+  <script>
+  
+  const browseBtn = document.querySelector('.browse-btn');
+const realInput = document.querySelector('#real-input');
+
+browseBtn.addEventListener('click',()=>{
+	realInput.click();
+});
+</script>
 </body>
 
 </html>
