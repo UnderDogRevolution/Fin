@@ -220,8 +220,6 @@ public class MemberController2 {
 	          Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error", ra);
 	          path = "ask";
 	       }
-	       
-	       
 	       return "redirect:" + path;
 	    }
 
