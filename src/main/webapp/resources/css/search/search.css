@@ -1,0 +1,394 @@
+html {
+    height: 100%;
+  }
+  body {
+    min-height: 100%;
+  }
+  a:hover{
+      color: white;
+  }
+
+
+.mainContainer{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 54px;
+}
+
+.mainwrap{
+    width: 100%;
+}
+
+.main-search{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding-top: 106px;
+    width: 100%;
+    min-width: 768px;
+
+}
+.searchnav{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 90px;
+    top: 70px;
+    left: 0;
+    margin: auto;
+    padding: 0;
+    padding-bottom: 1px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 400;
+    min-width: 768px;
+    background-color: #272727;
+
+}
+.searchnav > div{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    width: 10%;
+    height: 100%;
+    justify-content:center;
+    align-items:center;
+}
+.search-result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+    margin-bottom: 20px;
+    
+  
+}
+#feed_ >a{ 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#feed_ >a:hover{
+    color: red;
+}
+.searchnav > div:hover{
+    color: red;
+
+}
+
+
+/* -------------------------------------------영화------------------------------------------ */
+
+.searchboard-mv{
+    padding: 10px;
+    width: 60%;
+    min-width: 600px;
+    margin-bottom: 20px;
+    background-color: #3a3939;
+    border-radius: 5px;
+
+}
+
+.searchboard-mv> a{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+
+.mvuserName{
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #090A0D;
+}
+.mvuserName> div{
+    display: flex;
+    width: 80%;
+    height: 100%;
+}
+
+.userImg_{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+
+.userImg_ > img{
+    width: 40px;
+    height: 40px;
+}
+
+.userName_{
+    display: flex;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    padding-right: 20px;
+    padding-left: 10px;
+    word-wrap: none;
+}
+
+
+
+
+
+
+
+
+.mvTitle{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.mvTitle > div{
+    width: 80%;
+    height: 100%;
+   
+}
+
+.mvTitle_{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 25px;
+    font-weight: 700;
+
+}
+
+.mvCreate{
+    display: flex;
+    width: 100%;
+    height: 40%;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-weight: 300;
+
+}
+
+
+
+
+
+
+.mvContent{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.mvContent > div{
+    width: 80%;
+    height: 100%;
+}
+
+
+.mvContent_{
+    width: 100%;
+    height: 50%;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.ContentStar{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 50%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+
+}
+.ContentStar > i{
+    color: yellow;
+}
+
+.mvImgwrap{
+    display: flex;
+    width: 100%;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #090A0D;
+    padding-bottom: 5px;
+}
+
+.imgput{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.img_{
+    width: 80%;
+    height: 100%;
+}
+
+.img_ > img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+.reply-like{
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+}
+.reply-like > div{
+    display: flex;
+    width: 80%;
+    height: 70px;
+}
+.reply_{
+    width: 15%;
+    height: 100%;
+}
+.like_{
+    width: 15%;
+    height: 100%;
+}
+.none{
+    width: 55%;
+    height: 100%;
+
+}
+.what{
+    width: 15%;
+    height: 100%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------사람---------------------------------------------- */
+.searchboard-pr{
+    display: flex;
+    width: 60%;
+    height: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #3a3939;
+    min-width: 400px;
+}
+.searchboard-pr > div:nth-child(1){/* 이미지부분 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+}
+.searchboard-pr > div:nth-child(2){/* 소개부분 */
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
+.searchboard-pr > div:nth-child(2) > div:nth-child(1){
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    padding: 10px;
+}
+.searchboard-pr > div:nth-child(2) > div:nth-child(2){
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    padding: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+.searchboard-pr > div:nth-child(3){/*팔로우 요청*/
+    display: flex;
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.searchboard-pr > div:nth-child(3) > button{/*버튼  */
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+}
+.searchboard-pr > div:nth-child(1) > img{
+   
+    width: 100px;
+    height: 100px;
+   
+    padding: 10px;
+}
+/* -------------------------------------------------사람 끝------------------------------------------  */
