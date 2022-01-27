@@ -68,23 +68,15 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
-			path = "redirect:/";
+			path = "redirect:/main";
 			
 			
 		}else {
 			
-			ra.addFlashAttribute("memberEmail", member.getMemberEmail());
-			
+			// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
 			path = "redirect:/member/login";
 			
 		}
-		
-	
-		
-		
-		// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
-		
-		
 		
 		return path;
 	}
