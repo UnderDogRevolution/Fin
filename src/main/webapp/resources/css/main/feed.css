@@ -82,18 +82,34 @@
 }
 .insert-container-textarea{
     width: 100%;
+    height: 200px;
     background-color: inherit;
+    position: relative;
 }
 
 .insert-container-textarea > textarea{
-    margin-top: 10px;
-    margin-left: 18px;
+    width: 100%;
+    height: 100%;
     padding: 0;
     border: none;
     outline: none;
     resize: none;
     color: white;
     background-color: inherit;
+    position: absolute;
+    border: 1px solid yellow;
+}
+
+.top{
+    z-index:1056;
+}
+
+.insert-container-textarea > div{
+    background-color: #404142;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid red;
 }
 .text-count{
     /* padding-right: 10px; */
