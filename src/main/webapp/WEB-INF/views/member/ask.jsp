@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-  <title>myPage</title>
+  <title>바라는 점</title>
 
   <style type="text/css">
-   html,
+    html,
     body {
       background: #0D0D0D;
       color: #FDFDFD;
@@ -21,7 +21,7 @@
 
     #wrap {
       width: 80%;
-      height: auto;
+      height: 100%;
       margin: 5% auto 0 auto;
       font-size: 1rem;
       color: #000000;
@@ -36,7 +36,7 @@
       background-color: #0D0D0D;
     }
 
-    .col-form-label {
+    .form-label {
       margin-bottom: 0.5rem;
       font-weight: bold;
       font-size: 1.5rem;
@@ -46,7 +46,6 @@
       float: left;
       width: 78%;
       height: 94%;
-      line-height: 50%;
       background-color: #ffffff;
       border-radius: 1rem;
       line-height: normal;
@@ -64,6 +63,7 @@
       white-space: nowrap;
       background-color: #e9ecef;
       border: 1px solid #ced4da;
+      border-radius: 0.25rem;
     }
 
     .btn {
@@ -74,7 +74,7 @@
       padding: 0.25rem;
       background-color: #fff;
       border: 0;
-      max-width: 15%;
+      max-width: 10%;
       height: auto;
     }
 
@@ -89,7 +89,6 @@
       background-clip: padding-box;
       border: 1px solid #ced4da;
       border-radius: 0.25rem;
-      display: none;
     }
 
     .input-group {
@@ -102,8 +101,8 @@
       text-align: center;
     }
 
-    .col-inputform {
-      width: 50%;
+    .inputform {
+      width: 30%;
       padding: 0;
       margin: 0 0 0 5%;
       font-size: 1.5rem;
@@ -144,70 +143,41 @@
       margin: 5% 0 5% 0;
     }
 
-    .row-mb-3-con {
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: flex-end;
-      margin-right: 30%;
-      margin-bottom: 2%;
+    .mb-3{
+      padding-bottom: 5%;
     }
   </style>
-</head>
 
 
-  <div id="wrap">
+   <div id="wrap">
     <div class="header"></div>
     <div class="side">
       <a class="btn btn-danger btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
       <a class="btn btn-danger btn-lg" a href="updatePw" role="button">비밀번호 수정</a><br>
       <a class="btn btn-danger btn-lg" a href="ask" role="button">바라는 점</a><br>
       <a class="btn btn-danger btn-lg" a href="secession" role="button">회원탈퇴</a>
-
     </div>
 
     <form method="POST" action="secession" onsubmit="">
       <div class="contents"><br>
 
-        <div class="row-mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            style="font-weight: bolder; font-size:1.5rem; margin-bottom: 4%;">개인정보
-            수정</label>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label" style="font-weight: bolder; font-size:2rem;">바라는 점</label>
         </div>
 
-        <img src="${img0}" class="img-thumbnail" onerror="this.src='https://cdn-icons.flaticon.com/png/512/4735/premium/4735316.png?token=exp=1643178313~hmac=c4fe7cba3801ff11a640a71814fd7293'"><br>
-        <label for="exampleFormControlInput1" class="form-label"></label>
-        <br>
+        <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
+          <h1>관리자에게 건의사항이나 바라는 점, 아쉬운 점 등이 있으시면, 아래에 텍스트를 작성해 제출해주세요.</h1>
+        </div>
 
-        <div class="input-group mb-3">
-          <input type="file" class="imgform-control" id="inputGroupFile02">
-          <label class="input-file-text" for="inputGroupFile02">사진 등록</label>
-        </div><br>
-
-        <fieldset disabled>
-          <div class="row-mb-3-con">
-            <label for="currentName" class="col-form-label text-end">이름</label>
-            <input type="text" id="currentName" class="col-inputform" placeholder="${loginMember.memberName}">
-          </div>
-        </fieldset><br>
-
-        <div class="row-mb-3-con">
-          <label for="nickInput" class="col-form-label text-end">닉네임</label>
-          <input type="input" class="col-inputform" id="nickInput" value="${loginMember.memberNickName}">
+        <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
+        <form>
+          <textarea name="ask" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." style="resize: none;"></textarea>
+        </form>
         </div>
 
         <br>
-        <div class="row-mb-3-con">
-          <label for="currentEmail" class="col-form-label text-end">이메일</label>
-          <input type="email" class="col-inputform" id="currentEmail" name="currentEmail" value="${loginMember.memberEmail}">
-        </div>
-        <br>
 
-        <div class="row-mb-3-con">
-          <label for="currentBirth" class="col-form-label text-end">생일</label>
-          <input type="date" class="col-inputform" id="currentBirth" name="currentBirth" value="${loginMember.memberBirth}">
-        </div>
-
-        <button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
+        <button type="submit" class="btnsub btn-danger btn-lg">제출하기</button>
       </div>
   </div>
   </form>

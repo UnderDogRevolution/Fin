@@ -172,9 +172,5 @@ public class MemberService2Impl implements MemberService2{
 			return result;
 		}
 
-		
-		
-	
-	
 
 }
