@@ -20,7 +20,7 @@
 		<div class="header">
 
 			<div class="logo">
-				<a href="main">Montage</a>
+				<a href="${contextPath}/main">Montage</a>
 
 			</div>
 			<div></div>
@@ -28,23 +28,24 @@
 
 				<ul class="menu">
 					<li>
-						<form action="">
+						<form action="${contextPath}/search/" method="get">
 
 							<div class="search">
 
 								<div class="searchwrap">
 
-									<input type="text">
+									<input type="text" name = "searchResult" id = "searchResult">
 
 									<div>
 
-										<a href="" style="display: inline-block; margin-top: 4px;">
+											<button>
 											<svg class="bi d-block" xmlns="http://www.w3.org/2000/svg"
 												viewBox="0 0 24 24">
                                                 <path
 													d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z margin-top: 5px;" />
                                             </svg>
-										</a>
+											</button>
+										
 									</div>
 								</div>
 						</form>
@@ -97,7 +98,7 @@
 									<li><a href="">
 											<div class="myclick-li">저장</div>
 									</a></li>
-									<li><a href="">
+									<li><a href="${contextPath}/member/myPage">
 											<div class="myclick-li">설정</div>
 									</a></li>
 									<li><a href="">
