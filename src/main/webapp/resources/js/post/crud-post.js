@@ -349,21 +349,21 @@ inputTextarea.addEventListener("blur", function(){
     inputDiv.classList.add("top");
 })
 //전과 다르다 전과 다른 내용을 어딘가에 저장한다.
-let beforeAttachTag;
+// let beforeAttachTag;
 inputTextarea.addEventListener("input",function(){
-    beforeAttachTag = document.getElementsByClassName("attach");
+    // beforeAttachTag = document.getElementsByClassName("attach");
     changeContent();
     const attachTag = document.getElementsByClassName("attach");
-    if(beforeAttachTag != null){
-    console.log(beforeAttachTag[0].innerText);
-    console.log(attachTag[0].innerText);
-    for(let i=0; i < attachTag.length; i++){
-        console.log(beforeAttachTag[0].innerText);
-        console.log(attachTag[0].innerText);
-        if(beforeAttachTag[i].innerText.length >0){
-            console.log(beforeAttachTag[i].innerText);
-            console.log(attachTag[i].innerText);
-            if(beforeAttachTag[i].innerText != attachTag[i].innerText){
+    // if(beforeAttachTag != null){
+    // console.log(beforeAttachTag[0].innerText);
+    // console.log(attachTag[0].innerText);
+    // for(let i=0; i < attachTag.length; i++){
+        // console.log(beforeAttachTag[0].innerText);
+        // console.log(attachTag[0].innerText);
+        // if(beforeAttachTag[i].innerText.length >0){
+            // console.log(beforeAttachTag[i].innerText);
+            // console.log(attachTag[i].innerText);
+            // if(beforeAttachTag[i].innerText != attachTag[i].innerText){
                 console.log("확인");
     
     
@@ -436,10 +436,10 @@ inputTextarea.addEventListener("input",function(){
             }
         }
     }
-}
-}
-}
-    }
+// }
+// }
+// }
+    // }
     
 })
 
@@ -467,5 +467,6 @@ function changeContent(){
         return "<a href='#' class='attach' style='color: yellow;'>" + target + "</a>";
     })
     inputDiv.innerHTML = change;
+    // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
 }
 
