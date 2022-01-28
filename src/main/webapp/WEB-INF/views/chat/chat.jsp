@@ -46,7 +46,8 @@
 								</tr>
 							</c:when>
 							<c:otherwise>
-                        <div class="chat" onclick="searchChatting(this);">
+								<c:forEach var="chatRoom" items="${chatRoomList}">
+                        <div class="chat" onclick="searchChatting(this,${chatRoom.chatRoomNo},${chatRoom.friendNo});">
                             <!-- for each 문 이용  -->
                             <!-- 채팅 -->
                             <div class="chatMemberImg">
@@ -57,11 +58,15 @@
                             <!--상대 이름 영역 -->
                             <div class="chatMemberName">
                                 <div>
-                                    친구1
+                                    ${chatRoom.friendNm}
                                 </div>
                             </div>
                             <i class="fas fa-times delete-message-room"></i><!-- x아이콘 -->
                         </div><!-- 채팅끝 -->
+                        
+                        <input type="hidden" value="${chatRoom.friendNo}">
+                        
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 
