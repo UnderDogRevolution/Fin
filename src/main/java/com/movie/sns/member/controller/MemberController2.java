@@ -241,11 +241,12 @@ public class MemberController2 {
 		@ExceptionHandler(Exception.class)
 		public String exceptionHandler(Exception e, Model model) {
 			
+			 String path = null;
 			// Model : 데이터 전달용 객체(Map형식, request범위)
 			model.addAttribute("errorMessage", "회원 관련 서비스 이용 중 문제가 발생했습니다.");
 			model.addAttribute("e", e);
 			
-			return "common/error";
+			return  "redirect:" + path;
 		}
 		
 	
