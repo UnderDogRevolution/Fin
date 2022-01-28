@@ -30,7 +30,7 @@
 	 	<result property="memberEmail" 	 		column="MEMBER_EMAIL"/>
 	 	<result property="enrollDate"   		column="ENROLL_DT"/>
 	 	<result property="modifyDate" 			column="MODIFY_DT"/>
-	 	<result property="memberStatusCode" 	 column="STATUS_CD"/>
+	 	<result property="memberStatusCode" 	column="STATUS_CD"/>
 	 	<result property="memberGradeCode" 	 	column="GRADE_CD"/>
 	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
 	 	<result property="memberContent" 	 	column="MEMBER_CONTENT"/>
@@ -120,6 +120,7 @@
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </update>
 	
+	<!-- 프로필 이미지 삽입 -->
 	<insert id="insertImgList" parameterType="list">
 		INSERT INTO MEMBER_IMG
 		SELECT SEQ_IMG_NO.NEXTVAL, A.* FROM
@@ -137,7 +138,7 @@
 	</insert>
 
 	<!-- 기존에 있었지만 삭제된 이미지 DELETE -->
-	<!-- 파라미터 타입이 Map인 경우  #{Key}를 작성하면 Value가 출력됨 -->
+	<!-- 파라미터 타입이 Map인 경우  #{Key}를 작성하면 Value가 출력 -->
 	<delete id="deleteImages" parameterType="map">
 		DELETE FROM MEMBER_IMG
 		WHERE MEMBER_NO = #{MemberNo}
@@ -187,18 +188,18 @@
 	 -->
 	 
 	<!-- 바라는 점 내용삽입--> 
-	<insert id="ask" useGeneratedKeys="true" parameterType="Board">
+	<insert id="ask" useGeneratedKeys="true" parameterType="Member">
 		
 		<!-- 
 			INSERT 구문이 수행되기 전에 <selectKey> 내부 SELECT를 수행해서
 			조회 결과인 int형 값을 파라미터로 전달 받은 Board 객체의 boardNo 필드에 저장
 		 -->
-		<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="memberNo">
 			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
 		</selectKey>
 	
 		INSERT INTO MEMBER(MEMBER_NO, MEMBER_CONTENT)
-		VALUES(#{boardNo}, #{memberContent})
+		VALUES(#{memberNo}, #{memberContent})
 	</insert>
 
 	 
