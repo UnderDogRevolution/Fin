@@ -1,6 +1,7 @@
 package com.movie.sns.post.controller;
 // 이승윤
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.service.PostService;
+import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Tag;
 
@@ -24,6 +27,7 @@ import com.movie.sns.post.model.vo.Tag;
 public class PostContoller {
 	@Autowired
 	private PostService service;
+	
 	
 	@RequestMapping(value="searchTag", method = RequestMethod.POST)
 	@ResponseBody
@@ -44,9 +48,18 @@ public class PostContoller {
 	@ResponseBody
 	public int postInsert(@RequestBody Map<String, Object> postVO) {
 		Post post = new Post();
+		post.setMemberNo(1);
 		post.setPostContent((String)postVO.get("postContent"));
+		
 		List<String> tagArr = (List<String>)postVO.get("tagArr");
-		int result = service.insertPost(post, tagArr);
+
+		Map<String, Object> movieMap = new HashMap<String, Object>();
+		movieMap = (Map<String, Object>)postVO.get("movie");
+		Movie temp = new Movie();
+		Movie movie = (Movie)Util.convertMapToObject(movieMap, temp);
+		movie.setMemberNo(1);
+		
+		int result = service.insertPost(post, tagArr, movie);
 		
 		return result;
 	}
