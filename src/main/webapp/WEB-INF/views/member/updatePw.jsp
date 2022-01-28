@@ -163,7 +163,7 @@
       <a class="btn btn-danger btn-lg" a href="secession" role="button">회원탈퇴</a>
     </div>
 
-    <form method="POST" action="secession" onsubmit="">
+    <form method="POST" action="updatePw" onsubmit="return updatePwValidate();">
       <div class="contents"><br>
 
         <div class="mb-3">
@@ -219,8 +219,6 @@
 				alert("새 비밀번호가 일치하지 않습니다.");
 				return false;
 			}
-			
-			
 			
 		}
 	</script>
