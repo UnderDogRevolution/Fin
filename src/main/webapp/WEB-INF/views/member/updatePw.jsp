@@ -1,22 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/common.css" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="../common/header.jsp"></jsp:include>
 
-  <link rel="stylesheet" type="text/css" href="css/header.css" />
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-  <script src="https://kit.fontawesome.com/2622b235cb.js" crossorigin="anonymous"></script>
   <title>비밀번호 수정</title>
 
   <style type="text/css">
@@ -167,204 +153,17 @@
       margin-top: 5%;
     }
   </style>
-</head>
 
-<body>
-
-  <nav class="navbar">
-      <div class="header">
-
-          <div class="logo">
-              <a href="">Montage</a>
-
-          </div>
-          <div></div>
-          <div>
-
-              <ul class="menu">
-                  <li>
-                      <form action="">
-
-                          <div class="search">
-
-                              <div class="searchwrap">
-
-                                  <input type="text">
-                              
-                                  <div>
-  
-                                      <a href="" style="display: inline-block; margin-top: 4px;">
-                                          <svg class="bi d-block" xmlns="http://www.w3.org/2000/svg" width="17"
-                                              height="17" viewBox="0 0 24 24">
-                                              <path
-                                                  d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z margin-top: 5px;" />
-                                          </svg>
-                                      </a>
-                                  </div>
-                              </div>
-
-                      </form>
-
-                  </li>
-                  <li><a href=""> <i class="fas fa-home" style="padding-top: 5px;"></i></a></li>
-                  <li>
-
-                      <i class="fas fa-bell noticewrap" style="padding-top: 5px;">
-                          <div class="notice-num">
-                          </div>
-
-                          <div class="notice_box">
-                              <!-- 알림영역 -->
-
-                          </div>
-                      </i>
-
-                  </li>
-                  <li><a href=""><i class="far fa-comment-dots" style="padding-top: 5px;"></i></li>
-                  <li><a href=""><i class="far fa-edit" style="padding-top: 5px;"></i></a></li>
-                  <li><i class="namewrap">
-                          <img class="myImg" src="img/user.png" alt=""
-                              style="width: 15px; padding-top: 5px; margin-right: 7px;">
-                          <div class="myclick">
-                              <!-- 내영역 -->
-                              <ul>
-
-                                  <li>
-                                      <a href="">
-                                          <div class="myclick-li">
-                                              <img src="img/user.png" alt="">
-                                              프로필
-                                          </div>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a href="">
-                                          <div class="myclick-li">
-                                              <img src="img/user.png" alt="">
-                                              저장
-                                          </div>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a href="">
-                                          <div class="myclick-li">
-                                              <img src="img/user.png" alt="">
-                                              설정
-                                          </div>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a href="">
-                                          <div class="myclick-li">
-                                              <img src="img/user.png" alt="">
-                                              로그아웃
-                                          </div>
-                                      </a>
-                                  </li>
-
-                              </ul>
-                          </div>
-                      </i>
-
-
-                  </li>
-
-              </ul>
-          </div>
-
-
-      </div>
-
-  </nav>
-
-
-
-  <!-- 부트스트랩 -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"></script>
-  <!--jquery  -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script>
-
-      /*    window.onclick = function (event) {
-             if (!event.target.matches('.noticewrap')) {
- 
-                 if (!event.target.matches('.notice_box')) {
-                     $(".notice_box").slideUp(200);
-                 }
-             } else {
- 
-                 if ($(".notice_box").css("display") == "none") {
- 
-                     $(".notice_box").slideDown(200);
-                 } else {
- 
-                     $(".notice_box").slideUp(200);
-                 }
-        
-             }
-       
-         } */
-
-      $(".noticewrap").on("click", function (e) {
-
-          if ($('.notice_box').hasClass("show")) {
-
-              $('.notice_box').slideUp(200);
-              $('.notice_box').removeClass("show");
-
-          } else {
-
-              $(".notice_box").slideDown(200);
-              $(".notice_box").addClass("show");
-
-          }
-      });
-      $(".namewrap").on("click", function (e) {
-
-          if ($('.myclick').hasClass("show")) {
-
-              $('.myclick').slideUp(200);
-              $('.myclick').removeClass("show");
-
-          } else {
-
-              $(".myclick").slideDown(200);
-              $(".myclick").addClass("show");
-
-          }
-      });
-
-      window.onclick = function (event) {
-          if (!(event.target.matches('.noticewrap') || event.target.matches('.notice_box'))) {
-
-              $('.notice_box').slideUp(200);
-              $('.notice_box').removeClass("show");
-          }
-          if (!(event.target.matches('.namewrap') || event.target.matches('.myclick')||event.target.matches('.myImg'))) {
-              $('.myclick').slideUp(200);
-              $('.myclick').removeClass("show");
-          }
-
-
-
-
-      }
-
-
-  </script>
 
   <div id="wrap">
-    <div class="header"></div>
     <div class="side">
       <a class="btn btn-danger btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
       <a class="btn btn-danger btn-lg" a href="updatePw" role="button">비밀번호 수정</a><br>
+      <a class="btn btn-danger btn-lg" a href="ask" role="button">바라는 점</a><br>
       <a class="btn btn-danger btn-lg" a href="secession" role="button">회원탈퇴</a>
     </div>
 
-    <form method="POST" action="secession" onsubmit="">
+    <form method="POST" action="updatePw" onsubmit="return updatePwValidate();">
       <div class="contents"><br>
 
         <div class="mb-3">
@@ -420,8 +219,6 @@
 				alert("새 비밀번호가 일치하지 않습니다.");
 				return false;
 			}
-			
-			
 			
 		}
 	</script>

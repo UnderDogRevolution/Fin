@@ -156,6 +156,21 @@ public class MemberService2Impl implements MemberService2{
 			return dao.selectImgList();
 		}
 
+		
+		//바라는 점
+		@Override
+		public int ask(Member member) {
+			
+			//개행문자 처리
+			member.setMemberContent( Util.XSS( member.getMemberContent() ) );
+			member.setMemberContent( Util.changeNewLine( member.getMemberContent() ) );
+			
+			int memberNo = dao.ask(member);
+			return memberNo;
+		}
+
+		
+		
 		// 회원 탈퇴
 		@Override
 		public int secession(int memberNo, String currentPw) {
@@ -172,14 +187,5 @@ public class MemberService2Impl implements MemberService2{
 			return result;
 		}
 
-		@Override
-		public int updateMember(Member member) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-		
-	
-	
 
 }

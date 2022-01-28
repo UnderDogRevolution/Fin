@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-  <title>회원탈퇴</title>
+  <title>바라는 점</title>
 
   <style type="text/css">
     html,
@@ -149,7 +149,7 @@
   </style>
 
 
-  <div id="wrap">
+   <div id="wrap">
     <div class="header"></div>
     <div class="side">
       <a class="btn btn-danger btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
@@ -158,45 +158,48 @@
       <a class="btn btn-danger btn-lg" a href="secession" role="button">회원탈퇴</a>
     </div>
 
-    <form method="POST" action="secession" onsubmit="return secessionValidate();">
+    <form method="POST" action="ask" onsubmit="return askValidate();">
       <div class="contents"><br>
 
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label" style="font-weight: bolder; font-size:2rem;">회원탈퇴</label>
+          <label for="exampleFormControlInput1" class="form-label" style="font-weight: bolder; font-size:2rem;">바라는 점</label>
         </div>
 
         <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
-          <h1>탈퇴를 하시면 회원정보, 가입하신 그룹, 작성한 피드, 문의 내용이 초기화되며 복구하실 수 없습니다.<br>
-            정말로 탈퇴를 원하신다면 아래에 비밀번호를 입력하시고 탈퇴 버튼을 눌러주세요.</h1>
+          <h1>관리자에게 건의사항이나 바라는 점, 아쉬운 점 등이 있으시면, 아래에 텍스트를 작성해 제출해주세요.</h1>
         </div>
 
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">비밀번호 확인</label>
-          <input type="password" class="inputform" id="currentPw">
+        <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
+        <form>
+          <textarea name="ask" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
+          id="currentAsk" style="resize: none;"></textarea>
+        </form>
         </div>
+<!-- XSS 처리도 해야함 -->
         <br>
 
-        <button type="submit" class="btnsub btn-danger btn-lg">탈퇴하기</button>
+        <button type="submit" class="btnsub btn-danger btn-lg">제출하기</button>
       </div>
   </div>
   </form>
-  
-   <script>
-		function secessionValidate(){
 
-			// 1) 비밀번호가 입력되어 있지 않으면 false 리턴
-			const currentPw = document.getElementById("currentPw");
+  <script>
+		function askValidate(){
+
+			// 1) 내용이 입력되어 있지 않으면 false 리턴
+			const currentAsk = document.getElementById("currentAsk");
 			
-			if(currentPw.value.trim().length == 0){
-				alert("비밀번호를 입력해주세요");
-				currentPw.focus();
+			if(currentAsk.value.trim().length == 0){
+				alert("바라는 점을 입력해주세요");
+				currentAsk.focus();
 				return false;
 			}
 			
-			// 2) confirm을 이용하여 정말 탈퇴할 것인지 물어보기
-			return confirm("정말로 탈퇴 하시겠습니까???");
+			return confirm("바라는 점을 제출 하시겠습니까?");
 		}
 	</script>
+
+
 </body>
 
 </html>

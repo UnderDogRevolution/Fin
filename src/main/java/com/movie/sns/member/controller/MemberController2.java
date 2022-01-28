@@ -113,7 +113,7 @@ public class MemberController2 {
 		
 		
 		// 비밀번호 수정
-		@RequestMapping(value="resetPw", method=RequestMethod.POST)
+		@RequestMapping(value="updatePw", method=RequestMethod.POST)
 		public String updatePw(@ModelAttribute("loginMember") Member loginMember,
 							   String currentPw, String newPw1, RedirectAttributes ra) {
 			
@@ -201,11 +201,12 @@ public class MemberController2 {
 
 	    // 바라는 점
 	    @RequestMapping(value="ask", method=RequestMethod.POST )
-	    public String ask(@ModelAttribute("loginMember") Member loginMember,  
+	    public String ask(@ModelAttribute("loginMember") Member loginMember, Member member,
 	    					String currentPw, SessionStatus status, RedirectAttributes ra) {
 	       
+	    	member.setMemberNo( loginMember.getMemberNo() );
 	    	
-	       int result = service.secession(loginMember.getMemberNo(),  currentPw);
+	       int result = service.ask(member);
 	       
 	       String path = null;
 	       
@@ -219,8 +220,6 @@ public class MemberController2 {
 	          Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error", ra);
 	          path = "ask";
 	       }
-	       
-	       
 	       return "redirect:" + path;
 	    }
 
@@ -242,11 +241,12 @@ public class MemberController2 {
 		@ExceptionHandler(Exception.class)
 		public String exceptionHandler(Exception e, Model model) {
 			
+			 String path = null;
 			// Model : 데이터 전달용 객체(Map형식, request범위)
 			model.addAttribute("errorMessage", "회원 관련 서비스 이용 중 문제가 발생했습니다.");
 			model.addAttribute("e", e);
 			
-			return "common/error";
+			return  "redirect:" + path;
 		}
 		
 	

@@ -1,5 +1,7 @@
 package com.movie.sns.chat.model.dao;
 
-public class ChatDAO {
+import org.mybatis.spring.SqlSessionTemplate;
 
+public class ChatDAO {
+	private SqlSessionTemplate sqlSession;
 }

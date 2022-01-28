@@ -97,4 +97,13 @@ public class MemberDAO2 {
 	public List<String> selectImgList() {
 		return sqlSession.selectList("memberMapper.selectImgList");
 	}
+
+	
+	/** 바라는 점 내용 삽입
+	 * @param member
+	 * @return
+	 */
+	public int ask(Member member) {
+		return sqlSession.insert("memberMapper.ask", member);
+	}
 }
