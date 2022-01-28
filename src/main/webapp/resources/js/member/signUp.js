@@ -48,22 +48,6 @@ function signUpValidate(){
 
 }
 
-// jsp에 작성해놓기 (el로 닉네임 값을 받아와야하므로)
-function signUpSuccess(){
-
-  Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: '회원가입 성공',
-    html: "\'홍길동\' 님의 가입이 완료되었습니다. <br> 가입한 이메일로 로그인해주세요.",
-    confirmButtonColor: '#F05454',
-    confirmButtonText: '확인',
-    timerProgressBar: true,
-    timer: 2000
-  })
-
-}
-
 // 이메일 인증할때 참고용 (sweetalert ajax)
 function emailCheck(){
 
@@ -153,6 +137,7 @@ $("#memberEmail").on("input", function(){
   const memberEmail = $(this).val();
   const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
   const checkInput = $(this).next();
+  const inputEmail = $(this);
 
   // 값이 없는 경우
   if(memberEmail.length == 0){
@@ -166,14 +151,6 @@ $("#memberEmail").on("input", function(){
 
     checkInput.html(validIcon);
 
-     // ************* ajax 만들면 지울 부분 ******************
-    $(this).removeAttr("class", "duplication");
-    $(this).addClass("unique");
-    $("#emailCheck-btn").removeAttr("disabled");
-    signUpCheckObj.email = true;
-
-    /*
-
     $.ajax({ 
 
       url : "emailDupCheck",                         
@@ -182,18 +159,19 @@ $("#memberEmail").on("input", function(){
 
       success : function(result){
 
-        //console.log(result);
+        console.log(result);
 
         if(result  ==  0){ // 이메일 사용 가능
 
-          $(this).removeAttr("class", "duplication");
-          $(this).addClass("unique");
+          inputEmail.removeAttr("class", "duplication");
+          inputEmail.addClass("unique");
+          $("#emailCheck-btn").removeAttr("disabled");
           signUpCheckObj.email = true;
       
         }else{ // 이메일 중복인
 
-          $(this).removeAttr("class", "unique");
-          $(this).addClass("duplication");
+          inputEmail.removeAttr("class", "unique");
+          inputEmail.addClass("duplication");
           $("#emailCheck-btn").attr("disabled", true);
           signUpCheckObj.email = false;
 
@@ -216,7 +194,7 @@ $("#memberEmail").on("input", function(){
 
     });
 
-    */
+    
 
   }
   // 유효성 조건 불만족
@@ -293,6 +271,7 @@ $("#memberNickName").on("input", function(){
   const memberNickName = $(this).val(); // 입력 받은 이름
   const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
   const checkNickName = $(this).next();
+  const inputNickName = $(this);
 
   if( memberNickName.length == 0 ){ // 빈칸
     $(this).removeAttr("class", "unique");
@@ -301,15 +280,6 @@ $("#memberNickName").on("input", function(){
     signUpCheckObj.nickName = false;
 
   }else if(regExp.test(memberNickName)){ 
-    
-    // ************* ajax 만들면 지울 부분 ******************
-    $(this).removeAttr("class", "duplication");
-    $(this).addClass("unique");
-    checkNickName.html(validIcon);
-    signUpCheckObj.nickName = true;
-
-
-    /* 
 
     // 유효한 경우 중복 검사
     $.ajax({ 
@@ -320,19 +290,19 @@ $("#memberNickName").on("input", function(){
 
       success : function(result){
 
-        //console.log(result);
+        console.log(result);
 
         if(result  ==  0){ // 닉네임 사용 가능
 
-          $(this).removeAttr("class", "duplication");
-          $(this).addClass("unique");
+          inputNickName.removeAttr("class", "duplication");
+          inputNickName.addClass("unique");
           checkNickName.html(validIcon);
           signUpCheckObj.nickName = true;
       
         }else{ // 닉네임 중복
 
-          $(this).removeAttr("class", "unique");
-          $(this).addClass("duplication");
+          inputNickName.removeAttr("class", "unique");
+          inputNickName.addClass("duplication");
           checkNickName.html(invalidIcon);
           signUpCheckObj.nickName = false;
 
@@ -355,7 +325,7 @@ $("#memberNickName").on("input", function(){
 
     });
 
-    */
+    
 
   }else{ // 유효하지 않은 경우
     checkNickName.html(invalidIcon);
