@@ -96,7 +96,6 @@
 	 		SEQ_MEMBER_NO.NEXTVAL, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
 	 		DEFAULT, DEFAULT, 200, 100 )
 	 		SEQ_MEMBER_NO.NEXTVAL, #{memberId}, #{memberPw},
-	 	<!-- 	#{memberName}, #{memberPhone}, #{memberEmail}, #{memberAddress}, //번호,주소 안쓰이고 생일, 닉네임-->
 	 		DEFAULT, DEFAULT, DEFAULT )
 	 </insert>
 	 
