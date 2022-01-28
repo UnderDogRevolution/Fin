@@ -165,7 +165,7 @@
 
     </div>
 
-    <form method="POST" action="secession" onsubmit="">
+    <form method="POST" action="update" onsubmit="return memberUpdateValidate();">
       <div class="contents"><br>
 
         <div class="row-mb-3">
@@ -174,7 +174,7 @@
             수정</label>
         </div>
 
-        <img src="${img0}" class="img-thumbnail" onerror="this.src='https://cdn-icons.flaticon.com/png/512/4735/premium/4735316.png?token=exp=1643178313~hmac=c4fe7cba3801ff11a640a71814fd7293'"><br>
+        <img src="${img0}" class="img-thumbnail" onerror="this.onerror=null; this.src='https://cdn-icons.flaticon.com/png/512/4735/premium/4735316.png?token=exp=1643178313~hmac=c4fe7cba3801ff11a640a71814fd7293'"><br>
         <label for="exampleFormControlInput1" class="form-label"></label>
         <br>
 
@@ -211,6 +211,9 @@
       </div>
   </div>
   </form>
+  
+  
+  <script src="${contextPath}/resources/js/member/memberUpdate.js"></script>
   
 </body>
 

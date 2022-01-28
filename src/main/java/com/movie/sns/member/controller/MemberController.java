@@ -3,6 +3,7 @@ package com.movie.sns.member.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,7 +46,8 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@RequestParam(value="saveId", required=false) String saveId,
 						Member member, Model model, RedirectAttributes ra,
-						HttpServletRequest req, HttpServletResponse resp) {
+						HttpServletRequest req, HttpServletResponse resp
+						) {
 		
 		
 		Member loginMember = service.login(member);
@@ -54,7 +57,7 @@ public class MemberController {
 		if(loginMember != null) {
 			
 			
-			model.addAttribute(loginMember);
+			model.addAttribute("loginMember",loginMember);
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 			
@@ -68,23 +71,16 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
-			path = "redirect:/";
+			path = "redirect:/main";
 			
 			
 		}else {
 			
-			ra.addFlashAttribute("memberEmail", member.getMemberEmail());
-			
+			// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
+			ra.addFlashAttribute("failMessage", "이메일 주소 또는 비밀번호를 확인해주세요");
 			path = "redirect:/member/login";
 			
 		}
-		
-	
-		
-		
-		// 로그인 실패 시 파라미터값으로 넘어온 email를 ra에 담아서 되돌려보내기
-		
-		
 		
 		return path;
 	}
@@ -104,19 +100,73 @@ public class MemberController {
 	
 	// 회원가입 화면 호출
 	@RequestMapping(value="signUp", method=RequestMethod.GET)
-	public String signUp(@ModelAttribute("loginMember") Member loginMember) {
+	public String signUp() {
 		return "member/signUp";
 	}
 	
 	
-	// 회원가입 수행
-	@RequestMapping(value="signUp", method=RequestMethod.POST)
-	public String signUp( Model model) {
+	// 이메일 중복 검사 ajax
+	@RequestMapping(value="emailDupCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public int emailDupCheck(String memberEmail) {
 		
-		return "redirect:/";
+		int result = service.emailDupCheck(memberEmail);
+		
+		return result;
 	}
 	
-	// 기타 중복검사 기능 들어올 자리
+	
+	// 이메일 인증번호 검사 ajax 삽입 예정
+	
+	
+	
+	
+	// 닉네임 중복 검사 ajax
+	@RequestMapping(value="nickNameDupCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public int nickNameDupCheck(String memberNickName) {
+		
+		int result = service.nickNameDupCheck(memberNickName);
+		
+		return result;
+	}
+	
+	
+	
+	// 회원가입 수행
+	@RequestMapping(value="signUp", method=RequestMethod.POST)
+	public String signUp( Member member, RedirectAttributes ra) {
+		
+		
+		int result = service.signUp(member);
+		
+		String path = null;
+		String signUpMessage;
+		String text;
+		String icon;
+		
+		if(result > 0) {
+			
+			signUpMessage = "회원 가입 성공!";
+			text = member.getMemberNickName() + "님의 가입을 환영합니다.<br> 로그인을 진행해주세요.";
+			icon = "success";
+			path = "redirect:/member/login";
+			
+		}else {
+			
+			signUpMessage = "가입 실패";
+			text = "회원가입을 진행하는 중 문제가 발생했습니다.<br> 관리자에게 문의해주세요.";
+			icon = "error";
+			path = "redirect:/member/signUp";
+			
+		}
+		
+		ra.addFlashAttribute(signUpMessage);
+		ra.addFlashAttribute(icon);
+		ra.addFlashAttribute(text);
+		
+		return path;
+	}
 	
 	
 	
