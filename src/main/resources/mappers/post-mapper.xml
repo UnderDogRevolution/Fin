@@ -39,7 +39,7 @@
  	 		SELECT SEQ_POST_NO.NEXTVAL FROM DUAL
  	 	</selectKey>
  	 	
- 	 	INSERT INTO POST VALUES(#{postNo}, #{postContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 500, 1 )
+ 	 	INSERT INTO POST VALUES(#{postNo}, #{postContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 500, #{memberNo} )
  	 </insert>
  	 
  	 <select id="dupCheckTag" resultType="_int">
@@ -55,5 +55,28 @@
 	 <insert id="insertPostTag">
 	 	INSERT INTO POST_TAG VALUES(#{postNo}, (SELECT TAG_NO FROM TAG WHERE TAG_NM = #{tagName}))
 	 </insert>
+	
+	 <select id="dupCheckMovie" resultType="_int">
+	 	SELECT COUNT(MOVIE_NO)
+		FROM MOVIE
+		WHERE MOVIE_NO = ${movieNo}
+	 </select>
+	 <insert id="insertMovie">
+	 	INSERT INTO MOVIE VALUES(#{movieNo}, #{movieTitle}, #{movieDate}, #{director}, #{poster}, #{movieGenre})
+	 </insert>
+
+	 <insert id="insertRating">
+	 	INSERT INTO MOVIE_RATING VALUES(SEQ_MOVIE_RATING_NO.NEXTVAL, ${rating}, ${movieNo}, ${memberNo}, ${postNo})
+	 </insert>
+	 
+	 <insert id="insertImgList" parameterType="list">
+		INSERT INTO POST_IMG
+		SELECT SEQ_POST_IMG_NO.NEXTVAL, A.* FROM
+		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">  
+			SELECT #{img.postImagePath} POST_IMG_PATH, #{img.postImageName} POST_IMG_NM, SYSDATE POST_IMG_DT, #{img.postImageOriginal} POST_IMG_ORIGINAL, 0 POST_IMG_LEVEL, #{img.postNo} POST_NO
+   			FROM DUAL	   
+		</foreach>
+		
+	</insert>
 	
 </mapper>
