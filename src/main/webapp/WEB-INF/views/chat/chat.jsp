@@ -36,8 +36,18 @@
                     </div>
                     <div class="chatList-wrap">
                         <!--보낸대상 영역 -->
-
-                        <div class="chat" onclick="searchChatting(this);">
+							
+						<c:choose>
+						
+							<%-- 조회된 게시글 목록이 없을 때 --%>
+							<c:when test="${empty chatRoomList }">
+								<tr>
+									<td colspan="4">존재하는 채팅방이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="chatRoom" items="${chatRoomList}">
+                        <div class="chat" onclick="searchChatting(this,${chatRoom.chatRoomNo},${chatRoom.friendNo});">
                             <!-- for each 문 이용  -->
                             <!-- 채팅 -->
                             <div class="chatMemberImg">
@@ -48,11 +58,17 @@
                             <!--상대 이름 영역 -->
                             <div class="chatMemberName">
                                 <div>
-                                    친구1
+                                    ${chatRoom.friendNm}
                                 </div>
                             </div>
                             <i class="fas fa-times delete-message-room"></i><!-- x아이콘 -->
                         </div><!-- 채팅끝 -->
+                        
+                        <input type="hidden" value="${chatRoom.friendNo}">
+                        
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
 
 
@@ -137,7 +153,20 @@
 	 -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
-
+	
+	<script>
+		// 로그인이 되어 있을 경우에만
+		let chattingSock = new SockJS("<c:url value='/chat' />");
+									// contextPath + /chat
+									
+		const memberNo = "${loginMember.memberNo}";
+		const memberNickName = "${loginMember.memberNickName}";
+		const memberName = "${loginMember.memberName}";
+		const chatRoomNo = "${chatRoomNo}";
+		const contextPath = "${contextPath}";
+	</script>
+	
+	
 
 </body>
 </html>

@@ -59,6 +59,8 @@
 	 	INSERT INTO MEMBER VALUES(
 	 		SEQ_MEMBER_NO.NEXTVAL, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
 	 		DEFAULT, DEFAULT, 200, 100 )
+	 		SEQ_MEMBER_NO.NEXTVAL, #{memberId}, #{memberPw},
+	 		DEFAULT, DEFAULT, DEFAULT )
 	 </insert>
 	 
 	 <!-- 회원 정보 수정 -->
