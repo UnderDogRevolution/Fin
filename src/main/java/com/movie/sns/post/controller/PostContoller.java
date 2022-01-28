@@ -6,19 +6,22 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.service.PostService;
+import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Tag;
 
 
 @Controller
 @RequestMapping("/post/*")
-public class Post {
+public class PostContoller {
 	@Autowired
 	private PostService service;
 	
@@ -36,5 +39,15 @@ public class Post {
 		List<Member> tagList = service.selectUser(tagName);
 		
 		return new Gson().toJson(tagList);
+	}
+	@RequestMapping(value="insert", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public int postInsert(@RequestBody Map<String, Object> postVO) {
+		Post post = new Post();
+		post.setPostContent((String)postVO.get("postContent"));
+		List<String> tagArr = (List<String>)postVO.get("tagArr");
+		int result = service.insertPost(post, tagArr);
+		
+		return result;
 	}
 }

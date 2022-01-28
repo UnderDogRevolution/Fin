@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- JSTL c태그 사용을 위한 taglib 추가 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!-- <form action="${pageContext.servletContext.contextPath}/post/insert" method="post" 
+enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 <!-- Modal -->
 <div class="modal" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
          <div class="modal-post">
             <div class="modal-post-header">
-                <span>user01</span>  <span class="header-tag">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
+                <span>user01</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
             </div>
             <div class="modal-post-content">
                 <div class="modal-review-title">
@@ -68,12 +69,12 @@
                         
                     </ul>
                 </div>
-                <div class="insert-container-textarea">
-                    <textarea name="" id="" cols="60" rows="5" ></textarea>
-                    <div></div>
-                    
-                    <!-- <div></div> -->
-                </div>
+                    <div class="insert-container-textarea">
+                        <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
+                        <div></div>
+                        
+                        <!-- <div></div> -->
+                    </div>
                 <div class="insert-rating" style="display: flex; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
                         <input type="radio" name="html">
@@ -104,6 +105,7 @@
         </div>
     </div>
     </div>
+<!-- </form> -->
 
     
 </div>

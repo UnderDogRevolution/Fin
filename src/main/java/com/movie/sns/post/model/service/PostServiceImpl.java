@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.dao.PostDAO;
+import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Tag;
 
 @Service
@@ -24,6 +25,13 @@ public class PostServiceImpl implements PostService {
 	public List<Member> selectUser(String tagName) {
 		return dao.selectUser(tagName);
 	}
+
+	@Override
+	public int insertPost(Post post, List<String> tagArr) {
+		return dao.insertPost(post, tagArr);
+	}
+
+	
 	
 	
 }
