@@ -440,13 +440,15 @@ function postValidate(){
             tagArr.push(items.innerText.replace('#', ""));
         }
     }
-
+    
     const rating = document.getElementsByClassName("rating-value")[0].innerText
+    if(rating != ""){
+        movie.rating = rating;
+    }
 
 
     postVO.postContent = inputTextarea.value;
     postVO.tagArr = tagArr;
-    movie.rating = rating;
     postVO.movie = movie;
     console.log(postVO);
 
