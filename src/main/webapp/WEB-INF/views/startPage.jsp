@@ -34,7 +34,7 @@
 	      <!-- user-select:none 텍스트 선택 막기 -->
 	      <span class="welcome-msg">
 	        감상평을 기록하고 <br>
-	        친구와 소통하세요
+	        친구와 소통하세요 <br>
 	      </span>
 	
 	      <button id="start-btn" class="a-btn" onclick="location.href='member/login'">시작하기</button>

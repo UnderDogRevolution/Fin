@@ -19,6 +19,19 @@ const loginCheckObj = {
 
 
 // 이메일 유효성 검사
+
+// 아이디 저장했을 경우 로딩되면 검사 실행
+$(function(){
+	const emailExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+	const emailCheckInput = $("#memberEmail").next();
+	
+	if( emailExp.test( $("#memberEmail").val() )){
+		emailCheckInput.html(validIcon);
+    	loginCheckObj.email = true;
+	}
+	
+});
+
 $("#memberEmail").on("input", function(){
 
   const memberEmail = $(this).val();
@@ -41,6 +54,8 @@ $("#memberEmail").on("input", function(){
   loginValidate();
 
 });
+
+
 
 // 비밀번호 유효성 검사
 $("#memberPw").on("input",function(){
@@ -78,43 +93,3 @@ function loginValidate(){
 
 };
 
-
-// 로그인 수행 (ajax 이용)
-// Controller에서 ResponseBody로 값만 얻어오고 
-// 스크립트에서 화면 처리하면 될듯
-// 못만들거같으면 기존 방식대로
-
-/*
-
-$("#login-form").on("submit", function(){
-
-  $.ajax({
-
-    url : "login",
-    data : {"memberEmail" : memberEmail, "memberPw" : memberPw,
-    type : "POST",
-
-    success : function(result){
-
-      if(result > 0){ // 로그인 성공
-
-        
-
-      }else{  // 로그인 실패
-        
-        $(".login-fail > span").text("이메일 주소 또는 비밀번호를 확인해주세요");
-
-      }
-
-    },
-
-    error : function(){
-      alert("알 수 없는 오류가 발생했습니다. \n 잠시 후 다시 시도해주세요.");
-      location.href="/";
-    }
-
-  });
-
-})
-
-*/
