@@ -66,7 +66,17 @@
 	 </insert>
 
 	 <insert id="insertRating">
-	 	INSERT INTO MOVIE_RATINIG VALUES(SEQ_MOVIE_RATING_NO.NEXTVAL, ${rating}, ${movieNo}, ${memberNo}, ${postNo})
+	 	INSERT INTO MOVIE_RATING VALUES(SEQ_MOVIE_RATING_NO.NEXTVAL, ${rating}, ${movieNo}, ${memberNo}, ${postNo})
 	 </insert>
+	 
+	 <insert id="insertImgList" parameterType="list">
+		INSERT INTO POST_IMG
+		SELECT SEQ_POST_IMG_NO.NEXTVAL, A.* FROM
+		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">  
+			SELECT #{img.postImagePath} POST_IMG_PATH, #{img.postImageName} POST_IMG_NM, SYSDATE POST_IMG_DT, #{img.postImageOriginal} POST_IMG_ORIGINAL, 0 POST_IMG_LEVEL, #{img.postNo} POST_NO
+   			FROM DUAL	   
+		</foreach>
+		
+	</insert>
 	
 </mapper>

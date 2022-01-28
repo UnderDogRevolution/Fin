@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
+import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Tag;
 
 @Repository
@@ -53,6 +54,11 @@ public class PostDAO {
 
 	public int insertRating(Movie movie) {
 		return sqlSession.insert("postMapper.insertRating", movie);
+	}
+
+	public int insertImgLIst(List<PostImage> imgList) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("postMapper.insertImgList", imgList);
 	}
 
 

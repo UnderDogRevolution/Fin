@@ -114,7 +114,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
     
 </div>
 <div id="fileArea">
-    <input type="file" name="images" onchange="loadImg(this,0)"> 
+    <input class="files" type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
 <script>
     const contextPath = "${contextPath}";

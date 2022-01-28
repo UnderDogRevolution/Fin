@@ -1,5 +1,7 @@
 package com.movie.sns.post.model.service;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +9,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.dao.PostDAO;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
+import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Tag;
 
 @Service
@@ -31,9 +36,48 @@ public class PostServiceImpl implements PostService {
 	}
 	@Transactional // RuntimException 예외 발생 시 Rollback
 	@Override
-	public int insertPost(Post post, List<String> tagArr, Movie movie) {
+	public int insertPost(Post post, List<String> tagArr, Movie movie, List<MultipartFile> fileList, String webPath, String serverPath) {
+		
+		post.setPostContent(Util.XSS(post.getPostContent()));
+		post.setPostContent(Util.changeNewLine(post.getPostContent()));
+		
 		int result = dao.insertPost(post);
 		
+		if(result >0) {
+			List<PostImage> imgList = new ArrayList<PostImage>();
+			for(int i=0; i <fileList.size(); i++) {
+				if(!fileList.get(i).getOriginalFilename().equals("")) {
+					PostImage img = new PostImage();
+					img.setPostImagePath(webPath);
+					img.setPostImageOriginal(fileList.get(i).getOriginalFilename());
+					img.setPostImageName(Util.fileRename(fileList.get(i).getOriginalFilename()));
+					img.setPostImageLevel(i);
+					img.setPostNo(post.getPostNo());
+					
+					imgList.add(img);
+				}
+			}
+			
+			if(!imgList.isEmpty()) {
+				result = dao.insertImgLIst(imgList);
+				
+				if(result == imgList.size()) {
+					
+					for(int i=0; i < imgList.size(); i++) {
+						try {
+							fileList.get(imgList.get(i).getPostImageLevel()).transferTo(new File(serverPath+"/"+imgList.get(i).getPostImageName()));
+						}catch (Exception e) {
+							e.printStackTrace();
+							
+							throw new RuntimeException("파일 변환 중 문제 발생");
+						}
+					}
+				}else {
+					throw new RuntimeException("파일 변환 중 문제 발생");
+				}
+			}
+		
+		}
 		// 태그 등록
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("postNo", post.getPostNo());
@@ -56,7 +100,7 @@ public class PostServiceImpl implements PostService {
 			if(check == 0){
 				result = dao.insertMovie(movie); // 영화 등록
 			}
-			if(result>0) {
+			if(result>0 && movie.getRating() != null) {
 				result = dao.insertRating(movie); // 영화 별점 등록
 			}
 			

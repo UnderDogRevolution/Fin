@@ -430,6 +430,8 @@ observer.observe(inputDiv, config);
 
 // 게시글 삽입
 function postValidate(){
+    
+
     const postVO = {}
     const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
     const tagArr = []
@@ -447,12 +449,22 @@ function postValidate(){
     movie.rating = rating;
     postVO.movie = movie;
     console.log(postVO);
+
+    // image 영역
+    const formData = new FormData();
+    const image = document.getElementsByClassName("files")[0]
+    if(image.files.length > 0){
+        formData.append('image', image.files[0])
+    }
+    formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
+    console.log(formData);
     $.ajax({ 
         url: contextPath + "/post/insert",
-        data: JSON.stringify(postVO),
-        contentType: "application/json",
         type: "POST",
-        dataType : "JSON",
+        data: formData,
+        contentType: false, // multipart/form-data로 전송하기위해 필요
+        processData : false, // formData를 string으로 변환하지 않는다.
+        enctype : 'multipart/form-data',
         async : false,
         success: function (result) {
             if(result >0){

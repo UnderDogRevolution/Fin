@@ -5,13 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.movie.sns.common.Util;
@@ -46,7 +50,10 @@ public class PostContoller {
 	}
 	@RequestMapping(value="insert", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public int postInsert(@RequestBody Map<String, Object> postVO) {
+	public int postInsert(@RequestPart(value = "key") Map<String, Object> postVO,
+						  @RequestPart(value="image", required = false) List<MultipartFile> fileList,
+						  HttpSession session
+						 ) {
 		Post post = new Post();
 		post.setMemberNo(1);
 		post.setPostContent((String)postVO.get("postContent"));
@@ -59,7 +66,11 @@ public class PostContoller {
 		Movie movie = (Movie)Util.convertMapToObject(movieMap, temp);
 		movie.setMemberNo(1);
 		
-		int result = service.insertPost(post, tagArr, movie);
+		String webPath = "/resources/images/post/";
+		
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.insertPost(post, tagArr, movie, fileList, webPath, serverPath);
 		
 		return result;
 	}
