@@ -93,7 +93,7 @@
 								<ul>
 
 									<li><a href="">
-											<div class="myclick-li">프로필</div>
+											<div class="myclick-li">${loginMember.memberName}</div>
 									</a></li>
 									<li><a href="">
 											<div class="myclick-li">저장</div>
