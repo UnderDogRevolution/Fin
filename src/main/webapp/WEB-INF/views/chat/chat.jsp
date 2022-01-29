@@ -152,20 +152,19 @@
 	<!--web소켓과 비슷한 js 라이브러리
 	 -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
 	
 	<script>
 		// 로그인이 되어 있을 경우에만
-		let chattingSock = new SockJS("<c:url value='/chat' />");
+		let chattingSock = new SockJS("<c:url value='/chat/mychat' />");
 									// contextPath + /chat
 									
 		const memberNo = "${loginMember.memberNo}";
 		const memberNickName = "${loginMember.memberNickName}";
 		const memberName = "${loginMember.memberName}";
-		const chatRoomNo = "${chatRoomNo}";
 		const contextPath = "${contextPath}";
 	</script>
 	
+	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
 	
 
 </body>

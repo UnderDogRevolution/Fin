@@ -1,3 +1,9 @@
+// 입장한 채팅방 상대 회원 번호
+let targetNo;
+let createDate;
+
+
+
 // 헤더 공통 js 끝
 
 // 클릭시 친창 보이게 하기 ㅇㄴㅁ;ㅓ리ㅏㅇ너리;ㄴㅁ라
@@ -54,9 +60,15 @@ $('.fas.fa-times.delete-message-room').click(function() {
 	return false;
 })
 
+
+
 function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
-	console.log(chatNo)
-	console.log(frNo)
+
+	// 전역 변수에 현재 입장한 채팅방 상대 회원 번호 저장
+	targetNo = frNo;
+
+
+
 	//ajax 실행 시 동작
 	// const chatContent = e.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
 	// chatContent
@@ -69,23 +81,24 @@ function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
 		// 응답 데이터 형식이 json 형식임을 알려주어
 		// 자동으로 JS 객체로 변환을 시킬 수 있게 함
 		success: function(data) {
-			console.log(data);
-			console.log(data.memberNo);
-			console.log(data.memberName);
-			console.log(data.message);
-			for(let i=0; i<data.message.length; i++){
-				console.log(data.message[i].message)
-			}		
+
+
+
+			const msgbtn = $('<svg  onclick = "msgUp()"class = "msgbtn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.379,19.1403 L12.108,12.5993 L19.467,5.2413 L15.379,19.1403 Z M4.86,8.6213 L18.76,4.5343 L11.401,11.8923 L4.86,8.6213 Z M3.359,8.0213 C2.923,8.1493 2.87,8.7443 3.276,8.9483 L11.128,12.8733 L15.053,20.7243 C15.256,21.1303 15.852,21.0773 15.98,20.6413 L20.98,3.6413 C21.091,3.2623 20.739,2.9093 20.359,3.0213 L3.359,8.0213 Z"/></svg>');
+			const imgbtn = $('<svg onclick = "imgUp()"  aria-label="사진 또는 동영상 추가" class="_8-yf5 imgbtn" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M6.549 5.013A1.557 1.557 0 108.106 6.57a1.557 1.557 0 00-1.557-1.557z" fill-rule="evenodd"></path><path d="M2 18.605l3.901-3.9a.908.908 0 011.284 0l2.807 2.806a.908.908 0 001.283 0l5.534-5.534a.908.908 0 011.283 0l3.905 3.905" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M18.44 2.004A3.56 3.56 0 0122 5.564h0v12.873a3.56 3.56 0 01-3.56 3.56H5.568a3.56 3.56 0 01-3.56-3.56V5.563a3.56 3.56 0 013.56-3.56z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>');
+
+			const chatRoomNo = $('<input class = "chatRoomNo" type = "hidden" value = ' + chatNo + '>');
+
+
 			const chatContent = $("<div class='chatContent'>");
 			const chatHeader = $("<div class=chatContent-header>")
 			const chatHeader_div1 = $("<div>");/* 채팅헤더 이미지 영역 */
 			const chatHeader_div2 = $("<div>"); /* 채팅헤더 네임영역 */
 			const chatMemberImg = $("<img>");/* 대상이미지 */
-			$.each
 
 			// 채팅창 구현하기
-			
-		
+
+
 
 			const chatMain = $("<div>");/* 채팅 메인 전체 */
 			const display = $("<ul id = 'chattingwrap'>"); /*대화부분 */
@@ -99,7 +112,7 @@ function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
 			// 대상 이름 삽입
 			chatHeader_div2.text(data.memberName)
 			chatMemberImg.attr("src", 'img/user.png')/* 이미지주소설정 */
-
+			console.log("맴버넘버" + memberNo);
 
 
 			chatHeader.append(chatHeader_div1);
@@ -110,7 +123,7 @@ function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
 			//chatFooter.append(messageput);
 			chatFooter.append(msgbtn);
 			chatFooter.append(imgbtn);
-
+			chatFooter.append(chatRoomNo);
 			//chatFooter.append(span1);
 			//chatFooter.append(span2);
 			/* putwrap1.append(messageput);
@@ -124,10 +137,56 @@ function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
 
 
 
-			$.each(data.message, function(i, data) {
-				console.log(message);
 
-			})
+			for (let i = 0; i < data.message.length; i++) {
+				if (data.message[i].memberNo == memberNo) {
+
+					/*	const divImg = $("<div class = 'chatImg'>")
+						const img = $("<img>");
+						divImg.append(img);
+						img.attr("src", e.target.result);*/
+					const li = $("<li>")
+					const ul = $("#chattingwrap")
+					const myName = $("<span class = 'myName'>");
+					const myMessage = $("<span class = 'myMessage'>");
+					const msgCreate = $("<span class = 'msgCreate'>");
+					msgCreate.html(data.message[i].createDate);
+					li.addClass("myChatting");
+					myMessage.html(data.message[i].message);
+					li.append(myName);
+					li.append(myMessage);
+					li.append(msgCreate);
+					ul.append(myName);
+					ul.append(li);
+
+				} else {
+
+					const divImg = $("<div class = 'chatImg'>")
+					const li = $("<li>")
+					const ul = $("#chattingwrap")
+					const frName = $("<span class = 'frName'>");
+					const frMessage = $("<span class = 'frMessage'>");
+					const msgCreate = $("<span class = 'msgCreate'>");
+					frName.html(data.memberName);
+					msgCreate.html(data.message[i].createDate);
+					li.addClass("frChatting");
+					frMessage.append(divImg);
+					frMessage.html(data.message[i].message);
+					li.append(frName);
+					li.append(frMessage);
+					li.append(msgCreate);
+					ul.append(frName);
+					ul.append(li);
+
+
+
+
+
+				}
+
+			}
+
+			$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);
 		},
 
 
@@ -137,10 +196,6 @@ function searchChatting(e, chatNo, frNo) { // 친구 클릭시 동작
 
 	$(".chatContent").remove();
 	// 선택후 
-	const msgbtn = $('<svg  onclick = "msgUp()"class = "msgbtn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.379,19.1403 L12.108,12.5993 L19.467,5.2413 L15.379,19.1403 Z M4.86,8.6213 L18.76,4.5343 L11.401,11.8923 L4.86,8.6213 Z M3.359,8.0213 C2.923,8.1493 2.87,8.7443 3.276,8.9483 L11.128,12.8733 L15.053,20.7243 C15.256,21.1303 15.852,21.0773 15.98,20.6413 L20.98,3.6413 C21.091,3.2623 20.739,2.9093 20.359,3.0213 L3.359,8.0213 Z"/></svg>');
-	const imgbtn = $('<svg onclick = "imgUp()"  aria-label="사진 또는 동영상 추가" class="_8-yf5 imgbtn" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M6.549 5.013A1.557 1.557 0 108.106 6.57a1.557 1.557 0 00-1.557-1.557z" fill-rule="evenodd"></path><path d="M2 18.605l3.901-3.9a.908.908 0 011.284 0l2.807 2.806a.908.908 0 001.283 0l5.534-5.534a.908.908 0 011.283 0l3.905 3.905" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M18.44 2.004A3.56 3.56 0 0122 5.564h0v12.873a3.56 3.56 0 01-3.56 3.56H5.568a3.56 3.56 0 01-3.56-3.56V5.563a3.56 3.56 0 013.56-3.56z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>');
-
-
 
 
 
@@ -225,10 +280,12 @@ function loadImg(input, num) {
 			// e.target.result
 			// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
 
+			function sendfile() {
+
+			}
 
 
-
-		const divImg = $("<div class = 'chatImg'>")
+			const divImg = $("<div class = 'chatImg'>")
 			const img = $("<img>");
 			divImg.append(img);
 			img.attr("src", e.target.result);
@@ -245,27 +302,27 @@ function loadImg(input, num) {
 			li.append(msgCreate);
 			ul.append(myName);
 			ul.append(li);
-		/*
-			 const divImg = $("<div class = 'chatImg'>")
-			 const img = $("<img>");
-			 divImg.append(img);
-			 img.attr("src", e.target.result);
-			 const li = $("<li>")
-			 const ul = $("#chattingwrap")
-			 const frName = $("<span class = 'frName'>");
-			 const frMessage =  $("<span class = 'frMessage'>");
-			 const msgCreate = $("<span class = 'msgCreate'>");
-			 frName.html("상대방이름");
-			 msgCreate.html("msg.create");
-			 li.addClass("frChatting");
-			 frMessage.append(divImg);
-			 li.append(frName);
-			 li.append(frMessage);
-			 li.append(msgCreate);
-			 ul.append(frName);
-			 ul.append(li);
- 
- */
+			/*
+				 const divImg = $("<div class = 'chatImg'>")
+				 const img = $("<img>");
+				 divImg.append(img);
+				 img.attr("src", e.target.result);
+				 const li = $("<li>")
+				 const ul = $("#chattingwrap")
+				 const frName = $("<span class = 'frName'>");
+				 const frMessage =  $("<span class = 'frMessage'>");
+				 const msgCreate = $("<span class = 'msgCreate'>");
+				 frName.html("상대방이름");
+				 msgCreate.html("msg.create");
+				 li.addClass("frChatting");
+				 frMessage.append(divImg);
+				 li.append(frName);
+				 li.append(frMessage);
+				 li.append(msgCreate);
+				 ul.append(frName);
+				 ul.append(li);
+	 
+	 */
 
 
 
@@ -278,7 +335,6 @@ function loadImg(input, num) {
 		}
 
 	} else { // 취소 클릭시
-		console.log("취소클릭함");
 
 		$(input).before(fileClone[num].clone()); // 원본 복제본의 복제본을 만들어 삽입
 		$(input).remove(); // 원본 삭제
@@ -302,6 +358,18 @@ function loadImg(input, num) {
 
 }
 
+// 메세지 버튼 클릭시 동작
+$('.msgbtn').click(function() {
+
+
+})
+
+
+
+
+
+
+
 // 메세지 보내기 실행
 // XSS 처리함수
 function XSS(message) {
@@ -312,64 +380,31 @@ function XSS(message) {
 	str = str.replace(/</g, "&lt;");
 	str = str.replace(/>/g, "&gt;");
 	str = str.replace(/"/g, "&quot;");
-
 	return str;
 };
 
 
-/*   chattingSock.onmessage = function(e){
-	// e.data : 전달받은 메세지
-	console.log(JSON.parse(e.data))
-	// 메소드를 통해 전달받은 객체값을 JSON객체로 변환해서 obj 변수에 저장.
-   const obj = JSON.parse(e.data);
 
 
-   const li = $("<li>");
-   const p = $("<p class='chat'>");
-   const span = $("<span class='chatDate'>");
-   span.html(obj.createDate);
 
-	 // const chat = obj.message.replace(/\\n/g, "<br>");
-	const i = $("<i class='fas fa-times messageDelete' onclick='deletMessage(this)'>");
- 
-	 // XSS , 개행문자 처리
-	 if(obj.message != undefined){// 메세지가 있는 경우
-
-		 let chat = XSS(obj.message);
-		 chat = chat.replaceAll("\n","<br>")
-		 console.log(chat);
-		 p.html(chat);
-		}else{// 메세지가 없는 경우(나가기)
-			p.html("<b>"+obj.memberName+"님이 나가셨습니다.</b>")
-		}
-
-   if (obj.memberNo == memberNo) {
-	  li.addClass("myChat");
-	  li.append(span);
-	  li.append(p);
-   } else {
-	  li.html("<b>" + obj.memberName + "</b><br>");
-	  li.append(p);
-	  li.append(span);
-   }
-
-
-   $(".display-chatting").append(li);
-
-   // 채팅 입력 시 스크롤을 가장 아래로 내리기
-   $(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);
-}
- */
-
-// 메세지 버튼 클릭시 동작
-$('.msgbtn').click(function() {
-	console.log("1");
-
-
-})
 function msgUp() { //메세지 보내기
-
-	/*   const li = $("<li>")
+	const message = $("#inputChatting").val();
+	const chatRoomNo = $(".chatRoomNo").val();
+	if (message.trim().length == 0) {
+		alert("내용을 입력하세요")
+	} else {
+		const obj = {};
+		obj.memberNo = memberNo;
+		obj.memberName = memberName;
+		obj.message = message;
+		obj.chatRoomNo = chatRoomNo;
+		obj.targetNo = targetNo;
+		chattingSock.send(JSON.stringify(obj));
+		$("#inputChatting").val("");
+	}
+	/*   
+	
+	  const li = $("<li>")
 	  const ul = $("#chattingwrap")
 	  const text = $("#inputChatting").val();
 	  const myMessage =  $("<span class = 'myMessage'>");
@@ -383,33 +418,109 @@ function msgUp() { //메세지 보내기
 	  $("#inputChatting").val("");
 	 */
 
-	const li = $("<li>")
-	const ul = $("#chattingwrap")
-	const text = $("#inputChatting").val();
-	const frName = $("<span class = 'frName'>");
-	const frMessage = $("<span class = 'frMessage'>");
-	const msgCreate = $("<span class = 'msgCreate'>");
+	/*	const li = $("<li>")
+		const ul = $("#chattingwrap")
+		const text = $("#inputChatting").val();
+		const frName = $("<span class = 'frName'>");
+		const frMessage = $("<span class = 'frMessage'>");
+		const msgCreate = $("<span class = 'msgCreate'>");
+	
+	
+			frName.html("상대방이름");
+			msgCreate.html("msg.create");
+			li.addClass("frChatting");
+			frMessage.text(text)
+			li.append(frName);
+			li.append(frMessage);
+			li.append(msgCreate);
+			ul.append(frName);
+			ul.append(li);*/
 
-	if (text.trim().length == 0) {
-		alert("내용을 입력해주세요");
-	} else {
-
-
-
-
-
-		frName.html("상대방이름");
-		msgCreate.html("msg.create");
-		li.addClass("frChatting");
-		frMessage.text(text)
-		li.append(frName);
-		li.append(frMessage);
-		li.append(msgCreate);
-		ul.append(frName);
-		ul.append(li);
-
-		/*  const frImg = $("<img class = 'frImg' src = 'img/라라랜드.jpg'>")
-		frName.append(frImg); */
-	}
-	$("#inputChatting").val("");
+	/*  const frImg = $("<img class = 'frImg' src = 'img/라라랜드.jpg'>")
+	frName.append(frImg); */
 };
+
+
+
+chattingSock.onmessage = function(e) {
+	// e.data : 전달받은 메세지
+	// 메소드를 통해 전달받은 객체값을 JSON객체로 변환해서 obj 변수에 저장.
+	const obj = JSON.parse(e.data);
+	console.log("소켓 응답 : " + obj.message);
+
+	
+
+
+	if (obj.message != undefined) {// 메세지가 있는 경우
+
+		let chat = XSS(obj.message);
+		chat = chat.replaceAll("\n", "<br>")
+		console.log("chat" +chat);
+		if (memberNo == obj.memberNo) {
+
+			const ul = $("#chattingwrap")
+			
+			const li = $("<li>")
+			li.addClass("myChatting");
+			
+			const myMessage = $("<span class = 'myMessage'>");
+			myMessage.text(chat);
+			
+			const msgCreate = $("<span class = 'msgCreate'>");
+			msgCreate.html(obj.createDate);
+			
+			li.append(myMessage);
+			li.append(msgCreate);
+			ul.append(li);
+			
+
+		} else {
+			const ul = $("#chattingwrap")
+			
+			const li = $("<li>")
+			li.addClass("frChatting");
+			
+			const frName = $("<span class = 'frName'>");
+			frName.html(obj.memberName);
+
+			const frMessage = $("<span class = 'frMessage'>");
+			frMessage.html(chat)
+
+			const msgCreate = $("<span class = 'msgCreate'>");
+			msgCreate.html(obj.createDate);
+
+			li.append(frName);
+			li.append(frMessage);
+			li.append(msgCreate);
+			ul.append(frName);
+			ul.append(li);
+
+		}
+
+
+
+
+
+
+	} else {// 메세지가 없는 경우(나가기)
+
+	}
+
+
+
+
+
+
+
+
+
+	$(".display-chatting").scrollTop($(".display-chatting")[0].scrollHeight);
+}
+
+
+
+
+
+
+
+

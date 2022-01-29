@@ -41,4 +41,14 @@ public class ChatDAO {
 	public List<ChatMessage> searchMessage(String chatNo) {
 		return sqlSession.selectList("chatMapper.searchMessage",chatNo);
 	}
+
+
+	/** 채팅방 메세지 삽입
+	 * @param cm
+	 * @return result
+	 */
+	public int insertMessage(ChatMessage cm) {
+		
+		return sqlSession.insert("chatMapper.insertMessage" , cm);
+	}
 }

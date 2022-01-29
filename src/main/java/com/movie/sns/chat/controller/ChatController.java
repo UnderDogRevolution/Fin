@@ -22,7 +22,7 @@ import com.movie.sns.member.model.vo.Member;
 
 
 @Controller
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "chatNo"})
 @RequestMapping("/chat/*")
 public class ChatController {
 	
@@ -40,10 +40,8 @@ public class ChatController {
 				,ChatRoom room) {
 		System.out.println(loginMember.getMemberNo());
 		int memberNo = loginMember.getMemberNo();
-		System.out.print(memberNo);
 		
 		  List<ChatRoom> chatRoomList = service.chatRoomList(memberNo);
-		  System.out.println(chatRoomList); 
 		  model.addAttribute("chatRoomList",chatRoomList); 
 		 
 		
@@ -60,9 +58,9 @@ public class ChatController {
 	// 채팅방 입장 -> 사실상 해당 메세지 조회\
 	@ResponseBody
 	@RequestMapping(value="join", method=RequestMethod.GET)
-	public String searchJoin(String chatNo , String memberNo ,String frNo ) {
+	public String searchJoin(String chatNo , String memberNo ,String frNo , Model model) {
 		HashMap<String, Object>  result = new HashMap<String, Object>(); 
-		System.out.println("이건 채팅번호다"+chatNo); //채팅방 번호
+		System.out.println("이건 채팅방번호다"+chatNo); //채팅방 번호
 		System.out.println("내번호" +memberNo);// 회원번호 일단가져옴 loginMemberNo 에도 있음 ㅋ
 		System.out.println("나말고 나랑대화하는아이 번호" + frNo);
 		int friendNo = Integer.parseInt(frNo);
@@ -72,6 +70,7 @@ public class ChatController {
 		List<ChatMessage> message = service.searchMessage(chatNo);
 		// 내가아닌 참여자 정보 가져올려면 memberNo 필요 
 		// 해당 방 상대회원조회
+		model.addAttribute("chatNo" , chatNo);
 		System.out.println("해당 방 메세지다" + message);	
 		//List<ChatMessage> message = service.searchMessage(chatNo , memberNo);
 		result.put("memberNo" , member.getMemberNo());

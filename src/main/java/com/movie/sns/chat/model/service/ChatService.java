@@ -20,4 +20,8 @@ public interface ChatService {
 	
 	List<ChatMessage> searchMessage(String chatNo);
 
+	
+	// 채팅내용 삽입
+	int insertMessage(ChatMessage cm);
+
 }

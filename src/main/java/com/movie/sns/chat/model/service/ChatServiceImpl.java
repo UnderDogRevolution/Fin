@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.movie.sns.chat.model.dao.ChatDAO;
 import com.movie.sns.chat.model.vo.ChatMessage;
 import com.movie.sns.chat.model.vo.ChatRoom;
+import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 
 @Service
@@ -42,6 +43,19 @@ public class ChatServiceImpl implements ChatService{
 
 		
 		return dao.searchMessage(chatNo);
+	}
+
+	
+	
+	/** 채팅 메세지 삽입
+	 * 개행문자 처리
+	 */
+	@Override
+	public int insertMessage(ChatMessage cm) {
+		cm.setMessage(Util.XSS(cm.getMessage()));
+		cm.setMessage(Util.changeNewLine(cm.getMessage()));
+		
+		return dao.insertMessage(cm);
 	}
 	
 	

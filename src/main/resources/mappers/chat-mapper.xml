@@ -94,5 +94,16 @@
  	WHERE CHAT_ROOM_NO = ${chatNo}
  	ORDER BY CM_NO
  	</select>
+ 	
+ 	
+ 	<!-- 채팅방 메세지 삽입  -->
+ 	<insert id="insertMessage">
+ 	    INSERT INTO CHAT_MESSAGE VALUES
+        (SEQ_CM_NO.NEXTVAL, #{message} ,SYSDATE , #{chatRoomNo},#{memberNo})
+    
+ 	
+ 	</insert>
+ 	
+ 	
 
 </mapper>
