@@ -73,16 +73,6 @@ public class MemberDAO2 {
 		return sqlSession.delete("memberMapper.deleteImages", map);
 	}
 
-	
-	/** 프로필 이미지 수정
-	 * @param img
-	 * @return result
-	 */
-	public int updateImage(Image img) {
-		return sqlSession.update("memberMapper.updateBoardImage", img);
-	}
-
-	
 	/** 프로필 이미지 삽입
 	 * @param img
 	 * @return result
@@ -91,6 +81,14 @@ public class MemberDAO2 {
 		return sqlSession.insert("memberMapper.insertImage", img);
 	}
 	
+	/** 프로필 이미지 수정
+	 * @param img
+	 * @return result
+	 */
+	public int updateImage(Image img) {
+		return sqlSession.update("memberMapper.updateImage", img);
+	}
+		
 	/** 이미지 파일명 목록 조회
 	 * @return dbImgList
 	 */ 

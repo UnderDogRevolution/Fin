@@ -151,6 +151,9 @@
       margin-right: 30%;
       margin-bottom: 2%;
     }
+    
+   
+    
   </style>
 </head>
 
@@ -165,7 +168,7 @@
 
     </div>
 
-    <form method="POST" action="update" onsubmit="return memberUpdateValidate();">
+    <form method="POST" action="update" enctype="multipart/form-data" onsubmit="return memberUpdateValidate();">
       <div class="contents"><br>
 
         <div class="row-mb-3">
@@ -174,19 +177,43 @@
             수정</label>
         </div>
 
-        <img src="${img0}" class="img-thumbnail" onerror="this.onerror=null; this.src='https://cdn-icons.flaticon.com/png/512/4735/premium/4735316.png?token=exp=1643178313~hmac=c4fe7cba3801ff11a640a71814fd7293'"><br>
-        <label for="exampleFormControlInput1" class="form-label"></label>
+
+			<%-- imgList에 존재하는 이미지의 레벨에 따라 변수 선언
+				<c:forEach items="${member.imgList}" var="img">
+					<c:choose>
+						
+						<c:when test="${img.imgLevel == 0 }">
+							<c:set var="img0" value="${contextPath}${img.imgPath}${img.imgName}"/>
+						</c:when>
+						
+					</c:choose>
+				</c:forEach>
+
+			<!-- 이미지 출력 -->
+				<div class="form-inline mb-2">
+					<div class="img-thumbnail">
+						<img src="${img0}">
+					</div>
+				</div> --%>
+
+
+
+		<!-- 프로필 사진 업로드 -->
+        <div class="input-group mb-3">
+        <img src="${img0}" class="img-thumbnail" id="inputGroupFile01" style="border-radius:50%" onerror="this.onerror=null; 
+        this.src='../resources/images/member/user.png'"><br>
+        </div>
         <br>
 
-        <div class="input-group mb-3">
-          <input type="file" class="imgform-control" id="inputGroupFile02">
+		<div class="input-group mb-3">
+          <input type="file" class="imgform-control" id="inputGroupFile02" name="profile">
           <label class="input-file-text" for="inputGroupFile02">사진 등록</label>
         </div><br>
 
         <fieldset disabled>
           <div class="row-mb-3-con">
             <label for="currentName" class="col-form-label text-end">이름</label>
-            <input type="text" id="currentName" class="col-inputform" placeholder="${loginMember.memberName}">
+            <input type="text" id="currentName" class="col-inputform" placeholder="${loginMember.memberName}" required>
           </div>
         </fieldset><br>
 
@@ -209,8 +236,8 @@
 
         <button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
       </div>
-  </div>
   </form>
+  </div>
   
   
   <script src="${contextPath}/resources/js/member/memberUpdate.js"></script>

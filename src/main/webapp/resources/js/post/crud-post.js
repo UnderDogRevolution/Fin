@@ -16,7 +16,7 @@ function loadImg(input, num){
 
 		// if(deleteImages.indexOf(num) != -1){
 		// 	deleteImages.splice(deleteImages.indexOf(num), 1)
-		// }
+		// }A
 
 		const reader = new FileReader()
 
@@ -196,20 +196,22 @@ function searchGenre(type, id){
 // Server와의 비동기 요청 방식을 기능한다.
 input.addEventListener("input", async function(){
     search = this.value;
-    console.log(search);
+    // console.log(search); // 영화 검색 인풋 내용
     await fetchMovie(page);
 });
 //API 서버에서 데이터 가져오는 함수
 
-
+let movie;
 
 async function fetchMovie(page){
     searchResult.innerHTML = "";
+    let id;
     if(search.trim().length>0){
         const multiSearch = "https://api.themoviedb.org/3/search/multi?api_key="+key+"&language=ko-KR&query="+search+"&page="+page
         const result = await fetch(multiSearch).then(res => res.json()) //await을 안하면 promise 객체였다가 await을 하니 배열로 반환됐다.
         for(const items of result.results){
-            if(items.title != null){
+            if(items.title != null && items.media_type == 'movie'){
+                id = items.id
                 const div1 = document.createElement("div");
                 const div2 = document.createElement("div");
                 const div3 = document.createElement("div");
@@ -220,7 +222,7 @@ async function fetchMovie(page){
                 div2.appendChild(img)
                 
                 div3.className = "search-result-content";
-                div3.innerHTML = items.title + "<br> ("+items.release_date+") " + searchGenre(items.media_type, items.genre_ids[0]);
+                div3.innerHTML = items.title + "<br> ("+items.release_date+") " + searchGenre(items.media_type, items.genre_ids[0]) +"<span style='display:none'>"+id+"</span>";
     
                 div1.appendChild(div2);
                 div1.appendChild(div3);
@@ -229,110 +231,60 @@ async function fetchMovie(page){
             
 
         }
-    }
 
+        // const directorSearch = "https://api.themoviedb.org/3/movie/"+id+"/credits?api_key="+key+"&language=ko-KR"
+        // const credits = await fetch(directorSearch).then(res => res.json())
+        // for(const items of credits.crew){
+        //     if(items.job == 'Director'){
+        //         console.log(items.name);
+        //     }
+        // }
+    }
+    // 글 클릭하면 이미지 클릭되게 하면 될 듯?
     if(document.getElementsByClassName("search-result-img")){
         const resultImg = document.querySelectorAll(".search-result-img > img")
         for(const items of resultImg){
-            items.addEventListener("click", function(e){
-
+            items.addEventListener("click", async function(e){
+                
                 const img = document.querySelector(".post-img > img");
                 img.setAttribute("src", this.getAttribute("src"));
-
+               
                 reviewTitle.innerHTML = ""
                 Write();
-                reviewTitle.style.display = "block";	
+                reviewTitle.style.display = "flex";	
             	starInput.style.display = "flex";
                 searchMovie.style.display = "inline";
                 postSubmit.style.display = "inline";
                 const content = this.parentElement.nextElementSibling.innerHTML;
-                let title = content.substring(content.indexOf('('), -1);
+                let title = content.substring(content.indexOf('<br'), -1);
                 // const date =  content.substring(content.indexOf('('), content.indexOf(')')+1);
-                let genre = content.substring(content.indexOf('>')+1);
-                title = title.replaceAll("<br>", "");
+                let genre = content.substring(content.indexOf(')')+1,content.indexOf('<s')).trim();
+                let id = content.substring(content.indexOf('\">')+2, content.indexOf('</'));
+                let date = content.substring(content.indexOf('(')+1, content.indexOf(')'));
+                let director;
+                const directorSearch = "https://api.themoviedb.org/3/movie/"+id+"/credits?api_key="+key+"&language=ko-KR"
+                const credits = await fetch(directorSearch).then(res => res.json())
+                for(const items of credits.crew){
+                    if(items.job == 'Director'){
+                        console.log(items.name);
+                        director = items.name;
+                    }
+                }
+                reviewTitle.innerHTML = "<span style='font-size: 20px; '>"+title+ "  </span>" + "<span style='margin-left: 5px'> ("+date+")"+ genre + "<br>" + director + "</span>";
 
-                reviewTitle.innerHTML = title.trim() + "<span>"+ genre + "</span>";
+                movie = {}
+                movie.poster = this.getAttribute("src");
+                movie.movieNo = id;
+                movie.movieTitle = title;
+                movie.movieDate = date;
+                movie.movieGenre = genre;
+                movie.director = director; 
+
                 
             })
         }
     }
 }
-/* async function fetchMovie(page){
-    if(search.trim().length >0){
-        const multiSearch = "https://api.themoviedb.org/3/search/multi?api_key="+key+"&language=ko-KR&query="+search+"&page="+page
-        await fetch(multiSearch)
-        .then(res => res.json()) // response 응답 객체를 json객체로 변환
-        .then(function(res){
-            searchResult = []
-            searchContent = {}
-            div.innerHTML = ""
-            const movies = res.results
-            // 중첩 ajax(fetch chaining)를 지양하자 성능 저하를 초래할 수 있다.
-            for(const items of movies){
-
-                    if(items.title != null){
-                        // div.innerHTML += items.title + "(" + items.release_date + ")" + "<br>"
-                        searchContent = {"title" : items.title, "date" : items.release_date, "movie_id" : items.id }
-                        searchResult.push(searchContent)
-                        // console.log(searchResult);
-                    
-                    }
-                    // // div.innerHTML += "<img src='"+ base_url + items.poster_path +"'  >"
-                    // // div.innerHTML += "<img src='"+ base_url + items.backdrop_path +"'  >"
-            }
-        })
-        .catch(erro => console.log(erro));
-    }
-    let i = 0
-    for(const movieId of searchResult){
-        // ( async function(movieId){
-            if(movieId.movie_id != null){
-                await fetch("https://api.themoviedb.org/3/movie/"+movieId.movie_id+"/credits?api_key="+key+"&language=ko-KR")
-                .then(res => res.json())
-                .then(async function(res){
-                    movieId.director_id = await res.crew[1].id
-                    searchResult[i] = await movieId;
-                })
-                .catch(erro => console.log(erro))
-                i++
-            }
-        // })(movieId)
-    }
-
-    for(let j=0; j<searchResult.length; j++){
-        if(j > i){
-            await searchResult.pop()
-        }
-    }
-    i=0
-    console.log(searchResult);
-    for(let j=0; j < searchResult.length; j++){
-        // (async function(j){
-            console.log(searchResult[j]);
-            console.log(searchResult[j].director_id);
-            if(searchResult[j].director_id != null){
-                await fetch("https://api.themoviedb.org/3/person/"+searchResult[j].director_id+"?api_key="+key+"&language=ko-KR")
-                .then(res => res.json())
-                .then(function(res){
-                    console.log(res);
-                    // console.log(res.also_known_as[0]);
-                    // if(res.also_known_as[0] != null ){
-                    //     items.director_name = res.also_known_as[0]
-                    //     searchResult[i] = items
-                    // }
-                    // i++
-                })
-                .catch(erro => console.log(erro))
-            }
-        // })(j)
-    }
-                        
-
-
-}; */
-
-// 감독이랑 배우를 데리고 오고자 한다.
-// 영화를 검색하면
 
 const inputTextarea = document.querySelectorAll(".insert-container-textarea > textarea")[0];
 const inputDiv = document.querySelectorAll(".insert-container-textarea > div")[0];
@@ -476,8 +428,10 @@ const config = {
 observer.observe(inputDiv, config);
 //observer.disconnect(); //테스트 중에 켜있으면 확인이 안된다.
 
-
+// 게시글 삽입
 function postValidate(){
+    
+
     const postVO = {}
     const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
     const tagArr = []
@@ -486,15 +440,31 @@ function postValidate(){
             tagArr.push(items.innerText.replace('#', ""));
         }
     }
+
+    const rating = document.getElementsByClassName("rating-value")[0].innerText
+
+
     postVO.postContent = inputTextarea.value;
     postVO.tagArr = tagArr;
+    movie.rating = rating;
+    postVO.movie = movie;
     console.log(postVO);
+
+    // image 영역
+    const formData = new FormData();
+    const image = document.getElementsByClassName("files")[0]
+    if(image.files.length > 0){
+        formData.append('image', image.files[0])
+    }
+    formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
+    console.log(formData);
     $.ajax({ 
         url: contextPath + "/post/insert",
-        data: JSON.stringify(postVO),
-        contentType: "application/json",
         type: "POST",
-        dataType : "JSON",
+        data: formData,
+        contentType: false, // multipart/form-data로 전송하기위해 필요
+        processData : false, // formData를 string으로 변환하지 않는다.
+        enctype : 'multipart/form-data',
         async : false,
         success: function (result) {
             if(result >0){
@@ -510,5 +480,14 @@ function postValidate(){
             console.log(error);
         }
 
+    })
+}
+
+// star rating
+const starRadio = document.querySelectorAll(".rating > input")
+const ratingValue = document.getElementsByClassName("rating-value")[0]
+for(const items of starRadio){
+    items.addEventListener("click", function(){
+        ratingValue.innerText = this.value;
     })
 }

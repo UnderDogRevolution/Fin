@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
+import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Tag;
 
 @Repository
@@ -26,21 +28,38 @@ public class PostDAO {
 		return sqlSession.selectList("postMapper.selectUser", tagName);
 	}
 
-	public int insertPost(Post post, List<String> tagArr) {
-		int result = sqlSession.insert("postMapper.insertPost", post);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("postNo", post.getPostNo());
-		for(String tagName : tagArr) {
-			map.put("tagName", tagName);
-			result = sqlSession.selectOne("postMapper.dupCheckTag", map);
-			if(result == 1) { //중복되는 태그가 있는 경우
-				result = sqlSession.insert("postMapper.insertPostTag", map);
-			}else if(result == 0) { //중복되는 태그가 없는 경우
-				result = sqlSession.insert("postMapper.insertTag", map);
-				result = sqlSession.insert("postMapper.insertPostTag", map);
-			}
-		}
-		return result;
+	public int insertPost(Post post) {
+		return sqlSession.insert("postMapper.insertPost", post);
 	}
+
+	public int dupCheckTag(Map<String, Object> map) {
+		return sqlSession.selectOne("postMapper.dupCheckTag", map);
+	}
+
+	public int insertPostTag(Map<String, Object> map) {
+		return sqlSession.insert("postMapper.insertPostTag", map);
+	}
+
+	public int inserTag(Map<String, Object> map) {
+		return sqlSession.insert("postMapper.insertTag", map);
+	}
+
+	public int dupCheckMovie(Movie movie) {
+		return sqlSession.selectOne("postMapper.dupCheckMovie", movie);
+	}
+	
+	public int insertMovie(Movie movie) {
+		return sqlSession.insert("postMapper.insertMovie", movie);
+	}
+
+	public int insertRating(Movie movie) {
+		return sqlSession.insert("postMapper.insertRating", movie);
+	}
+
+	public int insertImgLIst(List<PostImage> imgList) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("postMapper.insertImgList", imgList);
+	}
+
 
 }

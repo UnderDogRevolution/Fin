@@ -5,11 +5,10 @@ public class Image {
 	private String imgPath; //이미지 경로
 	private String imgName;	//이미지 이름
 	private String imgOriginal;	//이미지 원본
-	private int imgLevel;	//이미지 위치 지정값 저장
+	private int imgLevel;	//이미지 레벨
 	private int memberNo; //사용자 번호
 	
-	public Image() {
-	}
+	public Image() {}
 
 	public int getImgNo() {
 		return imgNo;
@@ -64,6 +63,6 @@ public class Image {
 		return "Image [imgNo=" + imgNo + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgOriginal="
 				+ imgOriginal + ", imgLevel=" + imgLevel + ", memberNo=" + memberNo + "]";
 	}
-	
+
 	
 }

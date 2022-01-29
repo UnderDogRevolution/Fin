@@ -176,10 +176,10 @@
     color:  white;
     padding-left: 10px;
     flex-basis: 50px;
-    line-height: 50px;
+    align-items: center;
 }
 
-.modal-review-title > span{
+.modal-review-title > span:nth-child(2){
     opacity: 0.5;
     font-size: 13px;
 }
@@ -199,7 +199,7 @@
 .container-content-count{
     margin-left: auto;
 }
-
+/* 조회 페이지 별 */
 .rating-star{
     position: relative;
     width: 10px;
@@ -223,4 +223,46 @@
 
 html::-webkit-scrollbar{
     display: none;
+}
+
+/* 리뷰 페이지 별 */
+.rating{
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 20px;
+    align-items: center;
+}
+.rating input{
+    position: relative;
+    width: 15px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    appearance: none;
+    overflow : hidden;
+    margin-left: 0;
+    margin-right: 0;
+}
+.rating input::before{
+    content: '\f005';
+    font-family: fontAwesome;
+    position: absolute;
+    font-size:  25px;
+    left: 1px;
+    color: #030b0f;
+    transition:  0.3s;
+}
+.rating input:nth-child(2n+1)::before{
+    right: 1px;
+    left: initial;
+}
+.rating input:hover ~ input::before,
+.rating input:hover::before,
+.rating input:checked ~ input::before,
+.rating input:checked::before
+{
+    color: rgb(233, 210, 0);
 }

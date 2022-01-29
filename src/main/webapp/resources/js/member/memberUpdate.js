@@ -6,91 +6,86 @@ const updateCheckObj = {
 
 // 이메일 유효성 검사 + 중복 확인
 // 이메일 유효성 검사
-$("#userEmail").on("input", function() {
+$("#memberEmail").on("input", function(){
 
-	const userEmail = $(this).val();
-	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
-	const checkInput = $(this).next();
+  const memberEmail = $(this).val();
+  const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
+  const checkInput = $(this).next();
+  const inputEmail = $(this);
 
-	// 값이 없는 경우
-	if (userEmail.length == 0) {
-		checkInput.html("");
-		$(this).removeAttr("class", "unique");
-		$(this).removeAttr("class", "duplication");
-		$("#emailCheck-btn").attr("disabled", true);
-		signUpCheckObj.email = false;
-	}
-	else if (regExp.test(userEmail)) {
+  // 값이 없는 경우
+  if(memberEmail.length == 0){
+    checkInput.html("");
+    $(this).removeAttr("class", "unique");
+    $(this).removeAttr("class", "duplication");
+    $("#emailCheck-btn").attr("disabled", true);
+    signUpCheckObj.email = false;
+  }
+  else if(regExp.test(memberEmail)){
 
-		checkInput.html(validIcon);
+    checkInput.html(validIcon);
 
-		// ************* ajax 만들면 지울 부분 ******************
-		$(this).removeAttr("class", "duplication");
-		$(this).addClass("unique");
-		$("#emailCheck-btn").removeAttr("disabled");
-		signUpCheckObj.email = true;
+    $.ajax({ 
 
-		/*
-	
-		$.ajax({ 
-	
-		  url : "emailDupCheck",                         
-		  data : {"userEmail" : userEmail},               
-		  type : "GET",                             
-	
-		  success : function(result){
-	
-			//console.log(result);
-	
-			if(result  ==  0){ // 이메일 사용 가능
-	
-			  $(this).removeAttr("class", "duplication");
-			  $(this).addClass("unique");
-			  signUpCheckObj.email = true;
-		  
-			}else{ // 이메일 중복인
-	
-			  $(this).removeAttr("class", "unique");
-			  $(this).addClass("duplication");
-			  signUpCheckObj.email = false;
-	
-			}
-	
-		  },
-	
-		  error : function(request, status, error){
-			  
-			// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
-			if( request.status == 404 ){
-			  console.log("ajax 요청 주소가 올바르지 않습니다.");
-	
-			} else if( request.status == 500){
-				console.log("서버 내부 에러 발생");
-				console.log(request.responseText);
-			}
-		 
-		  }
-	
-		});
-	
-		*/
+      url : "emailDupCheck",                         
+      data : {"memberEmail" : memberEmail},               
+      type : "GET",                             
 
-	}
-	// 유효성 조건 불만족
-	else {
-		checkInput.html(invalidIcon);
-		$("#emailCheck-btn").attr("disabled", true);
-		signUpCheckObj.email = false;
-	}
+      success : function(result){
 
-	signUpValidate();
+        console.log(result);
+
+        if(result  ==  0){ // 이메일 사용 가능
+
+          inputEmail.removeAttr("class", "duplication");
+          inputEmail.addClass("unique");
+          $("#emailCheck-btn").removeAttr("disabled");
+          signUpCheckObj.email = true;
+      
+        }else{ // 이메일 중복인 경우
+
+          inputEmail.removeAttr("class", "unique");
+          inputEmail.addClass("duplication");
+          $("#emailCheck-btn").attr("disabled", true);
+          signUpCheckObj.email = false;
+
+        }
+
+      },
+
+      error : function(request, status, error){
+          
+        // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+        if( request.status == 404 ){
+          console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+        } else if( request.status == 500){
+            console.log("서버 내부 에러 발생");
+            console.log(request.responseText);
+        }
+     
+      }
+
+    });
+
+    
+
+  }
+  // 유효성 조건 불만족
+  else{
+    checkInput.html(invalidIcon);
+    $("#emailCheck-btn").attr("disabled", true);
+    signUpCheckObj.email = false;
+  }
+
+  signUpValidate();
 
 });
 
 
 // 닉네임 유효성 검사
 // - 한글,영어,숫자 2자 ~ 20자
-$("#nickName").on("input", function(){
+$("#memberNickName").on("input", function(){
 
     const inputNickName = $(this).val(); // 입력 받은 닉네임
     const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
@@ -108,7 +103,7 @@ $("#nickName").on("input", function(){
     }else{ // 유효하지 않은 경우
         $("#checkNickName").text("유효하지 않은 닉네임 입니다.").css("color", "red");
 
-        signUpCheckObj.nickName = false;
+        signUpCheckObj.memberNickName = false;
     }
 });
 

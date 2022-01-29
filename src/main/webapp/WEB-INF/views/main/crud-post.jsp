@@ -75,18 +75,22 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                         
                         <!-- <div></div> -->
                     </div>
-                <div class="insert-rating" style="display: flex; padding-right: 10px; padding-left: 10px;">
+                <div class="insert-rating" style="display: flex; align-items: center; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
-                        <input type="radio" name="html">
+                        <input type="radio" name="html" value="0.5">
+                        <input type="radio" name="html" value="1">
+                        <input type="radio" name="html" value="1.5">
+                        <input type="radio" name="html" value="2">
+                        <input type="radio" name="html" value="2.5">
+                        <input type="radio" name="html" value="3">
+                        <input type="radio" name="html" value="3.5">
+                        <input type="radio" name="html" value="4">
+                        <input type="radio" name="html" value="4.5">
+                        <input type="radio" name="html" value="5">
+                        
+                    </div>
+                    <div class="rating-value" style="font-size: 20px;">
+                        
                     </div>
                     <div class="container-content-count">
                         <span class="content-count">0</span>
@@ -110,7 +114,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
     
 </div>
 <div id="fileArea">
-    <input type="file" name="images" onchange="loadImg(this,0)"> 
+    <input class="files" type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
 <script>
     const contextPath = "${contextPath}";
