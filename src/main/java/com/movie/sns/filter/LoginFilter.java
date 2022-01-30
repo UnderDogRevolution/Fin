@@ -1,4 +1,4 @@
-package com.movie.sns.common;
+package com.movie.sns.filter;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -25,6 +25,8 @@ public class LoginFilter implements Filter{
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("필터 실행");
 	}
+	
+	
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -48,14 +50,20 @@ public class LoginFilter implements Filter{
 			// 비회원 + /member/* 인 경우
 			if(arr[0].equals("member")) {
 				
-				// 비회원 + /member/login , /member/signUp , member/findPw 인 경우
-				if(arr[1].equals("login") || arr[1].equals("signUp") ||arr[1].equals("findPw")) {
-					chain.doFilter(request, response);
-				}else {
-					// 그 외에는 모두 로그인페이지로
+				// 회원만 이용 가능한 주소 값
+				if(		arr[1].equals("myPage") || 
+						arr[1].equals("update") || 
+						arr[1].equals("updatePw") || 
+						arr[1].equals("secession") || 
+						arr[1].equals("ask") 
+					) {
 					System.out.println("[필터] : 잘못된 접근입니다. 로그인페이지로 이동합니다.");
 					resp.sendRedirect(req.getContextPath() + "/member/login");
+				}else {
+					chain.doFilter(request, response);
 				}
+				
+				
 				
 			// 비회원 + /chat/* 인 경우
 			}else if(arr[0].equals("chat")) {
@@ -89,16 +97,10 @@ public class LoginFilter implements Filter{
 			
 		}
 		
-//			// 피드 홈으로 보내도록 주소 변경하기
-//			System.out.println("[로그인 필터 적용] 피드 페이지로 이동");
-//			resp.sendRedirect(req.getContextPath()+"/main");
-//			
-//			// 로그인 페이지로 보내버리기 + sweet alert 가능하면 사용
-//			System.out.println("[로그인 필터 적용] 로그인 페이지로 이동");
-//			resp.sendRedirect(req.getContextPath()+"/member/login");
-		
 	}
 
+	
+	
 	public void destroy() {
 		
 	}

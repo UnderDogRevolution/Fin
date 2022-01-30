@@ -54,23 +54,12 @@ function findPwValidate(){
 
   if(findPwCheckObj.email == true){
     $("#findPw-btn").removeAttr("disabled");
-    console.log("실행");
   }else{
     $("#findPw-btn").attr("disabled", true);
   }
 
 };
 
-
-// 가입하지 않은 이메일인 경우
-function findPwNotice(memberEmail){
-
-  const findPwNotice = $(".findPw-notice > span");
-
-  findPwNotice.html("");
-  findPwNotice.html(memberEmail + "은 <br>가입되지 않은 이메일입니다.");
-
-}
 
 
 // 비밀번호 재설정

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="memberMapper2">
+	<!-- mapper 시작태그에 namespace를 반드시 작성할 것!!!!!! -->
+
+
+	<!-- 
+		resultMap  
+		- SELECT 조회 결과(ResultSet) 컬럼명과
+		  컬럼 값을 옮겨 담을 VO의 필드명이 같지 않을 때
+		  이를 매핑 시켜 SELECT시 자동으로 담기게하는 역할
+	 
+	 
+	 	-속성
+	 	type : 연결할 VO (패키지명 + 클래스명 또는 별칭)
+	 	id : 만들어진 resultMap을 지칭할 식별명(이름)
+	 	
+	 	<id> 태그 : PK 역할 컬럼 - 필드 매핑
+	 	<result> 태그 : <id>제외 나머지
+	 -->
+	 
+	 
+	 <resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
+	 
+	 	<id property="memberNo" column="MEMBER_NO" />
+	 
+	 	<result property="memberName" 	 		column="MEMBER_NM"/>
+	 	<result property="memberNickName" 	 	column="MEMBER_NICKNM"/>
+	 	<result property="memberPw" 	 		column="MEMBER_PW"/>
+	 	<result property="memberEmail" 	 		column="MEMBER_EMAIL"/>
+	 	<result property="enrollDate"   		column="ENROLL_DT"/>
+	 	<result property="modifyDate" 			column="MODIFY_DT"/>
+	 	<result property="memberStatusCode" 	column="STATUS_CD"/>
+	 	<result property="memberGradeCode" 	 	column="GRADE_CD"/>
+	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
+	 	<result property="memberContent" 	 	column="MEMBER_CONTENT"/>
+	 
+	 </resultMap>
+	 
+	 
+	 
+	 <!-- 이메일 암호화 후 저장해놓기 -->
+	 <insert id="insertEncEmail" parameterType="map">
+	 	INSERT INTO FIND_PW VALUES
+	 	(SEQ_FIND_PW_NO.NEXTVAL, #{memberEmail}, #{encEmail}, DEFAULT, DEFAULT)
+	 </insert>
+	 
+	 
+	 <!-- 암호화 문자로 이메일 찾기 + 유효기간이 남은 경우 -->
+	 <select id="findMemberEmail" resultType="string">
+	 	SELECT MEMBER_EMAIL FROM FIND_PW
+	 	WHERE ENC_MEMBER_EMAIL = #{encEmail}
+	 	AND (MATURITY_DATE - SYSDATE) &gt; 0
+	 </select>
+	 
+	 
+	 <!-- 새로운 비밀번호 설정하기 (비밀번호 찾기) -->
+	 <update id="resetPw" parameterType="Member">
+	 	UPDATE MEMBER SET
+	 	MEMBER_PW = #{memberPw}
+	 	WHERE MEMBER_EMAIL = #{memberEmail}
+	 </update>
+	 
+	 
+	 <!-- 변경 완료 후 해당 이메일로 온 변경 요청 삭제하기 -->
+	 <delete id="deleteResetLog">
+	 	DELETE FROM FIND_PW
+	 	WHERE MEMBER_EMAIL = #{memberEmail}
+	 </delete>
+	 
+	 
+
+
+</mapper>
