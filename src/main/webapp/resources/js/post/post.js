@@ -79,14 +79,14 @@ function revealPost(){
 				postHeader.append(spanHeader2);
 				postHeader.append(divHeader2);
 				// post-content
-				if(post.movieTitle != null){
-					const divContent1 = document.createElement("div")
+				const divContent1 = document.createElement("div")
+				const divContent3 = document.createElement("div")
+				if(items.movieTitle != null){
 					divContent1.className = "review-title";
 					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
-
+					
 					if(items.rating != null){
 
-						const divContent3 = document.createElement("div")
 						divContent3.className = "post-rating";
 						const iContent1 = document.createElement("i")
 						const iContent2 = document.createElement("i")
@@ -265,15 +265,13 @@ function revealPost(){
 						divContent3.append(spanContent1);
 					}
 
-					postContent.append(divContent1)
-					postContent.append(divContent3)
 				}
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
 				divContent2.innerText = items.postContent;
 				
-				const divContent4 = document.createElement("div")
-				divContent4.className = "text-count";
+				// const divContent4 = document.createElement("div")
+				// divContent4.className = "text-count";
 				const divContent5 = document.createElement("div")
 				divContent5.className = "container-img";
 				const imgContent1 = document.createElement("img");
@@ -285,17 +283,23 @@ function revealPost(){
 				divContent5.append(imgContent1);
 				
 				
+				postContent.append(divContent1)
 				postContent.append(divContent2)
-				postContent.append(divContent4)
+				if(items.rating != null){
+					postContent.append(divContent3)
+				}
+				// postContent.append(divContent4)
 				postContent.append(divContent5);
 	
 				// post-footer
 				const divFooter1 = document.createElement("div")
 				divFooter1.className = "container-like";
 				const imgFooter1 = document.createElement("img")
+				imgFooter1.className = "vivid-popcorn"
 				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
 				imgFooter1.setAttribute("style", "width: 100%; display: none;");
 				const imgFooter2 = document.createElement("img")
+				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 				const spanFooter1 = document.createElement("span")
@@ -323,19 +327,23 @@ function revealPost(){
 				postContainer.append(post);
 			}
 			
+			const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
+			const whitePopcorn = document.getElementsByClassName("white-popcorn");
+			for(const items of vividPopcorn){
+				items.addEventListener("click", function(){
+					items.style.display = "none";
+					items.nextElementSibling.style.display = "block";
+				})
+			}
+			for(const items of whitePopcorn){
+				items.addEventListener("click", function(){
+					items.style.display = "none";
+					items.previousElementSibling.style.display = "block";
+				})
+			}
 
-			const like1 = document.querySelectorAll(".container-like > img")[0];
-			const like2 = document.querySelectorAll(".container-like > img")[1];
-
-			like1.addEventListener("click", function(){
-				like1.style.display = "none";
-				like2.style.display = "block";
-			})
-
-			like2.addEventListener("click", function(){
-				like1.style.display = "block";
-				like2.style.display = "none";
-			})
+			
+			
 		},
 		error: function (req, status, error) {
 			console.log("ajax 실패");

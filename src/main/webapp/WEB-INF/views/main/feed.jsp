@@ -8,7 +8,7 @@
 
         <div class="post-header">
             <div>
-                <img class="porfile-img" src="${contextPath}/resources/images/temp/raraland.jpg" alt="">
+                <img class="profile-img" src="${contextPath}/resources/images/temp/raraland.jpg" alt="">
             </div>
             <span>user01</span>  <span>3h</span>
             <div class="dropdown me-1 header-dropdown">
