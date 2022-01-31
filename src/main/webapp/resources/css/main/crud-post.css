@@ -159,3 +159,26 @@
 {
     color: rgb(233, 210, 0);
 }
+
+.delete-img{
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: red;
+    font-size: 20px;
+}
+
+.delete-img:hover{
+    color: #E0BA79;
+}
+
+.on-poster{
+    position: absolute;
+    right: 28px;
+    top: 5px;
+    color: red;
+}
+
+.on-poster:hover{
+    color:#E0BA79;
+}

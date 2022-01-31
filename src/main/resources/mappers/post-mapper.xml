@@ -39,7 +39,7 @@
  	 		SELECT SEQ_POST_NO.NEXTVAL FROM DUAL
  	 	</selectKey>
  	 	
- 	 	INSERT INTO POST VALUES(#{postNo}, #{postContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 500, #{memberNo} )
+ 	 	INSERT INTO POST VALUES(#{postNo}, #{postContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 500, #{memberNo}, #{checkUsePoster} )
  	 </insert>
  	 
  	 <select id="dupCheckTag" resultType="_int">
@@ -88,6 +88,7 @@
 		<result property="modifyDate" column="MODIFY_DT"/>
 		<result property="postStatusCode" column="POST_STATUS_CD"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="checkUsePoster" column="CHECK_USE_POSTER"/>
 		
 		<result property="rating" column="RATING"/>
 		
@@ -123,7 +124,7 @@
 	</select>
 	
 	<select id="selectPostList" resultMap="post_rm">
-		SELECT C.POST_NO, POST_CONTENT, LIKE_COUNT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') CREATE_DT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') MODIFY_DT, 
+		SELECT C.POST_NO, POST_CONTENT, LIKE_COUNT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') CREATE_DT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') MODIFY_DT, CHECK_USE_POSTER,
 		       C.MEMBER_NO, MEMBER_NM, MEMBER_NICKNM, A.MOVIE_NO, D.MOVIE_TITLE, TO_CHAR(D.MOVIE_DT, 'YYYY-MM-DD') MOVIE_DT, D.MOVIE_DIRECTOR, D.POSTER, D.MOVIE_GENRE, RATING,
 		       POST_STATUS_CD
 		FROM POST C

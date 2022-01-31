@@ -11,6 +11,8 @@ public class Post {
 	private String modifyDate;
 	private int postStatusCode;
 	private int memberNo;
+	private int checkUsePoster; 
+	
 	
 	// Movie
 	private String movieNo;
@@ -27,6 +29,32 @@ public class Post {
 	
 	private List<PostImage> listPostImage;
 	
+	
+	
+	public int getCheckUsePoster() {
+		return checkUsePoster;
+	}
+	public void setCheckUsePoster(int checkUsePoster) {
+		this.checkUsePoster = checkUsePoster;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
+	public List<PostImage> getListPostImage() {
+		return listPostImage;
+	}
+	public void setListPostImage(List<PostImage> listPostImage) {
+		this.listPostImage = listPostImage;
+	}
 	public String getMovieNo() {
 		return movieNo;
 	}

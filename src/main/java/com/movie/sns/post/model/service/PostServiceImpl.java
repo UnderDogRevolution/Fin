@@ -41,6 +41,7 @@ public class PostServiceImpl implements PostService {
 		Post post = new Post();
 		post.setMemberNo(1);
 		post.setPostContent((String)postVO.get("postContent"));
+		post.setCheckUsePoster((int)postVO.get("checkUsePoster"));
 		
 		List<String> tagArr = (List<String>)postVO.get("tagArr");
 
@@ -109,6 +110,7 @@ public class PostServiceImpl implements PostService {
 			Movie temp = new Movie();
 			movie = (Movie)Util.convertMapToObject(movieMap, temp);
 			movie.setMemberNo(1);
+			movie.setPostNo(post.getPostNo());
 			
 			if(result>0) {
 				int check= dao.dupCheckMovie(movie);

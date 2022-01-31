@@ -274,20 +274,20 @@ function revealPost(){
 				
 				const divContent4 = document.createElement("div")
 				divContent4.className = "text-count";
-				if(items.listPostImage.length > 0){
-					const divContent5 = document.createElement("div")
-					divContent5.className = "container-img";
-					const imgContent1 = document.createElement("img");
+				const divContent5 = document.createElement("div")
+				divContent5.className = "container-img";
+				const imgContent1 = document.createElement("img");
+				if(items.checkUsePoster == 1){
 					imgContent1.setAttribute("src", items.poster)
-					divContent5.append(imgContent1);
-					postContent.append(divContent5);
-				}else {
-					
+				}else if(items.listPostImage[0]){
+					imgContent1.setAttribute("src", contextPath + items.listPostImage[0].postImagePath + items.listPostImage[0].postImageName)
 				}
-	
+				divContent5.append(imgContent1);
+				
 				
 				postContent.append(divContent2)
 				postContent.append(divContent4)
+				postContent.append(divContent5);
 	
 				// post-footer
 				const divFooter1 = document.createElement("div")
