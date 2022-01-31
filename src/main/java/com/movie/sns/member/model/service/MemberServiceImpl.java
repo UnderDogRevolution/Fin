@@ -1,13 +1,23 @@
 package com.movie.sns.member.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.movie.sns.member.controller.EmailController;
 import com.movie.sns.member.model.dao.MemberDAO;
 import com.movie.sns.member.model.vo.Member;
 
+/**
+ * @author ASUS
+ *
+ */
 @Service
 public class MemberServiceImpl implements MemberService{
 
@@ -16,6 +26,10 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	// 이메일 전송용 컨트롤러
+	@Autowired
+	private EmailController emailCtrl;
 	
 	
 	// 로그인
@@ -65,6 +79,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	// 회원 가입
 	@Override
 	@Transactional
 	public int signUp(Member member) {
@@ -76,6 +91,78 @@ public class MemberServiceImpl implements MemberService{
 		
 		return dao.signUp(member);
 	}
+
+
+	
+	// 암호화 이메일 삽입
+	@Override
+	@Transactional
+	public int insertEncEmail(String memberEmail, HttpServletRequest req) {
+		
+		String encEmail = encoder.encode(memberEmail);
+		
+		System.out.println(encEmail);
+		
+		Map<String, String> emailMap = new HashMap<String, String>();
+		
+		emailMap.put("memberEmail", memberEmail);
+		emailMap.put("encEmail", encEmail);
+		
+		int result = dao.insertEncEmail(emailMap);
+		
+		// 데이터 삽입을 성공한 경우
+		if(result > 0) {
+			
+			emailCtrl.sendPwLink(memberEmail, encEmail, req);
+			
+		}
+		
+		
+		return result;
+	}
+
+
+	// 비밀번호 재설정하기
+	@Override
+	public int resetPw(String encEmail, String newPw) {
+		
+		
+		int result = 0;
+		
+		// 암호화된 글자로 회원 이메일 찾기
+		String memberEmail = dao.findMemberEmail(encEmail);
+		
+		if(memberEmail != null) {
+			
+			Member member = new Member();
+			member.setMemberEmail(memberEmail);
+			// 비밀번호 암호화 후 세팅
+			member.setMemberPw(encoder.encode(newPw));
+			
+			result = dao.resetPw(member);
+			
+			if(result > 0) {
+				// 비밀번호 변경 성공
+				member.setMemberPw(null);
+				// 변경 완료하면 해당 이메일의 변경링크를 모두 무효화
+				dao.deleteResetLog(memberEmail);
+				
+			}else {
+				System.out.println("비밀번호 변경 실패");
+			}
+			
+		}else {
+			
+			System.out.println("유효한 링크가 아닙니다.");
+		}
+
+		return result;
+		
+	}
+	
+	
+	
+	
 	
 	
 	

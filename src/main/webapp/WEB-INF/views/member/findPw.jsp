@@ -39,7 +39,7 @@
   
         <div class="a-changePw-form-area">
 
-          <form action="changePw" id="changePw-form" method="post">
+          <form action="findPw" id="changePw-form" method="post">
             
             <div>
 
@@ -56,10 +56,12 @@
   
             </div>
 
-
+			
             <!-- 가입하지 않은 아이디일 경우 경고 메시지 출력하기 -->
             <div class="findPw-notice">
-              <span></span>
+            	<c:if test="${!empty message1}">
+		        	<span>${message1} <br> ${message2}</span>
+            	</c:if>
             </div>
             
             <div class="a-changePw-notice">
@@ -70,7 +72,7 @@
   
             </div>
 
-            <button id="findPw-btn" class="a-btn" disabled>확인</button>
+            <button id="findPw-btn" class="a-btn" disabled onclick="sendResetLink();">확인</button>
   
           </form>
   

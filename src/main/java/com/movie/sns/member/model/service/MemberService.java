@@ -1,5 +1,7 @@
 package com.movie.sns.member.model.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.movie.sns.member.model.vo.Member;
 
 public interface MemberService {
@@ -32,6 +34,22 @@ public interface MemberService {
 	 * @return member
 	 */
 	int signUp(Member member);
+
+
+	/** 입력받은 이메일을 암호화해서 DB에 삽입하기
+	 * @param memberEmail
+	 * @param req 
+	 * @return result
+	 */
+	int insertEncEmail(String memberEmail, HttpServletRequest req);
+
+
+	/** 비밀번호 재설정하기
+	 * @param encEmail
+	 * @param newPw
+	 * @return result
+	 */
+	int resetPw(String encEmail, String newPw);
 	
 	
 	
