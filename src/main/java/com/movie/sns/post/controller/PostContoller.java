@@ -63,4 +63,14 @@ public class PostContoller {
 		
 		return result;
 	}
+	
+	@RequestMapping(value="postView", method = RequestMethod.GET)
+	@ResponseBody
+	public String selectPostList(){
+		
+		List<Post> listPost = service.selectPostList();
+		
+		
+		return new Gson().toJson(listPost);
+	}
 }

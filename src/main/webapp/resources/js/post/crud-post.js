@@ -431,14 +431,13 @@ observer.observe(inputDiv, config);
 // 게시글 삽입
 function postValidate(){
     
-
     const postVO = {}
     const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
     const tagArr = []
     for(const items of tagName){
         if(items.innerText.indexOf('#') >-1){
             tagArr.push(items.innerText.replace('#', ""));
-        }
+        } 
     }
     
     const rating = document.getElementsByClassName("rating-value")[0].innerText

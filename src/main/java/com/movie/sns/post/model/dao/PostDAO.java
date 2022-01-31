@@ -57,8 +57,11 @@ public class PostDAO {
 	}
 
 	public int insertImgLIst(List<PostImage> imgList) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("postMapper.insertImgList", imgList);
+	}
+
+	public List<Post> selectPostList() {
+		return sqlSession.selectList("postMapper.selectPostList");
 	}
 
 

@@ -18,5 +18,7 @@ public interface PostService {
 
 	int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath);
 
+	List<Post> selectPostList();
+
 
 }

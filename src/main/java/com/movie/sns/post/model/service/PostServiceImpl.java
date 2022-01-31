@@ -127,6 +127,11 @@ public class PostServiceImpl implements PostService {
 		return result;
 	}
 
+	@Override
+	public List<Post> selectPostList() {
+		return dao.selectPostList();
+	}
+
 	
 	
 	
