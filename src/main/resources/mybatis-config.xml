@@ -23,7 +23,10 @@
 	<!-- mapper에서 사용되는 VO를 간단히 부르기 위한 별칭 지정 -->
 	<typeAliases>
 		<typeAlias type="com.movie.sns.member.model.vo.Member" alias="Member"/>
+		
 		<typeAlias type="com.movie.sns.post.model.vo.Tag" alias="Tag"/>
+		<typeAlias type="com.movie.sns.post.model.vo.Post" alias="Post"/>
+		<typeAlias type="com.movie.sns.post.model.vo.PostImage" alias="PostImage"/>
 		
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoom" alias = "ChatRoom"/>	
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoomJoin" alias = "ChatRoomJoin"/>	
@@ -34,6 +37,7 @@
 	<!-- SQL이 작성된 파일 지정 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
+		<mapper resource="/mappers/member-mapper2.xml" />
 		<mapper resource="/mappers/post-mapper.xml" />
 		<mapper resource="/mappers/chat-mapper.xml"/>
 	</mappers>

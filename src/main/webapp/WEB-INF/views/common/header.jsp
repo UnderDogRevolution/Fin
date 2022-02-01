@@ -57,10 +57,78 @@
 						style="padding-top: 5px;">
 							<div class="notice-num"></div>
 
-							<div class="notice_box">
-								<!-- 알림영역 -->
+							<div class="notify-wrap">
+                            <div class="notice_box">
+                                <!-- 알림영역 -->
+                                <div class="noticeList frends-request" data-bs-toggle="modal" data-bs-target="#followerList5">
+                                    <div class="img-profile"></div>
+                                    <div class="fol-request">
+                                        <span>팔로우 요청</span> 
+                                        <span>sangwon 외 32명</span>
+                                    </div>
+                                
+                                    
+                                   
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    
+                                    <div class="reply-comment-wrap">
+                                        <span>이상원님이 댓글을 남기셨습니다.ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                <div class="noticeList">
+                                    <div class="img-profile"></div>
+                                    <div>
+                                        <span>이상원님이 댓글을 남기셨습니다.</span>
+                                    </div>
+                                    
+                                </div>
+                                
 
-							</div>
+
+
+
+
+
+                            </div>
+                            </div>
 					</i></li>
 					<li><a href="${contextPath}/chat/myChat"><i class="far fa-comment-dots"
 							style="padding-top: 5px;"></i></a></li>
@@ -116,6 +184,134 @@
 		</div>
 
 	</nav>
+	
+	 <!--  팔로우 요청 목록 -->
+     <div class="modal fade" id="followerList5" tabindex="-1" aria-labelledby="followerListLabel"
+     aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="followerListLabel">팔로워 요청</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <div class="list-wrap">
+                     <div class="list-item">
+                         <div class="img"></div>
+                         <div class="info">
+                             <span>user01</span>
+                             <span>이상원</span>
+                         </div>
+                         <div class="del-button-wrap" style="margin-right: 5px;">
+                             <a href="#self">확인</a>
+                         </div>
+                         <div class="del-button-wrap">
+                             <a href="#self">삭제</a>
+                         </div>
+                     </div>
+                     <div class="list-item">
+                         <div class="img"></div>
+                         <div class="info">
+                             <span>user01</span>
+                             <span>이상원</span>
+                         </div>
+                         <div class="del-button-wrap" style="margin-right: 5px;">
+                             <a href="#self">확인</a>
+                         </div>
+                         <div class="del-button-wrap">
+                             <a href="#self">삭제</a>
+                         </div>
+                     </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     <div class="list-item">
+                        <div class="img"></div>
+                        <div class="info">
+                            <span>user01</span>
+                            <span>이상원</span>
+                        </div>
+                        <div class="del-button-wrap" style="margin-right: 5px;">
+                            <a href="#self">확인</a>
+                        </div>
+                        <div class="del-button-wrap">
+                            <a href="#self">삭제</a>
+                        </div>
+                    </div>
+                     
+                     
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+
+             </div>
+         </div>
+     </div>
+ </div>
+ <!-- follwerList 팔로워 목록:e -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
 

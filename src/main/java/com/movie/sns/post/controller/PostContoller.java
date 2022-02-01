@@ -54,24 +54,41 @@ public class PostContoller {
 						  @RequestPart(value="image", required = false) List<MultipartFile> fileList,
 						  HttpSession session
 						 ) {
-		Post post = new Post();
-		post.setMemberNo(1);
-		post.setPostContent((String)postVO.get("postContent"));
-		
-		List<String> tagArr = (List<String>)postVO.get("tagArr");
-
-		Map<String, Object> movieMap = new HashMap<String, Object>();
-		movieMap = (Map<String, Object>)postVO.get("movie");
-		Movie temp = new Movie();
-		Movie movie = (Movie)Util.convertMapToObject(movieMap, temp);
-		movie.setMemberNo(1);
 		
 		String webPath = "/resources/images/post/";
 		
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-		int result = service.insertPost(post, tagArr, movie, fileList, webPath, serverPath);
+		int result = service.insertPost(postVO, fileList, webPath, serverPath);
 		
 		return result;
+	}
+	
+	@RequestMapping(value="postView", method = RequestMethod.GET)
+	@ResponseBody
+	public String selectPostList(){
+		
+		List<Post> listPost = service.selectPostList();
+		
+		
+		return new Gson().toJson(listPost);
+	}
+	
+	@RequestMapping(value="insertLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int insertLike(int postNo){
+		
+		int memberNo = 1;
+		
+		return service.insertLike(postNo, memberNo);
+	}
+	
+	@RequestMapping(value="deleteLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteLike(int postNo){
+		
+		int memberNo = 1;
+		
+		return service.deleteLike(postNo, memberNo);
 	}
 }

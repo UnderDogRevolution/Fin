@@ -1,8 +1,4 @@
 
-main{
-	padding-top : 82px;
-}
-
 .anybody1 {
     background-color: #0D0D0D;
 }
@@ -100,6 +96,9 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    cursor: pointer;
+    
+    
 }
 
 #board-list {
@@ -149,11 +148,6 @@ main{
 
     justify-content: center;
 }
-
-.modal{
-	top: 150px !important;
-}
-
 .modal-body {
     max-height: 368px;
     overflow: auto;
@@ -189,4 +183,39 @@ main{
     padding: 5px 10px;
     font-size: 14px;
     flex: 0 1 auto;
+}
+
+.nickname > img{
+    max-width: 30px;
+    max-height: 30px;
+    cursor: pointer;
+}
+.modal{
+    top: 150px;
+}
+
+.setting-modal-body{
+
+    color: #0D0D0D;
+   
+    
+   
+
+}
+
+.setting-modal-body .setting-list-wrap .setting-list-item div{
+   display: flex;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+   padding: 20px 0;
+   
+   border-bottom: 1px solid black;
+
+}
+
+.sexyboy{
+
+padding: 30px !important;
+
 }
