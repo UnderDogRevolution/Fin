@@ -73,4 +73,22 @@ public class PostContoller {
 		
 		return new Gson().toJson(listPost);
 	}
+	
+	@RequestMapping(value="insertLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int insertLike(int postNo){
+		
+		int memberNo = 1;
+		
+		return service.insertLike(postNo, memberNo);
+	}
+	
+	@RequestMapping(value="deleteLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteLike(int postNo){
+		
+		int memberNo = 1;
+		
+		return service.deleteLike(postNo, memberNo);
+	}
 }

@@ -133,7 +133,32 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectPostList() {
 		return dao.selectPostList();
 	}
-
+	
+	@Transactional
+	@Override
+	public int insertLike(int postNo, int memberNo) {
+		Map<String, Integer> likeMap = new HashMap<String, Integer>();
+		likeMap.put("postNo", postNo);
+		likeMap.put("memberNo", memberNo);
+		int result = dao.checkDupLike(likeMap);
+		if(result == 0) {
+			result = dao.insertLike(likeMap);
+		}
+		return result;
+	}
+	@Transactional
+	@Override
+	public int deleteLike(int postNo, int memberNo) {
+		Map<String, Integer> likeMap = new HashMap<String, Integer>();
+		likeMap.put("postNo", postNo);
+		likeMap.put("memberNo", memberNo);
+		int result = dao.checkDupLike(likeMap);
+		if(result == 1) {
+			result = dao.deleteLike(likeMap);
+		}
+		return result;
+	}
+	
 	
 	
 	

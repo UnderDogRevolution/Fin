@@ -135,4 +135,19 @@
 		ORDER BY POST_NO DESC
 	</select>
 	
+	<select id="checkDupLike" resultType="_int">
+		SELECT COUNT(*)
+		FROM "LIKE"
+		WHERE POST_NO = #{postNo}
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<insert id="insertLike">
+		INSERT INTO "LIKE" VALUES(#{postNo}, #{memberNo}, DEFAULT)
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM "LIKE" WHERE POST_NO = #{postNo} AND MEMBER_NO = #{memberNo}
+	</delete>
+	
 </mapper>

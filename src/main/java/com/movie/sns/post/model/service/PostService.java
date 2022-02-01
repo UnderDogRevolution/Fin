@@ -20,5 +20,9 @@ public interface PostService {
 
 	List<Post> selectPostList();
 
+	int insertLike(int postNo, int memberNo);
+
+	int deleteLike(int postNo, int memberNo);
+
 
 }

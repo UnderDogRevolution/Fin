@@ -304,8 +304,12 @@ function revealPost(){
 				imgFooter2.setAttribute("style", "width: 100%;");
 				const spanFooter1 = document.createElement("span")
 				spanFooter1.innerText = items.likeCount;
+				const spanFooter3 = document.createElement("span");
+				spanFooter3.innerText = items.postNo;
+				spanFooter3.setAttribute("style", "display:none;")
 				divFooter1.append(imgFooter1)
 				divFooter1.append(imgFooter2)
+				divFooter1.append(spanFooter3)
 				divFooter1.append(spanFooter1);
 				const divFooter2 = document.createElement("div")
 				divFooter2.className = "container-reply";
@@ -327,20 +331,65 @@ function revealPost(){
 				postContainer.append(post);
 			}
 			
-			const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
 			const whitePopcorn = document.getElementsByClassName("white-popcorn");
+			const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
+
+			for (const items of whitePopcorn) {
+				items.addEventListener("click", function () {
+					const postNo = this.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling;
+					$.ajax({
+						url: contextPath + "/post/insertLike",
+						data: { "postNo": postNo },
+						type: "POST",
+						success: function (result) {
+							if(result >0){
+								items.style.display = "none";
+								items.previousElementSibling.style.display = "block";
+								count.innerText = Number(count.innerText)+1;
+							}else{
+								alert("좋아요 기능 오류 발생")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+				})
+			}
 			for(const items of vividPopcorn){
 				items.addEventListener("click", function(){
-					items.style.display = "none";
-					items.nextElementSibling.style.display = "block";
+					const postNo = this.nextElementSibling.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+					$.ajax({ 
+						url: contextPath + "/post/deleteLike",
+						data : {"postNo": postNo},
+						type: "POST",
+						success: function (result) {
+							if(result>0){
+								items.style.display = "none";
+								items.nextElementSibling.style.display = "block";
+								count.innerText = Number(count.innerText)-1;
+							}else{
+								alert("좋아요 기능 오류 발생")
+							}
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+				
+					})
 				})
 			}
-			for(const items of whitePopcorn){
-				items.addEventListener("click", function(){
-					items.style.display = "none";
-					items.previousElementSibling.style.display = "block";
-				})
-			}
+			
 
 			
 			

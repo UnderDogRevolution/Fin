@@ -12,14 +12,7 @@
     margin-bottom: 50px;
 }
 
-.modal-post{
-    margin: auto;
-    background-color: #404142;
-    width: 100%;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-}
+
 
 .post-box{
     width: 100%;
@@ -92,29 +85,14 @@
     font-size: 13px;
 }
 
-.modal-post-header{
-    height: 58px;
-    border-bottom: 1px solid black;
-    padding-left: 10px;
-    padding-top: 20px;
-    padding-right: 10px;
-    position:relative;
-}
 
-.modal-post-header span{
-    color: #ffffff;
-}
 
 .post-content{
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: column;
  }
- .modal-post-content{
-    border-bottom: 1px solid black;
-    display: flex;
-    flex-direction: column;
- }
+
 .post-footer{
     padding-left: 10px;
     padding-top: 10px;
