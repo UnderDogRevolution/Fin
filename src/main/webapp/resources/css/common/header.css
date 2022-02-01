@@ -175,6 +175,11 @@ a {
     
 }
 
+.notice_box{
+    color:white;
+    
+}
+
 .notice-num {
     /* 알림점 */
     border-radius: 49%;
@@ -223,6 +228,10 @@ a {
     text-align: center;
     border-radius: 5px;
     z-index: 2;
+}
+
+.notice_box >div{
+    height: 25%;
 }
 
 .namewrap {
@@ -350,4 +359,96 @@ a {
 }
 .boardMenu > div > a{
     width: 100%;
+}
+.img-profile{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #545454;
+    margin-right: 6px;
+
+
+}
+
+.noticeList{
+    
+    display: flex;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: center;
+
+    
+}
+
+.notice_box{
+    max-height: 368px;
+    overflow: auto;
+    white-space: normal;
+    line-height: 1.3;
+     text-align: left; 
+     word-wrap: break-word; 
+     display: -webkit-box; 
+     -webkit-line-clamp: 1; 
+     -webkit-box-orient: vertical;
+     display: none;
+     padding: 15px;
+     
+}
+.notice_box::-webkit-scrollbar{
+    display: none;
+}
+
+.modal{
+    top: 150px;
+}
+
+.modal-body {
+    max-height: 368px;
+    overflow: auto;
+
+}
+.modal-body .list-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-body .list-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-body .list-wrap .list-item {
+    display: flex;
+    align-items: center;
+
+}
+.modal-body .list-wrap .list-item .img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    flex: 0 1 auto;
+    background: #545454;
+}
+.modal-body .list-wrap .list-item .info {
+    color: #333333;
+    font-size: 16px;
+    flex: 1 1 auto;
+    margin-left: 10px;
+}
+.modal-body .list-wrap .list-item .del-button-wrap a {
+    color: #fff;
+    background: #545454;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    flex: 0 1 auto;
+}
+.modal-header{
+    color: black;
+}
+
+.reply-comment-wrap{
+    width: calc(100% - 40px);
 }
