@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,6 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
-	
 	
 	
 	// 로그인 화면 전환
@@ -178,11 +178,99 @@ public class MemberController {
 	
 	
 	
-	// 비밀번호 재설정 화면 호출	(*자리에 회원마다 특정 주소값 얻어와야할듯 { } 사용해서)
-	@RequestMapping(value="resetPw/*", method=RequestMethod.GET)
-	public String resetPw() {
+	// 비밀번호 찾기 링크 만들기
+	@RequestMapping(value = "findPw", method=RequestMethod.POST)
+	public String findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
+		
+		// 가입 여부 체크하기
+		int result = service.emailDupCheck(memberEmail);
+		
+		if(result == 1) {
+			
+			// 암호화해서 DB에 INSERT
+			result = service.insertEncEmail(memberEmail, req);
+			
+			if(result > 0) {
+				
+				System.out.println("메일 전송 성공!");
+				// 암호화 데이터 삽입 성공한 경우
+				// 암호화된 값을 얻어와 @pathVariable로 사용해 이메일 발송
+				// 주소로 요청이 오면 유효기간을 검사하고 변경페이지 or 메인페이지로 forward 
+			}
+			
+
+			
+			
+			
+			
+			// 가입한 이메일인 경우(sweetAlert 사용예정)
+			ra.addFlashAttribute("message", "이메일 발송 성공!");
+			
+		}else {
+			
+			// 가입하지 않은 이메일인 경우
+			ra.addFlashAttribute("message1", memberEmail + "은");
+			ra.addFlashAttribute("message2", "가입하지 않은 이메일입니다.");
+			
+		}
+		
+		ra.addFlashAttribute("result", result);
+		
+		return "redirect:/member/findPw";
+		
+	}
+	
+	
+	
+	
+	
+	
+	// 비밀번호 재설정 화면 호출	
+	// (*자리에 회원마다 특정 주소값 얻어와야할듯 { } 사용해서) 
+	// => bcrypt를 사용했으므로 쿼리스트링을 이용해서 파라미터로 얻어오는 방법 사용
+	// reset/* 로그인 필터?
+	@RequestMapping(value="resetPw", method=RequestMethod.GET)
+	public String resetPw(@RequestParam("djsejehr") String encEmail, Model model) {
+		
+		model.addAttribute("encEmail", encEmail);
+		
 		return "member/resetPw";
 	}
+	
+	
+	
+	// 비밀번호 재설정하기 
+	@RequestMapping(value="resetPw", method=RequestMethod.POST)
+	public String resetPw(@RequestParam("djsejehr") String encEmail, String memberPw ) {
+		
+		
+		// 새로 변경한 비밀번호
+		String newPw = memberPw;
+		
+		// 수행 후 경로 지정
+		String path = null;
+		
+		int result = service.resetPw(encEmail, newPw);
+		
+		if(result > 0) {
+			
+			System.out.println("수정 완료!");
+			path = "redirect:/member/login";
+			
+		}else {
+			
+			System.out.println("수정 실패!");
+			path = "redirect:/";
+			
+		}
+		
+		
+		return path;
+	}
+	
+	
+	
+	
 	
 	
 }

@@ -1,6 +1,7 @@
 package com.movie.sns.member.controller;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +24,7 @@ public class EmailController {
 	
 	
 	
-	// 메일 보내기
+	// 이메일 인증 메일 보내기
 	@RequestMapping("sendMail")
 	@ResponseBody
 	public int sendMail(@RequestParam(value="memberEmail") String memberEmail) {
@@ -61,10 +62,49 @@ public class EmailController {
 			
 		}
 		
+	}
+	
+	
+	
+	
+	// 비밀번호 변경 링크 보내기 메서드
+	public void sendPwLink(String memberEmail, String encEmail, HttpServletRequest req) {
+		
+		// 요청 주소 값 (http://
+		String url = req.getRequestURL().toString();
+		url =  url.replace("findPw", "resetPw");
+		
+		String setfrom = "montagekh2@gmail.com";	// 보내는 사람 메일 주소
+		
+		String tomail = memberEmail;				// 받는 사람 메일 주소
+		
+		String title = "[Montage] 비밀번호 변경 링크입니다.";
+		
+		String content = "<a href=" + url + "?djsejehr=" + encEmail + ">비밀번호 변경 링크입니다.</a>";
+		
+		String key = "";
 		
 		
+		try {
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content + key, true); 
+			
+			mailSender.send(message);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 	}
+	
 	
 	
 	

@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
-	<!-- mapper 시작태그에 namespace를 반드시 작성할 것!!!!!! -->
-
-
-	<!-- 
-		resultMap  
-		- SELECT 조회 결과(ResultSet) 컬럼명과
-		  컬럼 값을 옮겨 담을 VO의 필드명이 같지 않을 때
-		  이를 매핑 시켜 SELECT시 자동으로 담기게하는 역할
-	 
-	 
-	 	-속성
-	 	type : 연결할 VO (패키지명 + 클래스명 또는 별칭)
-	 	id : 만들어진 resultMap을 지칭할 식별명(이름)
-	 	
-	 	<id> 태그 : PK 역할 컬럼 - 필드 매핑
-	 	<result> 태그 : <id>제외 나머지
-	 -->
 	 
 	 
 	 <resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
@@ -35,31 +18,12 @@
 	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
 	 	<result property="memberContent" 	 	column="MEMBER_CONTENT"/>
 	 
+	 
 	 </resultMap>
 	 
-	 
-	 <!-- 
-	 	SQL 작성 태그 속성
-	 	- parameterType : SQL 호출 시 전달 받은 매개 변수의 자료형
-	 					  (자료형은 패키지+클래스명 또는 별칭으로 작성)
-	  
-	  	(SELECT에서만 사용 가능한 속성)
-	    - resultType : SELECT 결과 열이 1개인 경우 해당 컬럼 값을 저장할 JAVA 자료형 작성
-	    
-	 	- resultMap : SELECT 결과 열이 N개인 경우 각 컬럼 값을 VO에 저장하기 위해
-	 				  알맞게 매핑시켜둔 <resultMap> id 값 작성 
-	 	
-	  -->
-	 
-	 
-	 <!-- 
-	 	마이바티스에서 사용하는 "#", "$" 기호
-	 	"#" : pstmt   /  "$" : stmt
-	 	
-	 	ex) 전달 받은 파라미터 memberId = "user01"
-	 	#{memberId}  ->  'user01'  (양쪽 홑따옴표 추가(문자열만))
-	 	${memberId}  ->   user01   (아무것도 붙이지 않음)
-	  -->
+
+
+
 	 
 	 <!-- 로그인 -->
 	 <select id="login" parameterType="string"  resultMap="member_rm">
@@ -95,8 +59,6 @@
 	 	INSERT INTO MEMBER VALUES(
 	 		SEQ_MEMBER_NO.NEXTVAL, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
 	 		DEFAULT, DEFAULT, 200, 100 )
-	 		SEQ_MEMBER_NO.NEXTVAL, #{memberId}, #{memberPw},
-	 		DEFAULT, DEFAULT, DEFAULT )
 	 </insert>
 	 
 	 <!-- 회원 정보 수정 -->
@@ -122,7 +84,7 @@
 	 	WHERE MEMBER_NO = #{memberNo}
 	 </update>
 	
-	<!-- 프로필 이미지 삽입 -->
+	<!-- 프로필 이미지 목록 삽입 -->
 	<insert id="insertImgList" parameterType="list">
 		INSERT INTO MEMBER_IMG
 		SELECT SEQ_IMG_NO.NEXTVAL, A.* FROM
@@ -139,6 +101,8 @@
 		
 	</insert>
 
+
+
 	<!-- 기존에 있었지만 삭제된 이미지 DELETE -->
 	<!-- 파라미터 타입이 Map인 경우  #{Key}를 작성하면 Value가 출력 -->
 	<delete id="deleteImages" parameterType="map">
@@ -149,6 +113,14 @@
 
 
 
+	<!-- 이미지 삽입 -->
+	<insert id="insertImage">
+		INSERT INTO MEMBER_IMG VALUES
+		(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, #{imgOriginal}, #{imgLevel}, #{memberNo})
+	</insert>
+	
+	
+
 	<!-- 이미지 수정 -->
 	<update id="updateImage">
 		UPDATE MEMBER_IMG SET
@@ -158,36 +130,11 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND IMG_LEVEL = #{imgLevel}
 	</update>
-	
-	<!-- 이미지 삽입 -->
-	<insert id="insertImage">
-		INSERT INTO MEMBER_IMG VALUES
-		(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, #{imgOriginal}, #{imgLevel}, #{memberNo})
-	</insert>
-
 
 	<!-- 이미지 파일명 목록 조회 -->
 	<select id="selectImgList" resultType="string">
 		SELECT IMG_NM FROM MEMBER_IMG
 	</select>
-	 
-	 
-	 <!-- 게시글 삽입 -->
-	<!-- 
-		useGeneratedKeys : DB 내부적으로 생성한 키(시퀀스)를 
-						  받는 JDBC의 getGeneraredKeys() 메소드를 사용하도록 설정(기본값 false)
-		
-		<selectKey> 태그 : insert, update 후 사용된 시퀀스 값을 반환하는 태그
-							-> <insert>, <update> 태그 내부에만 작성 가능
-		
-		<selectKey> 속성
-         keyProperty   : selectKey구문의 결과가 셋팅될 대상 프로퍼티.
-         keyColumn :   리턴되는 결과셋의 칼럼명은 프로퍼티에 일치한다. 여러개의 칼럼을 사용한다면 칼럼명의 목록은 콤마를 사용해서 구분한다.
-         resultType :   결과의 타입. 마이바티스는 이 기능을 제거할 수 있지만 추가하는게 문제가 되지는 않을것이다. 마이바티스는 String을 포함하여 키로 사용될 수 있는 간단한 타입을 허용한다.
-         order   :BEFORE 또는 AFTER를 셋팅할 수 있다. BEFORE로 설정하면 키를 먼저 조회하고 그 값을 keyProperty 에 셋팅한 뒤 insert 구문을 실행한다. AFTER로 설정하면 insert 구문을 실행한 뒤 selectKey 구문을 실행한다. 오라클과 같은 데이터베이스에서는 insert구문 내부에서 일관된 호출형태로 처리한다.
-         statementType   : 위 내용과 같다. 마이바티스는 Statement, PreparedStatement 그리고 CallableStatement을 매핑하기 위해 STATEMENT, PREPARED 그리고 CALLABLE 구문타입을 지원한다.
-		
-	 -->
 	 
 	<!-- 바라는 점 내용삽입--> 
 	<insert id="ask" useGeneratedKeys="true" parameterType="Member">
@@ -208,13 +155,9 @@
 	<!-- 회원 탈퇴 -->
 	<update id="secession">
 		UPDATE MEMBER SET
-		STATUS_CD = 2
+		STATUS_CD = 201
 		WHERE MEMBER_NO = #{memberNo}
    	</update>
 	 
-	 
-	 
-	 
-
 
 </mapper>

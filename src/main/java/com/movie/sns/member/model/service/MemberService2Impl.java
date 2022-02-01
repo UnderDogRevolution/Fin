@@ -70,16 +70,13 @@ public class MemberService2Impl implements MemberService2{
 							
 							if( !deleteImages.equals("") ) { // 삭제할 이미지 있을 경우
 								Map<String, Object> map = new HashMap<String, Object>();
-								map.put("memberNo", member.getMemberNo());
-													// int -(Auto Boxing)-> Integer -> Object
 								
+								map.put("memberNo", member.getMemberNo());
 								map.put("deleteImages", deleteImages);
-														// String -> Object
 								
 								result = dao.deleteImages(map);
 							}
 						}
-						
 						
 						// 4) images에 담겨있는 파일 정보 중
 						//    업로드된 파일 정보를 imgList에 옮겨 담기
@@ -96,7 +93,7 @@ public class MemberService2Impl implements MemberService2{
 									Image img = new Image();
 									
 									img.setImgPath(webPath); // 웹 접근 경로
-									img.setImgName( Util.fileRename( images.get(i).getOriginalFilename() ) ); // 변경된 파일명
+									img.setImgName(Util.fileRename( images.get(i).getOriginalFilename())); // 변경된 파일명
 									img.setImgOriginal( images.get(i).getOriginalFilename() ); // 원본 파일명
 									img.setImgLevel(i); // 이미지 레벨
 									img.setMemberNo(member.getMemberNo() ); // 사용자 번호
@@ -104,7 +101,6 @@ public class MemberService2Impl implements MemberService2{
 									imgList.add(img);
 								}
 							}
-							
 							
 							// 5) imgList가 비어있지 않을 경우
 							//    imgList에 있는 내용을 update 또는 insert
@@ -120,9 +116,7 @@ public class MemberService2Impl implements MemberService2{
 								
 								if(result == 0) { // 기존에 저장되지 않은 이미지가 추가됨 -> INSERT 진행
 									result = dao.insertImage(img);
-									
 								}
-								
 							} // for end
 							
 							
@@ -132,24 +126,17 @@ public class MemberService2Impl implements MemberService2{
 								
 								try {
 									for(int i=0; i<imgList.size(); i++) {
-										
-										images.get( imgList.get(i).getImgLevel() )
+										//이미지 레벨 그냥 1개인 상태로 냅두기
+										images.get(imgList.get(i).getImgLevel())
 										.transferTo(new File(serverPath + "/" + imgList.get(i).getImgName() ));
-										
 									}
-									
 								}catch (Exception e) {
 									e.printStackTrace();
 								}
-								
 							}
-							
-							
 						} // if end
-						
 						return result;
 					}
-		
 
 		@Override
 		public List<String> selectImgList() {
@@ -170,22 +157,15 @@ public class MemberService2Impl implements MemberService2{
 		}
 
 		
-		
 		// 회원 탈퇴
 		@Override
 		public int secession(int memberNo, String currentPw) {
 			
 			String savePw = dao.selectSavePw(memberNo+"");
-
 			int result = 0;
-
 			if (encoder.matches(currentPw, savePw)) { 
-
 				result = dao.secession(memberNo); 
 			}
-
 			return result;
 		}
-
-
 }

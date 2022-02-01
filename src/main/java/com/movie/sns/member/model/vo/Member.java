@@ -11,9 +11,10 @@ public class Member {
 	private String enrollDate;		// 가입일
 	private String modifyDate;		// 수정일
 	private String memberBirth;		// 생일
+	private String memberContent; 	// 바라는 점
+
 	private int memberStatusCode;	// 회원상태
 	private int memberGradeCode;	// 회원등급
-	private String memberContent; 	// 바라는 점
 	
 	
 	// 기본생성자

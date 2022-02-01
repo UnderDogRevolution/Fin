@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +30,10 @@ import com.movie.sns.common.Util;
 //@SessionAttributes
 public class MemberController2 {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController2.class);
+
 	@Autowired
 	private MemberService2 service;
-	
 	
 	// 마이페이지 화면 전환
 		@RequestMapping(value="myPage", method=RequestMethod.GET)
@@ -44,19 +47,11 @@ public class MemberController2 {
 									@ModelAttribute("loginMember") Member loginMember,
 									@RequestParam Map<String, String> param, // 모든 파라미터를 Map형식으로 저장,
 									@RequestParam("deleteImages") String deleteImages,
-									@RequestParam("images") List<MultipartFile> images,
+									@RequestParam("profile") List<MultipartFile> images,
 									Member member, // 비어있는 Member객체 생성
 									RedirectAttributes ra, HttpSession session) {
 			
-			
-			// 기존 세션데이터 얻어오는 방식
-			//int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-			
-			// @ModelAttribute 이용 방식
-			// 1. 파라미터를 객체에 set하는 역할 -> 커맨드 객체 생성
-			// 2. @SessionAttributes를 이용해 등록된 Session 데이터를 얻어오는 역할
-			//    --> @ModelAttribute("Session키값")
-			// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		
 			String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
 						
@@ -108,7 +103,7 @@ public class MemberController2 {
 		// 비밀번호 수정 화면 전환
 		@RequestMapping(value="updatePw", method=RequestMethod.GET)
 		public String updatePw() {
-			return "member/resetPw";
+			return "member/updatePw";
 		}
 		
 		
@@ -116,25 +111,6 @@ public class MemberController2 {
 		@RequestMapping(value="updatePw", method=RequestMethod.POST)
 		public String updatePw(@ModelAttribute("loginMember") Member loginMember,
 							   String currentPw, String newPw1, RedirectAttributes ra) {
-			
-			// 비밀번호 수정 흐름
-			// (Controller)
-			// 1. 회원번호 + 현재 비밀번호 + 새 비밀번호  서비스 호출
-			
-			// (Service)
-			// 2. 회원 번호를 이용해서 DB에 저장된 비밀번호를 조회
-			
-			// 3. DB 저장된 비밀번호와  입력된 현재 비밀번호 비교(  matches() 사용 )
-			
-			// 4. 일치하면 새 비밀번호를 암호화
-			//    -> 비밀번호 변경 DAO 호출
-			
-			// 5. 일치하지 않으면 Controller로 0 반환
-			
-			// (Controller)
-			// 6. 성공 여부에 따라 출력 메세지 지정 -> 리다이렉트
-			
-			
 			
 			// 1. 회원번호 + 현재 비밀번호 + 새 비밀번호  서비스 호출
 			// 회원번호 + 파라미터 저장용 Map 생성
@@ -223,26 +199,13 @@ public class MemberController2 {
 	       return "redirect:" + path;
 	    }
 
+		//안되면 회원탈퇴 맵 처럼
 		
-		/* 스프링 예외 처리 방법
-		 * 
-		 * 1. 메소드별 try-catch / throws 예외 처리 (1순위)
-		 * 
-		 * 2. 컨트롤러 별로 예외 처리(@ExceptionHandler) (2순위)
-		 * 		-> DispatcherServlet(servlet-context.xml)에
-		 * 			<annotaion-driven/> 이 수행되어야 사용 가능
-		 * 
-		 * 
-		 * 3. 전역(모든 클래스)에서 발생하는 예외를 하나의 클래스에서 처리
-		 * 	  (@ControllerAdvice) (3순위)
-		 * */
-		
-		//@ExceptionHandler(처리할 예외.class)
 		@ExceptionHandler(Exception.class)
 		public String exceptionHandler(Exception e, Model model) {
 			
 			 String path = null;
-			// Model : 데이터 전달용 객체(Map형식, request범위)
+			 
 			model.addAttribute("errorMessage", "회원 관련 서비스 이용 중 문제가 발생했습니다.");
 			model.addAttribute("e", e);
 			

@@ -39,7 +39,7 @@
   
         <div class="a-changePw-form-area">
 
-          <form action="resetPw" id="changePw-form" method="post">
+          <form action="resetPw?djsejehr=${encEmail}" id="changePw-form" method="post">
             
             <div>
 
