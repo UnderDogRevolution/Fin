@@ -297,11 +297,18 @@ function revealPost(){
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
 				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
-				imgFooter1.setAttribute("style", "width: 100%; display: none;");
+				imgFooter1.setAttribute("style", "width: 100%;");
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
+
+				if(items.checkLike == '1'){
+					imgFooter2.setAttribute("style", "width: 100%; display:none;")
+				}else{
+					imgFooter1.setAttribute("style", "width: 100%; display:none;")
+				}
+
 				const spanFooter1 = document.createElement("span")
 				spanFooter1.innerText = items.likeCount;
 				const spanFooter3 = document.createElement("span");
@@ -342,13 +349,14 @@ function revealPost(){
 						url: contextPath + "/post/insertLike",
 						data: { "postNo": postNo },
 						type: "POST",
+						async: false,
 						success: function (result) {
 							if(result >0){
 								items.style.display = "none";
 								items.previousElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)+1;
 							}else{
-								alert("좋아요 기능 오류 발생")
+								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
 
 						},
@@ -370,13 +378,14 @@ function revealPost(){
 						url: contextPath + "/post/deleteLike",
 						data : {"postNo": postNo},
 						type: "POST",
+						async: false,
 						success: function (result) {
 							if(result>0){
 								items.style.display = "none";
 								items.nextElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)-1;
 							}else{
-								alert("좋아요 기능 오류 발생")
+								alert("좋아요 연속 클릭으로 오류가 발생했습니다.")
 							}
 						},
 						error: function (req, status, error) {
@@ -405,6 +414,11 @@ function revealPost(){
 	
 }
 
+const replyImg = document.querySelectorAll("container-reply > img")[0]
+
+replyImg.addEventListener("click", function(){
+	
+})
 
 
 

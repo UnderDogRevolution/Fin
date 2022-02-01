@@ -64,7 +64,10 @@
                 <span>300</span>
             </div>
         </div>
-
+        <div class="reply">
+            <div></div>
+        
+        </div>
     </div>
 
     <div class="post"style="width: 500px;">
