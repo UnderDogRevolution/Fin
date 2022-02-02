@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.movie.sns.common.RandomNumber;
 import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.member.model.vo.MemberAuth;
 
 
 // 로그인필터
@@ -116,11 +118,6 @@ public class MemberController {
 	}
 	
 	
-	// 이메일 인증번호 검사 ajax 삽입 예정
-	
-	
-	
-	
 	// 닉네임 중복 검사 ajax
 	@RequestMapping(value="nickNameDupCheck", method=RequestMethod.GET)
 	@ResponseBody
@@ -130,6 +127,38 @@ public class MemberController {
 		
 		return result;
 	}
+	
+	
+	// 이메일 인증번호 생성 후 DB에 삽입
+	@RequestMapping(value="emailAuth", method=RequestMethod.POST)
+	@ResponseBody
+	public int emailAuth(@RequestParam(value="memberEmail") String memberEmail) {
+		
+		// 랜덤 문자열 생성
+		String authCode = new RandomNumber().generateCertificationNo();
+		
+		// MemberAuth 객체에 정보를 담아서 DB에 삽입
+		int result = service.insertAuthCode(memberEmail, authCode);
+		
+		return result;
+	}
+	
+	
+	// 이메일 인증번호를 제출받은 경우 + DB에 있는 번호와 비교 (가장 최신 인증번호만 조회하기)
+	@RequestMapping(value="emailAuthCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public int emailAuthCheck(	@RequestParam(value="memberEmail") String memberEmail,
+								@RequestParam(value="authCode") String authCode) {
+		
+		int result = service.selectAuthCode(memberEmail, authCode);
+		
+		return result;
+	}
+	
+	// 인증 완료하면 삭제하기 + JS에서 validation 설정하기
+	// 시간초 뜨게 만들기?
+	// 이메일 꾸미기
+	// 추가정보 입력하기
 	
 	
 	

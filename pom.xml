@@ -136,6 +136,27 @@
 		    <artifactId>log4jdbc-remix</artifactId>             
 		    <version>0.2.7</version>         
 		  </dependency>
+		  
+	  	<!-- 2022-02-01 김연준 redis 관련 -->
+	  	<!-- 인증 정보 저장용 -->
+	  	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+		
+		<!-- <dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-redis</artifactId>
+		    <version>2.6.1</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		
+		
+		<!-- <dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>4.1.0</version>
+		</dependency> -->
+		
+	  	
 		
 		
 		<!-- Spring -->

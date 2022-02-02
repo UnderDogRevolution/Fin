@@ -70,6 +70,22 @@
 	 </delete>
 	 
 	 
+	 <!-- 이메일 인증번호 삽입 -->
+	 <insert id="insertAuthCode" parameterType="MemberAuth">
+	 	INSERT INTO MEMBER_AUTH VALUES
+	 	(SEQ_MEMBER_AUTH_NO.NEXTVAL, #{memberEmail}, #{authCode}, DEFAULT, DEFAULT)
+	 </insert>
+	 
+	 
+	 <!-- 이메일 인증번호 조회하기 (가장 최신) -->
+	 <!-- count(*) 말고 resultMap으로 이메일 조회한 결과 중 가장 최근 코드와 일치하는지 확인하는 방법 -->
+	 <select id="selectAuthCode" parameterType="MemberAuth" resultType="_int">
+	 	SELECT COUNT(*) FROM MEMBER_AUTH
+	 	WHERE MEMBER_EMAIL = #{memberEmail}
+	 	AND AUTH_CD = #{authCode}
+	 	AND (END_DT-SYSDATE) &gt; 0
+	 </select>
+	 
 
 
 </mapper>
