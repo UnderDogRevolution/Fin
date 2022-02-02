@@ -24,7 +24,10 @@
 	<typeAliases>
 		<typeAlias type="com.movie.sns.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.movie.sns.member.model.vo.MemberAuth" alias="MemberAuth"/>
+		
 		<typeAlias type="com.movie.sns.post.model.vo.Tag" alias="Tag"/>
+		<typeAlias type="com.movie.sns.post.model.vo.Post" alias="Post"/>
+		<typeAlias type="com.movie.sns.post.model.vo.PostImage" alias="PostImage"/>
 		
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoom" alias = "ChatRoom"/>	
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoomJoin" alias = "ChatRoomJoin"/>	

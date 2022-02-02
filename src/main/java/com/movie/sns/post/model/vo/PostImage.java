@@ -8,6 +8,7 @@ public class PostImage {
 	private String postImageOriginal;
 	private int postImageLevel;
 	private int postNo;
+	
 	public int getPostImageNo() {
 		return postImageNo;
 	}

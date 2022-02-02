@@ -6,12 +6,15 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/main.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/side.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
     <jsp:include page="feed.jsp"></jsp:include>
 	
 	<jsp:include page="side.jsp"></jsp:include>
 	<jsp:include page="crud-post.jsp"></jsp:include>
+	
+	
 	
 </body>
 </html>

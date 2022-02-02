@@ -1,6 +1,7 @@
 package com.movie.sns.post.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,13 @@ public interface PostService {
 
 	List<Member> selectUser(String tagName);
 
-	int insertPost(Post post, List<String> tagArr, Movie movie, List<MultipartFile> fileList, String webPath, String serverPath);
+	int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath);
+
+	List<Post> selectPostList();
+
+	int insertLike(int postNo, int memberNo);
+
+	int deleteLike(int postNo, int memberNo);
 
 
 }
