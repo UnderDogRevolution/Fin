@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.movie.sns.member.model.service.MemberService;
+
 
 
 @Controller
@@ -21,13 +23,12 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;	// 메일 전송 객체
 	
+	@Autowired
+	private MemberService service;		// 인증번호 db 저장에 필요 
 	
 	
-	
-	// 이메일 인증 메일 보내기
-	@RequestMapping("sendMail")
-	@ResponseBody
-	public int sendMail(@RequestParam(value="memberEmail") String memberEmail) {
+	// 인증번호 보내기 메서드
+	public int sendMail(String memberEmail, String authCode) {
 		
 		String setfrom = "montagekh2@gmail.com";	// 보내는 사람 메일 주소
 		
@@ -35,7 +36,7 @@ public class EmailController {
 		
 		String title = "[Montage] 이메일 인증번호입니다.";
 		
-		String content = "<div style='background-color: red; width: 500px; height: 500px;'>이메일 인증번호는 123456입니다.</div>";
+		String content = "<div style='background-color: white; width: 500px; height: 500px;'>이메일 인증번호는 "+ authCode +" 입니다.</div>";
 		
 		String key = "";
 		
@@ -58,7 +59,7 @@ public class EmailController {
 			
 			e.printStackTrace();
 			
-			return -1;
+			return 0;
 			
 		}
 		
