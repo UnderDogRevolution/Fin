@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.movie.sns.member.controller.EmailController;
 import com.movie.sns.member.model.dao.MemberDAO;
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.member.model.vo.MemberAuth;
 
 /**
  * @author ASUS
@@ -158,6 +159,41 @@ public class MemberServiceImpl implements MemberService{
 
 		return result;
 		
+	}
+
+	
+	// 이메일 인증번호 삽입하기
+	@Override
+	@Transactional
+	public int insertAuthCode(String memberEmail, String authCode) {
+
+		int result = 0;
+		
+		MemberAuth memberAuth = new MemberAuth();
+		
+		memberAuth.setMemberEmail(memberEmail);
+		memberAuth.setAuthCode(authCode);
+		
+		result = dao.insertAuthCode(memberAuth);
+		
+		if(result > 0) {
+			emailCtrl.sendMail(memberEmail, authCode);
+		}
+		
+		return result;
+	}
+
+
+	// 이메일 인증번호 조회하기
+	@Override
+	public int selectAuthCode(String memberEmail, String authCode) {
+
+		MemberAuth memberAuth = new MemberAuth();
+		
+		memberAuth.setMemberEmail(memberEmail);
+		memberAuth.setAuthCode(authCode);
+		
+		return dao.selectAuthCode(memberAuth);
 	}
 	
 	

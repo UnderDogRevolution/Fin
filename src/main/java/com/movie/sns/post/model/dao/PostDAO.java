@@ -57,8 +57,23 @@ public class PostDAO {
 	}
 
 	public int insertImgLIst(List<PostImage> imgList) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("postMapper.insertImgList", imgList);
+	}
+
+	public List<Post> selectPostList() {
+		return sqlSession.selectList("postMapper.selectPostList");
+	}
+
+	public int insertLike(Map<String, Integer> likeMap) {
+		return sqlSession.insert("postMapper.insertLike", likeMap);
+	}
+
+	public int checkDupLike(Map<String, Integer> likeMap) {
+		return sqlSession.selectOne("postMapper.checkDupLike", likeMap);
+	}
+
+	public int deleteLike(Map<String, Integer> likeMap) {
+		return sqlSession.insert("postMapper.deleteLike", likeMap);
 	}
 
 
