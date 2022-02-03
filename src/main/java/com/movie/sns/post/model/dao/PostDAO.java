@@ -60,8 +60,8 @@ public class PostDAO {
 		return sqlSession.insert("postMapper.insertImgList", imgList);
 	}
 
-	public List<Post> selectPostList() {
-		return sqlSession.selectList("postMapper.selectPostList");
+	public List<Post> selectPostList(int memberNo) {
+		return sqlSession.selectList("postMapper.selectPostList", memberNo);
 	}
 
 	public int insertLike(Map<String, Integer> likeMap) {
@@ -74,6 +74,14 @@ public class PostDAO {
 
 	public int deleteLike(Map<String, Integer> likeMap) {
 		return sqlSession.insert("postMapper.deleteLike", likeMap);
+	}
+
+	public int plusLike(int postNo) {
+		return sqlSession.update("postMapper.plusLike", postNo);
+	}
+
+	public int minusLike(int postNo) {
+		return sqlSession.update("postMapper.minusLike", postNo);
 	}
 
 

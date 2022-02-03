@@ -3,7 +3,7 @@ package com.movie.sns.chat.model.vo;
 public class ChatRoomJoin {
 	private int memberNo;
 	private int chatRoomNo;
-	
+	private int statusCode;
 	public ChatRoomJoin() {
 	}
 
@@ -23,8 +23,17 @@ public class ChatRoomJoin {
 		this.chatRoomNo = chatRoomNo;
 	}
 
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
 	@Override
 	public String toString() {
-		return "ChatRoomJoin [memberNo=" + memberNo + ", chatRoomNo=" + chatRoomNo + "]";
+		return "ChatRoomJoin [memberNo=" + memberNo + ", chatRoomNo=" + chatRoomNo + ", statusCode=" + statusCode + "]";
 	}
+
 }

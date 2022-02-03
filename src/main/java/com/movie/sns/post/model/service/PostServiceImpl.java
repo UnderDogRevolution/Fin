@@ -130,8 +130,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> selectPostList() {
-		return dao.selectPostList();
+	public List<Post> selectPostList(int memberNo) {
+		return dao.selectPostList(memberNo);
 	}
 	
 	@Transactional
@@ -143,6 +143,7 @@ public class PostServiceImpl implements PostService {
 		int result = dao.checkDupLike(likeMap);
 		if(result == 0) {
 			result = dao.insertLike(likeMap);
+			result = dao.plusLike(postNo);
 		}
 		return result;
 	}
@@ -155,6 +156,7 @@ public class PostServiceImpl implements PostService {
 		int result = dao.checkDupLike(likeMap);
 		if(result == 1) {
 			result = dao.deleteLike(likeMap);
+			result = dao.minusLike(postNo);
 		}
 		return result;
 	}
