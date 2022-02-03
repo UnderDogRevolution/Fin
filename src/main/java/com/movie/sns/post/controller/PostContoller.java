@@ -9,12 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
@@ -28,6 +30,7 @@ import com.movie.sns.post.model.vo.Tag;
 
 @Controller
 @RequestMapping("/post/*")
+@SessionAttributes({"loginMember"})
 public class PostContoller {
 	@Autowired
 	private PostService service;
@@ -66,9 +69,13 @@ public class PostContoller {
 	
 	@RequestMapping(value="postView", method = RequestMethod.GET)
 	@ResponseBody
-	public String selectPostList(){
-		
-		List<Post> listPost = service.selectPostList();
+	public String selectPostList(HttpSession session ){
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		List<Post> listPost = service.selectPostList(memberNo);
 		
 		
 		return new Gson().toJson(listPost);

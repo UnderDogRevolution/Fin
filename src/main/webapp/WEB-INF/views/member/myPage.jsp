@@ -241,8 +241,17 @@
   </form>
   </div>
   
-  
   <script src="${contextPath}/resources/js/member/memberUpdate.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <c:if test="${ !empty requestScope.title }">
+	<script>
+		swal({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}"
+		});
+	</script>
+	</c:if>
   
 </body>
 

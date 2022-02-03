@@ -11,7 +11,6 @@ public class Member {
 	private String enrollDate;		// 가입일
 	private String modifyDate;		// 수정일
 	private String memberBirth;		// 생일
-	private String memberContent; 	// 바라는 점
 
 	private int memberStatusCode;	// 회원상태
 	private int memberGradeCode;	// 회원등급
@@ -120,26 +119,14 @@ public class Member {
 		this.memberGradeCode = memberGradeCode;
 	}
 
-	
-
-	public String getMemberContent() {
-		return memberContent;
-	}
-
-
-	public void setMemberContent(String memberContent) {
-		this.memberContent = memberContent;
-	}
-
 
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberNickName=" + memberNickName
 				+ ", memberPw=" + memberPw + ", memberEmail=" + memberEmail + ", enrollDate=" + enrollDate
 				+ ", modifyDate=" + modifyDate + ", memberBirth=" + memberBirth + ", memberStatusCode="
-				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + ", memberContent=" + memberContent + "]";
+				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + "]";
 	}
-
 
 
 }

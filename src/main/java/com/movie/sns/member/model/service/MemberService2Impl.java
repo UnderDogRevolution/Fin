@@ -26,16 +26,9 @@ public class MemberService2Impl implements MemberService2{
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	// Bean으로 등록된 BCryptPasswordEncoder 객체를 의존성 주입(DI)
 	
-	// 로그인
-	@Override
-	public Member login(Member member) {
-
-		return null;
-	}
 		
-	//비번수정
+		//비번수정
 		@Override
 		public int updatePw(Map<String, String> map) {
 
@@ -53,6 +46,7 @@ public class MemberService2Impl implements MemberService2{
 			return result;
 		}
 
+		//회원 정보 수정
 		@Override
 		public int updateMember(Member member) {
 			return dao.updateMember(member);

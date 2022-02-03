@@ -1,6 +1,5 @@
 package com.movie.sns.member.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService2;
 import com.movie.sns.member.model.vo.Member;
-
 import com.movie.sns.common.Util;
 
 @Controller
@@ -65,18 +63,10 @@ public class MemberController2 {
 			
 			int result = service.updateMember(member);
 			
-			System.out.println(result);
-			
-			
-			String title = null;
-			String text = null;
-			String icon = null;
-			
 			if(result > 0) { // 수정 성공
 				
 				loginMember.setMemberNickName(nickInput);
 				loginMember.setMemberBirth(birthInput);
-				
 				
 				Util.swalSetMessage("회원정보 수정 성공","회원정보가 변경되었습니다.", "success", ra);
 				
@@ -109,7 +99,6 @@ public class MemberController2 {
 			
 			int result = service.updatePw(map);
 			
-			
 			if(result  > 0) {
 				Util.swalSetMessage("비밀번호 변경 성공","비밀번호가 변경되었습니다.", "success", ra);
 			}else {
@@ -136,21 +125,15 @@ public class MemberController2 {
 	       // 회원 가입 Service 호출 후 결과 반환 받기
 	       int result = service.secession(loginMember.getMemberNo(), currentPw);
 	       
-	       String path = null;
-	       
 	       if(result > 0) { // 성공
 	          Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
 	          status.setComplete(); // 세션만료
 	          
-	          path = "/";
-	          
 	       }else { // 실패
 	          Util.swalSetMessage("회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.", "error", ra);
-	          path = "secession";
 	       }
 	       
-	       
-	       return "redirect:" + path;
+	       return "redirect:/member/login";
 	    }
 
 		
@@ -164,25 +147,19 @@ public class MemberController2 {
 	    // 바라는 점
 	    @RequestMapping(value="ask", method=RequestMethod.POST )
 	    public String ask(@ModelAttribute("loginMember") Member loginMember, Member member,
-	    					String currentPw, SessionStatus status, RedirectAttributes ra) {
+	    		 RedirectAttributes ra) {
 	       
 	    	member.setMemberNo( loginMember.getMemberNo() );
 	    	
 	       int result = service.ask(member);
 	       
-	       String path = null;
-	       
 	       if(result > 0) { // 성공
 	          Util.swalSetMessage("바라는 점 제출 성공", "제출되었습니다.", "success", ra);
-	          status.setComplete(); // 세션만료
-	          
-	          path = "/";
 	          
 	       }else { // 실패
 	          Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error", ra);
-	          path = "ask";
 	       }
-	       return "redirect:" + path;
+	       return "redirect:/member/ask";
 	    }
 
 	

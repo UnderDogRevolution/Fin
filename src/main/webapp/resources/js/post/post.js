@@ -86,7 +86,6 @@ function revealPost(){
 					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
 					
 					if(items.rating != null){
-
 						divContent3.className = "post-rating";
 						const iContent1 = document.createElement("i")
 						const iContent2 = document.createElement("i")
@@ -297,11 +296,18 @@ function revealPost(){
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
 				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
-				imgFooter1.setAttribute("style", "width: 100%; display: none;");
+				imgFooter1.setAttribute("style", "width: 100%;");
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
+
+				if(items.checkLike == '1'){
+					imgFooter2.setAttribute("style", "width: 100%; display:none;")
+				}else{
+					imgFooter1.setAttribute("style", "width: 100%; display:none;")
+				}
+
 				const spanFooter1 = document.createElement("span")
 				spanFooter1.innerText = items.likeCount;
 				const spanFooter3 = document.createElement("span");
@@ -342,13 +348,14 @@ function revealPost(){
 						url: contextPath + "/post/insertLike",
 						data: { "postNo": postNo },
 						type: "POST",
+						async: false,
 						success: function (result) {
 							if(result >0){
 								items.style.display = "none";
 								items.previousElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)+1;
 							}else{
-								alert("좋아요 기능 오류 발생")
+								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
 
 						},
@@ -370,13 +377,14 @@ function revealPost(){
 						url: contextPath + "/post/deleteLike",
 						data : {"postNo": postNo},
 						type: "POST",
+						async: false,
 						success: function (result) {
 							if(result>0){
 								items.style.display = "none";
 								items.nextElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)-1;
 							}else{
-								alert("좋아요 기능 오류 발생")
+								alert("좋아요 연속 클릭으로 오류가 발생했습니다.")
 							}
 						},
 						error: function (req, status, error) {
@@ -389,7 +397,49 @@ function revealPost(){
 					})
 				})
 			}
-			
+		
+			const replyImg = document.querySelectorAll(".container-reply > img")
+
+			for(const items of replyImg){
+				items.addEventListener("click", function(){
+					const post = this.parentNode.parentNode.parentNode
+					const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+					console.log(post)
+					console.log(postNo);
+					
+					
+					const inputReplyDiv = document.createElement("div");
+					inputReplyDiv.className = "input-content-reply";
+
+					const inputReplyDivIn1 = document.createElement("div");
+					inputReplyDivIn1.innerText = "댓글"
+					const inputReplyDivIn2 = document.createElement("div");
+					const input = document.createElement("input")
+					input.setAttribute("type", "text");
+					input.setAttribute("placeholder", "댓글을 달아주세요!");
+					inputReplyDivIn2.append(input);
+					const inputReplyDivIn3 = document.createElement("div");
+					const inputReplyImg = document.createElement("img")
+					inputReplyImg.setAttribute("src", contextPath + "/resources/images/temp//comment.png")
+					inputReplyImg.setAttribute("onclick", "insertReply(this)")
+
+					inputReplyDivIn3.append(inputReplyImg)
+
+					inputReplyDiv.append(inputReplyDivIn1)
+					inputReplyDiv.append(inputReplyDivIn2)
+					inputReplyDiv.append(inputReplyDivIn3)
+
+					const replyDiv = selectReply(postNo)
+
+					if(post.getElementsByClassName("input-content-reply").length > 0){
+						post.getElementsByClassName("input-content-reply")[0].remove();
+						post.getElementsByClassName("reply")[0].remove();
+					}else{
+						post.append(inputReplyDiv)
+						post.append(replyDiv)
+					}
+				})
+			}
 
 			
 			
@@ -404,10 +454,232 @@ function revealPost(){
 
 	
 }
+function insertReply(e){
+	
+	const post = e.parentNode.parentNode.parentNode
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	if(replyContent.trim().length>0){
+		$.ajax({ 
+			url: contextPath + "/reply/insert",
+			data: { "postNo": postNo, "replyContent" : replyContent},
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("댓글이 등록되었습니다.")
+					e.parentNode.parentNode.getElementsByTagName("input")[0].value = "";
 
+					if(post.getElementsByClassName("reply")[0]){
+						const reply = post.getElementsByClassName("reply")[0];
+						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}
 
+				}else{
+					alert("댓글 등록 중 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	
+		})
+	}
+}
 
+function selectReply(postNo){
+	const replyDiv = document.createElement("div");
+	replyDiv.className = "reply"
+	
+	$.ajax({
+		url: contextPath + "/reply/select",
+		data: {"postNo": postNo},
+		type: "POST",
+		dataType: "JSON",
+		async : false,
+		success: function (replyList) {
+			for(const items of replyList){
+				const replyDiv1 = document.createElement("div");
+				console.log(items);
+				
+				if(items.parentReply == 0){
+					replyDiv1.className = "parent-reply"
+				}else{
+					replyDiv1.className = "child-reply"
+				}
+				
 
+				const profileDiv = document.createElement("div");
+				profileDiv.className = "profile-reply"
+				const profile = document.createElement("img");
+				profile.setAttribute("src", contextPath +"/resources/images/temp/raraland.jpg")
+				profileDiv.append(profile)
+
+				const userInfo = document.createElement("div")
+				userInfo.className ="user-reply";
+				const userInfoDiv1 = document.createElement("div")
+				userInfoDiv1.innerText = items.memberName;
+				userInfo.append(userInfoDiv1)
+				const userInfoDiv2 = document.createElement("div")
+				userInfoDiv2.innerText = items.replyCreateDate;
+				userInfo.append(userInfoDiv2);
+
+				const contentReply = document.createElement("div");
+				contentReply.className = "content-reply"
+
+				const textReply = document.createElement("div");
+				textReply.className = "text-reply";
+
+				const contentDiv = document.createElement("div");
+				contentReply.innerText = items.replyContent;
+
+				const dots = document.createElement("img");
+				dots.setAttribute("src", contextPath + "/resources/images/temp/dots.png")
+				dots.setAttribute("id", "dropdownMenuOffset")
+				dots.setAttribute("data-bs-toggle", "dropdown")
+				dots.setAttribute("aria-expanded", "false")
+				dots.setAttribute("data-bs-offset", "-40,-10")
+
+				const dropUl = document.createElement("ul");
+				dropUl.setAttribute("class", "dropdown-menu")
+				dropUl.setAttribute("aria-labelledby", "dropdownMenuOffset")
+				
+				const dropLi1 = document.createElement("li")
+				const dropLi2 = document.createElement("li")
+				const a1 = document.createElement("a");
+				const a2 = document.createElement("a");
+				a1.className = "dropdown-item"
+				a2.className = "dropdown-item"
+				a1.setAttribute("href", "#")
+				a2.setAttribute("href", "#")
+				a1.innerText = "삭제";
+				a2.innerText = "신고하기";
+				dropLi1.append(a1);
+				dropLi2.append(a2);
+
+				dropUl.append(dropLi1);
+				dropUl.append(dropLi2);
+				contentDiv.append(dots)
+				contentDiv.append(dropUl)
+
+				textReply.append(contentDiv);
+
+				
+				const constDiv2 = document.createElement("div")
+				const vividPopcorn = document.createElement("img");
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
+				vividPopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+				const whitePopcorn = document.createElement("img");
+				whitePopcorn.setAttribute("style", "width: 20px; height: 20px;")
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
+				const likeCount = document.createElement("span")
+				likeCount.setAttribute("style", "opacity: 0.7; font-size: 12px;")
+				likeCount.innerText = items.likeCount;
+
+				constDiv2.append(vividPopcorn);
+				constDiv2.append(whitePopcorn);
+				constDiv2.append(likeCount);
+				
+				const constDiv3 = document.createElement("div");
+				constDiv3.setAttribute("style", "margin-left: 12px;");
+				const replyPng = document.createElement("img");
+				replyPng.setAttribute("src", contextPath + "/resources/images/temp/reply.png");
+				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
+				replyPng.addEventListener("click", function(){
+					comment(this, items.replyNo)
+				})
+				constDiv3.append(replyPng);
+
+				const tempDiv = document.createElement("div")
+				tempDiv.append(constDiv2)
+				tempDiv.append(constDiv3)
+
+				contentReply.append(textReply);
+				contentReply.append(tempDiv);
+
+				replyDiv1.append(profileDiv)
+				replyDiv1.append(userInfo)
+				replyDiv1.append(contentReply)
+				
+				replyDiv.append(replyDiv1)
+				
+			}
+		},
+		error: function (req, status, error) {
+			console.log("ajax 실패");
+			console.log(req.responseText);
+			console.log(status);
+			console.log(error);
+		}
+	})
+
+	return replyDiv
+}
+
+function comment(e, replyNo){
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+	console.log(post);
+	const arr = post.querySelectorAll(".input-content-reply > div")
+	const img = post.querySelectorAll(".input-content-reply img")[0]
+	const input = post.querySelectorAll(".input-content-reply input")[0]
+	console.log(img)
+	if(arr[0].innerText.trim() == "댓글"){
+		arr[0].innerText = "답글";
+		img.setAttribute("onclick", "insertComment(this,"+replyNo+")")
+		input.setAttribute("placeholder", "답글을 달아주세요!");
+		input.focus();
+	}else{
+		arr[0].innerText = "댓글";
+		img.setAttribute("onclick", "insertReply(this)")
+	}
+	console.log(post);
+}
+
+function insertComment(e, replyNo){
+	const post = e.parentNode.parentNode.parentNode
+	console.log(post);
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	console.log(postNo);
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	console.log(replyContent);
+	if(replyContent.trim().length>0){
+		$.ajax({ 
+			url: contextPath + "/reply/comment",
+			data: { "postNo": postNo, "replyContent" : replyContent, "parentReply" : replyNo},
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("답글이 등록되었습니다.")
+					e.parentNode.parentNode.getElementsByTagName("input")[0].value = "";
+
+					if(post.getElementsByClassName("reply")[0]){
+						const reply = post.getElementsByClassName("reply")[0];
+						console.log(reply);
+						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}
+
+				}else{
+					alert("답글 등록 중 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	
+		})
+	}
+};
 
 
 
