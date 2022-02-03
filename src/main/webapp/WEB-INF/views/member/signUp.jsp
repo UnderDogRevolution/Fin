@@ -242,16 +242,6 @@
 	
 	            <div class="auth-result">
 	              
-	              <div>
-	                인증번호가 일치하지 않습니다.
-	              </div>
-	
-	              <div>
-	                <button type="button" class="btn auth-resend-btn" onclick="">
-	                  인증번호 재발급
-	                </button>
-	              </div>
-	
 	            </div>
 
 	        </div>
@@ -291,6 +281,17 @@
 			// EL 작성 시 scope를 지정하지 않으면
 			// page -> request -> session -> application 순서로 검색하여
 			// 일치하는 속성이 있으면 출력
+	</script>
+</c:if>
+
+<%-- request scope에 "title"이라는 키값이 존재하는 경우 --%>
+<c:if test="${!empty requestScope.title}">
+	<script>
+		swal.fire({
+			title : "${title}",
+			html  : "${text}",
+			icon  : "${icon}" 
+		})
 	</script>
 </c:if>
 
