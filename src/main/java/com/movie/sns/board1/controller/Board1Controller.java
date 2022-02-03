@@ -14,4 +14,8 @@ public class Board1Controller {
 		return "board1/myBoard";
 	}
 	
+	
+	
+	
+	
 }
