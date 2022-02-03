@@ -89,6 +89,7 @@
 		<result property="postStatusCode" column="POST_STATUS_CD"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="checkUsePoster" column="CHECK_USE_POSTER"/>
+		<result property="checkLike" column="CHECK_LIKE"/>
 		
 		<result property="rating" column="RATING"/>
 		
@@ -127,6 +128,9 @@
 		SELECT C.POST_NO, POST_CONTENT, LIKE_COUNT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') CREATE_DT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') MODIFY_DT, CHECK_USE_POSTER,
 		       C.MEMBER_NO, MEMBER_NM, MEMBER_NICKNM, A.MOVIE_NO, D.MOVIE_TITLE, TO_CHAR(D.MOVIE_DT, 'YYYY-MM-DD') MOVIE_DT, D.MOVIE_DIRECTOR, D.POSTER, D.MOVIE_GENRE, RATING,
 		       POST_STATUS_CD
+		       <if test="memberNo > 0">
+		       		, (SELECT COUNT(*) FROM "LIKE" WHERE POST_NO = C.POST_NO AND MEMBER_NO = #{memberNo}) CHECK_LIKE 
+		       </if>
 		FROM POST C
 		LEFT JOIN MOVIE_RATING A ON (C.POST_NO = A.POST_NO)
 		LEFT JOIN MEMBER B ON (C.MEMBER_NO = B.MEMBER_NO)
@@ -149,5 +153,14 @@
 	<delete id="deleteLike">
 		DELETE FROM "LIKE" WHERE POST_NO = #{postNo} AND MEMBER_NO = #{memberNo}
 	</delete>
+	
+	<update id="plusLike">
+		UPDATE POST SET LIKE_COUNT = LIKE_COUNT + 1 WHERE POST_NO = ${postNo}
+	</update>
+
+	<update id="minusLike">
+		UPDATE POST SET LIKE_COUNT = LIKE_COUNT - 1 WHERE POST_NO = ${postNo}
+	</update>
+	
 	
 </mapper>
