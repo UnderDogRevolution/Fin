@@ -109,6 +109,7 @@ public class MemberController2 {
 			
 			int result = service.updatePw(map);
 			
+			System.out.println(result);
 			
 			if(result  > 0) {
 				Util.swalSetMessage("비밀번호 변경 성공","비밀번호가 변경되었습니다.", "success", ra);
