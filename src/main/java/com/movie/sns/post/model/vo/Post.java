@@ -13,6 +13,7 @@ public class Post {
 	private int memberNo;
 	private int checkUsePoster; 
 	
+	private int checkLike;
 	
 	// Movie
 	private String movieNo;

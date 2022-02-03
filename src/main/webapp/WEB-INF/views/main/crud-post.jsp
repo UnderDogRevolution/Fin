@@ -72,8 +72,6 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                     <div class="insert-container-textarea">
                         <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
                         <div></div>
-                        
-                        <!-- <div></div> -->
                     </div>
                 <div class="insert-rating" style="display: flex; align-items: center; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
