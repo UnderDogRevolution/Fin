@@ -260,7 +260,7 @@ public class MemberController {
 		}else {
 			
 			System.out.println("수정 실패!");
-			path = "redirect:/";
+			path = "main";
 			
 		}
 		

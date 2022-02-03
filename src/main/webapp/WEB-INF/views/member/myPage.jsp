@@ -168,7 +168,7 @@
 
     </div>
 
-    <form method="POST" action="update" enctype="multipart/form-data" onsubmit="return memberUpdateValidate();">
+    <form method="POST" action="update" enctype="multipart/form-data" onsubmit="return memberUpdateValidate();" role="form">
       <div class="contents"><br>
 
         <div class="row-mb-3">
@@ -209,32 +209,34 @@
           <input type="file" class="imgform-control" id="inputGroupFile02" name="profile">
           <label class="input-file-text" for="inputGroupFile02">사진 등록</label>
         </div><br>
+        
+        <fieldset disabled>
+        <div class="row-mb-3-con">
+          <label for="currentEmail" class="col-form-label text-end">이메일</label>
+          <input type="text" class="col-inputform" id="currentEmail" placeholder="${loginMember.memberEmail}">
+        </div>
+        </fieldset><br>
 
         <fieldset disabled>
           <div class="row-mb-3-con">
             <label for="currentName" class="col-form-label text-end">이름</label>
-            <input type="text" id="currentName" class="col-inputform" placeholder="${loginMember.memberName}" required>
+            <input type="text" id="currentName" class="col-inputform" placeholder="${loginMember.memberName}">
           </div>
         </fieldset><br>
 
         <div class="row-mb-3-con">
           <label for="nickInput" class="col-form-label text-end">닉네임</label>
-          <input type="input" class="col-inputform" id="nickInput" value="${loginMember.memberNickName}">
+          <input type="text" class="col-inputform" id="nickInput" name="nickInput" value="${loginMember.memberNickName}">
         </div>
 
-        <br>
-        <div class="row-mb-3-con">
-          <label for="currentEmail" class="col-form-label text-end">이메일</label>
-          <input type="email" class="col-inputform" id="currentEmail" name="currentEmail" value="${loginMember.memberEmail}">
-        </div>
         <br>
 
         <div class="row-mb-3-con">
           <label for="currentBirth" class="col-form-label text-end">생일</label>
-          <input type="date" class="col-inputform" id="currentBirth" name="currentBirth" value="${loginMember.memberBirth}">
+          <input type="date" class="col-inputform" id="birthInput" name="birthInput" value="${loginMember.memberBirth}">
         </div>
 
-        <button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
+        <button type="submit" class="btnsub1 btn-danger btn-lg">저장하기</button>
       </div>
   </form>
   </div>
