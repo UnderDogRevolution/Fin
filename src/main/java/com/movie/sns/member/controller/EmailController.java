@@ -35,10 +35,10 @@ public class EmailController {
 		
 		String key = "";
 		
-		String content = "<div style='background-color: white; width: 500px; height: 500px;'>"
+		// 이미지 로고 넣어서 메일로 보내는 방법 찾기
+		String content = "<div style='background-color: white; width: 500px; height: 500px; font-weight: bold;'>"
 				+ "<p>안녕하세요 Montage 입니다.</p>"
-				+ "<p>이메일 인증번호는 <span>"+ authCode +"</span> 입니다.</p>"
-				+ "<p>이메일 인증번호는 "+ authCode +" 입니다.</p>"
+				+ "<p>이메일 인증번호는 <span style='font-size: 25px; color: #F05454;'>"+ authCode +"</span> 입니다.</p>"
 				+ "</div>";
 		
 		try {

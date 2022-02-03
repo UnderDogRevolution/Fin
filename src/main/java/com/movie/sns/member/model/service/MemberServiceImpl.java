@@ -174,6 +174,9 @@ public class MemberServiceImpl implements MemberService{
 		memberAuth.setMemberEmail(memberEmail);
 		memberAuth.setAuthCode(authCode);
 		
+		// 해당 이메일의 인증번호 기록을 모두 삭제 후 삽입
+		dao.deleteAuthCode(memberEmail);
+		
 		result = dao.insertAuthCode(memberAuth);
 		
 		if(result > 0) {
