@@ -13,7 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,139 +30,145 @@ import com.movie.sns.common.Util;
 
 @Controller
 @RequestMapping("/member/*")
-@SessionAttributes({"loginMember"})
+@SessionAttributes({ "loginMember" })
 public class MemberController2 {
-	
 
 	@Autowired
 	private MemberService2 service;
-	
+
 	// 마이페이지 화면 전환
-		@RequestMapping(value="myPage", method=RequestMethod.GET)
-		public String myPage() {
-			return "member/myPage";
+	@RequestMapping(value = "myPage", method = RequestMethod.GET)
+	public String myPage() {
+		return "member/myPage";
+	}
+
+	// 회원 정보 수정
+	@PostMapping(value = "update")
+	public String updateMember(
+			@ModelAttribute("loginMember") Member loginMember,
+			@RequestParam("nickInput") String nickInput,
+			@RequestParam("birthInput") String birthInput,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra) {
+
+		member.setMemberNo(loginMember.getMemberNo());
+		member.setMemberNickName(nickInput);
+		member.setMemberBirth(birthInput);
+
+		int result = service.updateMember(member);
+
+		if (result > 0) { // 수정 성공
+
+			loginMember.setMemberNickName(nickInput);
+			loginMember.setMemberBirth(birthInput);
+
+			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
+
+		} else { // 실패
+			Util.swalSetMessage("회원정보 수정 실패", "회원정보 변경에 실패하였습니다.", "error", ra);
 		}
-		
-		// 회원 정보 수정
-		@RequestMapping(value="update", method=RequestMethod.POST)
-		public String updateMember(/*HttpSession session*/ 
-									@ModelAttribute("loginMember") Member loginMember,
-									@RequestParam Map<String, String> param,
-									@RequestParam("profile") List<MultipartFile> images,
-									@RequestParam("nickInput") String nickInput,
-									@RequestParam("birthInput") String birthInput, @DateTimeFormat(pattern = "yyyy-MM-dd")
-									Member member, RedirectAttributes ra, HttpSession session) {
-			
-		
-			String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
-			String serverPath = session.getServletContext().getRealPath(webPath);
-						
-			
-			member.setMemberNo( loginMember.getMemberNo() );
-			member.setMemberNickName( nickInput );
-			member.setMemberBirth( birthInput );
-			
-			
-			int result = service.updateMember(member);
-			
-			if(result > 0) { // 수정 성공
-				
-				loginMember.setMemberNickName(nickInput);
-				loginMember.setMemberBirth(birthInput);
-				
-				Util.swalSetMessage("회원정보 수정 성공","회원정보가 변경되었습니다.", "success", ra);
-				
-			}else { // 실패
-				Util.swalSetMessage("회원정보 수정 실패","회원정보 변경에 실패하였습니다.", "error", ra);
-			}
-			
-			return "redirect:/member/myPage";
-		}
-		
-		
-		
-		// 비밀번호 수정 화면 전환
-		@RequestMapping(value="updatePw", method=RequestMethod.GET)
-		public String updatePw() {
-			return "member/updatePw";
-		}
-		
-		
-		// 비밀번호 수정
-		@RequestMapping(value="updatePw", method=RequestMethod.POST)
-		public String updatePw(@ModelAttribute("loginMember") Member loginMember,
-							   String currentPw, String newPw1, RedirectAttributes ra) {
-			
-			Map<String, String> map = new HashMap<String, String>();
-			
-			map.put("memberNo", loginMember.getMemberNo() + "");
-			map.put("currentPw", currentPw);
-			map.put("newPw", newPw1);
-			
-			int result = service.updatePw(map);
-			
-			if(result  > 0) {
-				Util.swalSetMessage("비밀번호 변경 성공","비밀번호가 변경되었습니다.", "success", ra);
-			}else {
-				Util.swalSetMessage("비밀번호 변경 실패","현재 비밀번호가 일치하지 않습니다.", "error", ra);
-			}
-			
-			return "redirect:/member/updatePw";
-		}
-		
-		
-	    // 회원 탈퇴 화면 전환
-	    @RequestMapping(value="secession", method=RequestMethod.GET )
-	    public String secession(Member member) {
-	       return "member/secession";
-	    }
 
+		return "redirect:/member/myPage";
+	}
+	
+	
+	
+	//프로필 사진 수정
+	@GetMapping(value="update")
+	public String updateImage(
+			@ModelAttribute("loginMember") Member loginMember,
+			@RequestParam("profile") List<MultipartFile> images,
+			 Member member, HttpSession session) {
 
-	    // 회원 탈퇴
-	    @RequestMapping(value="secession", method=RequestMethod.POST )
-	    public String secession(@ModelAttribute("loginMember") Member loginMember,  
-	    					String currentPw, SessionStatus status, RedirectAttributes ra) {
-	       
-	    	
-	       // 회원 가입 Service 호출 후 결과 반환 받기
-	       int result = service.secession(loginMember.getMemberNo(), currentPw);
-	       
-	       if(result > 0) { // 성공
-	          Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
-	          status.setComplete(); // 세션만료
-	          
-	       }else { // 실패
-	          Util.swalSetMessage("회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.", "error", ra);
-	       }
-	       
-	       return "redirect:/member/login";
-	    }
+		member.setMemberNo(loginMember.getMemberNo());
 
+		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로) String
+		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-	    // 바라는 점 화면 전환
-	    @RequestMapping(value="ask", method=RequestMethod.GET )
-	    public String ask(Member member) {
-	       return "member/ask";
-	    }
 
+		int memberNo = service.updateImage(member, images, webPath, serverPath);
 
-	    // 바라는 점
-	    @RequestMapping(value="ask", method=RequestMethod.POST )
-	    public String ask(@ModelAttribute("loginMember") Member loginMember, Member member,
-	    		 RedirectAttributes ra) {
-	       
-	    	member.setMemberNo( loginMember.getMemberNo() );
-	    	
-	       int result = service.ask(member);
-	       
-	       if(result > 0) { // 성공
-	          Util.swalSetMessage("바라는 점 제출 성공", "제출되었습니다.", "success", ra);
-	          
-	       }else { // 실패
-	          Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error", ra);
-	       }
-	       return "redirect:/member/ask";
-	    }
+		return "redirect:/member/myPage";
+	}
+	
+	
+	
+	// 비밀번호 수정 화면 전환
+	@RequestMapping(value = "updatePw", method = RequestMethod.GET)
+	public String updatePw() {
+		return "member/updatePw";
+	}
 
 	
+	
+	// 비밀번호 수정
+	@RequestMapping(value = "updatePw", method = RequestMethod.POST)
+	public String updatePw(@ModelAttribute("loginMember") Member loginMember, String currentPw, String newPw1,
+			RedirectAttributes ra) {
+
+		Map<String, String> map = new HashMap<String, String>();
+
+		map.put("memberNo", loginMember.getMemberNo() + "");
+		map.put("currentPw", currentPw);
+		map.put("newPw", newPw1);
+
+		int result = service.updatePw(map);
+
+		if (result > 0) {
+			Util.swalSetMessage("비밀번호 변경 성공", "비밀번호가 변경되었습니다.", "success", ra);
+		} else {
+			Util.swalSetMessage("비밀번호 변경 실패", "현재 비밀번호가 일치하지 않습니다.", "error", ra);
+		}
+
+		return "redirect:/member/updatePw";
+	}
+
+	// 회원 탈퇴 화면 전환
+	@RequestMapping(value = "secession", method = RequestMethod.GET)
+	public String secession(Member member) {
+		return "member/secession";
+	}
+
+	// 회원 탈퇴
+	@RequestMapping(value = "secession", method = RequestMethod.POST)
+	public String secession(@ModelAttribute("loginMember") Member loginMember, String currentPw, SessionStatus status,
+			RedirectAttributes ra) {
+
+		// 회원 가입 Service 호출 후 결과 반환 받기
+		int result = service.secession(loginMember.getMemberNo(), currentPw);
+
+		if (result > 0) { // 성공
+			Util.swalSetMessage("회원 탈퇴 성공", "탈퇴 되었습니다.", "success", ra);
+			status.setComplete(); // 세션만료
+
+		} else { // 실패
+			Util.swalSetMessage("회원 탈퇴 실패", "비밀번호가 일치하지 않습니다.", "error", ra);
+		}
+
+		return "redirect:/member/login";
+	}
+
+	// 바라는 점 화면 전환
+	@RequestMapping(value = "ask", method = RequestMethod.GET)
+	public String ask(Member member) {
+		return "member/ask";
+	}
+
+	/*
+	 * // 바라는 점
+	 * 
+	 * @RequestMapping(value = "ask", method = RequestMethod.POST) public String
+	 * ask(@ModelAttribute("loginMember") Member loginMember, Member member,
+	 * RedirectAttributes ra) {
+	 * 
+	 * member.setMemberNo(loginMember.getMemberNo());
+	 * 
+	 * int result = service.ask(member);
+	 * 
+	 * if (result > 0) { // 성공 Util.swalSetMessage("바라는 점 제출 성공", "제출되었습니다.",
+	 * "success", ra);
+	 * 
+	 * } else { // 실패 Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error",
+	 * ra); } return "redirect:/member/ask"; }
+	 */
+
 }
