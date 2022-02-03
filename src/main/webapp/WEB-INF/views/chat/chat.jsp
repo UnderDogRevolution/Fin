@@ -21,7 +21,7 @@
                     <div class="MemberName-wrap">
                         <div class="MemberName">
                             <!-- 사용자 닉네임 -->
-                            user01
+                            ${loginMember.memberName}
                         </div>
                         <!--  <i class="fas fa-comment-dots" data-bs-toggle="modal" data-bs-target="#MessageModal"></i> -->
                         <svg data-bs-toggle="modal"
@@ -37,9 +37,9 @@
                     <div class="chatList-wrap">
                         <!--보낸대상 영역 -->
 							
-						<c:choose>
+				<%-- 		<c:choose>
 						
-							<%-- 조회된 게시글 목록이 없을 때 --%>
+							조회된 게시글 목록이 없을 때
 							<c:when test="${empty chatRoomList }">
 								<tr>
 									<td colspan="4">존재하는 채팅방이 없습니다.</td>
@@ -61,14 +61,16 @@
                                     ${chatRoom.friendNm}
                                 </div>
                             </div>
-                            <i class="fas fa-times delete-message-room"></i><!-- x아이콘 -->
+                            <!-- x아이콘 -->
+                            <i class="fas fa-times delete-message-room"></i>
+                            <input type = "hidden" value = "${chatRoom.chatRoomNo}">
                         </div><!-- 채팅끝 -->
                         
-                        <input type="hidden" value="${chatRoom.friendNo}">
+                        <input  type="hidden" value="${chatRoom.friendNo}"><!-- 친구회원번호 -->
                         
 								</c:forEach>
 							</c:otherwise>
-						</c:choose>
+						</c:choose> --%>
 
 
 
@@ -110,9 +112,12 @@
         </main>
     </div>
 
-    <!-- 이미지 파일 업로드 -->
+    <!-- 이미지 파일 보내기-->
     <div class="fileinput">
-        <input type="file" name="images" onchange="loadImg(this,0)">
+   		<form action="input" enctype = "multipart/form-ata" id = "imgForm">
+   		
+        <input type="file" name="images" id= "msgImg" onchange="sendImg(this,0)">
+   		</form>
     </div>
 
 
@@ -148,24 +153,22 @@
                     </div>
 
                 </div><!-- 바디 끝부분  -->
-
 	<!--web소켓과 비슷한 js 라이브러리
 	 -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
 	
 	<script>
 		// 로그인이 되어 있을 경우에만
-		let chattingSock = new SockJS("<c:url value='/chat' />");
+		let chattingSock = new SockJS("<c:url value='/chat/mychat' />");
 									// contextPath + /chat
 									
 		const memberNo = "${loginMember.memberNo}";
 		const memberNickName = "${loginMember.memberNickName}";
 		const memberName = "${loginMember.memberName}";
-		const chatRoomNo = "${chatRoomNo}";
 		const contextPath = "${contextPath}";
 	</script>
 	
+	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
 	
 
 </body>

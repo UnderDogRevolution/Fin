@@ -1,11 +1,15 @@
 package com.movie.sns.chat.model.vo;
 
+import java.util.Date;
+
 public class ChatMessage {
 	private int chatMessageNo;
 	private String message;
 	private String createDate;
 	private int chatRoomNo;
 	private int memberNo;
+	private int targetNo;
+	private int type;
 	
 	private String memberName;
 	private String memberId;
@@ -85,10 +89,36 @@ public class ChatMessage {
 	}
 
 
+	public int getTargetNo() {
+		return targetNo;
+	}
+
+
+	public void setTargetNo(int targetNo) {
+		this.targetNo = targetNo;
+	}
+
+
+	public int getType() {
+		return type;
+	}
+
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ChatMessage [chatMessageNo=" + chatMessageNo + ", message=" + message + ", createDate=" + createDate
-				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", memberName=" + memberName + ", memberId="
-				+ memberId + "]";
+				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", targetNo=" + targetNo + ", type=" + type
+				+ ", memberName=" + memberName + ", memberId=" + memberId + "]";
 	}
+
+	
+	
+
+
+	
 }

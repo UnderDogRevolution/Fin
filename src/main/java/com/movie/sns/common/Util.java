@@ -75,6 +75,16 @@ public class Util {
 	    }
 	    return obj;
 	}
+
+
+	public static String br(String param) {
+		String result = param;
+		if (param != null) {
+			result = result.replaceAll("&lt;br&gt;", "<br>");
+		}
+
+		return result;
+	}
 	
 }
 
