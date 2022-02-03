@@ -48,43 +48,148 @@ function signUpValidate(){
 
 }
 
+
+
+// 전역변수로 빼주고 clearInterval 수행해야함
+let isStop = false;
+let countInterval;
+
+// 인증번호 카운트다운
+function paddedFormat(num) {
+  return num < 10 ? "0" + num : num; 
+}
+
+function startCountDown(duration, element) {
+
+  let secondsRemaining = duration;
+  let min = 0;
+  let sec = 0;
+
+  countInterval = setInterval(function () {
+
+    if(!isStop){  
+         
+      min = parseInt(secondsRemaining / 60);
+      sec = parseInt(secondsRemaining % 60);
+
+      element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
+
+      secondsRemaining = secondsRemaining - 1;
+      // 타이머가 만료되면
+      if (secondsRemaining < 0) { 
+        
+        clearInterval(countInterval); 
+        $(".auth-submit-btn").attr("disabled", true);
+        // $(".auth-submit-btn").removeAttr("disabled");
+
+        const authResult = $(".auth-result");
+        const div = $('<div class="failMsg">');
+        const resendBtn = $('<button type="button" class="btn auth-resend-btn" onclick="resendAuth();">');
+        
+        $(".auth-result").empty();
+        div.text("인증 시간이 만료되었습니다.");
+        resendBtn.text("인증번호 재발급");
+
+        authResult.append(div);
+        div.after(resendBtn);
+
+
+      };
+
+    }else{
+
+      clearInterval(countInterval);
+
+    }
+
+  }, 1000);
+}
+
+// 타이머 멈추기
+function stopTimer(){
+  isStop = true;
+  clearInterval(countInterval);
+}
+
+// 타이머 시작하기
+function startTimer() {
+  let time_minutes = 3; // Value in minutes
+  let time_seconds = 0; // Value in seconds
+
+  let duration = time_minutes * 60 + time_seconds;
+
+  element = document.querySelector('#count-down-timer');
+  element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+
+  isStop = false;
+
+  startCountDown(--duration, element);
+};
+
+
+
 // 이메일 인증버튼 클릭 시 모달창 열기
+$("#emailCheck-btn").on("click",function(){
+
+  // 버튼에 비활성화를 해제
+  $(".auth-submit-btn").removeAttr("disabled");
+
+  $("#emailAuthModalLabel").text("해당 이메일로 인증번호를 발송했습니다.");
+  $("#emailAuthCode").val("");
+  $(".auth-result").empty();
+
+  $("#emailAuthModal").modal('show');
+  
+  stopTimer();
+  startTimer();
+  authEmail();
+
+});
+
+
+// 이메일 인증번호 생성 및 삽입 + 이메일 전송
 function authEmail(){
 
   const memberEmail = $("#memberEmail").val();
-  $("#emailAuthModal").modal('show');
 
-  // 이메일 인증번호 생성 후 DB에 삽입하기 + 이메일 전송
-  $.ajax({
+  if(memberEmail.trim().length == 0){
 
-    url : "emailAuth",
-    type : "post",
-    data : {"memberEmail" : memberEmail},
+    $(".auth-result").text("인증 코드를 입력해주세요").css("color","#F05454");
 
-    success : function(result){
+  }else{
 
-      if(result == 1){
-        console.log("인증번호 삽입 + 메일 전송 성공");
-      }else{
-        console.log("예외 발생");
+    $.ajax({
+
+      url : "emailAuth",
+      type : "post",
+      data : {"memberEmail" : memberEmail},
+  
+      success : function(result){
+  
+        if(result == 1){
+          console.log("인증번호 삽입 + 메일 전송 성공");
+        }else{
+          console.log("예외 발생");
+        }
+  
+      },
+  
+      error : function(request, status, error){
+            
+        // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+        if( request.status == 404 ){
+          console.log("ajax 요청 주소가 올바르지 않습니다.");
+  
+        } else if( request.status == 500){
+            console.log("서버 내부 에러 발생");
+            console.log(request.responseText);
+        }
+     
       }
+  
+    });
 
-    },
-
-    error : function(request, status, error){
-          
-      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
-      if( request.status == 404 ){
-        console.log("ajax 요청 주소가 올바르지 않습니다.");
-
-      } else if( request.status == 500){
-          console.log("서버 내부 에러 발생");
-          console.log(request.responseText);
-      }
-   
-    }
-
-  });
+  }
 
 }
 
@@ -94,7 +199,8 @@ function checkAuth(){
 
   const memberEmail = $("#memberEmail").val();
   const authCode = $("#emailAuthCode").val();
-  const authResult = $("#auth-result");
+
+  const authResult = $(".auth-result");
 
   // 이메일 인증번호 비교 후 결과 반환받기
   $.ajax({
@@ -109,19 +215,35 @@ function checkAuth(){
         console.log("인증 성공");
         $("#emailCheck-btn").next().html(validIcon);
         // 이메일 입력창 비활성화
-        $("#memberEmail").attr("disabled", true);
+        $("#memberEmail").attr("readonly", true);
 
         $("#emailCheck-btn").text("인증 완료");
         $("#emailCheck-btn").attr("disabled", true);
 
         $("#emailAuthModal").modal('hide');
 
+        successAuth();
+
+        // 인증 완료 후 관련 정보 DB에서 삭제하기 만들 예정
+        // deleteAuth();
+
         signUpCheckObj.emailCode = true;
 
       }else{
-        console.log("예외 발생");
+        console.log("인증번호 불일치");
+        $("#emailCheck-btn").next().html(invalidIcon);
 
         // 실패 및 재전송 관련 요소 생성하기
+        authResult.empty();
+
+        const div = $('<div class="failMsg">');
+        const resendBtn = $('<button type="button" class="btn auth-resend-btn" onclick="resendAuth();">');
+        
+        div.text("인증번호가 일치하지 않습니다.");
+        resendBtn.text("인증번호 재발급");
+
+        authResult.append(div);
+        div.after(resendBtn);
 
         signUpCheckObj.emailCode = false;
       }
@@ -143,7 +265,68 @@ function checkAuth(){
 
   });
 
+  signUpValidate();
 
+}
+
+
+// 인증 성공 sweetalert
+function successAuth(){
+
+  Swal.fire({
+    
+    title : "이메일 인증 성공!",
+    icon : "success",
+    showConfirmButton: true,
+    timer: 5000,
+    timerProgressBar: true,
+    confirmButtonText: '확인',
+    confirmButtonColor: '#F05454'
+
+  })
+
+}
+
+
+// 인증번호 재전송 클릭 시 동작
+function resendAuth(){
+
+  // 이메일 보내기 + 타이머 재시작
+  stopTimer();
+  startTimer();
+  authEmail();
+
+  // 버튼에 비활성화를 해제
+  $(".auth-submit-btn").removeAttr("disabled");
+  
+  $("#emailAuthModalLabel").text("인증번호를 다시 전송했습니다.").css("color", "#F05454");
+ 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: true,
+    confirmButtonText: '확인',
+    confirmButtonColor: '#F05454',
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
+  Toast.fire({
+    icon: 'success',
+    title: '인증번호 재전송 완료'
+  })
+
+};
+
+
+// 인증 완료 후 코드 삭제하기
+function deleteAuth(){
+
+  
 
 }
 
@@ -407,6 +590,7 @@ $("#terms1, #terms2").on("change", function(){
   signUpValidate();
 
 });
+
 
 
 

@@ -538,3 +538,7 @@ input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
   margin: 10px;
 }
 
+
+#emailCheck-btn :disabled{
+  opacity: 0.8;
+}

@@ -171,8 +171,8 @@
 
         <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
         <form>
-          <textarea name="ask" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
-          id="currentAsk" style="resize: none;"></textarea>
+          <textarea name="askInput" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
+          id="askInput" style="resize: none;"></textarea>
         </form>
         </div>
 <!-- XSS 처리도 해야함 -->
@@ -183,21 +183,16 @@
   </div>
   </form>
 
-  <script>
-		function askValidate(){
-
-			// 1) 내용이 입력되어 있지 않으면 false 리턴
-			const currentAsk = document.getElementById("currentAsk");
-			
-			if(currentAsk.value.trim().length == 0){
-				alert("바라는 점을 입력해주세요");
-				currentAsk.focus();
-				return false;
-			}
-			
-			return confirm("바라는 점을 제출 하시겠습니까?");
-		}
+	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <c:if test="${ !empty requestScope.title }">
+	<script>
+		swal({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}"
+		});
 	</script>
+	</c:if>
 
 
 </body>

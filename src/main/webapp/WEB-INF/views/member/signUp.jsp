@@ -57,7 +57,7 @@
 
                   <div style="margin-top: 10px; width: 285px; display: flex; align-items: center; justify-content: space-between;">
 
-                    <button class="a-btn" id="emailCheck-btn" onclick=authEmail(); type="button" style="width:100%" disabled>
+                    <button class="a-btn" id="emailCheck-btn" type="button" style="width:100%" disabled>
                       인증번호 발송
                     </button>
 
@@ -220,12 +220,15 @@
 	    <div class="modal-content">
 	    
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="emailAuthModalLabel" style="color:#323232; font-size: 18px; font-weight: bold;">해당 이메일로 인증번호를 발송했습니다.</h5>
+	        <h5 class="modal-title" id="emailAuthModalLabel" style="color:#323232; font-size: 18px; font-weight: bold;"></h5>
+	        <h5 style="text-align: center; color: #F05454; font-size: 18px; font-weight: bold;" id="count-down-timer"></h5>
 	      </div>
 	      
 	      <div class="modal-body" style="color:#323232;">
 	      
 	        <div id="emailAuthForm">
+	        
+	        	<div style="margin:10px; font-size:14px; color: darkgray; font-weight: bold;">메일 도착까지 약 10초의 시간이 필요합니다.</div>
 
 	            <div>
 	
@@ -242,16 +245,6 @@
 	
 	            <div class="auth-result">
 	              
-	              <div>
-	                인증번호가 일치하지 않습니다.
-	              </div>
-	
-	              <div>
-	                <button type="button" class="btn auth-resend-btn" onclick="">
-	                  인증번호 재발급
-	                </button>
-	              </div>
-	
 	            </div>
 
 	        </div>
@@ -291,6 +284,17 @@
 			// EL 작성 시 scope를 지정하지 않으면
 			// page -> request -> session -> application 순서로 검색하여
 			// 일치하는 속성이 있으면 출력
+	</script>
+</c:if>
+
+<%-- request scope에 "title"이라는 키값이 존재하는 경우 --%>
+<c:if test="${!empty requestScope.title}">
+	<script>
+		swal.fire({
+			title : "${title}",
+			html  : "${text}",
+			icon  : "${icon}" 
+		})
 	</script>
 </c:if>
 

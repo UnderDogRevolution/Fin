@@ -79,6 +79,7 @@
 	 
 	 <!-- 이메일 인증번호 조회하기 (가장 최신) -->
 	 <!-- count(*) 말고 resultMap으로 이메일 조회한 결과 중 가장 최근 코드와 일치하는지 확인하는 방법 -->
+	 <!-- inlineview -->
 	 <select id="selectAuthCode" parameterType="MemberAuth" resultType="_int">
 	 	SELECT COUNT(*) FROM MEMBER_AUTH
 	 	WHERE MEMBER_EMAIL = #{memberEmail}
@@ -86,6 +87,12 @@
 	 	AND (END_DT-SYSDATE) &gt; 0
 	 </select>
 	 
-
+	
+	<!-- 이메일 인증코드 내역 삭제하기 -->
+	 <delete id="deleteAuthCode">
+	 	DELETE FROM MEMBER_AUTH
+	 	WHERE MEMBER_EMAIL = #{memberEmail}
+	 </delete>
+	
 
 </mapper>

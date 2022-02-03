@@ -172,17 +172,17 @@
 
         <div class="row-mb-3-con">
           <label for="currentPw" class="form-label" >비밀번호 수정</label>
-          <input type="password" class="inputform" id="currentPw">
+          <input type="password" class="inputform" id="currentPw" name="currentPw">
         </div>
 
         <div class="row-mb-3-con">
           <label for="newPw1" class="form-label">새 비밀번호</label>
-          <input type="password" class="inputform" id="newPw1">
+          <input type="password" class="inputform" id="newPw1" name="newPw1">
         </div>
 
         <div class="row-mb-3-con">
           <label for="newPw2" class="form-label">새 비밀번호 확인</label>
-          <input type="password" class="inputform" id="newPw2">
+          <input type="password" class="inputform" id="newPw2" name="newPw2">
         </div>
 
         <div class="mb-3" style="font-weight: bold;">
@@ -196,7 +196,16 @@
   </div>
   </form>
   
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <c:if test="${ !empty requestScope.title }">
+	<script>
+		swal({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}"
+		});
+	</script>
+	</c:if>
   
   <script>
 		// 비밀번호 유효성 검사
@@ -222,6 +231,7 @@
 			
 		}
 	</script>
+	
   
 </body>
 
