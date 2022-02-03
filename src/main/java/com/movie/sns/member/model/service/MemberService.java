@@ -3,6 +3,7 @@ package com.movie.sns.member.model.service;
 import javax.servlet.http.HttpServletRequest;
 
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.member.model.vo.MemberAuth;
 
 public interface MemberService {
 
@@ -50,6 +51,26 @@ public interface MemberService {
 	 * @return result
 	 */
 	int resetPw(String encEmail, String newPw);
+
+
+	/** 이메일 인증코드 삽입하기
+	 * @param memberEmail
+	 * @param authCode
+	 * @return result
+	 */
+	int insertAuthCode(String memberEmail, String authCode);
+
+
+	/** 이메일 인증코드 조회하기
+	 * @param memberEmail
+	 * @param authCode
+	 * @return result
+	 */
+	int selectAuthCode(String memberEmail, String authCode);
+
+
+
+
 	
 	
 	
