@@ -86,7 +86,6 @@ function revealPost(){
 					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
 					
 					if(items.rating != null){
-
 						divContent3.className = "post-rating";
 						const iContent1 = document.createElement("i")
 						const iContent2 = document.createElement("i")
@@ -398,7 +397,43 @@ function revealPost(){
 					})
 				})
 			}
-			
+		
+			const replyImg = document.querySelectorAll(".container-reply > img")
+
+			for(const items of replyImg){
+				items.addEventListener("click", function(){
+					const post = this.parentNode.parentNode.parentNode
+					console.log(post)
+					
+					
+					const inputReplyDiv = document.createElement("div");
+					inputReplyDiv.className = "input-content-reply";
+
+					const inputReplyDivIn1 = document.createElement("div");
+					inputReplyDivIn1.innerText = "댓글"
+					const inputReplyDivIn2 = document.createElement("div");
+					const input = document.createElement("input")
+					input.setAttribute("type", "text");
+					input.setAttribute("placeholder", "댓글을 달아주세요!");
+					inputReplyDivIn2.append(input);
+					const inputReplyDivIn3 = document.createElement("div");
+					const inputReplyImg = document.createElement("img")
+					inputReplyImg.setAttribute("src", contextPath + "/resources/images/temp//comment.png")
+					inputReplyImg.setAttribute("onclick", "insertReply(this)")
+
+					inputReplyDivIn3.append(inputReplyImg)
+
+					inputReplyDiv.append(inputReplyDivIn1)
+					inputReplyDiv.append(inputReplyDivIn2)
+					inputReplyDiv.append(inputReplyDivIn3)
+
+					if(post.getElementsByClassName("input-content-reply").length > 0){
+						post.getElementsByClassName("input-content-reply")[0].remove();
+					}else{
+						post.append(inputReplyDiv)
+					}
+				})
+			}
 
 			
 			
@@ -413,13 +448,38 @@ function revealPost(){
 
 	
 }
-
-const replyImg = document.querySelectorAll("container-reply > img")[0]
-
-replyImg.addEventListener("click", function(){
+function insertReply(e){
 	
-})
-
+	console.log(e)
+	const post = e.parentNode.parentNode.parentNode
+	console.log(post);
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	console.log(postNo);
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	console.log(replyContent);
+	if(replyContent.trim().length>0){
+		$.ajax({ 
+			url: contextPath + "/reply/insert",
+			data: { "postNo": postNo, "replyContent" : replyContent},
+			type: "POST",
+			dataType : "JSON",
+			success: function (result) {
+				if(result>0){
+					alert("댓글이 등록되었습니다.")
+				}else{
+					alert("댓글 등록 중 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	
+		})
+	}
+}
 
 
 
