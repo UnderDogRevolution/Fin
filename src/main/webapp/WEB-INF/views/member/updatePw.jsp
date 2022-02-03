@@ -172,7 +172,7 @@
 
         <div class="row-mb-3-con">
           <label for="currentPw" class="form-label" >비밀번호 수정</label>
-          <input type="password" class="inputform" id="currentPw">
+          <input type="password" class="inputform" id="currentPw" name="currentPw">
         </div>
 
         <div class="row-mb-3-con">

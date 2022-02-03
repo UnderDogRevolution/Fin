@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.common.RandomNumber;
+import com.movie.sns.common.Util;
 import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.member.model.vo.MemberAuth;
@@ -155,10 +156,11 @@ public class MemberController {
 		return result;
 	}
 	
-	// 인증 완료하면 삭제하기 + JS에서 validation 설정하기
+	// (인증번호 정보 삭제는 스케쥴러 활용하기?)
 	// 시간초 뜨게 만들기?
 	// 이메일 꾸미기
 	// 추가정보 입력하기
+	// 로그인, 로그아웃 시 최근 페이지로 돌아가기
 	
 	
 	
@@ -179,6 +181,7 @@ public class MemberController {
 			signUpMessage = "회원 가입 성공!";
 			text = member.getMemberNickName() + "님의 가입을 환영합니다.<br> 로그인을 진행해주세요.";
 			icon = "success";
+			Util.swalSetMessage(signUpMessage, text, icon, ra);
 			path = "redirect:/member/login";
 			
 		}else {
@@ -186,13 +189,10 @@ public class MemberController {
 			signUpMessage = "가입 실패";
 			text = "회원가입을 진행하는 중 문제가 발생했습니다.<br> 관리자에게 문의해주세요.";
 			icon = "error";
+			Util.swalSetMessage(signUpMessage, text, icon, ra);
 			path = "redirect:/member/signUp";
 			
 		}
-		
-		ra.addFlashAttribute(signUpMessage);
-		ra.addFlashAttribute(icon);
-		ra.addFlashAttribute(text);
 		
 		return path;
 	}
