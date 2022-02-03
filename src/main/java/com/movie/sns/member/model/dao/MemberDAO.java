@@ -127,5 +127,15 @@ public class MemberDAO {
 
 
 
+	/** 이메일 인증 내역 삭제하기
+	 * @param memberEmail
+	 */
+	public void deleteAuthCode(String memberEmail) {
+
+		sqlSession.delete("memberMapper2.deleteAuthCode",memberEmail);
+	}
+
+
+
 	
 }
