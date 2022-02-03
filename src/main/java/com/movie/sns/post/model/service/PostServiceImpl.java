@@ -36,7 +36,18 @@ public class PostServiceImpl implements PostService {
 	}
 	@Transactional // RuntimException 예외 발생 시 Rollback
 	@Override
-	public int insertPost(Post post, List<String> tagArr, Movie movie, List<MultipartFile> fileList, String webPath, String serverPath) {
+	public int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath) {
+		
+		Post post = new Post();
+		post.setMemberNo(1);
+		post.setPostContent((String)postVO.get("postContent"));
+		post.setCheckUsePoster((int)postVO.get("checkUsePoster"));
+		
+		List<String> tagArr = (List<String>)postVO.get("tagArr");
+
+		Map<String, Object> movieMap = new HashMap<String, Object>();
+		Movie movie = new Movie();
+		
 		
 		post.setPostContent(Util.XSS(post.getPostContent()));
 		post.setPostContent(Util.changeNewLine(post.getPostContent()));
@@ -94,21 +105,60 @@ public class PostServiceImpl implements PostService {
 		}
 		movie.setPostNo(post.getPostNo());
 		// 영화 등록
-		if(result>0) {
-			int check= dao.dupCheckMovie(movie);
+		if(postVO.get("movie") != null) {
+			movieMap = (Map<String, Object>)postVO.get("movie");
+			Movie temp = new Movie();
+			movie = (Movie)Util.convertMapToObject(movieMap, temp);
+			movie.setMemberNo(1);
+			movie.setPostNo(post.getPostNo());
 			
-			if(check == 0){
-				result = dao.insertMovie(movie); // 영화 등록
+			if(result>0) {
+				int check= dao.dupCheckMovie(movie);
+				
+				if(check == 0){
+					result = dao.insertMovie(movie); // 영화 등록
+				}
+				if(result>0 && movie.getRating() != null) {
+					result = dao.insertRating(movie); // 영화 별점 등록
+				}
+				
 			}
-			if(result>0 && movie.getRating() != null) {
-				result = dao.insertRating(movie); // 영화 별점 등록
-			}
-			
 		}
+		
 		
 		return result;
 	}
 
+	@Override
+	public List<Post> selectPostList() {
+		return dao.selectPostList();
+	}
+	
+	@Transactional
+	@Override
+	public int insertLike(int postNo, int memberNo) {
+		Map<String, Integer> likeMap = new HashMap<String, Integer>();
+		likeMap.put("postNo", postNo);
+		likeMap.put("memberNo", memberNo);
+		int result = dao.checkDupLike(likeMap);
+		if(result == 0) {
+			result = dao.insertLike(likeMap);
+		}
+		return result;
+	}
+	@Transactional
+	@Override
+	public int deleteLike(int postNo, int memberNo) {
+		Map<String, Integer> likeMap = new HashMap<String, Integer>();
+		likeMap.put("postNo", postNo);
+		likeMap.put("memberNo", memberNo);
+		int result = dao.checkDupLike(likeMap);
+		if(result == 1) {
+			result = dao.deleteLike(likeMap);
+		}
+		return result;
+	}
+	
 	
 	
 	

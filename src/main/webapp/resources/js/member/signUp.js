@@ -31,7 +31,7 @@ function signUpValidate(){
   // 이걸 쉽게 쓰는 방법은??
   if(
     signUpCheckObj.email == true &&
-    // signUpCheckObj.emailCode == true &&
+    signUpCheckObj.emailCode == true &&
     signUpCheckObj.password == true &&
     signUpCheckObj.password2 == true &&
     signUpCheckObj.nickName == true &&
@@ -48,60 +48,23 @@ function signUpValidate(){
 
 }
 
-// 이메일 인증할때 참고용 (sweetalert ajax)
-function emailCheck(){
-
-  Swal.fire({
-    background: '#FDFDFD',
-    width: '400px',
-    title: '이메일 인증번호 입력',
-    input: 'text',
-    
-    confirmButtonText: '확인',
-    confirmButtonColor:'#44DE1D',
-
-    showCancelButton: true,
-    cancelButtonText: '취소',
-    cancelButtonColor:'#F82F2F',
-    
-    footer : "번호가 일치하지 않습니다.",
-
-  }).then(function(result){
-    // result = input창에 입력한 값
-    
-    if(result.length == 0){
-      console.log(result.length);
-    }
-
-    if(result.isConfirmed){
-      console.log(result.value);
-    }else{
-      console.log("취소");
-    }
-
-  });
-
-}
-
-
-// 이메일 전송 함수
-function sendEmail(){
+// 이메일 인증버튼 클릭 시 모달창 열기
+function authEmail(){
 
   const memberEmail = $("#memberEmail").val();
-  const signUpEmail = $("#signUpEmail");
+  $("#emailAuthModal").modal('show');
 
-  signUpEmail.val(memberEmail);
-
+  // 이메일 인증번호 생성 후 DB에 삽입하기 + 이메일 전송
   $.ajax({
 
-    url : "../mail/sendMail",
+    url : "emailAuth",
     type : "post",
     data : {"memberEmail" : memberEmail},
 
     success : function(result){
 
       if(result == 1){
-        console.log("메일 발송 성공");
+        console.log("인증번호 삽입 + 메일 전송 성공");
       }else{
         console.log("예외 발생");
       }
@@ -123,8 +86,69 @@ function sendEmail(){
 
   });
 
+}
+
+
+// 이메일 인증번호 체크 함수
+function checkAuth(){
+
+  const memberEmail = $("#memberEmail").val();
+  const authCode = $("#emailAuthCode").val();
+  const authResult = $("#auth-result");
+
+  // 이메일 인증번호 비교 후 결과 반환받기
+  $.ajax({
+
+    url : "emailAuthCheck",
+    type : "post",
+    data : {"memberEmail" : memberEmail, "authCode" : authCode},
+
+    success : function(result){
+
+      if(result > 0){
+        console.log("인증 성공");
+        $("#emailCheck-btn").next().html(validIcon);
+        // 이메일 입력창 비활성화
+        $("#memberEmail").attr("disabled", true);
+
+        $("#emailCheck-btn").text("인증 완료");
+        $("#emailCheck-btn").attr("disabled", true);
+
+        $("#emailAuthModal").modal('hide');
+
+        signUpCheckObj.emailCode = true;
+
+      }else{
+        console.log("예외 발생");
+
+        // 실패 및 재전송 관련 요소 생성하기
+
+        signUpCheckObj.emailCode = false;
+      }
+
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+          console.log(request.responseText);
+      }
+   
+    }
+
+  });
+
+
 
 }
+
+
+
 
 
 // ******************** 회원가입 ********************

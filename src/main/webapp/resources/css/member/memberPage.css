@@ -487,3 +487,54 @@ input[id="terms1"]:checked + label, input[id="terms2"]:checked + label {
 
 .a-modal{color: #323232; font-size: 25px; font-weight: bold;}
 
+#emailAuthForm div{
+  display: flex;
+  align-items: center;
+
+}
+
+.auth-input{
+  width: 200px; height: 50px; 
+  outline: none; border: none; 
+  background-color: #EEEEEE; 
+  padding: 10px; margin: 10px; 
+  font-size: 20px;
+}
+
+.auth-submit-btn{
+  height: 50px;
+  background-color: #ff6c6c;
+  color: #FDFDFD;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.auth-cancel-btn{
+  height: 50px;
+  background-color: darkgray;
+  color: #FDFDFD;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.auth-resend-btn{
+  width: 120px;
+  height: 30px;
+  background-color: #6b6b6b;
+  color: #FDFDFD;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.auth-result{
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  color: #F05454;
+  font-size: 15px;
+  font-weight: 600;
+}
+.auth-result div{
+  margin: 10px;
+}
+

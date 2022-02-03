@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.member.model.vo.MemberAuth;
 
 @Repository
 public class MemberDAO {
@@ -102,6 +103,26 @@ public class MemberDAO {
 	public void deleteResetLog(String memberEmail) {
 
 		sqlSession.delete("memberMapper2.deleteResetLog", memberEmail);
+	}
+
+
+
+	/** 이메일 인증번호를 DB에 삽입
+	 * @param memberAuth
+	 * @return result
+	 */
+	public int insertAuthCode(MemberAuth memberAuth) {
+		return sqlSession.insert("memberMapper2.insertAuthCode", memberAuth);
+	}
+
+
+
+	/** 이메일 인증번호 조회하기
+	 * @param memberAuth
+	 * @return result
+	 */
+	public int selectAuthCode(MemberAuth memberAuth) {
+		return sqlSession.selectOne("memberMapper2.selectAuthCode", memberAuth);
 	}
 
 

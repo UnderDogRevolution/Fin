@@ -100,7 +100,9 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 </div>
             </div>
             <div class="post-img">
-                <img src="" alt="">
+                <img>
+                <span class="delete-img" style="display: none;">x</span>
+                <span class="on-poster" style="display: none;">Poster ON <span class="temp-url" style="display: none;"></span></span>
             </div>
             <!-- <div class="post-footer"> -->
                 <!-- <span class="before">이전</span> -->
