@@ -22,10 +22,22 @@
                     </div>
                     <div class="introduce">
                         <div class="nickname">
-                            <span>${loginMember.memberName}</span>
-                            <a href="${contextPath}/member/myPage">프로필변경</a>
+                            <c:choose>
+                            <c:when test="${loginMember.memberNo} == ${memberNo}">
+                            	
+                            	<span>${loginMember.memberName}</span>
+                                <a href="${contextPath}/member/myPage">프로필변경</a>
+                                 <img src="${contextPath}/resources/images/myBoard/png" data-bs-toggle="modal" data-bs-target="#followerList3">
+                            </c:when>
+                            <c:otherwise> 
+                            	<span>${loginMember.memberName}</span>                          
+                            	<a>팔로우</a>
+                            	<a>메세지 보내기</a>
+                            </c:otherwise>
+                        </c:choose>
+                            
 
-                            <img src="${contextPath}/resources/images/myBoard/png" data-bs-toggle="modal" data-bs-target="#followerList3">
+                           
 
                         </div>
                         <div class="boardCount">
