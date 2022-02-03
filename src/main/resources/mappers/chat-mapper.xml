@@ -17,6 +17,11 @@
 
 
 	</resultMap>
+	<!-- 채팅친구정보조회 -->
+	<select id="searchMember" resultMap="member_rm">
+		SELECT * FROM MEMBER WHERE
+		MEMBER_NO = ${friendNo}
+	</select>
 
 	<!-- <resultMap type="MemberImg" id="memberImage_rm"> <id property="imgNo" 
 		column="MEMBER_IMG_NO" /> <result property="imgPath" column="MEMBER_IMG_PATH" 
@@ -38,72 +43,115 @@
 		<result property="memberGradeCode" column="GRADE_CD" />
 
 
-
-
 	</resultMap>
-
-	<!-- 회원 이미지 조회 -->
-	<!-- <select id="selectMemberImg" resultMap="memberImage_rm"> SELECT* 
-		FROM MEMBER_IMG WHERE MEMBER_NO = #{memberNo} ORDER BY IMG_LEVEL </select> -->
-
-
-
-
-
+	<!-- 채팅메세지 -->
 	<resultMap type="chatMessage" id="chatMessage_rm">
 		<id property="chatMessageNo" column="CM_NO" />
 		<result property="createDate" column="CREATE_DT" />
 		<result property="chatRoomNo" column="CHAT_ROOM_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="memberName" column="MEMBER_NM" />
-		
+
 	</resultMap>
+
+	<!-- 회원 이미지 조회 -->
+	<!-- <select id="selectMemberImg" resultMap="memberImage_rm"> SELECT* FROM 
+		MEMBER_IMG WHERE MEMBER_NO = #{memberNo} ORDER BY IMG_LEVEL </select> -->
+
+
 
 
 	<!-- 채팅방 목록 조회 (상관커리) -->
 	<select id="chatRoomList" resultMap="chatRoom_rm">
 
-		SELECT CHAT_ROOM_NO, MEMBER_NM, MEMBER_NO,
-		(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
-		AND MEMBER_NO != #{memberNo}) CHAT_FR_NO,
+		SELECT CHAT_ROOM_NO,
+		MEMBER_NM, MEMBER_NO,
+		(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
+		J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
+		AND MEMBER_NO != #{memberNo})
+		CHAT_FR_NO,
 		(SELECT MEMBER_NM FROM MEMBER A WHERE A.MEMBER_NO =
-		(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
+		(SELECT
+		MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
 		AND MEMBER_NO != #{memberNo})
 		) CHAT_FR_NM
 		FROM CHAT_ROOM_JOIN R
-		JOIN MEMBER B USING(MEMBER_NO)
+		JOIN
+		MEMBER B USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		AND R.STATUS_CD
+		= 1
 		ORDER BY 1 DESC
 	</select>
-	
-	<!-- 채팅 친구 정보조회  -->
-	<select id = "searchMember" resultMap = "member_rm">
-	SELECT * FROM MEMBER WHERE MEMBER_NO = ${friendNo}
-	</select>
-	
-	
-	
-	
-	
-	<!-- 해당 채팅방 내용조회  -->
+
+	<!-- 채팅 방친구 이미지조회 -->
+	<!-- <select id="searchMember" resultMap="member_rm"> SELECT * FROM MEMBER 
+		WHERE MEMBER_NO = (SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO 
+		= R.CHAT_ROOM_NO AND MEMBER_NO != #{memberNo}) </select> -->
+
+
+	<!-- 해당 채팅방 내용조회 -->
 	<select id="searchMessage" resultMap="chatMessage_rm">
+ 	
+ 	<![CDATA[
  	SELECT MESSAGE ,  CM_NO,CHAT_ROOM_NO,
- 	TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS' ) CREATE_DT,MEMBER_NO , MEMBER_NM
+ 	  CASE WHEN SYSDATE - CREATE_DT < 1
+		         THEN TO_CHAR(CREATE_DT, 'HH24:MI')     
+		         ELSE TO_CHAR(CREATE_DT, 'YYYY-MM-DD')
+		    END "CREATE_DT",
+		    MEMBER_NO , MEMBER_NM
  	FROM CHAT_MESSAGE
  	JOIN MEMBER USING(MEMBER_NO)
  	WHERE CHAT_ROOM_NO = ${chatNo}
  	ORDER BY CM_NO
- 	</select>
- 	
- 	
- 	<!-- 채팅방 메세지 삽입  -->
- 	<insert id="insertMessage">
- 	    INSERT INTO CHAT_MESSAGE VALUES
-        (SEQ_CM_NO.NEXTVAL, #{message} ,SYSDATE , #{chatRoomNo},#{memberNo})
-    
- 	
- 	</insert>
- 	
- 	
+ 	]]>
 
+	</select>
+
+
+	<!-- 채팅방 메세지 삽입 -->
+	<insert id="insertMessage">
+		INSERT INTO CHAT_MESSAGE VALUES
+		(SEQ_CM_NO.NEXTVAL,
+		#{message} ,SYSDATE , #{chatRoomNo},#{memberNo})
+
+	</insert>
+
+	<!-- 현재 참여중인 사람 수 조회 -->
+	<select id="selectJoinCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		CHAT_ROOM_JOIN WHERE CHAT_ROOM_NO = #{chatRoomNo}
+		AND STATUS_CD = 1
+	</select>
+
+	<!-- 참여 상태를 2번으로 바꿈 -->
+	<update id="updateJoin">
+		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 2
+		WHERE
+		MEMBER_NO = #{memberNo}
+		AND CHAT_ROOM_NO = #{chatRoomNo}
+	</update>
+	<!-- 상대방 참여상태를 1번으로 바꾼다 -->
+	<update id="updateJoinUp">
+		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 1
+		WHERE
+		MEMBER_NO = #{targetNo}
+		AND CHAT_ROOM_NO = #{chatRoomNo}
+
+	</update>
+
+	<!-- 채팅방 삭제 -->
+	<delete id="deleteChatRoom">
+		DELETE FROM CHAT_ROOM
+		WHERE CHAT_ROOM_NO = #{chatRoomNo}
+	</delete>
+
+	<!-- 상대방이 채팅 참여 중인지 확인하기 -->
+	<select id="selectFriendJoin" resultType="_int">
+		SELECT COUNT(*) FROM
+		CHAT_ROOM_JOIN
+		WHERE CHAT_ROOM_NO = #{chatRoomNo} AND STATUS_CD = 1
+		AND
+		MEMBER_NO = #{targetNo}
+	</select>
 </mapper>

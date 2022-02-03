@@ -7,7 +7,7 @@ public class ChatRoom {
 	private String memberName;
 	private int friendNo; // 친구 번호
 	private String friendNm; // 친구 이름
-	 
+	private int cnt; // 참여자 수
 	public ChatRoom() {
 		// TODO Auto-generated constructor stub
 	}
@@ -60,11 +60,19 @@ public class ChatRoom {
 		this.friendNm = friendNm;
 	}
 
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	@Override
 	public String toString() {
 		return "ChatRoom [chatRoomNo=" + chatRoomNo + ", statusCode=" + statusCode + ", memberNo=" + memberNo
-				+ ", memberName=" + memberName + ", friendNo=" + friendNo + ", friendNm=" + friendNm + "]";
+				+ ", memberName=" + memberName + ", friendNo=" + friendNo + ", friendNm=" + friendNm + ", cnt=" + cnt
+				+ "]";
 	}
-	
-	
+
 }
