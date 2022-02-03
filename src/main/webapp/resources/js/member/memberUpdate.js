@@ -1,115 +1,87 @@
 const updateCheckObj = {
-	email: false,
-	nickName: false,
+	"nickName": true,
 }
 
 
-// 이메일 유효성 검사 + 중복 확인
-// 이메일 유효성 검사
-$("#memberEmail").on("input", function(){
 
-  const memberEmail = $(this).val();
-  const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
-  const checkInput = $(this).next();
-  const inputEmail = $(this);
 
-  // 값이 없는 경우
-  if(memberEmail.length == 0){
-    checkInput.html("");
-    $(this).removeAttr("class", "unique");
-    $(this).removeAttr("class", "duplication");
-    $("#emailCheck-btn").attr("disabled", true);
-    signUpCheckObj.email = false;
-  }
-  else if(regExp.test(memberEmail)){
 
-    checkInput.html(validIcon);
+// 닉네임 유효성 검사 ( + 중복 확인 )
+$("#nickInput").on("input", function() {
 
-    $.ajax({ 
+	const memberNickName = $(this).val(); // 입력 받은 이름
+	const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
+	const checkNickName = $(this).next();
+	const inputNickName = $(this);
 
-      url : "emailDupCheck",                         
-      data : {"memberEmail" : memberEmail},               
-      type : "GET",                             
+	if (memberNickName.length == 0) { // 빈칸
+		$(this).removeAttr("class", "unique");
+		$(this).removeAttr("class", "duplication");
+		checkNickName.html("");
+		updateCheckObj.nickName = false;
 
-      success : function(result){
+	} else if (regExp.test(memberNickName)) {
 
-        console.log(result);
+		// 유효한 경우 중복 검사
+		$.ajax({
 
-        if(result  ==  0){ // 이메일 사용 가능
+			url: "nickNameDupCheck",
+			data: { "nickInput": nickInput },
+			type: "GET",
 
-          inputEmail.removeAttr("class", "duplication");
-          inputEmail.addClass("unique");
-          $("#emailCheck-btn").removeAttr("disabled");
-          signUpCheckObj.email = true;
-      
-        }else{ // 이메일 중복인 경우
+			success: function(result) {
 
-          inputEmail.removeAttr("class", "unique");
-          inputEmail.addClass("duplication");
-          $("#emailCheck-btn").attr("disabled", true);
-          signUpCheckObj.email = false;
+				console.log(result);
 
-        }
+				if (result == 0) { // 닉네임 사용 가능
 
-      },
+					inputNickName.removeAttr("class", "duplication");
+					inputNickName.addClass("unique");
+					checkNickName.html(validIcon);
+					updateCheckObj.nickName = true;
+					console.log("사용가능");
 
-      error : function(request, status, error){
-          
-        // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
-        if( request.status == 404 ){
-          console.log("ajax 요청 주소가 올바르지 않습니다.");
+				} else { // 닉네임 중복
 
-        } else if( request.status == 500){
-            console.log("서버 내부 에러 발생");
-            console.log(request.responseText);
-        }
-     
-      }
+					inputNickName.removeAttr("class", "unique");
+					inputNickName.addClass("duplication");
+					checkNickName.html(invalidIcon);
+					updateCheckObj.nickName = false;
+					console.log("사용불가능");
 
-    });
+				}
 
-    
+			},
 
-  }
-  // 유효성 조건 불만족
-  else{
-    checkInput.html(invalidIcon);
-    $("#emailCheck-btn").attr("disabled", true);
-    signUpCheckObj.email = false;
-  }
+			error: function(request, status, error) {
 
-  signUpValidate();
+				// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+				if (request.status == 404) {
+					console.log("ajax 요청 주소가 올바르지 않습니다.");
 
+				} else if (request.status == 500) {
+					console.log("서버 내부 에러 발생");
+					console.log(request.responseText);
+				}
+
+			},
+			complete: function() {
+				// (마지막에 무조건 수행)
+
+				console.log("complete 수행");
+			}
+
+		});
+
+
+
+	} else { // 유효하지 않은 경우
+		checkNickName.html(invalidIcon);
+		updateCheckObj.nickName = false;
+	}
 });
 
 
-// 닉네임 유효성 검사
-// - 한글,영어,숫자 2자 ~ 20자
-$("#memberNickName").on("input", function(){
-
-    const inputNickName = $(this).val(); // 입력 받은 닉네임
-    const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
-
-    if( inputNickName.length == 0 ){ // 빈칸
-        $("#checkNickName").text("");
-
-        signUpCheckObj.nickName = false;
-
-    }else if(regExp.test(inputNickName)){ // 유효한 경우
-        $("#checkNickName").text("유효한 닉네임 입니다.").css("color", "green");
-        
-        signUpCheckObj.nickName = true;
-
-    }else{ // 유효하지 않은 경우
-        $("#checkNickName").text("유효하지 않은 닉네임 입니다.").css("color", "red");
-
-        signUpCheckObj.memberNickName = false;
-    }
-});
-
-
-
-// 수정 버튼 클릭 시 모든 값이 유효하지 않으면 submit 이벤트 제거
 function memberUpdateValidate() {
 
 	for (key in updateCheckObj) {
@@ -120,17 +92,21 @@ function memberUpdateValidate() {
 
 			switch (key) {
 				case "nickName": message = "닉네임이 유효하지 않습니다."; break;
-				case "email": message = "이메일이 유효하지 않습니다."; break;
 			}
 
 			alert(message);
 
-			// 유효하지 않은 input요소로 포커스 이동
 			document.getElementById(key).focus();
 
 			return false; // submit 이벤트 제거
 
 		}
+
 	}
 
-} 
+}
+
+
+
+
+

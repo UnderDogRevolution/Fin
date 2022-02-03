@@ -25,7 +25,7 @@ public interface MemberService2 {
 	 * @param deleteImages
 	 * @return
 	 */
-	int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath, String deleteImages);
+	int updateMember(Member member);
 
 	
 	/** 이미지 파일명 목록 조회

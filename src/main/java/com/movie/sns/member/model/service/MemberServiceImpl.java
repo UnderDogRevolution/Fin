@@ -193,7 +193,9 @@ public class MemberServiceImpl implements MemberService{
 		memberAuth.setMemberEmail(memberEmail);
 		memberAuth.setAuthCode(authCode);
 		
-		return dao.selectAuthCode(memberAuth);
+		int result = dao.selectAuthCode(memberAuth);
+		
+		return result;
 	}
 	
 	
