@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>회원가입</title>
 
 <!-- BootStrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -57,21 +57,9 @@
 
                   <div style="margin-top: 10px; width: 285px; display: flex; align-items: center; justify-content: space-between;">
 
-                    <button class="a-btn" id="emailCheck-btn" onclick=sendEmail(); type="button" style="width:100%" disabled>
-                      이메일 인증
+                    <button class="a-btn" id="emailCheck-btn" onclick=authEmail(); type="button" style="width:100%" disabled>
+                      인증번호 발송
                     </button>
-
-                    <!-- <div id="emailCheck-btn" onclick=emailCheckPage();>이메일 인증</div>
-
-                    <div style="display: flex; width: 170px; justify-content: space-around; align-items: center;">
-
-                      <input type="text" id="emailCheck-code" name="emailCheck-code" placeholder="번호 입력" maxlength="6" autocomplete="off">
-  
-                      <div class="checkEmailTime">
-                        <span>00:00</span>
-                      </div>
-
-                    </div> -->
 
                     <!-- 이메일 인증 결과 -->
                     <div class="checkInput"></div>
@@ -224,7 +212,56 @@
   <form action="../email/sendEmail" method="post" id="sendEmailForm">
   	<input type="hidden" id="signUpEmail" name="signUpEmail">
   </form>
+  
+  
+  	<!-- Email 인증번호 모달 -->
+	<div class="modal fade" id="emailAuthModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="emailAuthModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" style="width: 400px; margin: auto;">
+	    <div class="modal-content">
+	    
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="emailAuthModalLabel" style="color:#323232; font-size: 18px; font-weight: bold;">해당 이메일로 인증번호를 발송했습니다.</h5>
+	      </div>
+	      
+	      <div class="modal-body" style="color:#323232;">
+	      
+	        <div id="emailAuthForm">
 
+	            <div>
+	
+	              <input class="auth-input" type="text" id="emailAuthCode" name="emailAuthCode" placeholder="인증번호 입력" size="10" maxlength="6" autocomplete="off">
+	              
+	              <div>
+	                
+	                <button type="button" class="btn auth-submit-btn" onclick="checkAuth();">확인</button>
+	                <button type="button" class="btn auth-cancel-btn" data-bs-dismiss="modal">취소</button>
+	                
+	              </div>
+	
+	            </div>
+	
+	            <div class="auth-result">
+	              
+	              <div>
+	                인증번호가 일치하지 않습니다.
+	              </div>
+	
+	              <div>
+	                <button type="button" class="btn auth-resend-btn" onclick="">
+	                  인증번호 재발급
+	                </button>
+	              </div>
+	
+	            </div>
+
+	        </div>
+	        
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
 
 
 <!-- JQuery -->

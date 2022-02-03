@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
@@ -108,27 +109,9 @@
 	-->
 	
 	
-	<!-- gmail설정 -->
-	
- <!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-     	<property name="host" value="smtp.gmail.com" />
-  		<property name="port" value="587" />
- 		<property name="username" value="montagekh2@gmail.com"/> 
-	 	<property name="password" value="montage1234!"/> 
-	 
-	     <property name="javaMailProperties">
-		    <props>
-		       <prop key="mail.smtp.starttls.enable">true</prop>
-		       <prop key="mail.smtp.auth">true</prop>
-		       <prop key="mail.transport.protocol">smtp</prop>
-		       <prop key="mail.debug">true</prop>
-		    </props>
-	     </property>
-	</bean>  -->
-	
 	<!-- 이메일 빈 등록 -->
-   <!-- Gmail -->
-   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+   	<!-- Gmail -->
+   	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
        <property name="host" value="smtp.gmail.com" />
        <property name="port" value="587" />
        <property name="username" value="montagekh2@gmail.com" />
@@ -139,8 +122,16 @@
          <prop key="mail.smtp.starttls.enable">true</prop>
        </props>
        </property>
-   </bean>
-	
+   	</bean>
+   
+   
+   	<!-- 김연준 2022-02-01 redis 연결 관련 빈 등록 -->
+   	<!-- 
+   	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:usePool="true"  p:hostName="localhost" p:port="6379" />
+
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="jedisConnectionFactory" />
+	 -->
 	
 		
 </beans>
