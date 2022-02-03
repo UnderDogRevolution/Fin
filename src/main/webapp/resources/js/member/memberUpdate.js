@@ -2,10 +2,6 @@ const updateCheckObj = {
 	"nickName": true,
 }
 
-
-
-
-
 // 닉네임 유효성 검사 ( + 중복 확인 )
 $("#nickInput").on("input", function() {
 

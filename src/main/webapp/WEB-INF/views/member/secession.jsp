@@ -197,6 +197,17 @@
 			return confirm("정말로 탈퇴 하시겠습니까???");
 		}
 	</script>
+	
+	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	  <c:if test="${ !empty requestScope.title }">
+	<script>
+		swal({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}"
+		});
+	</script>
+	</c:if>
 </body>
 
 </html>

@@ -16,8 +16,6 @@
 	 	<result property="memberStatusCode" 	column="STATUS_CD"/>
 	 	<result property="memberGradeCode" 	 	column="GRADE_CD"/>
 	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
-	 	<result property="memberContent" 	 	column="MEMBER_CONTENT"/>
-	 
 	 
 	 </resultMap>
 	 
@@ -109,14 +107,11 @@
 		AND IMG_LEVEL IN ( ${deleteImages} )
 	</delete> 
 
-
-
 	<!-- 이미지 삽입 -->
 	<insert id="insertImage">
 		INSERT INTO MEMBER_IMG VALUES
 		(SEQ_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, #{imgOriginal}, #{imgLevel}, #{memberNo})
 	</insert>
-	
 	
 
 	<!-- 이미지 수정 -->
@@ -135,19 +130,10 @@
 	</select>
 	 
 	<!-- 바라는 점 내용삽입--> 
-	<insert id="ask" useGeneratedKeys="true" parameterType="Member">
-		
-		<!-- 
-			INSERT 구문이 수행되기 전에 <selectKey> 내부 SELECT를 수행해서
-			조회 결과인 int형 값을 파라미터로 전달 받은 Board 객체의 boardNo 필드에 저장
-		 -->
-		<selectKey order="BEFORE" resultType="_int" keyProperty="memberNo">
-			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
-		</selectKey>
-	
+	<!-- <insert id="ask" parameterType="Member">
 		INSERT INTO MEMBER(MEMBER_NO, MEMBER_CONTENT)
 		VALUES(#{memberNo}, #{memberContent})
-	</insert>
+	</insert> -->
 
 	 
 	<!-- 회원 탈퇴 -->
