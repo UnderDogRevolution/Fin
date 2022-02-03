@@ -94,7 +94,8 @@ function checkAuth(){
 
   const memberEmail = $("#memberEmail").val();
   const authCode = $("#emailAuthCode").val();
-  const authResult = $("#auth-result");
+
+  const authResult = $(".auth-result");
 
   // 이메일 인증번호 비교 후 결과 반환받기
   $.ajax({
@@ -109,19 +110,34 @@ function checkAuth(){
         console.log("인증 성공");
         $("#emailCheck-btn").next().html(validIcon);
         // 이메일 입력창 비활성화
-        $("#memberEmail").attr("disabled", true);
+        $("#memberEmail").attr("readonly", true);
 
         $("#emailCheck-btn").text("인증 완료");
         $("#emailCheck-btn").attr("disabled", true);
 
         $("#emailAuthModal").modal('hide');
 
+        successAuth();
+
+        // 인증 완료 후 관련 정보 DB에서 삭제하기
+        deleteAuth();
+
         signUpCheckObj.emailCode = true;
 
       }else{
-        console.log("예외 발생");
+        console.log("인증번호 불일치");
 
         // 실패 및 재전송 관련 요소 생성하기
+        authResult.empty();
+
+        const div = $('<div class="failMsg">');
+        const resendBtn = $('<button type="button" class="btn auth-resend-btn" onclick="resendAuth();">');
+        
+        div.text("인증번호가 일치하지 않습니다.");
+        resendBtn.text("인증번호 재발급");
+
+        authResult.append(div);
+        div.after(resendBtn);
 
         signUpCheckObj.emailCode = false;
       }
@@ -143,9 +159,36 @@ function checkAuth(){
 
   });
 
-
+  signUpValidate();
 
 }
+
+
+// 인증 성공 sweetalert
+function successAuth(){
+
+  Swal.fire({
+    
+    title : "이메일 인증 성공!",
+    icon : "success",
+    showConfirmButton: true,
+    timer: 5000,
+    timerProgressBar: true,
+    confirmButtonText: '확인',
+    confirmButtonColor: '#F05454'
+
+  })
+
+}
+
+// 인증 완료 후 DB에서 인증번호 삭제하기
+function deleteAuth(){
+
+}
+
+// 인증번호 재전송 클릭 시 동작
+
+
 
 
 
