@@ -172,7 +172,7 @@
 
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">비밀번호 확인</label>
-          <input type="password" class="inputform" id="currentPw">
+          <input type="password" class="inputform" id="currentPw"  name="currentPw">
         </div>
         <br>
 
@@ -184,7 +184,6 @@
    <script>
 		function secessionValidate(){
 
-			// 1) 비밀번호가 입력되어 있지 않으면 false 리턴
 			const currentPw = document.getElementById("currentPw");
 			
 			if(currentPw.value.trim().length == 0){
@@ -193,8 +192,7 @@
 				return false;
 			}
 			
-			// 2) confirm을 이용하여 정말 탈퇴할 것인지 물어보기
-			return confirm("정말로 탈퇴 하시겠습니까???");
+			return confirm("정말로 탈퇴 하시겠습니까?");
 		}
 	</script>
 	
