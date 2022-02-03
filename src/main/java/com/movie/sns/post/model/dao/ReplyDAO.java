@@ -1,5 +1,7 @@
 package com.movie.sns.post.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,14 @@ public class ReplyDAO {
 
 	public int insertReply(Reply reply) {
 		return sqlSession.insert("replyMapper.insertReply", reply);
+	}
+
+	public List<Reply> selectReply(int postNo) {
+		return sqlSession.selectList("replyMapper.selectReply", postNo);
+	}
+
+	public int insertComment(Reply reply) {
+		return sqlSession.insert("replyMapper.insertComment", reply);
 	}
 
 }

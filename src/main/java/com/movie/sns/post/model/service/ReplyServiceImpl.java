@@ -1,5 +1,7 @@
 package com.movie.sns.post.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,15 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.insertReply(reply);
 	}
 
+	@Override
+	public List<Reply> selectReply(int postNo) {
+		return dao.selectReply(postNo);
+	}
+
+	@Override
+	public int insertComment(Reply reply) {
+		return dao.insertComment(reply);
+	}
+	
+	
 }

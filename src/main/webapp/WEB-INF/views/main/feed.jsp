@@ -97,7 +97,7 @@
                     </div>
                     <div>
                         <div>
-                            <img src="${contextPath}/resources/images/temp/popcorn vivid.png" alt="" style="width: 100%; display: none;">
+                            <img src="${contextPath}/resources/images/temp/popcorn vivid.png" alt="" style="width: 20px; height: 20px; display: none;">
                             <img src="${contextPath}/resources/images/temp/popcorn white.png" alt="" style="width: 20px; height: 20px;">
                             <span style="opacity: 0.7; font-size: 12px;">300</span>
                         </div>

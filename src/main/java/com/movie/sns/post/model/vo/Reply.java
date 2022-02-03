@@ -11,6 +11,16 @@ public class Reply {
 	private int replyStatusCode;
 	private String replyStatusName;
 	
+	private String memberName;
+	
+	
+	
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public int getReplyNo() {
 		return replyNo;
 	}
