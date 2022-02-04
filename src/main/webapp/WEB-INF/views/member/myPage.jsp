@@ -166,12 +166,11 @@ input {
 			<div class="form-inline mb-2">
 				
 				<div class="memberImg">
-					<img src="${img0}" onerror="this.onerror=null; 
+					<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" onerror="this.onerror=null; 
         this.src='../resources/images/member/user.png'" 
-        style="border-radius: 30%; cursor:pointer; width: 15%;
-	height: 15%;"> 
+        style="border-radius: 30%; cursor:pointer; width: 180px; height: 180px;"> 
 	<br>
-        <span class="deleteImg">사진 삭제</span>
+        <span class="deleteImg" style="cursor:pointer">사진 삭제</span>
 				</div>
 			</div>
 

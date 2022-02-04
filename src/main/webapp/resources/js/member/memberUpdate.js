@@ -117,7 +117,6 @@ const deleteImages= [];
 
 // 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
 function loadImg(input, num) {
-	// 매개변수 input == 클릭된 input 요소
 
 	if (input.files && input.files[0]) {
 
@@ -140,11 +139,9 @@ function loadImg(input, num) {
 	} else{
 		console.log("취소 클릭");
 
-		//  백업해둔 복제본 리턴
 		$(input).before(fileClone[num].clone());
-		// -> 원본 복제본의 복제본은 만들어 삽입
 
-		$(input).remove(); // 원본 삭제
+		$(input).remove(); 
 
 	}
 }
