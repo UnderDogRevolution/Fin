@@ -295,11 +295,11 @@ function revealPost(){
 				divFooter1.className = "container-like";
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
-				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
+				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
 				imgFooter1.setAttribute("style", "width: 100%;");
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
-				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
+				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 
 				if(items.checkLike == '1'){
@@ -337,6 +337,7 @@ function revealPost(){
 				postContainer.append(post);
 			}
 			
+			//게시글 좋아요
 			const whitePopcorn = document.getElementsByClassName("white-popcorn");
 			const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
 
@@ -414,6 +415,18 @@ function revealPost(){
 
 					const inputReplyDivIn1 = document.createElement("div");
 					inputReplyDivIn1.innerText = "댓글"
+
+					inputReplyDivIn1.addEventListener("click", function(){
+						const arr = document.querySelectorAll(".input-content-reply > div")
+						const img = document.querySelectorAll(".input-content-reply img")[0]
+						const input = document.querySelectorAll(".input-content-reply input")[0]
+						if(arr[0].innerText.trim() == "답글"){
+							arr[0].innerText = "댓글";
+							img.setAttribute("onclick", "insertReply(this)")
+							input.setAttribute("placeholder", "댓글을 달아주세요!");
+						}
+					})
+
 					const inputReplyDivIn2 = document.createElement("div");
 					const input = document.createElement("input")
 					input.setAttribute("type", "text");
@@ -458,6 +471,68 @@ function revealPost(){
 						if(Number(post.querySelectorAll(".container-reply > span")[0].innerText) > 0){
 							post.append(replyDiv)
 						}
+					}
+
+					// 댓글 좋아요
+					const replyVividImg = document.getElementsByClassName("reply-vivid");
+					const replywhiteImg = document.getElementsByClassName("reply-white");
+					for(const items of replywhiteImg){
+						items.addEventListener("click", function () {
+							const replyNo = this.nextElementSibling.innerText;
+							let count = this.nextElementSibling.nextElementSibling;
+							$.ajax({
+								url: contextPath + "/reply/insertReplyLike",
+								data: { "replyNo": replyNo },
+								type: "POST",
+								async: false,
+								success: function (result) {
+									if(result >0){
+										items.style.display = "none";
+										items.previousElementSibling.style.display = "inline";
+										count.innerText = Number(count.innerText)+1;
+									}else{
+										alert("좋아요 기능에 오류가 발생했습니다.")
+									}
+		
+								},
+								error: function (req, status, error) {
+									console.log("ajax 실패");
+									console.log(req.responseText);
+									console.log(status);
+									console.log(error);
+								}
+		
+							})
+						})
+					}
+					for(const items of replyVividImg){
+						items.addEventListener("click", function () {
+							const replyNo = this.nextElementSibling.nextElementSibling.innerText;
+							let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+							$.ajax({
+								url: contextPath + "/reply/deleteReplyLike",
+								data: { "replyNo": replyNo },
+								type: "POST",
+								async: false,
+								success: function (result) {
+									if(result >0){
+										items.style.display = "none";
+										items.nextElementSibling.style.display = "inline";
+										count.innerText = Number(count.innerText)-1;
+									}else{
+										alert("좋아요 기능에 오류가 발생했습니다.")
+									}
+		
+								},
+								error: function (req, status, error) {
+									console.log("ajax 실패");
+									console.log(req.responseText);
+									console.log(status);
+									console.log(error);
+								}
+		
+							})
+						})
 					}
 					
 				})
@@ -531,13 +606,37 @@ function selectReply(postNo){
 		dataType: "JSON",
 		async : false,
 		success: function (replyList) {
+			let plag = 0;
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
 				
 				if(items.parentReply == 0){
 					replyDiv1.className = "parent-reply"
+					if(plag > 0){
+						plag = 0;
+					}
 				}else{
 					replyDiv1.className = "child-reply"
+					replyDiv1.setAttribute("style", "display: none;")
+					if(plag == 0){
+						const lineReply = document.createElement("div");
+						lineReply.className = "line-reply";
+						lineReply.innerText = "──── 답글";
+						lineReply.addEventListener("click", function(e){
+							let tempE = this.nextElementSibling
+							while(tempE.className == "child-reply"){
+								if(tempE.style.display == "none"){
+									tempE.style.display = "flex";
+								}else if(tempE.style.display =="flex"){
+									tempE.style.display = "none";
+								}
+								tempE = tempE.nextElementSibling;
+							}
+						})
+						replyDiv.append(lineReply);
+						plag ++;
+					}
+					
 				}
 				
 
@@ -599,17 +698,30 @@ function selectReply(postNo){
 				
 				const constDiv2 = document.createElement("div")
 				const vividPopcorn = document.createElement("img");
-				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/popcorn vivid.png")
-				vividPopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				vividPopcorn.className = "reply-vivid";
 				const whitePopcorn = document.createElement("img");
-				whitePopcorn.setAttribute("style", "width: 20px; height: 20px;")
-				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/popcorn white.png")
-				const likeCount = document.createElement("span")
-				likeCount.setAttribute("style", "opacity: 0.7; font-size: 12px;")
-				likeCount.innerText = items.likeCount;
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				whitePopcorn.className = "reply-white";
 
+				if(items.checkLike == 1){
+					vividPopcorn.setAttribute("style", "width: 20px; height: 20px;")
+					whitePopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+				}else{
+					vividPopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+					whitePopcorn.setAttribute("style", "width: 20px; height: 20px;")
+
+				}
+
+				const likeCount = document.createElement("span")
+				likeCount.setAttribute("style", "opacity: 0.7; font-size: 12px; margin-left: 15px;")
+				likeCount.innerText = items.likeCount;
+				const replyNoSpan = document.createElement("span");
+				replyNoSpan.innerText = items.replyNo;
+				replyNoSpan.style.display = "none";
 				constDiv2.append(vividPopcorn);
 				constDiv2.append(whitePopcorn);
+				constDiv2.append(replyNoSpan);
 				constDiv2.append(likeCount);
 				
 				const constDiv3 = document.createElement("div");
@@ -623,7 +735,7 @@ function selectReply(postNo){
 					comment(this, items.replyNo)
 				})
 			
-				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다.
+				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다. 그리고 이미지는 focus가 안되기 때문에 이 두 이벤트는 적절하지 않다!
 				if(items.parentReply == 0){
 					constDiv3.append(replyPng);
 				}
@@ -706,16 +818,16 @@ function insertComment(e, replyNo){
 	}
 };
 
-document.addEventListener("click", function(){
-	const arr = document.querySelectorAll(".input-content-reply > div")
-	const img = document.querySelectorAll(".input-content-reply img")[0]
-	const input = document.querySelectorAll(".input-content-reply input")[0]
-	if(arr[0].innerText.trim() == "답글"){
-		console.log("blur")
-		arr[0].innerText = "댓글";
-		img.setAttribute("onclick", "insertReply(this)")
-		input.setAttribute("placeholder", "댓글을 달아주세요!");
-	}
-})
+// document.addEventListener("click", function(){
+// 	const arr = document.querySelectorAll(".input-content-reply > div")
+// 	const img = document.querySelectorAll(".input-content-reply img")[0]
+// 	const input = document.querySelectorAll(".input-content-reply input")[0]
+// 	if(arr[0].innerText.trim() == "답글"){
+// 		console.log("blur")
+// 		arr[0].innerText = "댓글";
+// 		img.setAttribute("onclick", "insertReply(this)")
+// 		input.setAttribute("placeholder", "댓글을 달아주세요!");
+// 	}
+// })
 
 

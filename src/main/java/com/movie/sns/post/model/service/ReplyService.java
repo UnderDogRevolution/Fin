@@ -12,4 +12,8 @@ public interface ReplyService {
 
 	int insertComment(Reply reply);
 
+	int insertReplyLike(Reply reply);
+
+	int deleteReplyLike(Reply reply);
+
 }

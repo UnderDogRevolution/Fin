@@ -28,6 +28,29 @@ public class ReplyServiceImpl implements ReplyService {
 	public int insertComment(Reply reply) {
 		return dao.insertComment(reply);
 	}
+
+	@Override
+	public int insertReplyLike(Reply reply) {
+
+		int result = dao.checkDupReplyLike(reply);
+		if(result == 0) {
+			result = dao.insertReplyLike(reply);
+			result = dao.plusReplyLike(reply);
+		}
+		return  result;
+	}
+
+	@Override
+	public int deleteReplyLike(Reply reply) {
+		
+		int result = dao.checkDupReplyLike(reply);
+		if(result == 1) {
+			result = dao.deleteReplyLike(reply);
+			result = dao.minusReplyLike(reply);
+		}
+		return result;
+	}
+	
 	
 	
 }

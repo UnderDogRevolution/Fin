@@ -50,4 +50,22 @@ public class ReplyController {
 		return result;
 	}
 
+	@RequestMapping(value="insertReplyLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int insertReplyLike(Reply reply, @ModelAttribute("loginMember") Member loginMember) {
+		reply.setMemberNo(loginMember.getMemberNo());
+		int result = service.insertReplyLike(reply);
+		
+		return result;
+	}
+
+	@RequestMapping(value="deleteReplyLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteReplyLike(Reply reply, @ModelAttribute("loginMember") Member loginMember) {
+		reply.setMemberNo(loginMember.getMemberNo());
+		int result = service.deleteReplyLike(reply);
+		
+		return result;
+	}
+
 }
