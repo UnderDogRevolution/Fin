@@ -323,7 +323,7 @@ function revealPost(){
 				imgFooter3.setAttribute("src", contextPath +"/resources/images/temp/reply.png")
 				imgFooter3.setAttribute("style", "width: 100%;");
 				const spanFooter2 = document.createElement("span")
-				spanFooter2.innerText = "300";
+				spanFooter2.innerText = items.replyCount;
 				divFooter2.append(imgFooter3)
 				divFooter2.append(spanFooter2);
 				
@@ -403,6 +403,7 @@ function revealPost(){
 			for(const items of replyImg){
 				items.addEventListener("click", function(){
 					const post = this.parentNode.parentNode.parentNode
+
 					const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 					console.log(post)
 					console.log(postNo);
@@ -430,14 +431,35 @@ function revealPost(){
 					inputReplyDiv.append(inputReplyDivIn3)
 
 					const replyDiv = selectReply(postNo)
+					
 
+					
+					const temp1 = document.getElementsByClassName("input-content-reply");
+					const temp2 = document.getElementsByClassName("reply");
 					if(post.getElementsByClassName("input-content-reply").length > 0){
-						post.getElementsByClassName("input-content-reply")[0].remove();
-						post.getElementsByClassName("reply")[0].remove();
+							if(temp1.length >0){
+								for(const items of temp1){
+									items.remove()
+								}
+								for(const items of temp2){
+									items.remove()
+								}
+							}
 					}else{
+						if(temp1.length >0){
+							for(const items of temp1){
+								items.remove()
+							}
+							for(const items of temp2){
+								items.remove()
+							}
+						}
 						post.append(inputReplyDiv)
-						post.append(replyDiv)
+						if(Number(post.querySelectorAll(".container-reply > span")[0].innerText) > 0){
+							post.append(replyDiv)
+						}
 					}
+					
 				})
 			}
 
@@ -454,6 +476,9 @@ function revealPost(){
 
 	
 }
+
+// revealPost 경계선
+
 function insertReply(e){
 	
 	const post = e.parentNode.parentNode.parentNode
@@ -473,6 +498,9 @@ function insertReply(e){
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
 						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}else if(!post.getElementsByClassName("reply")[0]){
 						const replyDiv = selectReply(postNo);
 						post.append(replyDiv);
 					}
@@ -505,7 +533,6 @@ function selectReply(postNo){
 		success: function (replyList) {
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
-				console.log(items);
 				
 				if(items.parentReply == 0){
 					replyDiv1.className = "parent-reply"
@@ -588,12 +615,18 @@ function selectReply(postNo){
 				const constDiv3 = document.createElement("div");
 				constDiv3.setAttribute("style", "margin-left: 12px;");
 				const replyPng = document.createElement("img");
+				replyPng.className = "comment-img"
 				replyPng.setAttribute("src", contextPath + "/resources/images/temp/reply.png");
 				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
-				replyPng.addEventListener("click", function(){
+				replyPng.addEventListener("click", function(e){
+					e.stopPropagation();
 					comment(this, items.replyNo)
 				})
-				constDiv3.append(replyPng);
+			
+				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다.
+				if(items.parentReply == 0){
+					constDiv3.append(replyPng);
+				}
 
 				const tempDiv = document.createElement("div")
 				tempDiv.append(constDiv2)
@@ -622,31 +655,24 @@ function selectReply(postNo){
 }
 
 function comment(e, replyNo){
+	
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-	console.log(post);
 	const arr = post.querySelectorAll(".input-content-reply > div")
 	const img = post.querySelectorAll(".input-content-reply img")[0]
 	const input = post.querySelectorAll(".input-content-reply input")[0]
-	console.log(img)
 	if(arr[0].innerText.trim() == "댓글"){
 		arr[0].innerText = "답글";
-		img.setAttribute("onclick", "insertComment(this,"+replyNo+")")
 		input.setAttribute("placeholder", "답글을 달아주세요!");
 		input.focus();
-	}else{
-		arr[0].innerText = "댓글";
-		img.setAttribute("onclick", "insertReply(this)")
 	}
-	console.log(post);
+	img.setAttribute("onclick", "insertComment(this,"+replyNo+")")
 }
+
 
 function insertComment(e, replyNo){
 	const post = e.parentNode.parentNode.parentNode
-	console.log(post);
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	console.log(postNo);
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
-	console.log(replyContent);
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/comment",
@@ -660,7 +686,6 @@ function insertComment(e, replyNo){
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
-						console.log(reply);
 						reply.remove();
 						const replyDiv = selectReply(postNo);
 						post.append(replyDiv);
@@ -681,5 +706,16 @@ function insertComment(e, replyNo){
 	}
 };
 
+document.addEventListener("click", function(){
+	const arr = document.querySelectorAll(".input-content-reply > div")
+	const img = document.querySelectorAll(".input-content-reply img")[0]
+	const input = document.querySelectorAll(".input-content-reply input")[0]
+	if(arr[0].innerText.trim() == "답글"){
+		console.log("blur")
+		arr[0].innerText = "댓글";
+		img.setAttribute("onclick", "insertReply(this)")
+		input.setAttribute("placeholder", "댓글을 달아주세요!");
+	}
+})
 
 

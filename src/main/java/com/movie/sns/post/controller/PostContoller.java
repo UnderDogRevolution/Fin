@@ -97,5 +97,6 @@ public class PostContoller {
 		int memberNo = 1;
 		
 		return service.deleteLike(postNo, memberNo);
+		
 	}
 }

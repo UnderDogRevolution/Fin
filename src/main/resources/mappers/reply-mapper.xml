@@ -9,7 +9,7 @@
 		<id property="replyNo" column="REPLY_NO"/>
 		<result property="replyContent" column="REPLY_CONTENT"/>
 		<result property="replyCreateDate" column="REPLY_CREATE_DT"/>
-		<result property="parentReply column=" column="PARENT_REPLY"/>
+		<result property="parentReply" column="PARENT_REPLY"/>
 		<result property="likeCount" column="LIKE_COUNT"/>
 		<result property="postNo" column="POST_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
@@ -19,10 +19,14 @@
 	</resultMap>
 	
 	<select id="selectReply" resultMap="reply_rm">
-	SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
-	FROM REPLY
-	JOIN MEMBER USING(MEMBER_NO)
-	WHERE POST_NO = #{postNo}
+	SELECT LEVEL, R.* FROM 
+  		(SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
+        FROM REPLY
+        JOIN MEMBER USING(MEMBER_NO)
+        WHERE POST_NO = #{postNo}) R
+	START WITH PARENT_REPLY IS NULL
+	CONNECT BY PRIOR REPLY_NO = PARENT_REPLY
+	ORDER SIBLINGS BY REPLY_NO
 	</select>
 	
 	<insert id="insertComment">
