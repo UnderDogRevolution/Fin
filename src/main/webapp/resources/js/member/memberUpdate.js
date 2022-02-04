@@ -70,7 +70,7 @@ document.getElementById("nickInput").addEventListener("change", (e) => {
 	}
 });
 
-
+//유효기능 함수
 function memberUpdateValidate() {
 
 	for (key in updateCheckObj) {
@@ -115,17 +115,17 @@ const fileClone = {};
 const deleteImages= [];
 
 
-// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+// 미리 보기가 가능하도록 하는 함수
 function loadImg(input, num) {
 
 	if (input.files && input.files[0]) {
 
-		fileClone[num] = $(input).clone(); // 백업 객체에 복제본 추가
+		fileClone[num] = $(input).clone(); // 백업 객체에 복제 추가
 		
-		// deleteImages 배열에 num값과 같은 번호가 존재하는 확인
+		//배열에 num값과 같은 번호가 존재하는 확인
 		if(deleteImages.indexOf(num) != -1 ){ // 존재하는 경우
 
-			// 배열.splice(시작 인덱스, 제거할 수) : 배열 내 시작 인덱스 부터 지정된 개수 만큼 요소 삭제 
+			// 배열에서 지정된 개수 만큼 요소 삭제 
 			deleteImages.splice( deleteImages.indexOf(num), 1);
 		} 
 

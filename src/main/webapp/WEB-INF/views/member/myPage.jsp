@@ -167,7 +167,7 @@ input {
 				
 				<div class="memberImg">
 					<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" onerror="this.onerror=null; 
-        this.src='../resources/images/member/user.png'" 
+        this.src='../resources/images/member/defaultProfileImage.png'" 
         style="border-radius: 30%; cursor:pointer; width: 180px; height: 180px;"> 
 	<br>
         <span class="deleteImg" style="cursor:pointer">사진 삭제</span>
