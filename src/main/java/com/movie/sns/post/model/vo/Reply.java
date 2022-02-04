@@ -13,8 +13,14 @@ public class Reply {
 	
 	private String memberName;
 	
+	private int checkLike;
 	
-	
+	public int getCheckLike() {
+		return checkLike;
+	}
+	public void setCheckLike(int checkLike) {
+		this.checkLike = checkLike;
+	}
 	public String getMemberName() {
 		return memberName;
 	}
