@@ -177,37 +177,46 @@ input {
 					수정</label>
 			</div>
 
+			<!-- 이미지 레벨 0 지정 -->
+			<c:if test="${img.imgLevel == 0 }">
+				<c:set var="img0" value="${contextPath}${img.imgPath}${img.imgName}" />
+			</c:if>
 
 
 			<div class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">썸네일</label>
+				<label class="input-group-addon mr-3 insert-label">이미지</label>
+
 				<div class="memberImg thubnail">
 					<img class="img-thumbnail" id="inputGroupFile01"
-					name="inputGroupFile01" style="border-radius: 50%"
-					onerror="this.onerror=null; 
-        this.src='../resources/images/member/user.png'"> 
+						name="inputGroupFile01" style="border-radius: 50%"
+						onerror="this.onerror=null; 
+        this.src='../resources/images/member/user.png'"
+						src="${img0}">
+
+					<span class="deleteImg">x</span>
 				</div>
 			</div>
 
-			<!-- 파일 업로드 하는 부분 -->
+			<!-- 파일 업로드 부분 -->
 			<div id="fileArea">
 				<input type="file" name="images" onchange="loadImg(this,0)">
+				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
+
+
+
+
 
 
 			<br>
 
-			<div class="input-group mb-3">
+			<!-- <div class="input-group mb-3">
 				<input type="file" class="imgform-control" id="inputGroupFile02"
 					name="profile"> <label class="input-file-text"
 					for="inputGroupFile02">사진 등록</label>
 			</div>
 			<br>
-
-
-
-
-
+ -->
 			<fieldset disabled>
 				<div class="row-mb-3-con">
 					<label for="currentEmail" class="col-form-label text-end">이메일</label>
@@ -243,6 +252,13 @@ input {
 
 			<button type="submit" class="btnsub1 btn-danger btn-lg">저장하기</button>
 		</div>
+
+		<!-- update용 파라미터 -->
+		<input type="hidden" name="boardNo" value="${board.boardNo}">
+		<input type="hidden" name="deleteImages" value="">
+
+
+
 	</form>
 </div>
 
