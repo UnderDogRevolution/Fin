@@ -31,7 +31,7 @@ function signUpValidate(){
   // 이걸 쉽게 쓰는 방법은??
   if(
     signUpCheckObj.email == true &&
-    signUpCheckObj.emailCode == true &&
+    // signUpCheckObj.emailCode == true &&
     signUpCheckObj.password == true &&
     signUpCheckObj.password2 == true &&
     signUpCheckObj.nickName == true &&
@@ -214,7 +214,8 @@ function checkAuth(){
       if(result > 0){
         console.log("인증 성공");
         $("#emailCheck-btn").next().html(validIcon);
-        // 이메일 입력창 비활성화
+        
+        // 이메일 입력창 읽기전용으로 변경
         $("#memberEmail").attr("readonly", true);
 
         $("#emailCheck-btn").text("인증 완료");
@@ -228,6 +229,7 @@ function checkAuth(){
         // deleteAuth();
 
         signUpCheckObj.emailCode = true;
+
 
       }else{
         console.log("인증번호 불일치");
@@ -246,6 +248,7 @@ function checkAuth(){
         div.after(resendBtn);
 
         signUpCheckObj.emailCode = false;
+
       }
 
     },
@@ -261,11 +264,15 @@ function checkAuth(){
           console.log(request.responseText);
       }
    
+    },
+
+    complete : function(){
+
+      signUpValidate();
+
     }
 
   });
-
-  signUpValidate();
 
 }
 

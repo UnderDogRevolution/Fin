@@ -30,8 +30,20 @@ public class Post {
 	
 	private List<PostImage> listPostImage;
 	
+	private int replyCount;
 	
-	
+	public int getCheckLike() {
+		return checkLike;
+	}
+	public void setCheckLike(int checkLike) {
+		this.checkLike = checkLike;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 	public int getCheckUsePoster() {
 		return checkUsePoster;
 	}

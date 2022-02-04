@@ -9,23 +9,54 @@
 		<id property="replyNo" column="REPLY_NO"/>
 		<result property="replyContent" column="REPLY_CONTENT"/>
 		<result property="replyCreateDate" column="REPLY_CREATE_DT"/>
-		<result property="parentReply column=" column="PARENT_REPLY"/>
+		<result property="parentReply" column="PARENT_REPLY"/>
 		<result property="likeCount" column="LIKE_COUNT"/>
 		<result property="postNo" column="POST_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="replyStatusCode" column="REPLY_STATUS_CD"/>
 		<result property="replyStatusName" column="REPLY_STATUS_NM"/>
+
+		<result property="checkLike" column="CHECK_LIKE"/>
 	</resultMap>
 	
 	<select id="selectReply" resultMap="reply_rm">
-	SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
-	FROM REPLY
-	JOIN MEMBER USING(MEMBER_NO)
-	WHERE POST_NO = #{postNo}
+	SELECT LEVEL, R.* FROM 
+			(
+			SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
+			<if test="memberNo > 0">
+		       		, (SELECT COUNT(*) FROM REPLY_LIKE WHERE REPLY_NO = A.REPLY_NO AND MEMBER_NO = #{memberNo} ) CHECK_LIKE 
+	       </if>
+			       
+			FROM REPLY A
+			JOIN MEMBER USING(MEMBER_NO)
+			WHERE POST_NO = #{postNo} 
+			) R
+	START WITH PARENT_REPLY IS NULL
+	CONNECT BY PRIOR REPLY_NO = PARENT_REPLY
 	</select>
 	
 	<insert id="insertComment">
 		INSERT INTO REPLY VALUES(SEQ_REPLY_NO.NEXTVAL, #{replyContent}, DEFAULT, #{parentReply}, DEFAULT, #{postNo}, #{memberNo}, 600)
 	</insert>
+
+	<insert id="insertReplyLike">
+		INSERT INTO REPLY_LIKE VALUES(#{replyNo}, #{memberNo}, DEFAULT)
+	</insert>
+	
+	<delete id="deleteReplyLike">
+		DELETE FROM REPLY_LIKE WHERE REPLY_NO = #{replyNo} AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<select id="checkDupReplyLike" resultType="_int">
+		SELECT COUNT(*) FROM REPLY_LIKE WHERE REPLY_NO = #{replyNo} AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="plusReplyLike">
+		UPDATE REPLY SET LIKE_COUNT = LIKE_COUNT + 1 WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<update id="minusReplyLike">
+		UPDATE REPLY SET LIKE_COUNT = LIKE_COUNT - 1 WHERE REPLY_NO = #{replyNo}
+	</update>
 </mapper>
