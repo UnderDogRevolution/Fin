@@ -155,13 +155,6 @@ input {
 					수정</label>
 			</div>
 
-			<!-- 이미지 레벨 0 지정 -->
-			<c:forEach items="${member.imgList}" var="img">
-					<c:if test="${img.imgLevel == 0 }">
-						<c:set var="img0"
-							value="${contextPath}${img.imgPath}${img.imgName}" />
-					</c:if>
-			</c:forEach>
 
 			<div class="form-inline mb-2">
 				

@@ -17,8 +17,13 @@
             <div class="chatwrap">
                 <!-- 채팅창전체 -->
                 <div class="chatMember">
+                
                     <!-- 채팅멤버영역 -->
                     <div class="MemberName-wrap">
+                        <div style="width: 30%; height: 100%">
+                        	<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}">
+                        </div>
+                        
                         <div class="MemberName">
                             <!-- 사용자 닉네임 -->
                             ${loginMember.memberName}
@@ -99,8 +104,7 @@
                                 친구와 자유롭게 채팅해보세요!
                             </div>
                             <div>
-                                <button type="button" class="btn btn-primary message_btn0" data-bs-toggle="modal"
-                                    data-bs-target="#MessageModal">
+                                <button type="button" class="btn btn-primary message_btn0" data-bs-toggle="modal" data-bs-target="#MessageModal">
                                     메세지 보내기
                                 </button>
 
