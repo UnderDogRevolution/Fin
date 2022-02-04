@@ -95,7 +95,7 @@ function memberUpdateValidate() {
 
 }
 
-
+//이미지 수정 부분
 
 $(function() {
 	$(".memberImg").on("click", function() {
@@ -138,9 +138,9 @@ function loadImg(input, num) {
 
 
 	} else{
-		console.log("취소 클릭함");
+		console.log("취소 클릭");
 
-		// 취소가 실행된 input 태그 앞에 백업해둔 복제본을 추가
+		//  백업해둔 복제본 리턴
 		$(input).before(fileClone[num].clone());
 		// -> 원본 복제본의 복제본은 만들어 삽입
 

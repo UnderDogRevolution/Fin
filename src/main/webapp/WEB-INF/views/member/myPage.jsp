@@ -117,28 +117,6 @@ input {
 	border-radius: 0.25rem;
 }
 
-.birthform {
-	width: 50%;
-	height: fit-content;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	appearance: none;
-	border-radius: 0.25rem;
-}
-
-.brithinput-group {
-	position: relative;
-	display: inline-flex;
-	margin: 0 0 0 5%;
-	flex-wrap: nowrap;
-	align-items: stretch;
-	width: 20%;
-}
 
 .btnsub {
 	margin: 5% 0 5% 0;
@@ -178,27 +156,34 @@ input {
 			</div>
 
 			<!-- 이미지 레벨 0 지정 -->
-			<c:if test="${img.imgLevel == 0 }">
-				<c:set var="img0" value="${contextPath}${img.imgPath}${img.imgName}" />
-			</c:if>
-
+			<c:forEach items="${member.imgList}" var="img">
+					<c:if test="${img.imgLevel == 0 }">
+						<c:set var="img0"
+							value="${contextPath}${img.imgPath}${img.imgName}" />
+					</c:if>
+			</c:forEach>
 
 			<div class="form-inline mb-2">
-				<label class="input-group-addon mr-3 insert-label">이미지</label>
-
-				<div class="memberImg thubnail">
-					<img class="img-thumbnail" id="inputGroupFile01"
-						name="inputGroupFile01" style="border-radius: 50%"
-						onerror="this.onerror=null; 
-        this.src='../resources/images/member/user.png'"
-						src="${img0}">
-
-					<span class="deleteImg">x</span>
+				
+				<div class="memberImg">
+					<img src="${img0}" onerror="this.onerror=null; 
+        this.src='../resources/images/member/user.png'" 
+        style="border-radius: 30%; cursor:pointer; width: 15%;
+	height: 15%;"> 
+	<br>
+        <span class="deleteImg">사진 삭제</span>
 				</div>
 			</div>
 
+
+			<!-- class="img-thumbnail" id="inputGroupFile01"
+						name="inputGroupFile01" style="border-radius: 50%"
+						onerror="this.onerror=null; 
+        this.src='../resources/images/member/user.png'" -->
+
+
 			<!-- 파일 업로드 부분 -->
-			<div id="fileArea">
+			<div id="fileArea" style="display:none">
 				<input type="file" name="images" onchange="loadImg(this,0)">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
@@ -250,7 +235,7 @@ input {
 					name="birthInput" value="${loginMember.memberBirth}">
 			</div>
 
-			<button type="submit" class="btnsub1 btn-danger btn-lg">저장하기</button>
+			<button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
 		</div>
 
 		<!-- update용 파라미터 -->
