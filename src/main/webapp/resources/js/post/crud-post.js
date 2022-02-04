@@ -59,6 +59,7 @@ deleteImg.addEventListener("click", function(e){
 
     }
 })
+let movie;
 
 const moviedbInput = document.getElementsByClassName("moviedb-input")[0];
 const searchResult2 = document.getElementsByClassName("search-result")[0];
@@ -71,6 +72,7 @@ const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
 function Write(){
+    movie = null;
 	moviedbInput.style.display = "none";	
 	searchResult2.style.display = "none";	
 	reviewTitle.style.display = "none";	
@@ -165,7 +167,7 @@ input.addEventListener("input", async function(){
 });
 //API 서버에서 데이터 가져오는 함수
 
-let movie;
+
 
 async function fetchMovie(page){
     searchResult.innerHTML = "";
@@ -404,11 +406,13 @@ observer.observe(inputDiv, config);
 // 게시글 삽입
 function postValidate(){
     const rating = document.getElementsByClassName("rating-value")[0].innerText
-    if(rating != ""){
-        movie.rating = rating;
-    }else{
-        alert("별점을 등록하세요!")
-        return;
+    if(movie != null){
+        if(rating != ""){
+            movie.rating = rating;
+        }else{
+            alert("별점을 등록하세요!")
+            return;
+        }
     }
 
     const postVO = {}

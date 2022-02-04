@@ -88,7 +88,7 @@ function revealPost(){
 				if(items.movieTitle != null){
 					divContent1.className = "review-title";
 					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
-					
+					postContent.append(divContent1) // 리뷰 타이틀 삽입
 					if(items.rating != null){
 						divContent3.className = "post-rating";
 						const iContent1 = document.createElement("i")
@@ -266,13 +266,16 @@ function revealPost(){
 						divContent3.append(iContent9);
 						divContent3.append(iContent10);
 						divContent3.append(spanContent1);
+						if(items.rating != null){
+							postContent.append(divContent3)
+						}
 					}
 
 				}
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
 				divContent2.innerText = items.postContent;
-				
+				postContent.append(divContent2) 
 				// const divContent4 = document.createElement("div")
 				// divContent4.className = "text-count";
 				const divContent5 = document.createElement("div")
@@ -280,19 +283,17 @@ function revealPost(){
 				const imgContent1 = document.createElement("img");
 				if(items.checkUsePoster == 1){
 					imgContent1.setAttribute("src", items.poster)
+					divContent5.append(imgContent1);
+					postContent.append(divContent5);
 				}else if(items.listPostImage[0]){
 					imgContent1.setAttribute("src", contextPath + items.listPostImage[0].postImagePath + items.listPostImage[0].postImageName)
+					divContent5.append(imgContent1);
+					postContent.append(divContent5);
 				}
-				divContent5.append(imgContent1);
 				
 				
-				postContent.append(divContent1)
-				postContent.append(divContent2)
-				if(items.rating != null){
-					postContent.append(divContent3)
-				}
 				// postContent.append(divContent4)
-				postContent.append(divContent5);
+				
 	
 				// post-footer
 				const divFooter1 = document.createElement("div")
@@ -402,9 +403,10 @@ function revealPost(){
 					})
 				})
 			}
-		
-			const replyImg = document.querySelectorAll(".container-reply > img")
+			
 
+			// 댓글 조회
+			const replyImg = document.querySelectorAll(".container-reply > img")
 			for(const items of replyImg){
 				items.addEventListener("click", function(){
 					const post = this.parentNode.parentNode.parentNode
@@ -444,12 +446,13 @@ function revealPost(){
 					inputReplyDiv.append(inputReplyDivIn2)
 					inputReplyDiv.append(inputReplyDivIn3)
 
-					const replyDiv = selectReply(postNo)
+					
 					
 
 					
 					const temp1 = document.getElementsByClassName("input-content-reply");
 					const temp2 = document.getElementsByClassName("reply");
+					// 댓글 입력창이 열려있다면  댓글에 관한 모든 div를 없앤다
 					if(post.getElementsByClassName("input-content-reply").length > 0){
 							if(temp1.length >0){
 								for(const items of temp1){
@@ -459,7 +462,7 @@ function revealPost(){
 									items.remove()
 								}
 							}
-					}else{
+					}else{// 댓글 입력창이 없다면 먼저 대슥ㄹ에 관한 모든 div를 없앤 후 클릭한 자리에 댓글 관련 div를 추가한다.
 						if(temp1.length >0){
 							for(const items of temp1){
 								items.remove()
@@ -470,6 +473,7 @@ function revealPost(){
 						}
 						post.append(inputReplyDiv)
 						if(Number(post.querySelectorAll(".container-reply > span")[0].innerText) > 0){
+							const replyDiv = selectReply(postNo)
 							post.append(replyDiv)
 						}
 					}
