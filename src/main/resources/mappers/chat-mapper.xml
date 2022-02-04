@@ -12,22 +12,30 @@
 		<result property="memberName" column="MEMBER_NM" />
 		<result property="friendNo" column="CHAT_FR_NO" />
 		<result property="friendNm" column="CHAT_FR_Nm" />
-		<!-- <collection property="img" column="CHAT_FR_NO" javaType="java.util.ArrayList" 
-			ofType="memberImage" select="selectMemberImgList" /> -->
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgNm" column="MEMBER_IMG_NM" />
 
-
+		<collection property="img" column="CHAT_FR_NO"
+			javaType="java.util.ArrayList" ofType="Image"
+			select="selectMemberImg" />
 	</resultMap>
-	<!-- 채팅친구정보조회 -->
-	<select id="searchMember" resultMap="member_rm">
-		SELECT * FROM MEMBER WHERE
-		MEMBER_NO = ${friendNo}
+
+
+	<resultMap type="Image" id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+	<!-- 채팅 방친구 이미지조회 -->
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH ,
+		MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{friendNo}
 	</select>
 
-	<!-- <resultMap type="MemberImg" id="memberImage_rm"> <id property="imgNo" 
-		column="MEMBER_IMG_NO" /> <result property="imgPath" column="MEMBER_IMG_PATH" 
-		/> <result property="imgName" column="MEMBER_IMG_NM" /> <result property="imgOriginal" 
-		column="MEMBER_IMG_ORIGINAL" /> <result property="memberNo" column="MEMBER_NO" 
-		/> </resultMap> -->
 
 	<resultMap type="Member" id="member_rm">
 
@@ -41,7 +49,8 @@
 		<result property="modifyDate" column="MODIFY_DT" />
 		<result property="memberStatusCode" column="STATUS_CD" />
 		<result property="memberGradeCode" column="GRADE_CD" />
-
+		<!-- <collection property="img" column="MEMBER_NO" javaType="java.util.ArrayList" 
+			ofType="memberImage" select="selectMemberImgList" /> -->
 
 	</resultMap>
 	<!-- 채팅메세지 -->
@@ -54,10 +63,15 @@
 
 	</resultMap>
 
-	<!-- 회원 이미지 조회 -->
-	<!-- <select id="selectMemberImg" resultMap="memberImage_rm"> SELECT* FROM 
-		MEMBER_IMG WHERE MEMBER_NO = #{memberNo} ORDER BY IMG_LEVEL </select> -->
+	<!-- 채팅친구정보조회 -->
+	<select id="searchMember" resultMap="member_rm">
+		SELECT * FROM MEMBER WHERE
+		MEMBER_NO = ${friendNo}
+	</select>
 
+	<!-- 회원 이미지 조회 -->
+	<!-- <select id="selectMemberImg" resultMap="Image_rm"> SELECT* FROM MEMBER_IMG 
+		WHERE MEMBER_NO = #{memberNo} </select> -->
 
 
 
@@ -66,28 +80,30 @@
 
 		SELECT CHAT_ROOM_NO,
 		MEMBER_NM, MEMBER_NO,
-		(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
+		(SELECT MEMBER_NO
+		FROM CHAT_ROOM_JOIN J WHERE
+		J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
+		AND
+		MEMBER_NO != #{memberNo})
+		CHAT_FR_NO,
+		(SELECT MEMBER_NM FROM MEMBER A
+		WHERE A.MEMBER_NO =
+		(SELECT
+		MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
 		J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
 		AND MEMBER_NO != #{memberNo})
-		CHAT_FR_NO,
-		(SELECT MEMBER_NM FROM MEMBER A WHERE A.MEMBER_NO =
-		(SELECT
-		MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
-		AND MEMBER_NO != #{memberNo})
-		) CHAT_FR_NM
+		)
+		CHAT_FR_NM
+		
 		FROM CHAT_ROOM_JOIN R
-		JOIN
-		MEMBER B USING(MEMBER_NO)
+		JOIN MEMBER B USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
-		AND R.STATUS_CD
+		AND
+		R.STATUS_CD
 		= 1
 		ORDER BY 1 DESC
 	</select>
 
-	<!-- 채팅 방친구 이미지조회 -->
-	<!-- <select id="searchMember" resultMap="member_rm"> SELECT * FROM MEMBER 
-		WHERE MEMBER_NO = (SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO 
-		= R.CHAT_ROOM_NO AND MEMBER_NO != #{memberNo}) </select> -->
 
 
 	<!-- 해당 채팅방 내용조회 -->
@@ -143,7 +159,8 @@
 	<!-- 채팅방 삭제 -->
 	<delete id="deleteChatRoom">
 		DELETE FROM CHAT_ROOM
-		WHERE CHAT_ROOM_NO = #{chatRoomNo}
+		WHERE CHAT_ROOM_NO =
+		#{chatRoomNo}
 	</delete>
 
 	<!-- 상대방이 채팅 참여 중인지 확인하기 -->

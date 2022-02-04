@@ -18,26 +18,28 @@ function selectChatRoom(){
 		dataType: "JSON",
 		success:function(chatList){
 			$.each(chatList, function(index,room){
+				
+				const path = "'" +contextPath + room.img[0].imgPath + room.img[0].imgName +"'";
 			
-		
-			const chatListWrap = $(".chatList-wrap");
-			const chat = $('<div class = "chat" onclick="searchChatting(event, this,' +room.chatRoomNo +','+ room.friendNo+')">');
-			const img = $('<img class="MemberImg">');
-			const imgdiv = $('<div class="chatMemberImg">');
-		    const nmdiv = $('<div class="chatMemberName">');
-		    const nm = $('<div>');
-		    const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,'+ room.chatRoomNo+')">');
-		    icon.addClass("delete-message-room");
-		    imgdiv.append(img);
-		    nm.append(room.friendNm);
-		    nmdiv.append(nm);
-		    chat.append(imgdiv);
-		    chat.append(nmdiv);
-		    chat.append(icon);
-			chatListWrap.append(chat);
-			console.log(chat);
-			console.log(room.chatRoomNo);
-			console.log(room.chatRoomNo);
+				const chatListWrap = $(".chatList-wrap");
+				const chat = $('<div class = "chat" onclick="searchChatting(event, this,' +room.chatRoomNo +','+ room.friendNo+','+path+');">');
+				const img = $('<img class="MemberImg">');
+				img.attr("src" ,contextPath+ room.img[0].imgPath + room.img[0].imgName);	
+				const imgdiv = $('<div class="chatMemberImg">');
+			    const nmdiv = $('<div class="chatMemberName">');
+			    const nm = $('<div>');
+			    const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,'+ room.chatRoomNo+')">');
+			    icon.addClass("delete-message-room");
+			    imgdiv.append(img);
+			    nm.append(room.friendNm);
+			    nmdiv.append(nm);
+			    chat.append(imgdiv);
+			    chat.append(nmdiv);
+			    chat.append(icon);
+				chatListWrap.append(chat);
+				console.log(chat);
+				console.log(room.chatRoomNo);
+				console.log(room.chatRoomNo);
 			
 			
 			});
@@ -80,6 +82,7 @@ function selectchatting(frNo , memberNo , chatRoomNo){
 			const chatListWrap = $(".chatList-wrap");
 			const chat = $('<div class = "chat" onclick="searchChatting(event, this,' +room.chatRoomNo +','+ room.friendNo+')">');
 			const img = $('<img class="MemberImg">');
+			img.attr("src" ,contextPath+ room.img[0].imgPath + room.img[0].imgName);
 			const imgdiv = $('<div class="chatMemberImg">');
 		    const nmdiv = $('<div class="chatMemberName">');
 		    const nm = $('<div>');
@@ -186,7 +189,7 @@ function deleteChat(event, chatRoomNo) {
 
 
 // 채팅방입장
-function searchChatting(event, e, chatNo, frNo) { // 친구 클릭시 동작
+function searchChatting(event, e, chatNo, frNo ,path) { // 친구 클릭시 동작
 console.log(event.target)
 	  //event.stopPropagation();
 	// 전역 변수에 현재 입장한 채팅방 상대 회원 번호 저장
@@ -233,7 +236,7 @@ console.log(event.target)
 			chatHeader_div1.append(chatMemberImg);
 			// 대상 이름 삽입
 			chatHeader_div2.text(data.memberName)
-			chatMemberImg.attr("src", 'img/user.png')/* 이미지주소설정 */
+			chatMemberImg.attr("src", path)/* 이미지주소설정 */
 			console.log("맴버넘버" + memberNo);
 
 
