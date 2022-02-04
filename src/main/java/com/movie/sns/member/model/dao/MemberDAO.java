@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.member.model.vo.MemberAuth;
 
@@ -55,7 +56,15 @@ public class MemberDAO {
 	 * @return member
 	 */
 	public int signUp(Member member) {
-		return sqlSession.insert("memberMapper.signUp", member);
+		
+		int result = sqlSession.insert("memberMapper.signUp", member);
+		
+		System.out.println("회원번호 : " + member.getMemberNo());
+		
+		if(result > 0) result = member.getMemberNo();
+		else result = 0;
+		
+		return result;
 	}
 
 
@@ -133,6 +142,17 @@ public class MemberDAO {
 	public void deleteAuthCode(String memberEmail) {
 
 		sqlSession.delete("memberMapper2.deleteAuthCode",memberEmail);
+	}
+
+
+
+	/** 기본 프로필 이미지 삽입하기
+	 * @param profileImage
+	 * @return result
+	 */
+	public int insertProfileImage(Image profileImage) {
+
+		return sqlSession.insert("memberMapper2.insertProfileImage", profileImage);
 	}
 
 

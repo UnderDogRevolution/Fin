@@ -69,11 +69,21 @@
 
 
 	<!-- 회원 가입 -->
-	<insert id="signUp" parameterType="Member">
+	<insert id="signUp" useGeneratedKeys="true" parameterType="Member">
+	
+		<selectKey order="BEFORE" resultType="_int" keyProperty="memberNo">
+			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
 		INSERT INTO MEMBER VALUES(
+<<<<<<< HEAD
 		SEQ_MEMBER_NO.NEXTVAL, #{memberName}, #{memberNickName}, #{memberPw},
 		#{memberEmail},
+=======
+		#{memberNo}, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
+>>>>>>> 093002272ae83e0a757c99d441af09a51bf85c82
 		DEFAULT, DEFAULT, 200, 100 , #{memberBirth} )
+		
 	</insert>
 
 	<!-- 회원 정보 수정 -->

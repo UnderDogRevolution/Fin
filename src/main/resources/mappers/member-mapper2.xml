@@ -93,6 +93,14 @@
 	 	DELETE FROM MEMBER_AUTH
 	 	WHERE MEMBER_EMAIL = #{memberEmail}
 	 </delete>
+	 
+	 
+	 <!-- 회원 가입 시 기본 이미지 삽입하기 -->
+	 <insert id="insertProfileImage">
+	 	INSERT INTO MEMBER_IMG VALUES
+		(SEQ_MEMBER_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, DEFAULT, #{imgOriginal}, #{memberNo})
+	 </insert>
+	 
 	
 
 </mapper>
