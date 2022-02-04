@@ -9,7 +9,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.movie.sns.common.Util;
@@ -44,62 +43,71 @@ public class MemberService2Impl implements MemberService2 {
 		return result;
 	}
 
-	// 회원 정보 수정
+	// 회원 수정
 	@Override
-	public int updateMember(Member member) {
-		return dao.updateMember(member);
-	}
+	public int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath,
+			String deleteImages) {
 
-	// 프사 수정
-	@Override
-	public int updateImage(Member member, List<MultipartFile> images, String webPath, String serverPath) {
+		int result = dao.updateMember(member);
 
-		
-		int memberNo = dao.updateImage(member);
+		if (result > 0) {
+			if (!deleteImages.equals("")) { // 이미지 삭제일 때
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("MemberNo", member.getMemberNo());
+				map.put("deleteImages", deleteImages);
 
-		if(memberNo > 0) { 
-			
-			List<Image> imgList = new ArrayList<Image>();
-			
-		for (int i = 0; i < images.size(); i++) {
-
-			if (!images.get(i).getOriginalFilename().equals("")) {
-
-				Image img = new Image();
-				img.setImgPath(webPath); // 웹 접근 경로
-				img.setImgOriginal(images.get(i).getOriginalFilename()); // 원본 파일명
-				img.setImgName(Util.fileRename(images.get(i).getOriginalFilename())); // 변경된 파일명
-				img.setImgLevel(i); // 이미지 레벨
-				img.setMemberNo(memberNo);
-
-				imgList.add(img);
+				result = dao.deleteImages(map);
 			}
 		}
-		
-		//파일이 있다면 저장
-		if (!imgList.isEmpty()) {
-			int result = dao.insertImgList(imgList);
-			
-			if (result == imgList.size()) { 
 
-				for (int i = 0; i < imgList.size(); i++) {
+		if (result > 0) {
 
-					try {
+			List<Image> imgList = new ArrayList<Image>();
+
+			for (int i = 0; i < images.size(); i++) {
+
+				if (!images.get(i).getOriginalFilename().equals("")) {
+
+					Image img = new Image();
+					img.setImgPath(webPath); // 웹 접근 경로
+					img.setImgOriginal(images.get(i).getOriginalFilename()); // 원본 파일명
+					img.setImgName(Util.fileRename(images.get(i).getOriginalFilename())); // 변경된 파일명
+					img.setImgLevel(i); // 이미지 레벨
+					img.setMemberNo(member.getMemberNo());
+
+					imgList.add(img);
+				}
+			}
+
+			for (Image img : imgList) {
+
+				
+				result = dao.updateImage(img);
+			} 
+
+			// 파일이 있다면 저장
+			if (!imgList.isEmpty()) {
+				try {
+					for (int i = 0; i < imgList.size(); i++) {
+
 						images.get(imgList.get(i).getImgLevel())
 								.transferTo(new File(serverPath + "/" + imgList.get(i).getImgName()));
-
-					} catch (Exception e) {
-						e.printStackTrace();
-
 					}
-				}
 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		}
-		return memberNo;
+		return result;
 	}
-
+	
+	
+	@Override
+	public List<String> selectImgList() {
+		return dao.selectImgList();
+	}
+	
 	/*
 	 * //바라는 점
 	 * 

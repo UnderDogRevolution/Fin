@@ -43,19 +43,26 @@ public class MemberController2 {
 	}
 
 	// 회원 정보 수정
-	@PostMapping(value = "update")
+	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String updateMember(
 			@ModelAttribute("loginMember") Member loginMember,
 			@RequestParam("nickInput") String nickInput,
 			@RequestParam("birthInput") String birthInput,
-			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra) {
+			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra,
+			List<MultipartFile> images, String deleteImages, HttpSession session) {
 
 		member.setMemberNo(loginMember.getMemberNo());
 		member.setMemberNickName(nickInput);
 		member.setMemberBirth(birthInput);
 
-		int result = service.updateMember(member);
+		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		
+		int result = service.updateMember(member, images, webPath, serverPath, deleteImages);
 
+		String path = null;
+		
 		if (result > 0) { // 수정 성공
 
 			loginMember.setMemberNickName(nickInput);
@@ -70,25 +77,6 @@ public class MemberController2 {
 		return "redirect:/member/myPage";
 	}
 	
-	
-	
-	//프로필 사진 수정
-	@GetMapping(value="update")
-	public String updateImage(
-			@ModelAttribute("loginMember") Member loginMember,
-			@RequestParam("profile") List<MultipartFile> images,
-			 Member member, HttpSession session) {
-
-		member.setMemberNo(loginMember.getMemberNo());
-
-		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로) String
-		String serverPath = session.getServletContext().getRealPath(webPath);
-		
-
-		int memberNo = service.updateImage(member, images, webPath, serverPath);
-
-		return "redirect:/member/myPage";
-	}
 	
 	
 	

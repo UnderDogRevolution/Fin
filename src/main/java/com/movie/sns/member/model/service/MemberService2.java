@@ -15,22 +15,8 @@ public interface MemberService2 {
 	 * @param member
 	 * @return
 	 */
-	int updateMember(Member member);
+	int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath, String deleteImages);
 
-	/**
-	 * 프로필 사진 수정
-	 * 
-	 * @param member
-	 * @param serverPath
-	 * @param webPath
-	 * @param images
-	 * @param images
-	 * @param webPath
-	 * @param serverPath
-	 * @param deleteImages
-	 * @return
-	 */
-	int updateImage(Member member, List<MultipartFile> images, String webPath, String serverPath);
 
 	/**
 	 * 비밀번호 변경
@@ -49,6 +35,10 @@ public interface MemberService2 {
 	 */
 	int secession(int memberNo, String currentPw);
 
+	List<String> selectImgList();
+	
+	
+	
 	/*	*//**
 			 * 바라는 점
 			 * 

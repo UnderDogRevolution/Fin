@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
@@ -55,35 +56,31 @@ public class MemberDAO2 {
 	public int secession(int memberNo) {
 		return sqlSession.update("memberMapper.secession", memberNo);
 	}
-	
-	
-	/**
-	 * 프로필 이미지 수정
-	 * 
-	 * @param member
-	 * @return result
-	 */
-	public int updateImage(Member member) {
-		return sqlSession.update("memberMapper.updateImage", member);
-	}
 
-	
-	/**
-	 * 프로필 이미지 삭제
-	 * 
+	/** 이미지 삭제
 	 * @param map
-	 * @return result
+	 * @return
 	 */
 	public int deleteImages(Map<String, Object> map) {
 		return sqlSession.delete("memberMapper.deleteImages", map);
 	}
 
-	/** 이미지 목록 삽입
-	 * @param imgList
+	
+	/** 이미지 삽입
+	 * @param img
 	 * @return
 	 */
-	public int insertImgList(List<Image> imgList) {
-		return sqlSession.insert("boardMapper.insertImgList", imgList);
+	public int insertImage(Image img) {
+		return sqlSession.insert("memberMapper.insertImage", img);
+	}
+
+	
+	public int updateImage(Image img) {
+		return sqlSession.delete("memberMapper.updateImage", img);
+	}
+
+	public List<String> selectImgList() {
+		return sqlSession.selectList("boardMapper.selectImgList");
 	}
 	
 	/**

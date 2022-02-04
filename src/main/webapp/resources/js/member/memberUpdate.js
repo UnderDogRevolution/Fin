@@ -102,7 +102,6 @@ $(function() {
 		var index = $(".memberImg").index(this);
 
 		$("[type=file]").eq(index).click();
-		// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
 	});
 
 });
