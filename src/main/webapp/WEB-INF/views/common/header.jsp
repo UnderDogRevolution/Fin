@@ -155,7 +155,7 @@
 
 
 					<li><i class="namewrap"> <img class="myImg"
-							src="${contextPath}/resources/images/header/user.png" alt="">
+							src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" alt="">
 							<div class="myclick">
 								<!-- 내영역 -->
 								<ul>
