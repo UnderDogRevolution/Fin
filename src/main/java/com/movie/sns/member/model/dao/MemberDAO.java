@@ -156,6 +156,17 @@ public class MemberDAO {
 	}
 
 
+	
+	/** 프로필 이미지 조회하기 (회원 번호를 사용한)
+	 * @param memberNo
+	 * @return Image
+	 */
+	public Image selectProfileImage(int memberNo) {
+
+		return sqlSession.selectOne("memberMapper2.selectProfileImage", memberNo);
+	}
+
+
 
 	
 }

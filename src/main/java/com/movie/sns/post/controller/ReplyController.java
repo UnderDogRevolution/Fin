@@ -2,6 +2,8 @@ package com.movie.sns.post.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +37,14 @@ public class ReplyController {
 
 	@RequestMapping(value="select", method = RequestMethod.POST)
 	@ResponseBody
-	public String selectReply(int postNo ) {
-		List<Reply> replyList = service.selectReply(postNo);
+	public String selectReply(Reply reply, HttpSession session ) {
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		reply.setMemberNo(memberNo);
+		List<Reply> replyList = service.selectReply(reply);
 		
 		return new Gson().toJson(replyList);
 	}
@@ -46,6 +54,24 @@ public class ReplyController {
 	public int insertComment(Reply reply, @ModelAttribute("loginMember") Member loginMember) {
 		reply.setMemberNo(loginMember.getMemberNo());
 		int result = service.insertComment(reply);
+		
+		return result;
+	}
+
+	@RequestMapping(value="insertReplyLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int insertReplyLike(Reply reply, @ModelAttribute("loginMember") Member loginMember) {
+		reply.setMemberNo(loginMember.getMemberNo());
+		int result = service.insertReplyLike(reply);
+		
+		return result;
+	}
+
+	@RequestMapping(value="deleteReplyLike", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteReplyLike(Reply reply, @ModelAttribute("loginMember") Member loginMember) {
+		reply.setMemberNo(loginMember.getMemberNo());
+		int result = service.deleteReplyLike(reply);
 		
 		return result;
 	}

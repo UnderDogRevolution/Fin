@@ -8,8 +8,12 @@ public interface ReplyService {
 
 	int insertReply(Reply reply);
 
-	List<Reply> selectReply(int postNo);
+	List<Reply> selectReply(Reply reply);
 
 	int insertComment(Reply reply);
+
+	int insertReplyLike(Reply reply);
+
+	int deleteReplyLike(Reply reply);
 
 }
