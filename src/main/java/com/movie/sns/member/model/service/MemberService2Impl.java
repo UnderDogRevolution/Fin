@@ -81,17 +81,9 @@ public class MemberService2Impl implements MemberService2 {
 
 			for (Image img : imgList) {
 
-				// 서로 다른 행을 일괄적으로 update 하는 방법이 없기에
-				// 한 행씩 수정
+				
 				result = dao.updateImage(img);
-				// 결과 1 -> 기존에 저장된 이미지가 수정됨.
-				// 결과 0 -> 기존에 저장되지 않은 이미지가 추가됨 -> INSERT 진행
-
-				if (result == 0) { // 기존에 저장되지 않은 이미지가 추가됨 -> INSERT 진행
-					result = dao.insertImage(img);
-				}
-
-			} // for end
+			} 
 
 			// 파일이 있다면 저장
 			if (!imgList.isEmpty()) {

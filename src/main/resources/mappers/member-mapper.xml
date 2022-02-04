@@ -69,22 +69,17 @@
 
 
 	<!-- 회원 가입 -->
-	<insert id="signUp" useGeneratedKeys="true" parameterType="Member">
-	
-		<selectKey order="BEFORE" resultType="_int" keyProperty="memberNo">
-			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
-		</selectKey>
-	
-		INSERT INTO MEMBER VALUES(
-<<<<<<< HEAD
-		SEQ_MEMBER_NO.NEXTVAL, #{memberName}, #{memberNickName}, #{memberPw},
-		#{memberEmail},
-=======
-		#{memberNo}, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
->>>>>>> 093002272ae83e0a757c99d441af09a51bf85c82
-		DEFAULT, DEFAULT, 200, 100 , #{memberBirth} )
-		
-	</insert>
+   <insert id="signUp" useGeneratedKeys="true" parameterType="Member">
+   
+      <selectKey order="BEFORE" resultType="_int" keyProperty="memberNo">
+         SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+      </selectKey>
+   
+      INSERT INTO MEMBER VALUES(
+      #{memberNo}, #{memberName}, #{memberNickName}, #{memberPw}, #{memberEmail},
+      DEFAULT, DEFAULT, 200, 100 , #{memberBirth} )
+      
+   </insert>
 
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="Member">
@@ -122,12 +117,12 @@
 		AND MEMBER_IMG_LEVEL = 0
 	</update>
 
-	<!-- 이미지 삽입 -->
+	<!-- 이미지 삽입
 	<insert id="insertImage">
 		INSERT INTO MEMBER_IMG VALUES
 		(SEQ_MEMBER_IMG_NO.NEXTVAL,
 		#{imgPath}, #{imgName}, 0, #{imgOriginal}, #{memberNo})
-	</insert>
+	</insert> -->
 
 	
 
