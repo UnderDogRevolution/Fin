@@ -2,6 +2,8 @@ package com.movie.sns.post.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +37,14 @@ public class ReplyController {
 
 	@RequestMapping(value="select", method = RequestMethod.POST)
 	@ResponseBody
-	public String selectReply(int postNo ) {
-		List<Reply> replyList = service.selectReply(postNo);
+	public String selectReply(Reply reply, HttpSession session ) {
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		reply.setMemberNo(memberNo);
+		List<Reply> replyList = service.selectReply(reply);
 		
 		return new Gson().toJson(replyList);
 	}

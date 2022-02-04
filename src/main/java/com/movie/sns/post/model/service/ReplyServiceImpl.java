@@ -20,8 +20,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public List<Reply> selectReply(int postNo) {
-		return dao.selectReply(postNo);
+	public List<Reply> selectReply(Reply reply) {
+		return dao.selectReply(reply);
 	}
 
 	@Override

@@ -69,9 +69,13 @@ function revealPost(){
 				liHeader1.append(aHeader1);
 				liHeader2.append(aHeader2);
 				liHeader3.append(aHeader3);
-				ulHeader.append(liHeader1);
 				ulHeader.append(liHeader2);
-				ulHeader.append(liHeader3);
+				if(typeof memberNo != "undefined"){ // 아예 변수가 선언조창 안되었을 때 다음과 같이 식별한다.
+					if(items.memberNo == memberNo){
+						ulHeader.append(liHeader1);
+						ulHeader.append(liHeader3);
+					}
+				}
 				divHeader2.append(imgHeader2);
 				divHeader2.append(ulHeader);
 				postHeader.append(divHeader1);
@@ -406,9 +410,6 @@ function revealPost(){
 					const post = this.parentNode.parentNode.parentNode
 
 					const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-					console.log(post)
-					console.log(postNo);
-					
 					
 					const inputReplyDiv = document.createElement("div");
 					inputReplyDiv.className = "input-content-reply";
@@ -606,6 +607,7 @@ function selectReply(postNo){
 		dataType: "JSON",
 		async : false,
 		success: function (replyList) {
+			console.log(replyList);
 			let plag = 0;
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
@@ -677,19 +679,31 @@ function selectReply(postNo){
 				
 				const dropLi1 = document.createElement("li")
 				const dropLi2 = document.createElement("li")
+				const dropLi3 = document.createElement("li")
 				const a1 = document.createElement("a");
 				const a2 = document.createElement("a");
+				const a3 = document.createElement("a");
 				a1.className = "dropdown-item"
 				a2.className = "dropdown-item"
+				a3.className = "dropdown-item"
 				a1.setAttribute("href", "#")
 				a2.setAttribute("href", "#")
+				a3.setAttribute("href", "#")
 				a1.innerText = "삭제";
 				a2.innerText = "신고하기";
+				a3.innerText = "로그인해 주세요!";
 				dropLi1.append(a1);
 				dropLi2.append(a2);
+				dropLi3.append(a3);
+				if(typeof memberNo != "undefined"){
+					if(items.memberNo = memberNo){
+						dropUl.append(dropLi1);
+						dropUl.append(dropLi2);
+					}
+				}else{
+					dropUl.append(dropLi3);
 
-				dropUl.append(dropLi1);
-				dropUl.append(dropLi2);
+				}
 				contentDiv.append(dots)
 				contentDiv.append(dropUl)
 

@@ -18,8 +18,8 @@ public class ReplyDAO {
 		return sqlSession.insert("replyMapper.insertReply", reply);
 	}
 
-	public List<Reply> selectReply(int postNo) {
-		return sqlSession.selectList("replyMapper.selectReply", postNo);
+	public List<Reply> selectReply(Reply reply) {
+		return sqlSession.selectList("replyMapper.selectReply", reply);
 	}
 
 	public int insertComment(Reply reply) {
