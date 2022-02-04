@@ -15,6 +15,10 @@ public class Member {
 	private int memberStatusCode;	// 회원상태
 	private int memberGradeCode;	// 회원등급
 	
+	private Image profileImage;		// 프로필 이미지
+	
+	// 팔로우 리스트, 팔로잉 리스트 추가 예정
+	
 	
 	// 기본생성자
 	public Member() {	}
@@ -120,13 +124,25 @@ public class Member {
 	}
 
 
+	public Image getProfileImage() {
+		return profileImage;
+	}
+
+
+	public void setProfileImage(Image profileImage) {
+		this.profileImage = profileImage;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberNickName=" + memberNickName
 				+ ", memberPw=" + memberPw + ", memberEmail=" + memberEmail + ", enrollDate=" + enrollDate
 				+ ", modifyDate=" + modifyDate + ", memberBirth=" + memberBirth + ", memberStatusCode="
-				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + "]";
+				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + ", profileImage=" + profileImage + "]";
 	}
+
+	
 
 
 }
