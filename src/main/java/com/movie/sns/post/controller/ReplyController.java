@@ -76,4 +76,12 @@ public class ReplyController {
 		return result;
 	}
 
+	@RequestMapping(value="deleteReply", method = RequestMethod.POST)
+	@ResponseBody
+	public int deleteReply(int replyNo) {
+		int result = service.deleteReply(replyNo);
+		
+		return result;
+	}
+
 }

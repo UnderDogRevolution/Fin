@@ -131,7 +131,9 @@
 .post-rating > span{
     color: white;
 }
-
+.container-img{
+    border-top:1px solid black;
+}
 .container-img > img{
     width: 100%;
     max-height: 600px;
@@ -202,7 +204,7 @@ html::-webkit-scrollbar{
     display: flex;
     flex-direction: row;
     margin-top: 3%;
-    margin-left: 7%;
+    padding-left: 7%;
 
 }
 

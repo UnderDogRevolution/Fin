@@ -84,5 +84,9 @@ public class PostDAO {
 		return sqlSession.update("postMapper.minusLike", postNo);
 	}
 
+	public int deletePost(int postNo) {
+		return sqlSession.update("postMapper.deletePost", postNo);
+	}
+
 
 }

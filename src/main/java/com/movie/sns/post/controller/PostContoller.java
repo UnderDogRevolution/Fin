@@ -57,7 +57,7 @@ public class PostContoller {
 						  @RequestPart(value="image", required = false) List<MultipartFile> fileList,
 						  HttpSession session
 						 ) {
-		
+		postVO.put("memberNo", ((Member)session.getAttribute("loginMember")).getMemberNo());
 		String webPath = "/resources/images/post/";
 		
 		String serverPath = session.getServletContext().getRealPath(webPath);
@@ -83,20 +83,29 @@ public class PostContoller {
 	
 	@RequestMapping(value="insertLike", method = RequestMethod.POST)
 	@ResponseBody
-	public int insertLike(int postNo){
+	public int insertLike(int postNo, HttpSession session){
 		
-		int memberNo = 1;
+		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 		
 		return service.insertLike(postNo, memberNo);
 	}
 	
 	@RequestMapping(value="deleteLike", method = RequestMethod.POST)
 	@ResponseBody
-	public int deleteLike(int postNo){
+	public int deleteLike(int postNo, HttpSession session){
 		
-		int memberNo = 1;
+		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 		
 		return service.deleteLike(postNo, memberNo);
+		
+	}
+	
+	@RequestMapping(value="deletePost", method = RequestMethod.POST)
+	@ResponseBody
+	public int deletePost(int postNo){
+		
+		
+		return service.deletePost(postNo);
 		
 	}
 }

@@ -163,6 +163,10 @@
 	<update id="minusLike">
 		UPDATE POST SET LIKE_COUNT = LIKE_COUNT - 1 WHERE POST_NO = ${postNo}
 	</update>
+
+	<update id="deletePost">
+		UPDATE POST SET POST_STATUS_CD = 501 WHERE POST_NO = #{postNo}
+	</update>
 	
 	
 </mapper>
