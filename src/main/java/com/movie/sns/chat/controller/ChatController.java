@@ -48,11 +48,13 @@ public class ChatController {
 
 		List<ChatRoom> chatRoomList = service.chatRoomList(memberNo);
 		model.addAttribute("chatRoomList", chatRoomList);
-
 		// String message = "apc'de'f";
 		// String[] one = message.split("'");
 		// System.out.println(one[0] + "'" +"리소시스머시기 이미지 경로"+ "'" +one[1]);
 		// 조건 메세지에 이미지 태그가 있는 경우 없는경우 나누기
+		
+		System.out.println(chatRoomList.get(0).getImg().get(0).getImgPath());
+		
 
 		return "chat/chat";
 	}
@@ -65,7 +67,7 @@ public class ChatController {
 		int memberNo = loginMember.getMemberNo();
 		List <ChatRoom> chatList = service.chatRoomList(memberNo);
 		
-		System.out.println(chatList);
+		System.out.println("얻어오는거 조회" +chatList);
 		return  new Gson().toJson(chatList);
 	}
 	
