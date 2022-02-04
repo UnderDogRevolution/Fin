@@ -146,5 +146,7 @@ function loadImg(input, num) {
 	}
 }
 
-
+function deleteImg(){
+	$(".deleteImg").attr("src", "../resources/images/member/defaultProfileImage.png");
+}
 
