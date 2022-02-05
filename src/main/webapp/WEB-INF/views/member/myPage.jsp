@@ -168,32 +168,15 @@ input {
 			</div>
 
 
-			<!-- class="img-thumbnail" id="inputGroupFile01"
-						name="inputGroupFile01" style="border-radius: 50%"
-						onerror="this.onerror=null; 
-        this.src='../resources/images/member/user.png'" -->
-
-
-			<!-- 파일 업로드 부분 -->
+			<!-- 파일 업로드 (이미지를 누르면 프로필 사진 첨부)-->
 			<div id="fileArea" style="display: none">
 				<input type="file" name="images" onchange="loadImg(this,0)">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
 
 
-
-
-
-
 			<br>
-
-			<!-- <div class="input-group mb-3">
-				<input type="file" class="imgform-control" id="inputGroupFile02"
-					name="profile"> <label class="input-file-text"
-					for="inputGroupFile02">사진 등록</label>
-			</div>
-			<br>
- -->
+			
 			<fieldset disabled>
 				<div class="row-mb-3-con">
 					<label for="currentEmail" class="col-form-label text-end">이메일</label>
