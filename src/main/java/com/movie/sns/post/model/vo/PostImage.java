@@ -52,8 +52,12 @@ public class PostImage {
 	public void setPostImageLevel(int postImageLevel) {
 		this.postImageLevel = postImageLevel;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "PostImage [postImageNo=" + postImageNo + ", postImagePath=" + postImagePath + ", postImageName="
+				+ postImageName + ", postImageDate=" + postImageDate + ", postImageOriginal=" + postImageOriginal
+				+ ", postImageLevel=" + postImageLevel + ", postNo=" + postNo + "]";
+	}
 	
 	
 }

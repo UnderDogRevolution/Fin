@@ -116,7 +116,4 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 <div id="fileArea">
     <input class="files" type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
-<script>
-    const contextPath = "${contextPath}";
-</script>
 <script src="${contextPath}/resources/js/post/crud-post.js"></script>

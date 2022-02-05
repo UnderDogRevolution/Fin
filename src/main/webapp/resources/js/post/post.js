@@ -276,6 +276,7 @@ function revealPost(){
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
 				divContent2.innerHTML = items.postContent;
+				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
 				// const divContent4 = document.createElement("div")
 				// divContent4.className = "text-count";

@@ -26,5 +26,7 @@ public interface PostService {
 
 	int deletePost(int postNo);
 
+	Post selectPostOne(Post post);
+
 
 }

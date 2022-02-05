@@ -81,6 +81,15 @@ public class Reply {
 	public void setReplyStatusName(String replyStatusName) {
 		this.replyStatusName = replyStatusName;
 	}
+	@Override
+	public String toString() {
+		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDate=" + replyCreateDate
+				+ ", parentReply=" + parentReply + ", likeCount=" + likeCount + ", postNo=" + postNo + ", memberNo="
+				+ memberNo + ", replyStatusCode=" + replyStatusCode + ", replyStatusName=" + replyStatusName
+				+ ", memberName=" + memberName + ", checkLike=" + checkLike + "]";
+	}
+	
+	
 	
 	
 }

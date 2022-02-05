@@ -165,6 +165,13 @@ public class PostServiceImpl implements PostService {
 	public int deletePost(int postNo) {
 		return dao.deletePost(postNo);
 	}
+
+	@Override
+	public Post selectPostOne(Post post) {
+		return dao.selectPostOne(post);
+	}
+	
+	
 	
 	
 	
