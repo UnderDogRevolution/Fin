@@ -52,6 +52,8 @@
 		<result property="chatRoomNo" column="CHAT_ROOM_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="memberName" column="MEMBER_NM" />
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
 
 	</resultMap>
 
@@ -124,7 +126,7 @@
 	<select id="searchMessage" resultMap="chatMessage_rm">
  	
  	<![CDATA[
- 	SELECT MESSAGE ,  CM_NO,CHAT_ROOM_NO,
+ 	  SELECT MESSAGE ,  CM_NO,CHAT_ROOM_NO,MEMBER_IMG_PATH,MEMBER_IMG_NM,
  	  CASE WHEN SYSDATE - CREATE_DT < 1
 		         THEN TO_CHAR(CREATE_DT, 'HH24:MI')     
 		         ELSE TO_CHAR(CREATE_DT, 'YYYY-MM-DD')
@@ -132,6 +134,7 @@
 		    MEMBER_NO , MEMBER_NM
  	FROM CHAT_MESSAGE
  	JOIN MEMBER USING(MEMBER_NO)
+    JOIN MEMBER_IMG USING(MEMBER_NO)
  	WHERE CHAT_ROOM_NO = ${chatNo}
  	ORDER BY CM_NO
  	]]>
@@ -269,7 +272,7 @@
 	<select id="selectFriend" resultMap="chatRoom_rm">
 
         SELECT CHAT_ROOM_NO , MEMBER_NM, MEMBER_IMG_PATH , MEMBER_IMG_NM
-        FROM CHAT_ROOM
+        FROM CHAT_ROOM_JOIN
         JOIN MEMBER USING(MEMBER_NO)
         JOIN MEMBER_IMG USING(MEMBER_NO)
         WHERE MEMBER_NO = #{friendNo}

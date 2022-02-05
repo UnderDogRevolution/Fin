@@ -3,6 +3,7 @@ package com.movie.sns.chat.controller;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -151,8 +152,10 @@ public class ChatController {
 		public String goChatting(ChatRoom room) {
 			// 참여 미참여 // 미참여 두명일시 채팅방 삭제 아닐시 상태변경
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			int result = service.goChatting(room);
-			
+			Map<String, Object> map2 = service.goChatting(room);
+//			System.out.println(room);
+			map.put("result" ,map2.get("result"));
+			map.put("chatRoom" , map2.get("chatRoom"));
 			return new Gson().toJson(map);
 		}
 

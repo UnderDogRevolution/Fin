@@ -1,6 +1,7 @@
 package com.movie.sns.chat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.chat.model.vo.ChatMessage;
@@ -36,7 +37,7 @@ public interface ChatService {
 	List<ChatFriend> searchFollower(int memberNo);
 	
 	// 메세지 보내기
-	int goChatting(ChatRoom room);
+	Map<String, Object> goChatting(ChatRoom room);
 	
 	
 

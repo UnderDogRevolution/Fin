@@ -1,6 +1,8 @@
 package com.movie.sns.chat.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,9 +127,9 @@ public class ChatServiceImpl implements ChatService {
 	 * return result
 	 */
 	@Override
-	public int goChatting(ChatRoom room) {
+	public Map<String, Object> goChatting(ChatRoom room) {
 		int result = 0;
-
+		ChatRoom chatRoom = null;
 		result = dao.searchChatRoomJoin(room);
 		if (result > 0) { // 채팅방이 존재할 경우
 			// 방번호를 얻어와 두사람 상태가 참여중인지 조회
@@ -135,7 +137,8 @@ public class ChatServiceImpl implements ChatService {
 			System.out.println("방번호 결과값" + result);
 			
 					room.setChatRoomNo(result);// 조회 성공
-					room = dao.selectFriend(room); // 친구 이미지, 이름 가져올려면 세팅해야됨
+				 chatRoom = dao.selectFriend(room); // 친구 이미지, 이름 가져올려면 세팅해야됨
+					System.out.println("세팅되었는지 조회" + chatRoom);
 			if (result > 0) { // 조회값이 0보다 클 경우 방번호를 얻어옴
 					result = dao.selectJoinCount2(room); // 내가 참여중인지 아닌지 확인하기
 					// 내가 참여중인경우 1 아닌경우 0
@@ -148,7 +151,7 @@ public class ChatServiceImpl implements ChatService {
 					}else {// 내가참여중이지않은경우 나를 참여중으로 바꾼다
 						result = dao.updateMyJoin(room);
 						System.out.println("참여중으로 바꿨다" + result);
-						System.out.println("세팅되었는지 조회" + room);
+						
 					}
 			}
 
@@ -164,13 +167,15 @@ public class ChatServiceImpl implements ChatService {
 							System.out.println("방번호 결과값" + result);
 							
 							room.setChatRoomNo(result);// 조회 성공
-							room = dao.selectFriend(room);
+							chatRoom = dao.selectFriend(room);
 						}
 					}
 				}
 		}
-
-		return result;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		map.put("chatRoom", chatRoom);
+		return map;
 	}
 
 	
