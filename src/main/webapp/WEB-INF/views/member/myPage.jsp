@@ -158,13 +158,18 @@ input {
 			<div class="form-inline mb-2">
 
 				<div class="memberImg">
-					<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
+					<img id="img" src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
 						onerror="this.onerror=null; 
        					 this.src='../resources/images/member/defaultProfileImage.png'"
 						style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
+							<br> 
 				</div>
-					<br> 
-					<button class="deleteImg" onclick="resetImg();">프로필사진 삭제</button>
+					<button class="deleteImg" id="deleteImg" onclick="deleteImg();">프로필사진 삭제</button>
+			
+			<!-- profileImage.setImgPath("/resources/images/member/");
+         profileImage.setImgName("defaultProfileImage.png"); 
+         profileImage.setImgOriginal("defaultProfileImage.png"); -->
+         
 			</div>
 
 
