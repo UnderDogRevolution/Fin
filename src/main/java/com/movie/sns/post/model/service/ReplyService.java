@@ -16,4 +16,6 @@ public interface ReplyService {
 
 	int deleteReplyLike(Reply reply);
 
+	int deleteReply(int replyNo);
+
 }

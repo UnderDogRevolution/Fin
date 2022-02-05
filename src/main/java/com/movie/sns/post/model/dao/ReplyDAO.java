@@ -46,4 +46,8 @@ public class ReplyDAO {
 		return sqlSession.update("replyMapper.minusReplyLike", reply);
 	}
 
+	public int deleteReply(int replyNo) {
+		return sqlSession.update("replyMapper.deleteReply", replyNo);
+	}
+
 }
