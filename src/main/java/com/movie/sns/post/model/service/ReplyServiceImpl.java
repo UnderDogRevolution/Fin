@@ -50,6 +50,11 @@ public class ReplyServiceImpl implements ReplyService {
 		}
 		return result;
 	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return dao.deleteReply(replyNo);
+	}
 	
 	
 	
