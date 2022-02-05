@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
 	public int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath) {
 		
 		Post post = new Post();
-		post.setMemberNo(1);
+		post.setMemberNo((int)postVO.get("memberNo"));
 		post.setPostContent((String)postVO.get("postContent"));
 		post.setCheckUsePoster((int)postVO.get("checkUsePoster"));
 		
@@ -160,6 +160,18 @@ public class PostServiceImpl implements PostService {
 		}
 		return result;
 	}
+
+	@Override
+	public int deletePost(int postNo) {
+		return dao.deletePost(postNo);
+	}
+
+	@Override
+	public Post selectPostOne(Post post) {
+		return dao.selectPostOne(post);
+	}
+	
+	
 	
 	
 	
