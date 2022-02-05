@@ -31,6 +31,7 @@
 			FROM REPLY A
 			JOIN MEMBER USING(MEMBER_NO)
 			WHERE POST_NO = #{postNo} 
+			AND REPLY_STATUS_CD = 600
 			) R
 	START WITH PARENT_REPLY IS NULL
 	CONNECT BY PRIOR REPLY_NO = PARENT_REPLY
@@ -58,5 +59,9 @@
 
 	<update id="minusReplyLike">
 		UPDATE REPLY SET LIKE_COUNT = LIKE_COUNT - 1 WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<update id="deleteReply">
+		UPDATE REPLY SET REPLY_STATUS_CD = 601 WHERE REPLY_NO = #{replyNo}
 	</update>
 </mapper>

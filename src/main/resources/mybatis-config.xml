@@ -34,6 +34,7 @@
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoom" alias = "ChatRoom"/>	
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoomJoin" alias = "ChatRoomJoin"/>	
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatMessage" alias = "ChatMessage"/>	
+		<typeAlias type ="com.movie.sns.chat.model.vo.ChatFriend" alias = "ChatFriend"/>
 		
 		
 	</typeAliases>

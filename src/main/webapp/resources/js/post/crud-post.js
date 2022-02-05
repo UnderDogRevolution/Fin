@@ -59,6 +59,7 @@ deleteImg.addEventListener("click", function(e){
 
     }
 })
+let movie;
 
 const moviedbInput = document.getElementsByClassName("moviedb-input")[0];
 const searchResult2 = document.getElementsByClassName("search-result")[0];
@@ -71,6 +72,7 @@ const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
 function Write(){
+    movie = null;
 	moviedbInput.style.display = "none";	
 	searchResult2.style.display = "none";	
 	reviewTitle.style.display = "none";	
@@ -165,7 +167,7 @@ input.addEventListener("input", async function(){
 });
 //API 서버에서 데이터 가져오는 함수
 
-let movie;
+
 
 async function fetchMovie(page){
     searchResult.innerHTML = "";
@@ -403,68 +405,75 @@ observer.observe(inputDiv, config);
 
 // 게시글 삽입
 function postValidate(){
-    const rating = document.getElementsByClassName("rating-value")[0].innerText
-    if(rating != ""){
-        movie.rating = rating;
+    if(typeof memberNo == "undefined"){
+        alert("로그인 해주세요!")
     }else{
-        alert("별점을 등록하세요!")
-        return;
-    }
 
-    const postVO = {}
-    const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
-    const tagArr = []
-    for(const items of tagName){
-        if(items.innerText.indexOf('#') >-1){
-            tagArr.push(items.innerText.replace('#', ""));
-        } 
-    }
-    
-    
-
-    if(crudImg.getAttribute("src") != null && !inputFile.files[0]){
-        postVO.checkUsePoster = 1;
-    }else{
-        postVO.checkUsePoster = 0;
-    }
-    
-
-    postVO.postContent = inputTextarea.value;
-    postVO.tagArr = tagArr;
-    postVO.movie = movie;
-    console.log(postVO);
-
-    // image 영역
-    const formData = new FormData();
-    const image = document.getElementsByClassName("files")[0]
-    if(image.files.length > 0){
-        formData.append('image', image.files[0])
-    }
-    formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
-    console.log(formData);
-    $.ajax({ 
-        url: contextPath + "/post/insert",
-        type: "POST",
-        data: formData,
-        contentType: false, // multipart/form-data로 전송하기위해 필요
-        processData : false, // formData를 string으로 변환하지 않는다.
-        enctype : 'multipart/form-data',
-        async : false,
-        success: function (result) {
-            if(result >0){
-                alert("게시글 등록 성공!");
+        const rating = document.getElementsByClassName("rating-value")[0].innerText
+        if(movie != null){
+            if(rating != ""){
+                movie.rating = rating;
             }else{
-                alert("게시글 등록 실패!");
+                alert("별점을 등록하세요!")
+                return;
             }
-        },
-        error: function (req, status, error) {
-            console.log("ajax 실패");
-            console.log(req.responseText);
-            console.log(status);
-            console.log(error);
         }
 
-    })
+        const postVO = {}
+        const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
+        const tagArr = []
+        for(const items of tagName){
+            if(items.innerText.indexOf('#') >-1){
+                tagArr.push(items.innerText.replace('#', ""));
+            } 
+        }
+        
+        
+
+        if(crudImg.getAttribute("src") != null && !inputFile.files[0]){
+            postVO.checkUsePoster = 1;
+        }else{
+            postVO.checkUsePoster = 0;
+        }
+        
+
+        postVO.postContent = inputTextarea.value;
+        postVO.tagArr = tagArr;
+        postVO.movie = movie;
+        console.log(postVO);
+
+        // image 영역
+        const formData = new FormData();
+        const image = document.getElementsByClassName("files")[0]
+        if(image.files.length > 0){
+            formData.append('image', image.files[0])
+        }
+        formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
+        console.log(formData);
+        $.ajax({ 
+            url: contextPath + "/post/insert",
+            type: "POST",
+            data: formData,
+            contentType: false, // multipart/form-data로 전송하기위해 필요
+            processData : false, // formData를 string으로 변환하지 않는다.
+            enctype : 'multipart/form-data',
+            async : false,
+            success: function (result) {
+                if(result >0){
+                    alert("게시글 등록 성공!");
+                }else{
+                    alert("게시글 등록 실패!");
+                }
+            },
+            error: function (req, status, error) {
+                console.log("ajax 실패");
+                console.log(req.responseText);
+                console.log(status);
+                console.log(error);
+            }
+
+        })
+    }
 }
 
 // star rating

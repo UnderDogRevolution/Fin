@@ -66,6 +66,7 @@ function revealPost(){
 				const aHeader3 = document.createElement("a")
 				aHeader3.innerText = "삭제";
 				aHeader3.className = "dropdown-item"
+				aHeader3.setAttribute("onclick", "deletePost(this)")
 				liHeader1.append(aHeader1);
 				liHeader2.append(aHeader2);
 				liHeader3.append(aHeader3);
@@ -88,7 +89,7 @@ function revealPost(){
 				if(items.movieTitle != null){
 					divContent1.className = "review-title";
 					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
-					
+					postContent.append(divContent1) // 리뷰 타이틀 삽입
 					if(items.rating != null){
 						divContent3.className = "post-rating";
 						const iContent1 = document.createElement("i")
@@ -266,13 +267,17 @@ function revealPost(){
 						divContent3.append(iContent9);
 						divContent3.append(iContent10);
 						divContent3.append(spanContent1);
+						if(items.rating != null){
+							postContent.append(divContent3)
+						}
 					}
 
 				}
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
-				divContent2.innerText = items.postContent;
-				
+				divContent2.innerHTML = items.postContent;
+				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
+				postContent.append(divContent2) 
 				// const divContent4 = document.createElement("div")
 				// divContent4.className = "text-count";
 				const divContent5 = document.createElement("div")
@@ -280,19 +285,17 @@ function revealPost(){
 				const imgContent1 = document.createElement("img");
 				if(items.checkUsePoster == 1){
 					imgContent1.setAttribute("src", items.poster)
+					divContent5.append(imgContent1);
+					postContent.append(divContent5);
 				}else if(items.listPostImage[0]){
 					imgContent1.setAttribute("src", contextPath + items.listPostImage[0].postImagePath + items.listPostImage[0].postImageName)
+					divContent5.append(imgContent1);
+					postContent.append(divContent5);
 				}
-				divContent5.append(imgContent1);
 				
 				
-				postContent.append(divContent1)
-				postContent.append(divContent2)
-				if(items.rating != null){
-					postContent.append(divContent3)
-				}
 				// postContent.append(divContent4)
-				postContent.append(divContent5);
+				
 	
 				// post-footer
 				const divFooter1 = document.createElement("div")
@@ -402,9 +405,10 @@ function revealPost(){
 					})
 				})
 			}
-		
-			const replyImg = document.querySelectorAll(".container-reply > img")
+			
 
+			// 댓글 조회
+			const replyImg = document.querySelectorAll(".container-reply > img")
 			for(const items of replyImg){
 				items.addEventListener("click", function(){
 					const post = this.parentNode.parentNode.parentNode
@@ -444,12 +448,13 @@ function revealPost(){
 					inputReplyDiv.append(inputReplyDivIn2)
 					inputReplyDiv.append(inputReplyDivIn3)
 
-					const replyDiv = selectReply(postNo)
+					
 					
 
 					
 					const temp1 = document.getElementsByClassName("input-content-reply");
 					const temp2 = document.getElementsByClassName("reply");
+					// 댓글 입력창이 열려있다면  댓글에 관한 모든 div를 없앤다
 					if(post.getElementsByClassName("input-content-reply").length > 0){
 							if(temp1.length >0){
 								for(const items of temp1){
@@ -459,7 +464,7 @@ function revealPost(){
 									items.remove()
 								}
 							}
-					}else{
+					}else{// 댓글 입력창이 없다면 먼저 대슥ㄹ에 관한 모든 div를 없앤 후 클릭한 자리에 댓글 관련 div를 추가한다.
 						if(temp1.length >0){
 							for(const items of temp1){
 								items.remove()
@@ -470,6 +475,7 @@ function revealPost(){
 						}
 						post.append(inputReplyDiv)
 						if(Number(post.querySelectorAll(".container-reply > span")[0].innerText) > 0){
+							const replyDiv = selectReply(postNo)
 							post.append(replyDiv)
 						}
 					}
@@ -686,10 +692,11 @@ function selectReply(postNo){
 				a1.className = "dropdown-item"
 				a2.className = "dropdown-item"
 				a3.className = "dropdown-item"
-				a1.setAttribute("href", "#")
-				a2.setAttribute("href", "#")
-				a3.setAttribute("href", "#")
+				// a1.setAttribute("href", "#")
+				// a2.setAttribute("href", "#")
+				// a3.setAttribute("href", "#")
 				a1.innerText = "삭제";
+				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
 				a2.innerText = "신고하기";
 				a3.innerText = "로그인해 주세요!";
 				dropLi1.append(a1);
@@ -832,16 +839,68 @@ function insertComment(e, replyNo){
 	}
 };
 
-// document.addEventListener("click", function(){
-// 	const arr = document.querySelectorAll(".input-content-reply > div")
-// 	const img = document.querySelectorAll(".input-content-reply img")[0]
-// 	const input = document.querySelectorAll(".input-content-reply input")[0]
-// 	if(arr[0].innerText.trim() == "답글"){
-// 		console.log("blur")
-// 		arr[0].innerText = "댓글";
-// 		img.setAttribute("onclick", "insertReply(this)")
-// 		input.setAttribute("placeholder", "댓글을 달아주세요!");
-// 	}
-// })
+function deletePost(e){
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode;
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	if(confirm("정말로 삭제 하시겠습니까?")){
+		$.ajax({
+			url: contextPath + "/post/deletePost",
+			data: { "postNo": postNo},
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("게시글이 삭제 되었습니다.")
+					revealPost()
 
+				}else{
+					alert("게시글 삭제 중 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	
+		})
+	}
+}
+
+function deleteReply(e, replyNo){ // 똑같은 이름의 함수가 있으면 다른 함수들도 문제가 생기는 구나! 근데 에러가 안뜨내;; 불친절 하다.
+						 // 심지어 매개변수도 잘못 기입(e.g this)되어있으면 함수가 발동하지 않는다.
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	if(confirm("정말로 삭제 하시겠습니까?")){
+		$.ajax({
+			url: contextPath + "/reply/deleteReply",
+			data: { "replyNo": replyNo},
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("댓글이 삭제 되었습니다.")
+
+					if(post.getElementsByClassName("reply")[0]){
+						const reply = post.getElementsByClassName("reply")[0];
+						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}
+
+				}else{
+					alert("댓글 삭제 중 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	
+		})
+	}
+}
 

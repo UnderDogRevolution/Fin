@@ -24,5 +24,9 @@ public interface PostService {
 
 	int deleteLike(int postNo, int memberNo);
 
+	int deletePost(int postNo);
+
+	Post selectPostOne(Post post);
+
 
 }

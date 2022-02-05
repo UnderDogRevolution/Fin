@@ -166,6 +166,16 @@ public class Post {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	@Override
+	public String toString() {
+		return "Post [postNo=" + postNo + ", postContent=" + postContent + ", readCount=" + readCount + ", likeCount="
+				+ likeCount + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", postStatusCode="
+				+ postStatusCode + ", memberNo=" + memberNo + ", checkUsePoster=" + checkUsePoster + ", checkLike="
+				+ checkLike + ", movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDate=" + movieDate
+				+ ", director=" + director + ", poster=" + poster + ", movieGenre=" + movieGenre + ", rating=" + rating
+				+ ", memberName=" + memberName + ", memberNickName=" + memberNickName + ", listPostImage="
+				+ listPostImage + ", replyCount=" + replyCount + ", tagArr=" + tagArr + "]";
+	}
 	
 	
 }

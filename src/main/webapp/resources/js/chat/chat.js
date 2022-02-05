@@ -55,19 +55,6 @@ function selectChatRoom(){
 function selectchatting(frNo , memberNo , chatRoomNo){
 	
 	
-/*	$.ajax({
-		
-		url : contextPath + "/chat/selectchatting",
-		data : {"targetNo" : frNo , "memberNo" : memberNo ,"chatRoomNo" : chatRoomNo},
-		dataType: "JSON",
-		
-		succes:function(List){
-			console.log(List);
-			
-		}
-		
-	});
-	*/
 		$.ajax({
 		
 		url : contextPath + "/chat/selectChatRoom",
@@ -122,16 +109,6 @@ $('#MessageModal').on('show.bs.modal', function(event) {
 // 보내기버튼 클릭과 동시에 친창 부분에 목록이 나타나야된다
 // 채팅방이 만들어짐과 동시에 그사람한테도 보여져야 된다.
 // 
-$('.messagebtn2').on("click", function() {
-	$('#MessageModal').modal("hide");
-	// 새로고침해서 조회되게 추가
-	// 만약 채팅창이 이미 보여져있는 경우? 채팅방이 이미있는 경우는 insert 되지않게하기
-	// 없는경우에만 insert 
-	// 보내기 버튼 클릭시 채팅방으로 자동이동되게 해야된다
-	// 어떻게함?
-	searchChatting();
-	//
-});
 
 
 // 채팅 삭제 기능
@@ -141,7 +118,6 @@ function deleteChat(event, chatRoomNo) {
 	console.log(event.target.parentNode);
 	console.log(chatRoomNo)
 	if (confirm("채팅방을 나가시겠습니까?")) {
-		//ajax 사용해야됨 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ으아아ㅓㅇ라미ㅓㄹ
 		$.ajax({
 			url: contextPath + "/chat/delete",
 			data: { "chatRoomNo": chatRoomNo, "memberNo": memberNo },
@@ -547,44 +523,4 @@ chattingSock.onmessage = function(e) {
 }
 
 
-
-
-/*	const divImg = $("<div class = 'chatImg'>")
-				const img = $("<img>");
-				divImg.append(img);
-				img.attr("src", e.target.result);
-				const li = $("<li>")
-				const ul = $("#chattingwrap")
-				const myName = $("<span class = 'myName'>");
-				const myMessage = $("<span class = 'myMessage'>");
-				const msgCreate = $("<span class = 'msgCreate'>");
-				msgCreate.html("msg.create");
-				li.addClass("myChatting");
-				myMessage.append(divImg);
-				li.append(myName);
-				li.append(myMessage);
-				li.append(msgCreate);
-				ul.append(myName);
-				ul.append(li);*/
-			/*
-				 const divImg = $("<div class = 'chatImg'>")
-				 const img = $("<img>");
-				 divImg.append(img);
-				 img.attr("src", e.target.result);
-				 const li = $("<li>")
-				 const ul = $("#chattingwrap")
-				 const frName = $("<span class = 'frName'>");
-				 const frMessage =  $("<span class = 'frMessage'>");
-				 const msgCreate = $("<span class = 'msgCreate'>");
-				 frName.html("상대방이름");
-				 msgCreate.html("msg.create");
-				 li.addClass("frChatting");
-				 frMessage.append(divImg);
-				 li.append(frName);
-				 li.append(frMessage);
-				 li.append(msgCreate);
-				 ul.append(frName);
-				 ul.append(li);
-	 
-	 */
 

@@ -75,16 +75,16 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                     </div>
                 <div class="insert-rating" style="display: flex; align-items: center; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
-                        <input type="radio" name="html" value="0.5">
-                        <input type="radio" name="html" value="1">
-                        <input type="radio" name="html" value="1.5">
-                        <input type="radio" name="html" value="2">
-                        <input type="radio" name="html" value="2.5">
-                        <input type="radio" name="html" value="3">
-                        <input type="radio" name="html" value="3.5">
-                        <input type="radio" name="html" value="4">
-                        <input type="radio" name="html" value="4.5">
                         <input type="radio" name="html" value="5">
+                        <input type="radio" name="html" value="4.5">
+                        <input type="radio" name="html" value="4">
+                        <input type="radio" name="html" value="3.5">
+                        <input type="radio" name="html" value="3">
+                        <input type="radio" name="html" value="2.5">
+                        <input type="radio" name="html" value="2">
+                        <input type="radio" name="html" value="1.5">
+                        <input type="radio" name="html" value="1">
+                        <input type="radio" name="html" value="0.5">
                         
                     </div>
                     <div class="rating-value" style="font-size: 20px;">
@@ -116,7 +116,4 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 <div id="fileArea">
     <input class="files" type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
-<script>
-    const contextPath = "${contextPath}";
-</script>
 <script src="${contextPath}/resources/js/post/crud-post.js"></script>
