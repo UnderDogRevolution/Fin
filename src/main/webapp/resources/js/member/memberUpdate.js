@@ -147,6 +147,14 @@ function loadImg(input, num) {
 }
 
 function deleteImg(){
-	$(".deleteImg").attr("src", "../resources/images/member/defaultProfileImage.png");
+
+	$('#img').attr('src','/resources/images/member/defaultProfileImage.png');
+	$('#img').attr('${Image.ImgName}','defaultProfileImage.png');
+	$('#img').attr('${Image.ImgOriginal}','defaultProfileImage.png');
+
+ /*Image.ImgPath=("/resources/images/member/");
+ Image.ImgName=("defaultProfileImage.png");
+ Image.ImgOriginal=("defaultProfileImage.png");*/
+ 
 }
 
