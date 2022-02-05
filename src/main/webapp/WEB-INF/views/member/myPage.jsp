@@ -117,7 +117,6 @@ input {
 	border-radius: 0.25rem;
 }
 
-
 .btnsub {
 	margin: 5% 0 5% 0;
 }
@@ -157,14 +156,15 @@ input {
 
 
 			<div class="form-inline mb-2">
-				
+
 				<div class="memberImg">
-					<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" onerror="this.onerror=null; 
-        this.src='../resources/images/member/defaultProfileImage.png'" 
-        style="border-radius: 30%; cursor:pointer; width: 180px; height: 180px;"> 
-	<br>
-        <span class="deleteImg" style="cursor:pointer">사진 삭제</span>
+					<img src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
+						onerror="this.onerror=null; 
+       					 this.src='../resources/images/member/defaultProfileImage.png'"
+						style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
 				</div>
+					<br> 
+					<button class="deleteImg" onclick="resetImg();">프로필사진 삭제</button>
 			</div>
 
 
@@ -175,7 +175,7 @@ input {
 
 
 			<!-- 파일 업로드 부분 -->
-			<div id="fileArea" style="display:none">
+			<div id="fileArea" style="display: none">
 				<input type="file" name="images" onchange="loadImg(this,0)">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>

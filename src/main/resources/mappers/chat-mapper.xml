@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
+	
+	<resultMap type="Member" id="member_rm">
 
+		<id property="memberNo" column="MEMBER_NO" />
 
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberNickName" column="MEMBER_NICKNM" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="enrollDate" column="ENROLL_DT" />
+		<result property="modifyDate" column="MODIFY_DT" />
+		<result property="memberStatusCode" column="STATUS_CD" />
+		<result property="memberGradeCode" column="GRADE_CD" />
 
-
+	</resultMap>
+	
+	
+	
+	
 	<resultMap type="ChatRoom" id="chatRoom_rm"> <!-- 필드명과 db명이 일치하지않을때 mapping 하는 것 거의 사용 -->
 		<id property="chatRoomNo" column="CHAT_ROOM_NO" />
 		<result property="statusCode" column="STATUS_CD" />
@@ -20,7 +36,6 @@
 			select="selectMemberImg" />
 	</resultMap>
 
-
 	<resultMap type="Image" id="Image_rm">
 		<id property="imgNo" column="MEMBER_IMG_NO" />
 		<result property="imgPath" column="MEMBER_IMG_PATH" />
@@ -29,30 +44,7 @@
 		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
-	<!-- 채팅 방친구 이미지조회 -->
-	<select id="selectMemberImg" resultMap="Image_rm">
-		SELECT MEMBER_IMG_PATH ,
-		MEMBER_IMG_NM FROM MEMBER_IMG
-		WHERE MEMBER_NO = #{friendNo}
-	</select>
-
-
-	<resultMap type="Member" id="member_rm">
-
-		<id property="memberNo" column="MEMBER_NO" />
-
-		<result property="memberName" column="MEMBER_NM" />
-		<result property="memberNickName" column="MEMBER_NICKNM" />
-		<result property="memberPw" column="MEMBER_PW" />
-		<result property="memberEmail" column="MEMBER_EMAIL" />
-		<result property="enrollDate" column="ENROLL_DT" />
-		<result property="modifyDate" column="MODIFY_DT" />
-		<result property="memberStatusCode" column="STATUS_CD" />
-		<result property="memberGradeCode" column="GRADE_CD" />
-		<!-- <collection property="img" column="MEMBER_NO" javaType="java.util.ArrayList" 
-			ofType="memberImage" select="selectMemberImgList" /> -->
-
-	</resultMap>
+	
 	<!-- 채팅메세지 -->
 	<resultMap type="chatMessage" id="chatMessage_rm">
 		<id property="chatMessageNo" column="CM_NO" />
@@ -62,16 +54,36 @@
 		<result property="memberName" column="MEMBER_NM" />
 
 	</resultMap>
+	
+	
+	
+	<resultMap type="ChatFriend" id="chatFriend_rm">
+		<id property = "follower" column ="FOLLOWER"/>
+		<result property = "memberNo"  column = "MEMBER_NO"/>
+		<result property = "statusNo"  column = "FOLLOWING_STATUS_CD"/>
+		<result property = "imgPath"  column = "MEMBER_IMG_PATH"/>
+		<result property = "imgNm"  column = "MEMBER_IMG_NM"/>
+	
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 채팅 방친구 이미지조회 -->
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH ,
+		MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{friendNo}
+	</select>
 
 	<!-- 채팅친구정보조회 -->
 	<select id="searchMember" resultMap="member_rm">
 		SELECT * FROM MEMBER WHERE
 		MEMBER_NO = ${friendNo}
 	</select>
-
-	<!-- 회원 이미지 조회 -->
-	<!-- <select id="selectMemberImg" resultMap="Image_rm"> SELECT* FROM MEMBER_IMG 
-		WHERE MEMBER_NO = #{memberNo} </select> -->
 
 
 
@@ -171,4 +183,18 @@
 		AND
 		MEMBER_NO = #{targetNo}
 	</select>
+	
+	
+	<select id="selectFollower" resultMap = "chatFriend_rm">
+		 SELECT FOLLOWER, MEMBER.MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM, FOLLOWER.MEMBER_NO
+        FROM FOLLOWER
+        JOIN MEMBER ON (FOLLOWER = MEMBER.MEMBER_NO)
+        JOIN MEMBER_IMG ON (FOLLOWER = MEMBER_IMG.MEMBER_NO)
+        WHERE FOLLOWER.MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	
+	
+	
 </mapper>

@@ -65,7 +65,6 @@ public class MemberService2Impl implements MemberService2 {
 			List<Image> imgList = new ArrayList<Image>();
 
 			for (int i = 0; i < images.size(); i++) {
-
 				if (!images.get(i).getOriginalFilename().equals("")) {
 
 					Image img = new Image();
