@@ -10,15 +10,21 @@
 </head>
 <body>
 	${post}
+	<c:if test="${post.postStatusCode == 501}">
+		<script>
+			alert("삭제된 게시글 입니다.")
+			window.history.back();
+		</script>
+	</c:if>
 	${loginMember}
     <%--<jsp:include page="../main/feed.jsp"></jsp:include>--%>
 	
 	<jsp:include page="../main/side.jsp"></jsp:include>
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
 
-	<div id="container-post" style="padding-top: 122px; padding-right: 30%;">
+	<div id="container-post" style="padding-top: 70px; padding-right: 30%; padding-bottom: 13px;">
 		<c:choose>
-			<c:when test="post.postStatusCode == 500">
+			<c:when test="${post.postStatusCode == 500}">
 					<div class="post">
 						<div class="post-header">
 							<div><img class="profile-img" src="${contextPath}/resources/images/temp/raraland.jpg"></div>
@@ -31,7 +37,7 @@
 										<li><a class="dropdown-item">신고하기</a></li>
 									</c:if>
 									<c:if test="${loginMember.memberNo == post.memberNo}">
-										<li><a class="dropdown-item">삭제</a></li>
+										<li><a class="dropdown-item" onclick="deletePost(this)">삭제</a></li>
 									</c:if>
 								</ul>
 							</div>
@@ -81,19 +87,26 @@
 								<span>${post.replyCount}</span></div>
 						</div>
 						<div class="input-content-reply">
-							<div>댓글</div>
+							<div onclick="reformReply()">댓글</div>
 							<div><input type="text" placeholder="댓글을 달아주세요!"></div>
 							<div><img src="${contextPath}/resources/images/temp//comment.png" onclick="insertReply(this)"></div>
 						</div>
 						<div class="reply"style="overflow: visible; height: auto;">
+							<c:set var="plag" value="0"/>
 							<c:forEach items="${listReply}" var="reply">
 								<c:choose>
 									<c:when test="${reply.parentReply != 0}">
-										<div class="line-reply">──── 답글</div>
+										<c:if test="${plag == 0}">
+											<div class="line-reply">──── 답글</div>
+											<c:set var="plag" value="${plag + 1}"/>
+										</c:if>
 										<div class="child-reply" style="display: none;">
 									</c:when>
 									<c:otherwise>
 										<div class="parent-reply">
+										<c:if test="${plag > 0}">
+											<c:set var="plag" value="0"/>
+										</c:if>
 									</c:otherwise>
 								</c:choose>
 									<div class="profile-reply"><img src="${contextPath}/resources/images/temp/raraland.jpg"></div>
@@ -108,7 +121,15 @@
 												<img src="${contextPath}/resources/images/temp/dots.png" id="dropdownMenuOffset"
 													data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="-40,-10">
 												<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-													<li><a class="dropdown-item">로그인해 주세요!</a></li>
+													<c:if test="${loginMember == null}">
+														<li><a class="dropdown-item">로그인해 주세요!</a></li>
+													</c:if>
+													<c:if test="${loginMember != null}">
+														<li><a class="dropdown-item">신고하기</a></li>
+													</c:if>
+													<c:if test="${loginMember.memberNo == reply.memberNo}">
+														<li><a class="dropdown-item" onclick="deleteReply(this, ${reply.replyNo})">삭제</a></li>
+													</c:if>
 												</ul>
 											</div>
 										</div>
@@ -121,22 +142,17 @@
 												<span style="display: none;">${reply.replyNo}</span>
 												<span style="opacity: 0.7; font-size: 12px; margin-left: 15px;">${reply.likeCount}</span>
 											</div>
-											<div style="margin-left: 12px;">
-												<img class="comment-img" src="${contextPath}/resources/images/temp/reply.png" style="width: 20px; height: 20px; opacity: 0.5;">
-											</div>
+											<c:if test="${reply.parentReply == 0}">
+												<div style="margin-left: 12px;">
+													<img class="comment-img" src="${contextPath}/resources/images/temp/reply.png" onclick="comment(this, ${reply.replyNo})" style="width: 20px; height: 20px; opacity: 0.5;">
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</div>
 								
 							</c:forEach>
-						</div>
 				</div>
-			</c:when>
-			<c:when test="post.postStatusCode == 501">
-				<script>
-					alert("삭제된 게시글 입니다.")
-					window.history.back();
-				</script>
 			</c:when>
 		</c:choose>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
