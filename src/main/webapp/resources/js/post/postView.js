@@ -320,3 +320,28 @@ function deleteReply(e, replyNo) { // 똑같은 이름의 함수가 있으면 �
     }
 }
 
+function report(reportTypeNo, targetPK){
+	const reportContent = prompt("신고 사유를 입력해 주세요!")
+	$.ajax({
+		url: contextPath + "/post/report",
+			data: {"reportTypeNo":reportTypeNo, "targetPK": targetPK, "reportContent":reportContent },
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("신고가 접수되었습니다!")
+
+
+				}else{
+					alert("신고 기능에 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	})
+
+}

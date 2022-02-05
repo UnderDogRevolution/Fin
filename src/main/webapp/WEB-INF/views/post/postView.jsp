@@ -34,7 +34,7 @@
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
 									<li><a class="dropdown-item">링크복사</a></li>
 									<c:if test="${loginMember != null}">
-										<li><a class="dropdown-item">신고하기</a></li>
+										<li><a class="dropdown-item" onclick="report(0, ${post.postNo})">신고하기</a></li>
 									</c:if>
 									<c:if test="${loginMember.memberNo == post.memberNo}">
 										<li><a class="dropdown-item" onclick="deletePost(this)">삭제</a></li>
@@ -125,7 +125,7 @@
 														<li><a class="dropdown-item">로그인해 주세요!</a></li>
 													</c:if>
 													<c:if test="${loginMember != null}">
-														<li><a class="dropdown-item">신고하기</a></li>
+														<li><a class="dropdown-item" onclick="report(1, ${reply.replyNo})">신고하기</a></li>
 													</c:if>
 													<c:if test="${loginMember.memberNo == reply.memberNo}">
 														<li><a class="dropdown-item" onclick="deleteReply(this, ${reply.replyNo})">삭제</a></li>

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 public interface PostService {
@@ -27,6 +28,8 @@ public interface PostService {
 	int deletePost(int postNo);
 
 	Post selectPostOne(Post post);
+
+	int insertReport(Report report);
 
 
 }

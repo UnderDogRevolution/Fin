@@ -60,6 +60,7 @@ function revealPost(){
 				const aHeader1 = document.createElement("a")
 				aHeader1.innerText = "신고하기";
 				aHeader1.className = "dropdown-item"
+				aHeader1.setAttribute("onclick", "report(0, "+items.postNo+")")
 				const aHeader2 = document.createElement("a")
 				aHeader2.innerText = "링크복사";
 				aHeader2.className = "dropdown-item"
@@ -72,8 +73,8 @@ function revealPost(){
 				liHeader3.append(aHeader3);
 				ulHeader.append(liHeader2);
 				if(typeof memberNo != "undefined"){ // 아예 변수가 선언조창 안되었을 때 다음과 같이 식별한다.
+					ulHeader.append(liHeader1);
 					if(items.memberNo == memberNo){
-						ulHeader.append(liHeader1);
 						ulHeader.append(liHeader3);
 					}
 				}
@@ -699,6 +700,7 @@ function selectReply(postNo){
 				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
 				a2.innerText = "신고하기";
 				a3.innerText = "로그인해 주세요!";
+				a2.setAttribute("onclick", "report(1, "+items.replyNo+")")
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
@@ -902,5 +904,31 @@ function deleteReply(e, replyNo){ // 똑같은 이름의 함수가 있으면 다
 	
 		})
 	}
+}
+
+function report(reportTypeNo, targetPK){
+	const reportContent = prompt("신고 사유를 입력해 주세요!")
+	$.ajax({
+		url: contextPath + "/post/report",
+			data: {"reportTypeNo":reportTypeNo, "targetPK": targetPK, "reportContent":reportContent },
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("신고가 접수되었습니다!")
+
+
+				}else{
+					alert("신고 기능에 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	})
+
 }
 

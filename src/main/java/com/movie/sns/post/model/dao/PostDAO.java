@@ -12,6 +12,7 @@ import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 @Repository
@@ -90,6 +91,10 @@ public class PostDAO {
 
 	public Post selectPostOne(Post post) {
 		return sqlSession.selectOne("postMapper.selectPostOne", post);
+	}
+
+	public int insertReport(Report report) {
+		return sqlSession.insert("postMapper.insertReport", report);
 	}
 
 

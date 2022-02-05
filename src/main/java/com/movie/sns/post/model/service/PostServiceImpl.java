@@ -17,6 +17,7 @@ import com.movie.sns.post.model.dao.PostDAO;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 @Service
@@ -169,6 +170,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post selectPostOne(Post post) {
 		return dao.selectPostOne(post);
+	}
+
+	@Override
+	public int insertReport(Report report) {
+		return dao.insertReport(report);
 	}
 	
 	
