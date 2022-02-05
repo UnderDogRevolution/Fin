@@ -1,5 +1,7 @@
 package com.movie.sns.member.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,6 @@ import com.movie.sns.common.RandomNumber;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
-import com.movie.sns.member.model.vo.MemberAuth;
 
 
 // 로그인필터
@@ -299,18 +300,43 @@ public class MemberController {
 	}
 	
 	
-	// 회원가입 페이지 들어오자마자 ajax 임의로 한번 실행시켜서 속도 개선해보기
-	@RequestMapping(value="ajaxSetting",method = RequestMethod.GET)
-	@ResponseBody
-	public String ajaxSetting() {
+	
+	// error 페이지 실험용!! 주소에 member/error 치면 접근 가능
+	@RequestMapping(value="error",method = RequestMethod.GET)
+	public String error(Exception e, Model model, HttpServletResponse resp) {
 		
-		System.out.println("실행");
+		int statusCode = resp.getStatus();
 		
-		return "세팅 완료!";
+		System.out.println("에러페이지 실행");
+		System.out.println("상태 코드 : " + statusCode);
 		
+		model.addAttribute("statusCode", statusCode);
+		
+		return "common/errorPage";
 	}
 	
 	
+	// 예외 처리용
+	@ExceptionHandler(SQLException.class)
+	public String exceptionHandler(Exception e, Model model, HttpServletResponse resp) {
+		
+		int statusCode = resp.getStatus();
+		
+		System.out.println("에러페이지 실행");
+		System.out.println("ErrorCode : " + statusCode);
+		
+		model.addAttribute("statusCode", statusCode);
+		
+		return "common/errorPage";
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
