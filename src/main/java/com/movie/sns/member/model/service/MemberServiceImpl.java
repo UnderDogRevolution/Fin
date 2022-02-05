@@ -109,7 +109,7 @@ public class MemberServiceImpl implements MemberService{
 			Image profileImage = new Image();
 			
 			// 기본 프로필 이미지 삽입
-			profileImage.setImgPath("/resources/images/member/");
+			profileImage.setImgPath("/resources/images/common/");
 			profileImage.setImgName("defaultProfileImage.png"); 
 			profileImage.setImgOriginal("defaultProfileImage.png");
 			profileImage.setMemberNo(result);

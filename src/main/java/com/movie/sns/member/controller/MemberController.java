@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +36,6 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
-	
 	
 	// 로그인 화면 전환
 	@RequestMapping(value="login", method=RequestMethod.GET)
@@ -74,7 +75,7 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
-			path = "redirect:/main";
+			path = "redirect:/";
 			
 			
 		}else {
@@ -298,6 +299,16 @@ public class MemberController {
 	}
 	
 	
+	// 회원가입 페이지 들어오자마자 ajax 임의로 한번 실행시켜서 속도 개선해보기
+	@RequestMapping(value="ajaxSetting",method = RequestMethod.GET)
+	@ResponseBody
+	public String ajaxSetting() {
+		
+		System.out.println("실행");
+		
+		return "세팅 완료!";
+		
+	}
 	
 	
 	
