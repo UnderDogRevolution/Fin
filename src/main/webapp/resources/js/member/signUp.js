@@ -8,40 +8,6 @@ const validIcon = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" x
 const invalidIcon = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M7.5 1.25C4.04375 1.25 1.25 4.04375 1.25 7.5C1.25 10.9563 4.04375 13.75 7.5 13.75C10.9563 13.75 13.75 10.9563 13.75 7.5C13.75 4.04375 10.9563 1.25 7.5 1.25ZM10.625 9.74375L9.74375 10.625L7.5 8.38125L5.25625 10.625L4.375 9.74375L6.61875 7.5L4.375 5.25625L5.25625 4.375L7.5 6.61875L9.74375 4.375L10.625 5.25625L8.38125 7.5L10.625 9.74375Z" fill="#F82F2F"/> </svg>';
 
 
-// 페이지 시작하자마자 ajax 한번 실행시켜보기 (이러면 속도가 빨라지려나?)
-$(function(){
-
-  $.ajax({
-
-    url : "ajaxSetting",
-    type : "get",
-
-    success : function(result){
-
-      console.log(result);
-
-    },
-
-    // error : function(request, status, error){
-          
-    //   // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
-    //   if( request.status == 404 ){
-    //     console.log("ajax 요청 주소가 올바르지 않습니다.");
-
-    //   } else if( request.status == 500){
-    //       console.log("서버 내부 에러 발생");
-    //       console.log(request.responseText);
-    //   }
-   
-    // }
-
-    complete : function(){
-      console.log("ajax 세팅 완료!");
-    }
-
-  });
-
-});
 
 
 // 회원가입 창 입력값 검사용 객체
