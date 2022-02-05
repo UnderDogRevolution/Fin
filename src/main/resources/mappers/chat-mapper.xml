@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
-	
+
 	<resultMap type="Member" id="member_rm">
 
 		<id property="memberNo" column="MEMBER_NO" />
@@ -17,10 +17,10 @@
 		<result property="memberGradeCode" column="GRADE_CD" />
 
 	</resultMap>
-	
-	
-	
-	
+
+
+
+
 	<resultMap type="ChatRoom" id="chatRoom_rm"> <!-- 필드명과 db명이 일치하지않을때 mapping 하는 것 거의 사용 -->
 		<id property="chatRoomNo" column="CHAT_ROOM_NO" />
 		<result property="statusCode" column="STATUS_CD" />
@@ -44,7 +44,7 @@
 		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
-	
+
 	<!-- 채팅메세지 -->
 	<resultMap type="chatMessage" id="chatMessage_rm">
 		<id property="chatMessageNo" column="CM_NO" />
@@ -54,24 +54,24 @@
 		<result property="memberName" column="MEMBER_NM" />
 
 	</resultMap>
-	
-	
-	
+
+
+
 	<resultMap type="ChatFriend" id="chatFriend_rm">
-		<id property = "follower" column ="FOLLOWER"/>
-		<result property = "memberNo"  column = "MEMBER_NO"/>
-		<result property = "statusNo"  column = "FOLLOWING_STATUS_CD"/>
-		<result property = "imgPath"  column = "MEMBER_IMG_PATH"/>
-		<result property = "imgNm"  column = "MEMBER_IMG_NM"/>
-	
+		<id property="follower" column="FOLLOWER" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="statusNo" column="FOLLOWING_STATUS_CD" />
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgNm" column="MEMBER_IMG_NM" />
+		<result property="memberNm" column="MEMBER_NM" />
 	</resultMap>
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	<!-- 채팅 방친구 이미지조회 -->
 	<select id="selectMemberImg" resultMap="Image_rm">
 		SELECT MEMBER_IMG_PATH ,
@@ -106,10 +106,12 @@
 		AND MEMBER_NO != #{memberNo})
 		)
 		CHAT_FR_NM
-		
+
 		FROM CHAT_ROOM_JOIN R
-		JOIN MEMBER B USING(MEMBER_NO)
-		WHERE MEMBER_NO = #{memberNo}
+		JOIN
+		MEMBER B USING(MEMBER_NO)
+		WHERE MEMBER_NO =
+		#{memberNo}
 		AND
 		R.STATUS_CD
 		= 1
@@ -160,13 +162,6 @@
 		AND CHAT_ROOM_NO = #{chatRoomNo}
 	</update>
 	<!-- 상대방 참여상태를 1번으로 바꾼다 -->
-	<update id="updateJoinUp">
-		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 1
-		WHERE
-		MEMBER_NO = #{targetNo}
-		AND CHAT_ROOM_NO = #{chatRoomNo}
-
-	</update>
 
 	<!-- 채팅방 삭제 -->
 	<delete id="deleteChatRoom">
@@ -183,18 +178,101 @@
 		AND
 		MEMBER_NO = #{targetNo}
 	</select>
-	
-	
-	<select id="selectFollower" resultMap = "chatFriend_rm">
-		 SELECT FOLLOWER, MEMBER.MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM, FOLLOWER.MEMBER_NO
-        FROM FOLLOWER
-        JOIN MEMBER ON (FOLLOWER = MEMBER.MEMBER_NO)
-        JOIN MEMBER_IMG ON (FOLLOWER = MEMBER_IMG.MEMBER_NO)
-        WHERE FOLLOWER.MEMBER_NO = #{memberNo}
-	
+
+	<!-- 팔로워 조회 -->
+	<select id="searchFollower" resultMap="chatFriend_rm">
+		SELECT FOLLOWER,
+		MEMBER.MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM,
+		FOLLOWER.MEMBER_NO
+		FROM FOLLOWER
+		JOIN MEMBER ON (FOLLOWER = MEMBER.MEMBER_NO)
+		JOIN
+		MEMBER_IMG ON (FOLLOWER = MEMBER_IMG.MEMBER_NO)
+		WHERE
+		FOLLOWER.MEMBER_NO = #{memberNo}
+
 	</select>
+
+	<!-- 두사람이 포함된 채팅방 존재 여부조회 -->
+	<select id="searchChatRoomJoin" resultType="_int">
+		SELECT COUNT(*) FROM
+		(SELECT CHAT_ROOM_NO
+		FROM CHAT_ROOM_JOIN
+		WHERE MEMBER_NO = #{memberNo}
+		INTERSECT
+		SELECT CHAT_ROOM_NO
+		FROM CHAT_ROOM_JOIN
+		WHERE MEMBER_NO =
+		#{friendNo})
+	</select>
+	<!-- 두사람 포함된 채팅방 번호 조회 -->
+	<select id="joinChatNo" resultType="_int">
+		SELECT CHAT_ROOM_NO FROM
+		(SELECT CHAT_ROOM_NO
+		FROM CHAT_ROOM_JOIN
+		WHERE MEMBER_NO = #{memberNo}
+		INTERSECT
+		SELECT CHAT_ROOM_NO
+		FROM CHAT_ROOM_JOIN
+		WHERE MEMBER_NO =
+		#{friendNo})
+	</select>
+
+	<!-- 채팅방에 내가 포함중인지 아닌지 조회 -->
+	<select id="selectJoinCount2" resultType="_int">
+		SELECT COUNT(*) FROM
+		CHAT_ROOM_JOIN
+		WHERE MEMBER_NO = #{memberNo}
+		AND STATUS_CD = 1
+		AND
+		CHAT_ROOM_NO = #{chatRoomNo}
+	</select>
+
+
+
+	<!-- 나를 참여상태로 바꾸기 -->
+	<update id="updateMyJoin">
+		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 1
+		WHERE
+		MEMBER_NO = #{memberNo}
+		AND CHAT_ROOM_NO = #{chatRoomNo}
+
+	</update>
+
+	<!-- 채팅방 만들기 -->
+	<insert id="insertChatRoom">
+		INSERT INTO CHAT_ROOM
+		VALUES(SEQ_CHAT_ROOM_NO.NEXTVAL, #{memberNo})
+	</insert>
+
+	<!-- 채팅방 참여 -->
+
+	<insert id="insertChatRoomJoin">
+		INSERT INTO CHAT_ROOM_JOIN VALUES(#{memberNo},
+		SEQ_CHAT_ROOM_NO.CURRVAL ,1)
+	</insert>
+	<insert id="insertFriend">
+		INSERT INTO CHAT_ROOM_JOIN VALUES(#{friendNo},
+		SEQ_CHAT_ROOM_NO.CURRVAL ,2)
+	</insert>
 	
-	
-	
-	
+	<!-- 메세지 받을시 상태값 변경 -->
+	<update id="updateJoinUp">
+		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 1
+		WHERE
+		MEMBER_NO = #{targetNo}
+		AND CHAT_ROOM_NO = #{chatRoomNo}
+	</update>
+
+
+	<!-- 친구 이미지 , 이름세팅하기 -->
+	<select id="selectFriend" resultMap="chatRoom_rm">
+
+        SELECT CHAT_ROOM_NO , MEMBER_NM, MEMBER_IMG_PATH , MEMBER_IMG_NM
+        FROM CHAT_ROOM
+        JOIN MEMBER USING(MEMBER_NO)
+        JOIN MEMBER_IMG USING(MEMBER_NO)
+        WHERE MEMBER_NO = #{friendNo}
+        AND CHAT_ROOM_NO = #{chatRoomNo}
+	</select>
 </mapper>

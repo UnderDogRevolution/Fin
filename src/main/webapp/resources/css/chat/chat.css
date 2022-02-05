@@ -45,6 +45,7 @@ main {
 	width: 20%;
 	height: 60%;
 	padding: 0;
+	cursor: pointer;
 }
 
 .MemberName-wrap>svg>g>g>path { /* 색변환 */
@@ -80,7 +81,7 @@ main {
 .MemberName-wrap > div:nth-child(1) > img{
 	width : 40px;
 	height: 40px;
-	
+	border-radius: 49%
 }
 .MemberName {
 	display : flex;
@@ -131,8 +132,9 @@ main {
 }
 
 .MemberImg {
-	max-width: 40px;
-	max-height: 40px;
+	width : 40px;
+	height : 40px;
+	border-radius: 49%
 }
 
 .chatMemberName {
@@ -171,8 +173,9 @@ main {
 }
 
 .chatContent-header>div:nth-child(1)>img {
-	max-width: 30px;
-	max-height: 30px;
+	width: 30px;
+	height: 30px;	
+	border-radius: 49%
 }
 
 .chatContent-header>div:nth-child(2) {
@@ -292,6 +295,7 @@ main {
 .friendsImg-wrap>img {
 	max-width: 30px;
 	max-height: 30px;
+	border-radius: 49%;
 }
 
 .friendsName-wrap { /* 친구목록 이름영역 */

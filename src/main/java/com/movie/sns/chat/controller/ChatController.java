@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.movie.sns.chat.model.service.ChatService;
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.chat.model.vo.ChatMessage;
 import com.movie.sns.chat.model.vo.ChatRoom;
 import com.movie.sns.chat.model.vo.ChatRoomJoin;
@@ -53,7 +54,7 @@ public class ChatController {
 		// System.out.println(one[0] + "'" +"리소시스머시기 이미지 경로"+ "'" +one[1]);
 		// 조건 메세지에 이미지 태그가 있는 경우 없는경우 나누기
 		
-		System.out.println(chatRoomList.get(0).getImg().get(0).getImgPath());
+		//System.out.println(chatRoomList.get(0).getImg().get(0).getImgPath());
 		
 
 		return "chat/chat";
@@ -71,14 +72,7 @@ public class ChatController {
 		return  new Gson().toJson(chatList);
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "selectchatting" , method = RequestMethod.GET)
-	public String selectchatting(ChatMessage cm) {
-		
-		
-		return null;	
-	}
-	
+
 	
 	
 	// 채팅방 입장 -> 사실상 해당 메세지 조회\
@@ -141,6 +135,25 @@ public class ChatController {
 			int result = service.updateJoinUp(cm);
 
 			return result;
+		}
+		@ResponseBody
+		@RequestMapping(value = "searchFollower", method = RequestMethod.POST)
+		public String searchFollower(@ModelAttribute("loginMember") Member loginMember) {
+			int memberNo = loginMember.getMemberNo();
+			// 참여 미참여 // 미참여 두명일시 채팅방 삭제 아닐시 상태변경
+			List<ChatFriend> rList = service.searchFollower(memberNo);
+			
+			System.out.println("친구놈들 가져오기"+rList);
+			return new Gson().toJson(rList);
+		}
+		@ResponseBody
+		@RequestMapping(value = "goChatting", method = RequestMethod.POST)
+		public String goChatting(ChatRoom room) {
+			// 참여 미참여 // 미참여 두명일시 채팅방 삭제 아닐시 상태변경
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			int result = service.goChatting(room);
+			
+			return new Gson().toJson(map);
 		}
 
 }
