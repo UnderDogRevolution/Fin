@@ -1,7 +1,9 @@
 package com.movie.sns.chat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.chat.model.vo.ChatMessage;
 import com.movie.sns.chat.model.vo.ChatRoom;
 import com.movie.sns.chat.model.vo.ChatRoomJoin;
@@ -30,6 +32,12 @@ public interface ChatService {
 	
 	// 채팅방 나가기
 	int deleteChat(ChatRoomJoin join);
+	
+	// 팔로워조회
+	List<ChatFriend> searchFollower(int memberNo);
+	
+	// 메세지 보내기
+	Map<String, Object> goChatting(ChatRoom room);
 	
 	
 

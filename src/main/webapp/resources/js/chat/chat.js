@@ -10,110 +10,198 @@ selectChatRoom();
 // 조회성공시 for each 로 나타나게 해야되는데 for each 먼저 위에 써놓고 div 안에 append하게 해야되는거?
 // 일단 화면을 봐야되니까 그냥 만들어지는지 확인하자
 
-function selectChatRoom(){
-	
+function selectChatRoom() {
+
 	$.ajax({
-		
-		url : contextPath + "/chat/selectChatRoom",
+
+		url: contextPath + "/chat/selectChatRoom",
 		dataType: "JSON",
-		success:function(chatList){
-			$.each(chatList, function(index,room){
-				
-				const path = "'" +contextPath + room.img[0].imgPath + room.img[0].imgName +"'";
-			
+		success: function(chatList) {
+			$.each(chatList, function(index, room) {
+
+				const path = "'" + contextPath + room.img[0].imgPath + room.img[0].imgName + "'";
+
 				const chatListWrap = $(".chatList-wrap");
-				const chat = $('<div class = "chat" onclick="searchChatting(event, this,' +room.chatRoomNo +','+ room.friendNo+','+path+');">');
+				const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ',' + path + ');">');
 				const img = $('<img class="MemberImg">');
-				img.attr("src" ,contextPath+ room.img[0].imgPath + room.img[0].imgName);	
+				img.attr("src", contextPath + room.img[0].imgPath + room.img[0].imgName);
 				const imgdiv = $('<div class="chatMemberImg">');
-			    const nmdiv = $('<div class="chatMemberName">');
-			    const nm = $('<div>');
-			    const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,'+ room.chatRoomNo+')">');
-			    icon.addClass("delete-message-room");
-			    imgdiv.append(img);
-			    nm.append(room.friendNm);
-			    nmdiv.append(nm);
-			    chat.append(imgdiv);
-			    chat.append(nmdiv);
-			    chat.append(icon);
+				const nmdiv = $('<div class="chatMemberName">');
+				const nm = $('<div>');
+				const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,' + room.chatRoomNo + ')">');
+				icon.addClass("delete-message-room");
+				imgdiv.append(img);
+				nm.append(room.friendNm);
+				nmdiv.append(nm);
+				chat.append(imgdiv);
+				chat.append(nmdiv);
+				chat.append(icon);
 				chatListWrap.append(chat);
 				console.log(chat);
 				console.log(room.chatRoomNo);
 				console.log(room.chatRoomNo);
-			
-			
+
+
 			});
-			
+
 		},
-		
-		
+
+
 	});
-	
+
 }
 
 // 채팅방 업로드 되면 그 채팅방 요소만 추가하기
-function selectchatting(frNo , memberNo , chatRoomNo){
-	
-	
-		$.ajax({
-		
-		url : contextPath + "/chat/selectChatRoom",
+function selectchatting(frNo, memberNo, chatRoomNo,path) {
+
+
+	$.ajax({
+
+		url: contextPath + "/chat/selectChatRoom",
 		dataType: "JSON",
-		success:function(chatList){
-			$.each(chatList, function(index,room){
-			
-			console.log(chatRoomNo);
-			console.log(room.chatRoomNo);
-			if(chatRoomNo == room.chatRoomNo){
-				
-			const chatListWrap = $(".chatList-wrap");
-			const chat = $('<div class = "chat" onclick="searchChatting(event, this,' +room.chatRoomNo +','+ room.friendNo+')">');
-			const img = $('<img class="MemberImg">');
-			img.attr("src" ,contextPath+ room.img[0].imgPath + room.img[0].imgName);
-			const imgdiv = $('<div class="chatMemberImg">');
-		    const nmdiv = $('<div class="chatMemberName">');
-		    const nm = $('<div>');
-		    const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,'+ room.chatRoomNo+')">');
-		    icon.addClass("delete-message-room");
-		    imgdiv.append(img);
-		    nm.append(room.friendNm);
-		    nmdiv.append(nm);
-		    chat.append(imgdiv);
-		    chat.append(nmdiv);
-		    chat.append(icon);
-			chatListWrap.prepend(chat);
-			}
-			
-			
+		success: function(chatList) {
+			$.each(chatList, function(index, room) {
+
+				console.log(chatRoomNo);
+				console.log(room.chatRoomNo);
+				if (chatRoomNo == room.chatRoomNo) {
+
+					const chatListWrap = $(".chatList-wrap");
+					const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ','+path+')">');
+					const img = $('<img class="MemberImg">');
+					img.attr("src", contextPath + room.img[0].imgPath + room.img[0].imgName);
+					const imgdiv = $('<div class="chatMemberImg">');
+					const nmdiv = $('<div class="chatMemberName">');
+					const nm = $('<div>');
+					const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,' + room.chatRoomNo + ')">');
+					icon.addClass("delete-message-room");
+					imgdiv.append(img);
+					nm.append(room.friendNm);
+					nmdiv.append(nm);
+					chat.append(imgdiv);
+					chat.append(nmdiv);
+					chat.append(icon);
+					chatListWrap.prepend(chat);
+				}
+
+
 			});
-			
+
 		},
-		
-		
+
+
 	});
-	
+
 };
 
 
 
 $('#MessageModal').on('show.bs.modal', function(event) {
 	// 모달 열렸을 때 실행
+	const content = $(".modal-content");
+	const body = $("<div class = 'modal-body'>");
+	content.append(body);
+	$.ajax({
+
+		url: contextPath + "/chat/searchFollower",
+		dataType: "JSON",
+		type: "POST",
+		success: function(rList) {
+
+			$.each(rList, function(index, fr) {
+				const body = $(".modal-body");
+				const frMain = $("<div class = 'friendsListMain'>");
+				const imgwrap = $("<div class = 'friendsImg-wrap'>");
+				const img = $("<img>");
+				const namewrap = $("<div class = 'friendsName-wrap'>");
+				const msgwrap = $("<div class = 'messagebtn-wrap'>");
+				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.follower + ")'>");
+				btn.text("보내기");
+				img.attr("src", contextPath + fr.imgPath + fr.imgNm);
+				namewrap.text(fr.memberNm);
+				msgwrap.append(btn);
+				imgwrap.append(img);
+				frMain.append(imgwrap);
+				frMain.append(namewrap);
+				frMain.append(msgwrap);
+				body.append(frMain);
+			});
+		},
+		error: function() {
+
+		}
+
+
+
+	});
 
 
 }).on('hide.bs.modal', function() {
 	// 모달 닫히면서 실행 초기화 시키기
-	$('.modal-body').remove();
+	$(".modal-body").remove();
 });
 
-// 메세지버튼 클릭시 동작하는함수
-// 보내기버튼 클릭과 동시에 친창 부분에 목록이 나타나야된다
-// 채팅방이 만들어짐과 동시에 그사람한테도 보여져야 된다.
-// 
+// 채팅방 생성
+function goChatting(friendNo) {
+
+	$.ajax({
+
+		url: contextPath + "/chat/goChatting",
+		data: { "memberNo": memberNo, "friendNo": friendNo },
+		type: "POST",
+		dataType: "JSON",
+		success: function(result) {
+			console.log(result);
+			console.log(result.result);
+			console.log(result.chatRoom.imgPath);
+			const number = result.result;
+			var chat;
+			if (number > 0) {
+
+				const path = contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm
+				const path1 = "'" + contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm + "'";
+				const chatListWrap = $(".chatList-wrap");
+				chat = $('<div class = "chat" onclick="searchChatting(' + result.chatRoom.chatRoomNo + ',' + friendNo + ',' + path1 + ')">');
+				const img = $('<img class="MemberImg">');
+				img.attr("src", path);
+				const imgdiv = $('<div class="chatMemberImg">');
+				const nmdiv = $('<div class="chatMemberName">');
+				const nm = $('<div>');
+				const icon = $('<i class="fas fa-times" onclick = "deleteChat(event,' + result.chatRoom.chatRoomNo + ')">');
+				icon.addClass("delete-message-room");
+				imgdiv.append(img);
+				nm.append(result.chatRoom.memberName);
+				nmdiv.append(nm);
+				chat.append(imgdiv);
+				chat.append(nmdiv);
+				chat.append(icon);
+				chatListWrap.prepend(chat);
+				$("#MessageModal").modal('hide');
+				searchChatting(result.chatRoom.chatRoomNo,friendNo,path)
+			} else {
+				const path =  contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm;
+				$("#MessageModal").modal('hide');
+				searchChatting(result.chatRoom.chatRoomNo,friendNo,path)
+
+			}
+		},
+
+
+		error: function() {
+
+		}
+
+
+	});
+
+
+}
+
 
 
 // 채팅 삭제 기능
 function deleteChat(event, chatRoomNo) {
-	event.stopPropagation();  
+	event.stopPropagation();
 	console.log(event.target);
 	console.log(event.target.parentNode);
 	console.log(chatRoomNo)
@@ -129,12 +217,12 @@ function deleteChat(event, chatRoomNo) {
 				const chatwrap = $(".chatwrap");
 				const chatContent = $("<div class = 'chatContent'>");
 				const chatMain = $("<div class = 'chatContent-main'>");
-				const icon = 
-				$('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 24 24" version="1.1"><g id="Iconly/Bold/Send" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Send" transform="translate(2.000000, 2.000000)" fill="#000000" fill-rule="nonzero"><path d="M19.4353768,0.581982692 C18.935172,0.0685980979 18.1948689,-0.122662829 17.5045863,0.0786644625 L1.40799658,4.759524 C0.679698425,4.96185793 0.163487095,5.54268717 0.0244301664,6.28055169 C-0.11762799,7.03150249 0.378575149,7.98478722 1.02684054,8.38341526 L6.05990101,11.4768091 C6.57611234,11.7938996 7.2423851,11.7143753 7.66955998,11.2835349 L13.4329194,5.48430225 C13.7230382,5.18231131 14.2032348,5.18231131 14.4933536,5.48430225 C14.7834723,5.77622682 14.7834723,6.24934596 14.4933536,6.5513369 L8.71999001,12.3515762 C8.29181472,12.7814099 8.21178196,13.4508232 8.52691097,13.9702476 L11.6021699,19.0537617 C11.9623174,19.6577436 12.5825713,20 13.2628498,20 C13.3428826,20 13.4329194,20 13.5129522,19.9899336 C14.2932716,19.88927 14.9135256,19.3557527 15.1436198,18.6007753 L19.9155733,2.52479106 C20.1256593,1.84027827 19.9355815,1.09536729 19.4353768,0.581982692"/>');
+				const icon =
+					$('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 24 24" version="1.1"><g id="Iconly/Bold/Send" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Send" transform="translate(2.000000, 2.000000)" fill="#000000" fill-rule="nonzero"><path d="M19.4353768,0.581982692 C18.935172,0.0685980979 18.1948689,-0.122662829 17.5045863,0.0786644625 L1.40799658,4.759524 C0.679698425,4.96185793 0.163487095,5.54268717 0.0244301664,6.28055169 C-0.11762799,7.03150249 0.378575149,7.98478722 1.02684054,8.38341526 L6.05990101,11.4768091 C6.57611234,11.7938996 7.2423851,11.7143753 7.66955998,11.2835349 L13.4329194,5.48430225 C13.7230382,5.18231131 14.2032348,5.18231131 14.4933536,5.48430225 C14.7834723,5.77622682 14.7834723,6.24934596 14.4933536,6.5513369 L8.71999001,12.3515762 C8.29181472,12.7814099 8.21178196,13.4508232 8.52691097,13.9702476 L11.6021699,19.0537617 C11.9623174,19.6577436 12.5825713,20 13.2628498,20 C13.3428826,20 13.4329194,20 13.5129522,19.9899336 C14.2932716,19.88927 14.9135256,19.3557527 15.1436198,18.6007753 L19.9155733,2.52479106 C20.1256593,1.84027827 19.9355815,1.09536729 19.4353768,0.581982692"/>');
 				const message = $('<div class = "chatMessage">');
 				const messagediv1 = $('<div>');
 				const messagediv2 = $('<div>');
-				const messagebtn  = $('<button type="button" class="btn btn-primary message_btn0" data-bs-toggle="modal" data-bs-target="#MessageModal">')
+				const messagebtn = $('<button type="button" class="btn btn-primary message_btn0" data-bs-toggle="modal" data-bs-target="#MessageModal">')
 				messagediv1.html("친구와 자유롭게 채팅해보세요!")
 				messagebtn.html("메세지 보내기");
 				messagediv2.append(messagebtn);
@@ -144,7 +232,7 @@ function deleteChat(event, chatRoomNo) {
 				chatMain.append(message);
 				chatContent.append(chatMain);
 				chatwrap.append(chatContent);
-				
+
 			},
 
 			error: function() {
@@ -158,18 +246,17 @@ function deleteChat(event, chatRoomNo) {
 
 }
 
-/*$('.fas.fa-times.delete-message-room').on('click',function() {
-	deletChat(this, $(this).next().val());
-	return false;
-})*/
 
 
 // 채팅방입장
-function searchChatting(event, e, chatNo, frNo ,path) { // 친구 클릭시 동작
-console.log(event.target)
-	  //event.stopPropagation();
+function searchChatting(chatNo, frNo, path) { // 친구 클릭시 동작
+
+
+	//event.stopPropagation();
 	// 전역 변수에 현재 입장한 채팅방 상대 회원 번호 저장
+
 	targetNo = frNo;
+
 	//ajax 실행 시 동작
 	// const chatContent = e.parentNode.parentNode.nextSibling.nextSibling.nextSibling.nextSibling;
 	// chatContent
@@ -236,27 +323,30 @@ console.log(event.target)
 			for (let i = 0; i < data.message.length; i++) {
 				if (data.message[i].memberNo == memberNo) {
 
-					/*	const divImg = $("<div class = 'chatImg'>")
-						const img = $("<img>");
-						divImg.append(img);
-						img.attr("src", e.target.result);*/
-					const li = $("<li>")
+					const path = contextPath + data.message[i].imgPath + data.message[i].imgName
+					const p = $("<p>");
+					p.html(data.message[i].message);
 					const ul = $("#chattingwrap")
-					const myName = $("<span class = 'myName'>");
+					const img = $("<img style = 'width: 30px; height: 30px'>");
+					const div = $("<div style =  width: 40px; height : 60px; padding-left : 10px;'>")
+					const divt = $("<div class = 'myChattingwrap'>");
+					img.attr("src", path);
+					div.append(img);
+					const li = $("<li>")
+					li.addClass("myChatting");
 					const myMessage = $("<span class = 'myMessage'>");
+					myMessage.html(p);
 					const msgCreate = $("<span class = 'msgCreate'>");
 					msgCreate.html(data.message[i].createDate);
-					li.addClass("myChatting");
-					myMessage.html(data.message[i].message);
-					li.append(myName);
+
 					li.append(myMessage);
 					li.append(msgCreate);
-					ul.append(myName);
-					ul.append(li);
+					divt.append(li);
+					divt.append(img);
+					ul.append(divt);
 
 				} else {
-
-					const divImg = $("<div class = 'chatImg'>")
+					/*const divImg = $("<div class = 'chatImg'>")
 					const li = $("<li>")
 					const ul = $("#chattingwrap")
 					const frName = $("<span class = 'frName'>");
@@ -271,7 +361,35 @@ console.log(event.target)
 					li.append(frMessage);
 					li.append(msgCreate);
 					ul.append(frName);
-					ul.append(li);
+					ul.append(li);*/
+
+
+					const path = contextPath + data.message[i].imgPath + data.message[i].imgName
+
+					const p = $("<p>");
+					p.html(data.message[i].message);
+					const ul = $("#chattingwrap")
+					const divt = $("<div class = 'frChattingwrap'>");
+					const frdiv = $("<div>");
+					const li = $("<li>")
+					li.addClass("frChatting");
+					const img = $("<img style = 'width: 30px; height: 30px;'>");
+					img.attr("src", path);
+					const frName = $("<div class = 'frName'>");
+					frName.html(data.memberName);
+
+					const frMessage = $("<span class = 'frMessage'>");
+					frMessage.html(p)
+
+					const msgCreate = $("<span class = 'msgCreate'>");
+					msgCreate.html(data.message[i].createDate);
+					li.append(frMessage);
+					li.append(msgCreate);
+					frdiv.append(frName);
+					frdiv.append(li);
+					divt.append(img);
+					divt.append(frdiv);
+					ul.append(divt);
 
 				}
 
@@ -294,17 +412,7 @@ console.log(event.target)
 // 채팅기능 엔터시 동작
 // 채팅 삭제 기능
 
-// 채팅 메세지 삭제
-/*function deletMessage(e) {
-	console.log(1);
-	if (confirm("메세지를 삭제하시겠습니까")) {
-		//ajax 
-		console.log(e.parentNode.nextElementSibling);
-		e.parentNode.nextElementSibling.remove();
-		e.parentNode.remove();
-	}
 
-}*/
 
 // 메세지 보내기 버튼 클릭 이것도 ajax
 
@@ -331,60 +439,48 @@ function sendImg() {
 	const chatRoomNo = $(".chatRoomNo").val();
 	console.log(Img);
 	// 파일이 선택된 경우 true
-		var reader = new FileReader();
-		// 다 읽은 경우
-		
-		var  form = $("#imgForm")[0];
-		var data = new FormData(form);
-		reader.onload = function(e) {
-			//console.log(e.target.result);
-			// e.target.result
-			// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
-			$.ajax({
+	var reader = new FileReader();
+	// 다 읽은 경우
 
-				url: contextPath + "/chat/imgUp",
-				data: data,
-				enctype: 'multipart/form-data',
-				type: "POST",
-				processData: false,
-				contentType: false,
-				success:function(result){
-					console.log(result);
-					const obj = {};
-					obj.memberNo = memberNo;
-					obj.memberName = memberName;
-					obj.message = '<img style = "width : 250px; height : 250px;" src ="' +contextPath+result+'">';
-					obj.chatRoomNo = chatRoomNo;
-					obj.targetNo = targetNo;
-					obj.type = 1;
-					chattingSock.send(JSON.stringify(obj));
-				},
-				
-				
-			})
-		
-		
-		
-		
-		
-		
-		
-		/*	const obj = {};
-			obj.memberNo = memberNo;
-			obj.memberName = memberName;
-			obj.message = Img;
-			obj.chatRoomNo = chatRoomNo;
-			obj.targetNo = targetNo;
-			//chattingSock.send(JSON.stringify(obj));
-			arrayBuffer = this.result;
-			console.log(arrayBuffer);
-			chattingSock.send(arrayBuffer); //파일 소켓 전송*/
-	
-			/*    document.getElementById("chattingwrap").scrollTop
-				   = document.getElementById("chattingwrap").scrollHeight; */
+	var form = $("#imgForm")[0];
+	var data = new FormData(form);
+	reader.onload = function(e) {
+		//console.log(e.target.result);
+		// e.target.result
+		// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
+		$.ajax({
 
-		}
-		reader.readAsArrayBuffer(Img);
+			url: contextPath + "/chat/imgUp",
+			data: data,
+			enctype: 'multipart/form-data',
+			type: "POST",
+			processData: false,
+			contentType: false,
+			success: function(result) {
+				const obj = {};
+				obj.memberNo = memberNo;
+				obj.memberName = memberName;
+				obj.message = '<img style = "width : 250px; height : 250px;" src ="' + contextPath + result + '">';
+				obj.chatRoomNo = chatRoomNo;
+				obj.targetNo = targetNo;
+				obj.path = myImgPath;
+				obj.type = 1;
+
+				chattingSock.send(JSON.stringify(obj));
+			},
+
+
+		})
+
+
+
+
+
+
+
+
+	}
+	reader.readAsArrayBuffer(Img);
 
 
 
@@ -394,11 +490,6 @@ function sendImg() {
 }
 
 
-// 메세지 버튼 클릭시 동작
-$('.msgbtn').click(function() {
-
-
-})
 
 
 
@@ -431,8 +522,10 @@ function msgUp() { //메세지 보내기
 		obj.memberNo = memberNo;
 		obj.memberName = memberName;
 		obj.message = message;
+		console.log(message);
 		obj.chatRoomNo = chatRoomNo;
 		obj.targetNo = targetNo;
+		obj.path = myImgPath;
 		chattingSock.send(JSON.stringify(obj));
 		$("#inputChatting").val("");
 	}
@@ -446,62 +539,71 @@ chattingSock.onmessage = function(e) {
 	console.log(JSON.parse(e.data));
 	const obj = JSON.parse(e.data);
 	console.log("소켓 응답 : " + obj.message);
-
+	console.log(obj.path);
 	const p = $("<p>");
 	if (obj.message != undefined) {// 메세지가 있는 경우
 
 		//let chat = XSS(obj.message);
-		//chat = chat.replaceAll("\n", "<br>");
 		p.html(obj.message);
 		console.log(obj.message);
 		$.ajax({
-			
-				url: contextPath + "/chat/updateJoinUp",
-				data: {"targetNo" : obj.targetNo , "chatRoomNo" : obj.chatRoomNo},
-				type: "POST",
-			
-			success:function(result){
-				
-				if(result ==1){
-					
-					
-				}else if(result == 2){
-					if (memberNo != obj.memberNo){
-						  selectchatting(obj.targetNo , obj.memberNo , obj.chatRoomNo)
-					
+
+			url: contextPath + "/chat/updateJoinUp",
+			data: { "targetNo": obj.targetNo, "chatRoomNo": obj.chatRoomNo },
+			type: "POST",
+
+			success: function(result) {
+
+				if (result == 1) {
+
+
+				} else if (result == 2) {
+					if (memberNo != obj.memberNo) {
+						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo,obj.path)
+
 					}
-					
+
 				}
-				
-				
+
+
 			}
 		});
 
-	} else {// 메세지가 없는 경우(나가기)
+	} else {// 메세지가 없는금방 초대된 상태
 
 	}
+
 	if (memberNo == obj.memberNo) {
 
 		const ul = $("#chattingwrap")
-
+		const img = $("<img style = 'width: 30px; height: 30px'>");
+		const div = $("<div style =  width: 40px; height : 60px; padding-left : 10px;'>")
+		const divt = $("<div class = 'myChattingwrap'>");
+		img.attr("src", obj.path);
+		div.append(img);
 		const li = $("<li>")
 		li.addClass("myChatting");
 		const myMessage = $("<span class = 'myMessage'>");
 		myMessage.html(p);
 		const msgCreate = $("<span class = 'msgCreate'>");
 		msgCreate.html(obj.createDate);
+
 		li.append(myMessage);
 		li.append(msgCreate);
-		ul.append(li);
+		divt.append(li);
+		divt.append(img);
+		ul.append(divt);
 
 
 	} else {
 		const ul = $("#chattingwrap")
-
+		const divt = $("<div class = 'frChattingwrap'>");
+		const frdiv = $("<div>");
 		const li = $("<li>")
 		li.addClass("frChatting");
-
-		const frName = $("<span class = 'frName'>");
+		const img = $("<img style = 'width: 30px; height: 30px;'>");
+		img.attr("src", obj.path);
+		const frName = $("<div class = 'frName'>");
 		frName.html(obj.memberName);
 
 		const frMessage = $("<span class = 'frMessage'>");
@@ -509,13 +611,13 @@ chattingSock.onmessage = function(e) {
 
 		const msgCreate = $("<span class = 'msgCreate'>");
 		msgCreate.html(obj.createDate);
-
-		li.append(frName);
 		li.append(frMessage);
 		li.append(msgCreate);
-		ul.append(frName);
-		ul.append(li);
-
+		frdiv.append(frName);
+		frdiv.append(li);
+		divt.append(img);
+		divt.append(frdiv);
+		ul.append(divt);
 	}
 
 
