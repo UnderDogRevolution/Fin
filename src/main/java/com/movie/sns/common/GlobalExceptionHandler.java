@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 		model.addAttribute("errorCode", "404");
 		model.addAttribute("errorMessage", "[ Page Not Found ]");
 		
-		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
+//		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
 		
 		return path;
 	}
@@ -35,13 +35,16 @@ public class GlobalExceptionHandler {
 	
 	// Exception 클래스를 어떻게 설정해야 500에러를 처리할 수 있을까?
 	// 기타 모든 예외가 발생하면 500에러 뜨도록하기
+	
+	// 로그인 시 비밀번호가 틀리면 에러페이지로 가버림.... 어떻게 해결해야 좋을까
+	
 	@ExceptionHandler({ Exception.class, SQLException.class })
 	public String handlingException(Model model, Exception e) {
 		
 		model.addAttribute("errorCode", "500");
 		model.addAttribute("errorMessage", "[ Server Error ]");
 		
-		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
+//		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
 		
 		return path;
 	}
