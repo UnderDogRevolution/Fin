@@ -33,5 +33,11 @@ public interface PostService {
 
 	int searchMemberNo(String memberName);
 
+	List<Post> searchPostList(Map<String, Object> map);
+
+	List<Post> popularPostList(Map<String, Object> map);
+
+	List<Post> searchMoviePostList(Map<String, Object> map);
+
 
 }

@@ -70,68 +70,6 @@ for(const items of vividPopcorn){
     })
 }
 
-// 댓글 좋아요
-const replyVividImg = document.getElementsByClassName("reply-vivid");
-const replywhiteImg = document.getElementsByClassName("reply-white");
-for(const items of replywhiteImg){
-    items.addEventListener("click", function () {
-        const replyNo = this.nextElementSibling.innerText;
-        let count = this.nextElementSibling.nextElementSibling;
-        $.ajax({
-            url: contextPath + "/reply/insertReplyLike",
-            data: { "replyNo": replyNo },
-            type: "POST",
-            async: false,
-            success: function (result) {
-                if(result >0){
-                    items.style.display = "none";
-                    items.previousElementSibling.style.display = "inline";
-                    count.innerText = Number(count.innerText)+1;
-                }else{
-                    alert("좋아요 기능에 오류가 발생했습니다.")
-                }
-
-            },
-            error: function (req, status, error) {
-                console.log("ajax 실패");
-                console.log(req.responseText);
-                console.log(status);
-                console.log(error);
-            }
-
-        })
-    })
-}
-for(const items of replyVividImg){
-    items.addEventListener("click", function () {
-        const replyNo = this.nextElementSibling.nextElementSibling.innerText;
-        let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
-        $.ajax({
-            url: contextPath + "/reply/deleteReplyLike",
-            data: { "replyNo": replyNo },
-            type: "POST",
-            async: false,
-            success: function (result) {
-                if(result >0){
-                    items.style.display = "none";
-                    items.nextElementSibling.style.display = "inline";
-                    count.innerText = Number(count.innerText)-1;
-                }else{
-                    alert("좋아요 기능에 오류가 발생했습니다.")
-                }
-
-            },
-            error: function (req, status, error) {
-                console.log("ajax 실패");
-                console.log(req.responseText);
-                console.log(status);
-                console.log(error);
-            }
-
-        })
-    })
-}
-
 function deletePost(e){
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
@@ -204,7 +142,12 @@ function insertReply(e){
 			success: function (result) {
 				if(result>0){
 					alert("댓글이 등록되었습니다.")
-                    location.reload();
+					const reply = document.getElementsByClassName("reply")[0];
+					reply.remove()
+                    post.append(selectReply(postNo));
+					const replyVividImg = document.getElementsByClassName("reply-vivid");
+					const replywhiteImg = document.getElementsByClassName("reply-white");
+					replyLike(replyVividImg, replywhiteImg);
 
 				}else{
 					alert("댓글 등록 중 문제가 발생했습니다.")
@@ -221,20 +164,7 @@ function insertReply(e){
 	}
 }
 
-const lineReply = document.getElementsByClassName("line-reply")
-for(const items of lineReply){
-    items.addEventListener("click", function(e){
-        let tempE = this.nextElementSibling
-        while(tempE.className == "child-reply"){
-            if(tempE.style.display == "none"){
-                tempE.style.display = "flex";
-            }else if(tempE.style.display =="flex"){
-                tempE.style.display = "none";
-            }
-            tempE = tempE.nextElementSibling;
-        }
-    })
-}
+
 
 function comment(e, replyNo){
 	
@@ -263,7 +193,12 @@ function insertComment(e, replyNo){
 			success: function (result) {
 				if(result>0){
 					alert("답글이 등록되었습니다.")
-                    location.reload();
+					const reply = document.getElementsByClassName("reply")[0];
+					reply.remove()
+                    post.append(selectReply(postNo));
+					const replyVividImg = document.getElementsByClassName("reply-vivid");
+					const replywhiteImg = document.getElementsByClassName("reply-white");
+					replyLike(replyVividImg, replywhiteImg);
 				}else{
 					alert("답글 등록 중 문제가 발생했습니다.")
 				}
@@ -554,8 +489,23 @@ function selectReply(postNo){
 				replyDiv1.append(contentReply)
 				
 				replyDiv.append(replyDiv1)
-				
 			}
+			const lineReply = document.getElementsByClassName("line-reply")
+			for(const items of lineReply){
+				items.addEventListener("click", function(e){
+					let tempE = this.nextElementSibling
+					while(tempE.className == "child-reply"){
+						if(tempE.style.display == "none"){
+							tempE.style.display = "flex";
+						}else if(tempE.style.display =="flex"){
+							tempE.style.display = "none";
+						}
+						tempE = tempE.nextElementSibling;
+					}
+				})
+			}
+			
+
 		},
 		error: function (req, status, error) {
 			console.log("ajax 실패");
@@ -571,3 +521,67 @@ function selectReply(postNo){
 const post = document.getElementsByClassName("post")[0]
 
 post.append(selectReply(postNo));
+// 댓글 좋아요
+const replyVividImg = document.getElementsByClassName("reply-vivid");
+const replywhiteImg = document.getElementsByClassName("reply-white");
+replyLike(replyVividImg, replywhiteImg);
+function replyLike(replyVividImg, replywhiteImg){
+	for(const items of replywhiteImg){
+		items.addEventListener("click", function () {
+			const replyNo = this.nextElementSibling.innerText;
+			let count = this.nextElementSibling.nextElementSibling;
+			$.ajax({
+				url: contextPath + "/reply/insertReplyLike",
+				data: { "replyNo": replyNo },
+				type: "POST",
+				async: false,
+				success: function (result) {
+					if(result >0){
+						items.style.display = "none";
+						items.previousElementSibling.style.display = "inline";
+						count.innerText = Number(count.innerText)+1;
+					}else{
+						alert("좋아요 기능에 오류가 발생했습니다.")
+					}
+
+				},
+				error: function (req, status, error) {
+					console.log("ajax 실패");
+					console.log(req.responseText);
+					console.log(status);
+					console.log(error);
+				}
+
+			})
+		})
+	}
+	for(const items of replyVividImg){
+		items.addEventListener("click", function () {
+			const replyNo = this.nextElementSibling.nextElementSibling.innerText;
+			let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+			$.ajax({
+				url: contextPath + "/reply/deleteReplyLike",
+				data: { "replyNo": replyNo },
+				type: "POST",
+				async: false,
+				success: function (result) {
+					if(result >0){
+						items.style.display = "none";
+						items.nextElementSibling.style.display = "inline";
+						count.innerText = Number(count.innerText)-1;
+					}else{
+						alert("좋아요 기능에 오류가 발생했습니다.")
+					}
+
+				},
+				error: function (req, status, error) {
+					console.log("ajax 실패");
+					console.log(req.responseText);
+					console.log(status);
+					console.log(error);
+				}
+
+			})
+		})
+	}
+}
