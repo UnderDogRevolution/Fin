@@ -164,7 +164,6 @@ input {
 						style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
 							<br> 
 				</div>
-					<button class="deleteImg" id="deleteImg" onclick="deleteImg();">프로필사진 삭제</button>
 			
 			<!-- profileImage.setImgPath("/resources/images/member/");
          profileImage.setImgName("defaultProfileImage.png"); 
@@ -178,7 +177,10 @@ input {
 				<input type="file" name="images" onchange="loadImg(this,0)">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
-
+			
+			<div class="form-inline mb-2">
+				<button class="deleteImg" id="deleteImg" onclick="deleteImg();">프로필사진 삭제</button>
+			</div>
 
 			<br>
 			
