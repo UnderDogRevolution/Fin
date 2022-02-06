@@ -301,36 +301,6 @@ public class MemberController {
 	
 	
 	
-	// error 페이지 실험용!! 주소에 member/error 치면 접근 가능
-	@RequestMapping(value="error",method = RequestMethod.GET)
-	public String error(Exception e, Model model, HttpServletResponse resp) {
-		
-		int statusCode = resp.getStatus();
-		
-		System.out.println("에러페이지 실행");
-		System.out.println("상태 코드 : " + statusCode);
-		
-		model.addAttribute("statusCode", statusCode);
-		
-		return "common/errorPage";
-	}
-	
-	
-	// 예외 처리용
-	@ExceptionHandler(SQLException.class)
-	public String exceptionHandler(Exception e, Model model, HttpServletResponse resp) {
-		
-		int statusCode = resp.getStatus();
-		
-		System.out.println("에러페이지 실행");
-		System.out.println("ErrorCode : " + statusCode);
-		
-		model.addAttribute("statusCode", statusCode);
-		
-		return "common/errorPage";
-	}
-	
-	
 }
 
 

@@ -28,16 +28,25 @@
 
   <div class="container"></div>
   <div class="message" style="user-select: none;">
-    <h1>Error <span class="errorcode">${requestScope.statusCode}</span></h1>
+    <h1>
+    	Error <span class="errorcode">${errorCode}</span>
+
+    	<c:if test="${!empty errorMessage}">
+	    	<span style="font-size: 25px;">${errorMessage}</span>
+    	</c:if>
+    	
+   	</h1>
     <p class="output">
-      오류가 발생했습니다. <br>
-      다시 한번 시도해 주세요. <br><br>
-      오류가 지속될 경우 <br>
-      관리자에게 문의해주세요. <br></ü>
-      <br><br>
-      <p class="social"> 이동하기  <a href="${pageContext.servletContext.contextPath}">메인 페이지</a> OR <a href="${header.referer}">이전 페이지</a></p>
-      <br><br>
-      <p class="output">--- MONTAGE ---</p>
+	    오류가 발생했습니다. <br>
+	    다시 한번 시도해 주세요. <br><br>
+	    오류가 지속될 경우 <br>
+	    관리자에게 문의해주세요. <br></ü>
+	    <br><br>
+    </p>
+    <p class="social"> 이동하기  <a href="${pageContext.servletContext.contextPath}">메인 페이지</a> OR <a href="${header.referer}">이전 페이지</a></p>
+    <br><br>
+    <p class="output">--- MONTAGE ---</p>
+	
   </div>
 
 
