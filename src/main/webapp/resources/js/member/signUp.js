@@ -28,7 +28,7 @@ function signUpValidate(){
 
   const signUpBtn = $("#signUp-btn");
 
-  // 이걸 쉽게 쓰는 방법은??
+  // 이걸 쉽게 쓰는 방법은..??
   if(
     signUpCheckObj.email == true &&
     signUpCheckObj.emailCode == true &&
@@ -48,17 +48,19 @@ function signUpValidate(){
 
 }
 
-
+// ----------------------- 인증번호 카운트다운 -----------------------
 
 // 전역변수로 빼주고 clearInterval 수행해야함
 let isStop = false;
 let countInterval;
 
 // 인증번호 카운트다운
+// 숫자 앞에 0 붙여주는 함수 (ex 01, 02, 03)
 function paddedFormat(num) {
   return num < 10 ? "0" + num : num; 
 }
 
+// 지정된 시간에서 1초씩 줄어들게하는 함수
 function startCountDown(duration, element) {
 
   let secondsRemaining = duration;
@@ -75,12 +77,15 @@ function startCountDown(duration, element) {
       element.textContent = `${paddedFormat(min)}:${paddedFormat(sec)}`;
 
       secondsRemaining = secondsRemaining - 1;
-      // 타이머가 만료되면
+
+      // 타이머가 만료되었을 경우
       if (secondsRemaining < 0) { 
         
+        // 타이머 정지
         clearInterval(countInterval); 
+
+        // 확인 버튼 비활성화 및 재발급 버튼 만들기
         $(".auth-submit-btn").attr("disabled", true);
-        // $(".auth-submit-btn").removeAttr("disabled");
 
         const authResult = $(".auth-result");
         const div = $('<div class="failMsg">');
@@ -112,12 +117,14 @@ function stopTimer(){
 }
 
 // 타이머 시작하기
+// 원하는 시간 설정할 수 있음
 function startTimer() {
   let time_minutes = 3; // Value in minutes
   let time_seconds = 0; // Value in seconds
 
   let duration = time_minutes * 60 + time_seconds;
 
+  // 타이머가 나타나는 요소
   element = document.querySelector('#count-down-timer');
   element.textContent = `${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
 
@@ -127,6 +134,7 @@ function startTimer() {
 };
 
 
+// ----------------------- 이메일 인증 -----------------------
 
 // 이메일 인증버튼 클릭 시 모달창 열기
 $("#emailCheck-btn").on("click",function(){
@@ -145,7 +153,6 @@ $("#emailCheck-btn").on("click",function(){
   authEmail();
 
 });
-
 
 // 이메일 인증번호 생성 및 삽입 + 이메일 전송
 function authEmail(){
@@ -192,7 +199,6 @@ function authEmail(){
   }
 
 }
-
 
 // 이메일 인증번호 체크 함수
 function checkAuth(){
@@ -269,8 +275,7 @@ function checkAuth(){
 
 }
 
-
-// 인증 성공 sweetalert
+// 인증 성공 sweetalert2
 function successAuth(){
 
   Swal.fire({
@@ -286,7 +291,6 @@ function successAuth(){
   })
 
 }
-
 
 // 인증번호 재전송 클릭 시 동작
 function resendAuth(){
@@ -322,11 +326,10 @@ function resendAuth(){
 
 };
 
-
 // 인증 완료 후 코드 삭제하기
 function deleteAuth(){
 
-  
+  // 작성 예정
 
 }
 
@@ -414,11 +417,6 @@ $("#memberEmail").on("input", function(){
   signUpValidate();
 
 });
-
-
-// 이메일 인증번호 검사(ajax)
-
-
 
 
 // -------------------------------------------------------------------------
