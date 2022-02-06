@@ -28,7 +28,7 @@
 
 				<ul class="menu">
 					<li>
-						<form action="${contextPath}/search/" method="get">
+						<form action="${contextPath}/search/" method="get" id = "search-form">
 
 							<div class="search">
 
@@ -38,7 +38,7 @@
 
 									<div>
 
-											<button>
+											<button id = "searchbtn" type="button">
 											<svg class="bi d-block" xmlns="http://www.w3.org/2000/svg"
 												viewBox="0 0 24 24">
                                                 <path

@@ -67,7 +67,7 @@ public class MemberController2 {
 
 			loginMember.setMemberNickName(nickInput);
 			loginMember.setMemberBirth(birthInput);
-
+			
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
 
 		} else { // 실패
