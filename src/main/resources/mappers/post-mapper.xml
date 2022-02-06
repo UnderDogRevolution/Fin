@@ -103,10 +103,16 @@
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="memberNickName" column="MEMBER_NICKNM"/>
 
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
+
 		<result property="replyCount" column="REPLY_COUNT"/>
 		
 		<collection property="listPostImage" column="POST_NO"
 			javaType="java.util.ArrayList" ofType="PostImage" select="selectPostImageList"/>
+			
+		<collection property="listProfile" column="MEMBER_NO"
+			javaType="java.util.ArrayList" ofType="Image" select="selectProfileList"/>
 	</resultMap>
 	
 	<resultMap type="PostImage" id="postImage_rm">
@@ -124,6 +130,20 @@
 		FROM POST_IMG
 		WHERE POST_NO = #{postNo}
 		ORDER BY POST_IMG_NO
+	</select>
+	
+	<resultMap type="Image" id="profile_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO"/>
+		<result property="imgPath" column="MEMBER_IMG_PATH"/>
+		<result property="imgName" column="MEMBER_IMG_NM"/>
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL"/>
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	<select id="selectProfileList" resultMap="profile_rm">
+		SELECT * FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	<select id="selectPostList" resultMap="post_rm">
@@ -183,5 +203,20 @@
 		ORDER BY POST_NO DESC
 	</select>
 	
+	<insert id="insertReport">
+		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, #{memberNo}, #{reportContent}, DEFAULT, #{reportTypeNo}, #{targetPK})
+	</insert>
+	
+	<select id="checkMemberNo" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+	</select>
+
+	<select id="searchMemberNo" resultType="_int">
+		SELECT MEMBER_NO
+		FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+	</select>
 	
 </mapper>
