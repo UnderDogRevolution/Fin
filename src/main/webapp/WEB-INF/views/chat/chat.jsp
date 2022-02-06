@@ -140,23 +140,25 @@
                     </div>
 
                 </div>
-                <div class="modal-body">
+           <!--       <div class="modal-body">
+               
+               
                     <div class="friendsListMain">
-                        <!-- 친구창 -->
+                        친구창
                         <div class="friendsImg-wrap">
-                            <img src="img/user.png" alt=""><!-- 친구이미지 -->
+                            <img src="img/user.png" alt="">친구이미지
                         </div>
                         <div class="friendsName-wrap">
-                            <!-- 친구이름 -->
+                            친구이름
                             usero1
                         </div>
                         <div class="messagebtn-wrap">
-                            <!-- 버튼영역 -->
+                            버튼영역
                             <button class="messagebtn2">보내기</button>
                         </div>
                     </div>
 
-                </div><!-- 바디 끝부분  -->
+                </div>바디 끝부분   -->
 	<!--web소켓과 비슷한 js 라이브러리
 	 -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -170,6 +172,7 @@
 		const memberNickName = "${loginMember.memberNickName}";
 		const memberName = "${loginMember.memberName}";
 		const contextPath = "${contextPath}";
+		const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
 	</script>
 	
 	<script src= "${contextPath}/resources/js/chat/chat.js"></script>

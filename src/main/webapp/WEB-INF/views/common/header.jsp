@@ -137,13 +137,21 @@
 
 					<li><i class="far fa-edit boardwrap" style="padding-top: 5px;">
 							<div class="boardMenu">
-
-								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Write()">
-									<a href="" onclick="return false;" > 피드 </a>
-								</div>
-								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Review()">
-									<a href="" onclick="return false;" > 리뷰 </a>
-								</div>
+                                <c:choose>
+                                    <c:when test="${loginMember != null}">
+                                        <div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Write()">
+                                            <a href="" onclick="return false;" > 피드 </a>
+                                        </div>
+                                        <div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Review()">
+                                            <a href="" onclick="return false;" > 리뷰 </a>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div>
+                                            <a> Please Login!</a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
 
 							</div>
 

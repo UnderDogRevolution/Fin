@@ -1,6 +1,5 @@
 package com.movie.sns.chat.model.vo;
 
-import java.util.Date;
 
 public class ChatMessage {
 	private int chatMessageNo;
@@ -9,8 +8,10 @@ public class ChatMessage {
 	private int chatRoomNo;
 	private int memberNo;
 	private int targetNo;
+	private String imgPath;
+	private String imgName;
 	private int type;
-	
+	private String path; // 이미지경로저장
 	private String memberName;
 	private String memberId;
 	
@@ -109,12 +110,47 @@ public class ChatMessage {
 	}
 
 
+	public String getPath() {
+		return path;
+	}
+
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+
+	public String getImgName() {
+		return imgName;
+	}
+
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ChatMessage [chatMessageNo=" + chatMessageNo + ", message=" + message + ", createDate=" + createDate
-				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", targetNo=" + targetNo + ", type=" + type
-				+ ", memberName=" + memberName + ", memberId=" + memberId + "]";
+				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", targetNo=" + targetNo + ", imgPath="
+				+ imgPath + ", imgName=" + imgName + ", type=" + type + ", path=" + path + ", memberName=" + memberName
+				+ ", memberId=" + memberId + "]";
 	}
+
+
+
+
 
 	
 	

@@ -2,6 +2,8 @@ package com.movie.sns.post.model.vo;
 
 import java.util.List;
 
+import com.movie.sns.member.model.vo.Image;
+
 public class Post {
 	private int postNo;
 	private String postContent;
@@ -30,8 +32,17 @@ public class Post {
 	
 	private List<PostImage> listPostImage;
 	
+	private List<Image> listProfile;
+	
 	private int replyCount;
 	
+	
+	public List<Image> getListProfile() {
+		return listProfile;
+	}
+	public void setListProfile(List<Image> listProfile) {
+		this.listProfile = listProfile;
+	}
 	public int getCheckLike() {
 		return checkLike;
 	}
@@ -174,8 +185,20 @@ public class Post {
 				+ checkLike + ", movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDate=" + movieDate
 				+ ", director=" + director + ", poster=" + poster + ", movieGenre=" + movieGenre + ", rating=" + rating
 				+ ", memberName=" + memberName + ", memberNickName=" + memberNickName + ", listPostImage="
-				+ listPostImage + ", replyCount=" + replyCount + ", tagArr=" + tagArr + "]";
+				+ listPostImage + ", listProfile=" + listProfile + ", replyCount=" + replyCount + ", tagArr=" + tagArr
+				+ ", getListProfile()=" + getListProfile() + ", getCheckLike()=" + getCheckLike() + ", getReplyCount()="
+				+ getReplyCount() + ", getCheckUsePoster()=" + getCheckUsePoster() + ", getMemberName()="
+				+ getMemberName() + ", getMemberNickName()=" + getMemberNickName() + ", getListPostImage()="
+				+ getListPostImage() + ", getMovieNo()=" + getMovieNo() + ", getMovieTitle()=" + getMovieTitle()
+				+ ", getMovieDate()=" + getMovieDate() + ", getDirector()=" + getDirector() + ", getPoster()="
+				+ getPoster() + ", getMovieGenre()=" + getMovieGenre() + ", getRating()=" + getRating()
+				+ ", getTagArr()=" + getTagArr() + ", getPostNo()=" + getPostNo() + ", getPostContent()="
+				+ getPostContent() + ", getReadCount()=" + getReadCount() + ", getLikeCount()=" + getLikeCount()
+				+ ", getCreateDate()=" + getCreateDate() + ", getModifyDate()=" + getModifyDate()
+				+ ", getPostStatusCode()=" + getPostStatusCode() + ", getMemberNo()=" + getMemberNo() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+	
 	
 	
 }

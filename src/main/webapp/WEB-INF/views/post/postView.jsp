@@ -27,14 +27,23 @@
 			<c:when test="${post.postStatusCode == 500}">
 					<div class="post">
 						<div class="post-header">
-							<div><img class="profile-img" src="${contextPath}/resources/images/temp/raraland.jpg"></div>
+							<div>
+								<c:choose>
+									<c:when test="${post.listProfile[0] != null}">
+										<img class="profile-img" src="${contextPath}${post.listProfile[0].imgPath}${post.listProfile[0].imgName}">
+									</c:when>
+									<c:otherwise>
+										<img class="profile-img" src="${contextPath}/resources/images/common/defaultProfileImage.png">
+									</c:otherwise>
+								</c:choose>
+							</div>
 							<span>${post.memberName}</span><span>${post.createDate}</span>
 							<div class="dropdown me-1 header-dropdown"><img id="dropdownMenuOffset" data-bs-toggle="dropdown"
 									aria-expanded="false" data-bs-offset="-40,-10" src="${contextPath}/resources/images/temp/dots.png">
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
 									<li><a class="dropdown-item">링크복사</a></li>
 									<c:if test="${loginMember != null}">
-										<li><a class="dropdown-item">신고하기</a></li>
+										<li><a class="dropdown-item" onclick="report(0, ${post.postNo})">신고하기</a></li>
 									</c:if>
 									<c:if test="${loginMember.memberNo == post.memberNo}">
 										<li><a class="dropdown-item" onclick="deletePost(this)">삭제</a></li>
@@ -125,7 +134,7 @@
 														<li><a class="dropdown-item">로그인해 주세요!</a></li>
 													</c:if>
 													<c:if test="${loginMember != null}">
-														<li><a class="dropdown-item">신고하기</a></li>
+														<li><a class="dropdown-item" onclick="report(1, ${reply.replyNo})">신고하기</a></li>
 													</c:if>
 													<c:if test="${loginMember.memberNo == reply.memberNo}">
 														<li><a class="dropdown-item" onclick="deleteReply(this, ${reply.replyNo})">삭제</a></li>
@@ -161,6 +170,7 @@
 		<c:if test="${loginMember.memberNo != null}">
 			const memberNo = ${loginMember.memberNo }
 		</c:if>
+		const postContent = "${post.postContent}";
 	</script>
 	<!-- <script src="${contextPath}/resources/js/post/post.js"></script> -->
 	<script src="${contextPath}/resources/js/post/postView.js"></script>

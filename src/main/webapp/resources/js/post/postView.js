@@ -320,3 +320,60 @@ function deleteReply(e, replyNo) { // 똑같은 이름의 함수가 있으면 �
     }
 }
 
+function report(reportTypeNo, targetPK){
+	const reportContent = prompt("신고 사유를 입력해 주세요!")
+	$.ajax({
+		url: contextPath + "/post/report",
+			data: {"reportTypeNo":reportTypeNo, "targetPK": targetPK, "reportContent":reportContent },
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("신고가 접수되었습니다!")
+
+
+				}else{
+					alert("신고 기능에 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	})
+
+}
+const detailPostTextarea = document.getElementsByClassName("textarea-box")[0];
+const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
+const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
+let text = postContent.replace(tagRegExp, function(target){
+    return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
+})
+text = text.replace(userRegExp, function(target){
+    let memberNo;
+    $.ajax({
+        url: contextPath + "/post/searchMemberNo",
+        data: {"memberName": target.replace("@", "")},
+        type: "POST",
+        async: false,
+        success: function (result) {
+            if(result >0){
+                memberNo = result;
+            }
+        },
+        error: function (req, status, error) {
+            console.log("ajax 실패");
+            console.log(req.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    })
+    if(memberNo>0){
+        return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+    }else{
+        return target;
+    }
+})
+detailPostTextarea.innerHTML = text

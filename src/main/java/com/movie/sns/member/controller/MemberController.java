@@ -1,5 +1,7 @@
 package com.movie.sns.member.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,6 @@ import com.movie.sns.common.RandomNumber;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
-import com.movie.sns.member.model.vo.MemberAuth;
 
 
 // 로그인필터
@@ -299,18 +300,13 @@ public class MemberController {
 	}
 	
 	
-	// 회원가입 페이지 들어오자마자 ajax 임의로 한번 실행시켜서 속도 개선해보기
-	@RequestMapping(value="ajaxSetting",method = RequestMethod.GET)
-	@ResponseBody
-	public String ajaxSetting() {
-		
-		System.out.println("실행");
-		
-		return "세팅 완료!";
-		
-	}
-	
-	
-	
 	
 }
+
+
+
+
+
+
+
+
