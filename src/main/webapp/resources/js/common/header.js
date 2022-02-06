@@ -43,6 +43,15 @@ $(".boardwrap").on("click", function (e) {
     }
 });
 
+	$("#searchbtn").on("click" , function(){
+		const result = $("#searchResult").val();
+		if(result.trim().length== 0){
+			alert("검색어를 입력해주세요");
+		}else{
+			$("#search-form").submit();
+		}
+		
+	});
 
 
 window.onclick = function (event) {

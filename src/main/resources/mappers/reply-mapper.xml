@@ -18,7 +18,24 @@
 		<result property="replyStatusName" column="REPLY_STATUS_NM"/>
 
 		<result property="checkLike" column="CHECK_LIKE"/>
+		
+		<collection property="listProfile" column="MEMBER_NO"
+			javaType="java.util.ArrayList" ofType="Image" select="selectProfileList"/>
 	</resultMap>
+	
+	<resultMap type="Image" id="profile_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO"/>
+		<result property="imgPath" column="MEMBER_IMG_PATH"/>
+		<result property="imgName" column="MEMBER_IMG_NM"/>
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL"/>
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	<select id="selectProfileList" resultMap="profile_rm">
+		SELECT * FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
 	<select id="selectReply" resultMap="reply_rm">
 	SELECT LEVEL, R.* FROM 

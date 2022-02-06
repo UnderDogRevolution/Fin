@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
+	
+	<!-- 콘솔에 찍히는 로그 -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
 		</layout>
 	</appender>
 	
+	<!-- 테이블 모양으로 출력하는 로그 형식 -->
+	<appender name="sql-console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p [%c] %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 작성한 SQL문을 로그로 출력하는 형식  -->
+	<appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 날짜별 로그파일 생성하기 -->
+   	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+   
+	    <param name="File" value="/workspace/UnderDog/logs/montage_log.log" />
+	    <param name="Append" value="true" /> <!-- 이어쓰기 -->
+	    <param name="encoding" value="UTF-8" />
+	    
+	    <!-- 날짜가 바뀌면 파일명 뒤에 추가되는 패턴 -->
+	    <param name="DatePattern" value="'.'yyyy-MM-dd" />
+	    <layout class="org.apache.log4j.PatternLayout">
+	         <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
+      	</layout>	
+   	</appender>
+	
+	
 	<!-- Application Loggers -->
 	<logger name="com.movie.sns">
-		<level value="info" />
+		<!-- com.movie.sns 패키지 이하에서 작성되는 debug 레벨 이상 로그 출력 -->
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -32,21 +66,40 @@
 		<level value="info" />
 	</logger>
 	
-	<!-- Query Loggers --> 
+	<!-- 개발에만 사용하고 실제 운영에서는 SQL 로그는 설정하지 않는게 좋음 -->
+	
+	<!-- Query Loggers -->
+	<!-- ********** 사용을 원치 않을 경우 주석 작성 ********** -->
+	<!-- ********** 사용을 원하는 경우 주석 해제 ********** -->
+	 
+	 
+	<!-- 사용된 쿼리문을 여러 줄에 나누어 나타내는 로그  -->
+	
+    <!-- 
     <logger name="jdbc.sqlonly" additivity="false"> 
         <level value="INFO"/> 
         <appender-ref ref="console-infolog"/> 
-    </logger>
+    </logger> 
+    -->
      
-    <!-- <logger name="jdbc.resultsettable" additivity="false">
+     
+    <!-- 쿼리 결과를 테이블 모양으로 출력해주는 로그 -->
+    
+    <!-- 
+    <logger name="jdbc.resultsettable" additivity="false">
          <level value="INFO"/> 
-         <appender-ref ref="console"/> 
-     </logger> -->
+         <appender-ref ref="sql-console"/> 
+     </logger>
+     -->
 
-	<!-- Root Logger -->
+
+
+	<!-- Root Logger 최상위 로그 -->
+	<!-- .gitignore에서 log 파일을 걸러주므로 충돌걱정 X -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="dailyRollingFile" />
 	</root>
 	
 </log4j:configuration>

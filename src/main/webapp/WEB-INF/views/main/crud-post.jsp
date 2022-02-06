@@ -18,7 +18,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 <!-- 왜 flex를 주니까 margin auto가 먹는가? -->
                 <input class="moviedb-input" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 30px; margin-top: 10px;">
                 <div class="search-result">
-                    <div>
+                    <!-- <div>
                         <div class="search-result-img">
                             <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
                         </div>
@@ -26,43 +26,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                             Wall-e (2021-01-01) <br>
                             드라마
                         </div>
-                    </div>
-                    <div>
-                        <div class="search-result-img">
-                            <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
-                        </div>
-                        <div class="search-result-content">
-                            Wall-e (2021-01-01) <br>
-                            드라마
-                        </div>
-                    </div>
-                    <div>
-                        <div class="search-result-img">
-                            <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
-                        </div>
-                        <div class="search-result-content">
-                            Wall-e (2021-01-01) <br>
-                            드라마
-                        </div>
-                    </div>
-                    <div>
-                        <div class="search-result-img">
-                            <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
-                        </div>
-                        <div class="search-result-content">
-                            Wall-e (2021-01-01) <br>
-                            드라마
-                        </div>
-                    </div>
-                    <div>
-                        <div class="search-result-img">
-                            <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
-                        </div>
-                        <div class="search-result-content">
-                            Wall-e (2021-01-01) <br>
-                            드라마
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-side" style="width: 100px; height: 100px; background-color: white; color: black; position: absolute; z-index: 2000; right: -25%;">
                     <ul>

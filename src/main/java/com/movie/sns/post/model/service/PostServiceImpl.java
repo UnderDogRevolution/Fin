@@ -188,9 +188,21 @@ public class PostServiceImpl implements PostService {
 		
 		return result;
 	}
-	
-	
-	
+
+	@Override
+	public List<Post> searchPostList(Map<String, Object> map) {
+		return dao.searchPostList(map);
+	}
+
+	@Override
+	public List<Post> popularPostList(Map<String, Object> map) {
+		return dao.popularPostList(map);
+	}
+
+	@Override
+	public List<Post> searchMoviePostList(Map<String, Object> map) {
+		return dao.searchMoviePostList(map);
+	}
 	
 	
 	

@@ -1,5 +1,9 @@
 package com.movie.sns.post.model.vo;
 
+import java.util.List;
+
+import com.movie.sns.member.model.vo.Image;
+
 public class Reply {
 	private int replyNo;
 	private String replyContent;
@@ -15,6 +19,16 @@ public class Reply {
 	
 	private int checkLike;
 	
+	private List<Image> listProfile;
+	
+	
+	
+	public List<Image> getListProfile() {
+		return listProfile;
+	}
+	public void setListProfile(List<Image> listProfile) {
+		this.listProfile = listProfile;
+	}
 	public int getCheckLike() {
 		return checkLike;
 	}
@@ -86,7 +100,14 @@ public class Reply {
 		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyCreateDate=" + replyCreateDate
 				+ ", parentReply=" + parentReply + ", likeCount=" + likeCount + ", postNo=" + postNo + ", memberNo="
 				+ memberNo + ", replyStatusCode=" + replyStatusCode + ", replyStatusName=" + replyStatusName
-				+ ", memberName=" + memberName + ", checkLike=" + checkLike + "]";
+				+ ", memberName=" + memberName + ", checkLike=" + checkLike + ", listProfile=" + listProfile
+				+ ", getListProfile()=" + getListProfile() + ", getCheckLike()=" + getCheckLike() + ", getMemberName()="
+				+ getMemberName() + ", getReplyNo()=" + getReplyNo() + ", getReplyContent()=" + getReplyContent()
+				+ ", getReplyCreateDate()=" + getReplyCreateDate() + ", getParentReply()=" + getParentReply()
+				+ ", getLikeCount()=" + getLikeCount() + ", getPostNo()=" + getPostNo() + ", getMemberNo()="
+				+ getMemberNo() + ", getReplyStatusCode()=" + getReplyStatusCode() + ", getReplyStatusName()="
+				+ getReplyStatusName() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 	
 	
