@@ -4,12 +4,12 @@
 <!-- <form action="${pageContext.servletContext.contextPath}/post/insert" method="post" 
 enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 <!-- Modal -->
-<div class="modal" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: -35px;">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
          <div class="modal-post">
             <div class="modal-post-header">
-                <span>user01</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
+                <span>${loginMember.memberName}</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
             </div>
             <div class="modal-post-content">
                 <div class="modal-review-title">
@@ -101,6 +101,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 <img>
                 <span class="delete-img" style="display: none;">x</span>
                 <span class="on-poster" style="display: none;">Poster ON <span class="temp-url" style="display: none;"></span></span>
+                <span>사진을 올려주세요!</span>
             </div>
             <!-- <div class="post-footer"> -->
                 <!-- <span class="before">이전</span> -->

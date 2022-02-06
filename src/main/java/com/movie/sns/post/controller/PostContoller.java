@@ -29,6 +29,7 @@ import com.movie.sns.post.model.service.ReplyService;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Reply;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 
@@ -57,6 +58,13 @@ public class PostContoller {
 		
 		return new Gson().toJson(tagList);
 	}
+	@RequestMapping(value="searchMemberNo", method = RequestMethod.POST)
+	@ResponseBody
+	public int searchMemberNo(String memberName) {
+		int memberNo = service.searchMemberNo(memberName);
+		return memberNo;
+	}
+
 	@RequestMapping(value="insert", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public int postInsert(@RequestPart(value = "key") Map<String, Object> postVO,
@@ -114,6 +122,7 @@ public class PostContoller {
 		return service.deletePost(postNo);
 		
 	}
+	
 	@RequestMapping("view/{postNo}")
 	public String postView(@PathVariable("postNo") int postNo, Model model, HttpSession session){
 		int memberNo = 0;
@@ -134,6 +143,15 @@ public class PostContoller {
 		model.addAttribute("listReply", listReply);
 		// toString 메소드를 정의해야 EL로 객체를 선언할 시 주소가아닌 형태로 나타난다.
 		return "post/postView";
+		
+	}
+	
+	@RequestMapping(value="report", method = RequestMethod.POST)
+	@ResponseBody
+	public int insertReport(Report report, @ModelAttribute("loginMember") Member loginMember){
+		report.setMemberNo(loginMember.getMemberNo());
+		
+		return service.insertReport(report);
 		
 	}
 }

@@ -1,17 +1,18 @@
 console.log("post.js");
+revealPost()
 
-const like1 = document.querySelectorAll(".container-like > img")[0];
-const like2 = document.querySelectorAll(".container-like > img")[1];
+// const like1 = document.querySelectorAll(".container-like > img")[0];
+// const like2 = document.querySelectorAll(".container-like > img")[1];
 
-like1.addEventListener("click", function(){
-	like1.style.display = "none";
-	like2.style.display = "block";
-})
+// like1.addEventListener("click", function(){
+// 	like1.style.display = "none";
+// 	like2.style.display = "block";
+// })
 
-like2.addEventListener("click", function(){
-	like1.style.display = "block";
-	like2.style.display = "none";
-})
+// like2.addEventListener("click", function(){
+// 	like1.style.display = "block";
+// 	like2.style.display = "none";
+// })
 
 function revealPost(){
 	const postContainer = document.getElementById("container-post")
@@ -37,7 +38,11 @@ function revealPost(){
 				const divHeader1 = document.createElement("div")
 				const imgHeader1 = document.createElement("img")
 				imgHeader1.className = "profile-img";
-				imgHeader1.setAttribute("src", contextPath + "/resources/images/temp/raraland.jpg");
+				if(items.listProfile[0]){
+					imgHeader1.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
+				}else{
+					imgHeader1.setAttribute("src", contextPath +"/resources/images/common/defaultProfileImage.png");
+				}
 				divHeader1.append(imgHeader1);
 				const spanHeader1 = document.createElement("span")
 				spanHeader1.innerText = items.memberName;
@@ -60,6 +65,7 @@ function revealPost(){
 				const aHeader1 = document.createElement("a")
 				aHeader1.innerText = "신고하기";
 				aHeader1.className = "dropdown-item"
+				aHeader1.setAttribute("onclick", "report(0, "+items.postNo+")")
 				const aHeader2 = document.createElement("a")
 				aHeader2.innerText = "링크복사";
 				aHeader2.className = "dropdown-item"
@@ -72,8 +78,8 @@ function revealPost(){
 				liHeader3.append(aHeader3);
 				ulHeader.append(liHeader2);
 				if(typeof memberNo != "undefined"){ // 아예 변수가 선언조창 안되었을 때 다음과 같이 식별한다.
+					ulHeader.append(liHeader1);
 					if(items.memberNo == memberNo){
-						ulHeader.append(liHeader1);
 						ulHeader.append(liHeader3);
 					}
 				}
@@ -267,17 +273,49 @@ function revealPost(){
 						divContent3.append(iContent9);
 						divContent3.append(iContent10);
 						divContent3.append(spanContent1);
-						if(items.rating != null){
-							postContent.append(divContent3)
-						}
+						
 					}
 
 				}
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
-				divContent2.innerHTML = items.postContent;
+				const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
+  				const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
+				let text = items.postContent.replace(tagRegExp, function(target){
+					return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
+				})
+				text = text.replace(userRegExp, function(target){
+					let memberNo;
+					$.ajax({
+						url: contextPath + "/post/searchMemberNo",
+						data: {"memberName": target.replace("@", "")},
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								memberNo = result;
+							}
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+					})
+					if(memberNo>0){
+						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+					}else{
+						return target;
+					}
+				})
+				// console.log(text)
+				divContent2.innerHTML = text;
 				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
+				if(items.rating != null){
+					postContent.append(divContent3)
+				}
 				// const divContent4 = document.createElement("div")
 				// divContent4.className = "text-count";
 				const divContent5 = document.createElement("div")
@@ -699,6 +737,7 @@ function selectReply(postNo){
 				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
 				a2.innerText = "신고하기";
 				a3.innerText = "로그인해 주세요!";
+				a2.setAttribute("onclick", "report(1, "+items.replyNo+")")
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
@@ -902,5 +941,31 @@ function deleteReply(e, replyNo){ // 똑같은 이름의 함수가 있으면 다
 	
 		})
 	}
+}
+
+function report(reportTypeNo, targetPK){
+	const reportContent = prompt("신고 사유를 입력해 주세요!")
+	$.ajax({
+		url: contextPath + "/post/report",
+			data: {"reportTypeNo":reportTypeNo, "targetPK": targetPK, "reportContent":reportContent },
+			type: "POST",
+			async: false,
+			success: function (result) {
+				if(result>0){
+					alert("신고가 접수되었습니다!")
+
+
+				}else{
+					alert("신고 기능에 문제가 발생했습니다.")
+				}
+			},
+			error: function (req, status, error) {
+				console.log("ajax 실패");
+				console.log(req.responseText);
+				console.log(status);
+				console.log(error);
+			}
+	})
+
 }
 

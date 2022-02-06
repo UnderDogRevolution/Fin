@@ -14,9 +14,11 @@ const crudImg = document.getElementsByClassName("post-img")[0].firstElementChild
 const deleteImg = document.getElementsByClassName("delete-img")[0]
 const inputFile = document.getElementsByClassName("files")[0]
 const onPoster = document.getElementsByClassName("on-poster")[0]
+const imgPhrase = document.querySelectorAll(".post-img > span:nth-of-type(3)")[0];
 // const tempURL = document.getElementsByClassName("temp-url")[0]
 function loadImg(input, num){
 	if(input.files && input.files[0]){
+        
 
 		// if(deleteImages.indexOf(num) != -1){
 		// 	deleteImages.splice(deleteImages.indexOf(num), 1)
@@ -35,6 +37,10 @@ function loadImg(input, num){
         deleteImg.style.display = "inline";
         // onPoster.style.display = "inline";
 
+        
+        imgPhrase.style.display = "none";
+
+
 	}else{
         
 		// 취소 클릭
@@ -42,6 +48,7 @@ function loadImg(input, num){
 		crudImg.removeAttribute("style")
         deleteImg.style.display = "none";
         // onPoster.style.display = "none";
+        imgPhrase.style.display = "inline";
 	}
 
     
@@ -50,21 +57,22 @@ function loadImg(input, num){
 deleteImg.addEventListener("click", function(e){
 
     e.stopPropagation();
+    
     if(crudImg.hasAttribute("src")){
         crudImg.removeAttribute("src");
         crudImg.removeAttribute("style");
         inputFile.value = "";
         deleteImg.style.display = "none";
         // onPoster.style.display = "inline";
-
     }
+    imgPhrase.style.display = "inline";
 })
 let movie;
 
 const moviedbInput = document.getElementsByClassName("moviedb-input")[0];
 const searchResult2 = document.getElementsByClassName("search-result")[0];
 const textareaBox = document.getElementsByClassName("insert-container-textarea")[0];
-const textCount = document.getElementsByClassName("text-count")[0];
+// const textCount = document.getElementsByClassName("text-count")[0];
 const postImg = document.getElementsByClassName("post-img")[0];
 const reviewTitle = document.getElementsByClassName("modal-review-title")[0];
 const starInput = document.getElementsByClassName("rating")[0];
@@ -80,7 +88,7 @@ function Write(){
 	searchMovie.style.display = "none";	
 	
 	textareaBox.style.display = "block";
-	textCount.style.display = "block";
+	// textCount.style.display = "block";
 	postImg.style.display = "block";
 
 	postSubmit.style.display = "inline";
@@ -93,7 +101,7 @@ function Review(){
 	moviedbInput.style.display = "flex";	
 	searchResult2.style.display = "flex";	
 	textareaBox.style.display = "none";
-	textCount.style.display = "none";
+	// textCount.style.display = "none";
 	postImg.style.display = "none";
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
@@ -211,7 +219,7 @@ async function fetchMovie(page){
         const resultImg = document.querySelectorAll(".search-result-img > img")
         for(const items of resultImg){
             items.addEventListener("click", async function(e){
-                
+                imgPhrase.style.display = "none";
                 const img = document.querySelector(".post-img > img");
                 img.setAttribute("src", this.getAttribute("src"));
                
@@ -254,6 +262,7 @@ async function fetchMovie(page){
                     crudImg.setAttribute("src", movie.poster); // this의 레벨은 영역을 좀만 벗어나도 달라진다.
                     // tempURL.innerText = movie.poster;
                     deleteImg.style.display = "inline";
+                    imgPhrase.style.display = "none";
                 })
                 
             })
@@ -290,7 +299,7 @@ function autoComplete(arr){ // 배열 매개변수
 }
 
 function changeContent(){
-    const content = inputTextarea.value.replaceAll("\n","<br>");
+    const content = inputTextarea.value.replaceAll("\n","<br>").replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
     const movieRegExp = /\*[ㄱ-힣a-zA-Z\d]{1,}/g;
@@ -317,12 +326,12 @@ const observer = new MutationObserver(mutations => {
                  if(mutation.addedNodes[i] != null){
 
                     // console.log(mutation.addedNodes);
-                    // console.log(mutation.addedNodes[i].innerText);
+                   
                     if(mutation.removedNodes[i].innerText != mutation.addedNodes[i].innerText){
                         let tagName = mutation.addedNodes[i].innerText;
                         // console.log(mutation.addedNodes[i].innerText.indexOf('#'));
                         if(  tagName != null && tagName.length >0 ){
-
+                            // console.log(mutation.addedNodes[i]);
                             if(tagName.indexOf('#') > -1){
                                 tagName = tagName.replace('#', "");
                                 $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
@@ -336,7 +345,7 @@ const observer = new MutationObserver(mutations => {
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
                                                 items2.addEventListener("click", function(){
-                                                    attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                    mutation.addedNodes[i].innerText = items2.innerText;
                                                     inputTextarea.value = inputDiv.innerText;
                                                 })
                                             }
@@ -364,7 +373,7 @@ const observer = new MutationObserver(mutations => {
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){
-                                                        attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                        mutation.addedNodes[i].innerText = items2.innerText;
                                                         inputTextarea.value = inputDiv.innerText;
                                                     })
                                                 }
@@ -407,7 +416,12 @@ observer.observe(inputDiv, config);
 function postValidate(){
     if(typeof memberNo == "undefined"){
         alert("로그인 해주세요!")
-    }else{
+        return;
+    }
+    if(inputTextarea.value.trim().length == 0){
+        alert("내용을 입력해주세요!")
+        return;
+    }
 
         const rating = document.getElementsByClassName("rating-value")[0].innerText
         if(movie != null){
@@ -436,7 +450,7 @@ function postValidate(){
             postVO.checkUsePoster = 0;
         }
         
-
+        
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
         postVO.movie = movie;
@@ -473,7 +487,7 @@ function postValidate(){
             }
 
         })
-    }
+    
 }
 
 // star rating

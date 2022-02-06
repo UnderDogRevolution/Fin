@@ -74,9 +74,15 @@
     background-color: gray;
     position: relative;
 }
+.post-img > span:nth-of-type(3){
+    position: absolute;
+    top: 40%;
+    left: 19%;
+    font-size: 38px;
+}
 .search-result{
     width: 80%;
-    background-color: powderblue;
+    background-color: inherit;
     margin: auto; display: flex;
     flex-direction: column;
     margin-bottom: 10px; 
