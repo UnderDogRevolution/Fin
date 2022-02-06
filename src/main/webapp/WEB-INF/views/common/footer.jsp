@@ -7,7 +7,12 @@
 
 
 
-
+	<script>
+	const memberNo = "${loginMember.memberNo}";
+	const memberNickName = "${loginMember.memberNickName}";
+	const memberName = "${loginMember.memberName}";
+	const contextPath = "${contextPath}";
+	</script>
 
     <!-- 부트스트랩 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

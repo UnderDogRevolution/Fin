@@ -9,7 +9,9 @@ public interface Board1Service {
 
 	Member selectProfile(int memberNo);
 
-//	List<Post> selectList(int memberNo);
+	List<Post> selectList(int memberNo);
+
+	List<Post> selectLike(int memberNo);
 
 	
 

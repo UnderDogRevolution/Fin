@@ -61,7 +61,7 @@ window.onclick = function (event) {
         $('.boardMenu').removeClass("show");
     }
 
-
+		
 
 
 }

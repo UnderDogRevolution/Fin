@@ -23,11 +23,17 @@ public class Board1ServiceImpl implements Board1Service {
 		return dao.selectProfile(memberNo);
 	}
 
-//	@Override
-//	public List<Post> selectList(int memberNo) {
-//		
-//		return dao.selectList(memberNo);
-//	}
+	@Override
+	public List<Post> selectList(int memberNo) {
+		
+		return dao.selectList(memberNo);
+	}
+
+	@Override
+	public List<Post> selectLike(int memberNo) {
+		
+		return dao.selectLike(memberNo);
+	}
 
 	
 

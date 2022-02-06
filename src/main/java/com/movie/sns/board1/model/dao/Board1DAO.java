@@ -10,26 +10,30 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @Repository
 public class Board1DAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	public Member selectProfile(int memberNo) {
-		
+
 		System.out.println("====================================");
 		System.out.println(memberNo);
-		
+
 		return sqlSession.selectOne("boardMapper.selectProfile", memberNo);
-		
+
 	}
 
-	/*
-	 * public List<Post> selectList(int memberNo) {
-	 * 
-	 * return sqlSession.selectList("boardMapper.selectList", memberNo); }
-	 */
+	public List<Post> selectList(int memberNo) {
+
+		return sqlSession.selectList("boardMapper.selectList", memberNo);
+
+	}
+
+	public List<Post> selectLike(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("boardMapper.selectLike", memberNo);
+	}
 
 }
