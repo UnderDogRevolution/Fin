@@ -124,7 +124,13 @@ inputContent.addEventListener("input", function(){
     const countBox = document.getElementsByClassName("content-count")[0]
     // 바이트로 세는 것은 나중에 하자
     let count = inputContent.value.length
+
+    const row = inputContent.value.split("\n").length; // 여기서는 \n이 몇개인지 세준다.
+    console.log(row)
     countBox.innerText = count
+    if(row > 9){
+        inputContent.value = inputContent.value.slice(0, -1)
+    }
     if(count >= 500){
         inputContent.value = inputContent.value.substring(0, 500)
         count = 500   
@@ -369,7 +375,7 @@ const observer = new MutationObserver(mutations => {
                                         dataType : "JSON",
                                         success: function (tagList) {
                                             for(const items of tagList){
-                                                tagListUl.innerHTML += '<li>@'+ items.memberNickName +'</li>';
+                                                tagListUl.innerHTML += '<li>@'+ items.memberName +'</li>';
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){

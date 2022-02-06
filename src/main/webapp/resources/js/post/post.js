@@ -94,7 +94,7 @@ function revealPost(){
 				const divContent3 = document.createElement("div")
 				if(items.movieTitle != null){
 					divContent1.className = "review-title";
-					divContent1.innerHTML = items.movieTitle + " <span>("+items.movieDate+")  "+items.movieGenre+"</span>"
+					divContent1.innerHTML = items.movieTitle+"<br> <span> "+items.director+" ("+items.movieDate+")  "+items.movieGenre+"</span>"
 					postContent.append(divContent1) // 리뷰 타이틀 삽입
 					if(items.rating != null){
 						divContent3.className = "post-rating";
@@ -689,7 +689,11 @@ function selectReply(postNo){
 				const profileDiv = document.createElement("div");
 				profileDiv.className = "profile-reply"
 				const profile = document.createElement("img");
-				profile.setAttribute("src", contextPath +"/resources/images/temp/raraland.jpg")
+				if(items.listProfile[0]){
+					profile.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
+				}else{
+					profile.setAttribute("src", contextPath +"/resources/images/common/defaultProfileImage.png");
+				}
 				profileDiv.append(profile)
 
 				const userInfo = document.createElement("div")

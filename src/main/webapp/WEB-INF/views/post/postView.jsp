@@ -52,9 +52,9 @@
 							</div>
 						</div>
 						<div class="post-content">
+							<div class="review-title">${post.movieTitle} <span>(${post.movieDate}) ${post.movieGenre}</span></div>
 							<div class="textarea-box">${post.postContent}</div>
 							<c:if test="${post.rating > 0}">
-								<div class="review-title">${post.movieTitle} <span>(${post.movieDate}) ${post.movieGenre}</span></div>
 								<div class="post-rating">
 								<c:forEach var="i" begin="1" end="${post.rating*2}">
 									<i class="fa fa-star rating-star" aria-hidden="true" style="color: yellow"></i>
@@ -100,8 +100,8 @@
 							<div><input type="text" placeholder="댓글을 달아주세요!"></div>
 							<div><img src="${contextPath}/resources/images/temp//comment.png" onclick="insertReply(this)"></div>
 						</div>
-						<div class="reply"style="overflow: visible; height: auto;">
-							<c:set var="plag" value="0"/>
+						<!-- <div class="reply"style="overflow: visible; height: auto;"> -->
+							<!-- <c:set var="plag" value="0"/>
 							<c:forEach items="${listReply}" var="reply">
 								<c:choose>
 									<c:when test="${reply.parentReply != 0}">
@@ -160,8 +160,8 @@
 									</div>
 								</div>
 								
-							</c:forEach>
-				</div>
+							</c:forEach> -->
+						<!-- </div> -->
 			</c:when>
 		</c:choose>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -171,6 +171,7 @@
 			const memberNo = ${loginMember.memberNo }
 		</c:if>
 		const postContent = "${post.postContent}";
+		const postNo = ${post.postNo};
 	</script>
 	<!-- <script src="${contextPath}/resources/js/post/post.js"></script> -->
 	<script src="${contextPath}/resources/js/post/postView.js"></script>

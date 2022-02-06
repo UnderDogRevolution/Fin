@@ -377,3 +377,197 @@ text = text.replace(userRegExp, function(target){
     }
 })
 detailPostTextarea.innerHTML = text
+
+function selectReply(postNo){
+    const replyDiv = document.createElement("div");
+	replyDiv.className = "reply"
+    replyDiv.setAttribute("style", "overflow: visible; height: auto;")
+	$.ajax({
+		url: contextPath + "/reply/select",
+		data: {"postNo": postNo},
+		type: "POST",
+		dataType: "JSON",
+		async : false,
+		success: function (replyList) {
+			console.log(replyList);
+			let plag = 0;
+			for(const items of replyList){
+				const replyDiv1 = document.createElement("div");
+				
+				if(items.parentReply == 0){
+					replyDiv1.className = "parent-reply"
+					if(plag > 0){
+						plag = 0;
+					}
+				}else{
+					replyDiv1.className = "child-reply"
+					replyDiv1.setAttribute("style", "display: none;")
+					if(plag == 0){
+						const lineReply = document.createElement("div");
+						lineReply.className = "line-reply";
+						lineReply.innerText = "──── 답글";
+						lineReply.addEventListener("click", function(e){
+							let tempE = this.nextElementSibling
+							while(tempE.className == "child-reply"){
+								if(tempE.style.display == "none"){
+									tempE.style.display = "flex";
+								}else if(tempE.style.display =="flex"){
+									tempE.style.display = "none";
+								}
+								tempE = tempE.nextElementSibling;
+							}
+						})
+						replyDiv.append(lineReply);
+						plag ++;
+					}
+					
+				}
+				
+
+				const profileDiv = document.createElement("div");
+				profileDiv.className = "profile-reply"
+				const profile = document.createElement("img");
+				if(items.listProfile[0]){
+					profile.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
+				}else{
+					profile.setAttribute("src", contextPath +"/resources/images/common/defaultProfileImage.png");
+				}
+				profileDiv.append(profile)
+
+				const userInfo = document.createElement("div")
+				userInfo.className ="user-reply";
+				const userInfoDiv1 = document.createElement("div")
+				userInfoDiv1.innerText = items.memberName;
+				userInfo.append(userInfoDiv1)
+				const userInfoDiv2 = document.createElement("div")
+				userInfoDiv2.innerText = items.replyCreateDate;
+				userInfo.append(userInfoDiv2);
+
+				const contentReply = document.createElement("div");
+				contentReply.className = "content-reply"
+
+				const textReply = document.createElement("div");
+				textReply.className = "text-reply";
+
+				const contentDiv = document.createElement("div");
+				contentReply.innerText = items.replyContent;
+
+				const dots = document.createElement("img");
+				dots.setAttribute("src", contextPath + "/resources/images/temp/dots.png")
+				dots.setAttribute("id", "dropdownMenuOffset")
+				dots.setAttribute("data-bs-toggle", "dropdown")
+				dots.setAttribute("aria-expanded", "false")
+				dots.setAttribute("data-bs-offset", "-40,-10")
+
+				const dropUl = document.createElement("ul");
+				dropUl.setAttribute("class", "dropdown-menu")
+				dropUl.setAttribute("aria-labelledby", "dropdownMenuOffset")
+				
+				const dropLi1 = document.createElement("li")
+				const dropLi2 = document.createElement("li")
+				const dropLi3 = document.createElement("li")
+				const a1 = document.createElement("a");
+				const a2 = document.createElement("a");
+				const a3 = document.createElement("a");
+				a1.className = "dropdown-item"
+				a2.className = "dropdown-item"
+				a3.className = "dropdown-item"
+				// a1.setAttribute("href", "#")
+				// a2.setAttribute("href", "#")
+				// a3.setAttribute("href", "#")
+				a1.innerText = "삭제";
+				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
+				a2.innerText = "신고하기";
+				a3.innerText = "로그인해 주세요!";
+				a2.setAttribute("onclick", "report(1, "+items.replyNo+")")
+				dropLi1.append(a1);
+				dropLi2.append(a2);
+				dropLi3.append(a3);
+				if(typeof memberNo != "undefined"){
+					if(items.memberNo = memberNo){
+						dropUl.append(dropLi1);
+						dropUl.append(dropLi2);
+					}
+				}else{
+					dropUl.append(dropLi3);
+
+				}
+				contentDiv.append(dots)
+				contentDiv.append(dropUl)
+
+				textReply.append(contentDiv);
+
+				
+				const constDiv2 = document.createElement("div")
+				const vividPopcorn = document.createElement("img");
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				vividPopcorn.className = "reply-vivid";
+				const whitePopcorn = document.createElement("img");
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				whitePopcorn.className = "reply-white";
+
+				if(items.checkLike == 1){
+					vividPopcorn.setAttribute("style", "width: 20px; height: 20px;")
+					whitePopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+				}else{
+					vividPopcorn.setAttribute("style", "width: 20px; height: 20px; display: none;")
+					whitePopcorn.setAttribute("style", "width: 20px; height: 20px;")
+
+				}
+
+				const likeCount = document.createElement("span")
+				likeCount.setAttribute("style", "opacity: 0.7; font-size: 12px; margin-left: 15px;")
+				likeCount.innerText = items.likeCount;
+				const replyNoSpan = document.createElement("span");
+				replyNoSpan.innerText = items.replyNo;
+				replyNoSpan.style.display = "none";
+				constDiv2.append(vividPopcorn);
+				constDiv2.append(whitePopcorn);
+				constDiv2.append(replyNoSpan);
+				constDiv2.append(likeCount);
+				
+				const constDiv3 = document.createElement("div");
+				constDiv3.setAttribute("style", "margin-left: 12px;");
+				const replyPng = document.createElement("img");
+				replyPng.className = "comment-img"
+				replyPng.setAttribute("src", contextPath + "/resources/images/temp/reply.png");
+				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
+				replyPng.addEventListener("click", function(e){
+					e.stopPropagation();
+					comment(this, items.replyNo)
+				})
+			
+				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다. 그리고 이미지는 focus가 안되기 때문에 이 두 이벤트는 적절하지 않다!
+				if(items.parentReply == 0){
+					constDiv3.append(replyPng);
+				}
+
+				const tempDiv = document.createElement("div")
+				tempDiv.append(constDiv2)
+				tempDiv.append(constDiv3)
+
+				contentReply.append(textReply);
+				contentReply.append(tempDiv);
+
+				replyDiv1.append(profileDiv)
+				replyDiv1.append(userInfo)
+				replyDiv1.append(contentReply)
+				
+				replyDiv.append(replyDiv1)
+				
+			}
+		},
+		error: function (req, status, error) {
+			console.log("ajax 실패");
+			console.log(req.responseText);
+			console.log(status);
+			console.log(error);
+		}
+	})
+
+	return replyDiv
+}
+
+const post = document.getElementsByClassName("post")[0]
+
+post.append(selectReply(postNo));
