@@ -22,10 +22,22 @@
                     </div>
                     <div class="introduce">
                         <div class="nickname">
-                            <span>user01</span>
-                            <a href="#self">프로필변경</a>
+                            <c:choose>
+                            <c:when test="${loginMember.memberNo} == ${memberNo}">
+                            	
+                            	<span>${loginMember.memberName}</span>
+                                <a href="${contextPath}/member/myPage">프로필변경</a>
+                                 <img src="${contextPath}/resources/images/myBoard/png" data-bs-toggle="modal" data-bs-target="#followerList3">
+                            </c:when>
+                            <c:otherwise> 
+                            	<span>${memberName}</span>                          
+                            	<a>팔로우</a>
+                            	<a>메세지 보내기</a>
+                            </c:otherwise>
+                        </c:choose>
+                            
 
-                            <img src="${contextPath}/resources/images/myBoard/png" data-bs-toggle="modal" data-bs-target="#followerList3">
+                           
 
                         </div>
                         <div class="boardCount">
@@ -346,11 +358,11 @@
                             <div class="setting-list-wrap">
                                 <div class="setting-list-item">
 
-                                    <div class="setting-update">
-                                        비밀번호 변경
+                                    <div class="setting-update" >
+                                        <a href="${contextPath}/member/updatePw">비밀번호 변경</a>
                                     </div>
                                     <div class="setting-update">
-                                        문제 신고
+                                        <a href="${contextPath}/member/ask">바라는 점</a>
                                     </div>
                                     <div class="setting-update" data-bs-toggle="modal" data-bs-target="#followerList">
                                         팔로워
@@ -385,7 +397,59 @@
     </main>
 	
 	
+<script>
+$(".save li").on("click", function(){
+         
+	
+	
+	
+        $(".save li").removeClass("active");
+        
+        
+        $(this).addClass("active");
+        
+        
+        
+        
+});
 
+$(".active").on("click", function(){
+	
+    $.ajax({
+
+        url : contextPath + "board1/myBoard/{memberNo}",
+        type : "get",
+        data : {"postNo" : postNo},
+    
+        success : function(pList){
+    
+          
+    
+        },
+    
+        error : function(request, status, error){
+              
+          // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+          if( request.status == 404 ){
+            console.log("ajax 요청 주소가 올바르지 않습니다.");
+    
+          } else if( request.status == 500){
+              console.log("서버 내부 에러 발생");
+              console.log(request.responseText);
+          }
+       
+        }
+    
+      });
+	
+	
+	
+	
+});
+
+
+
+</script>
 
 </body>
 </html>

@@ -12,6 +12,7 @@ import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 @Repository
@@ -60,8 +61,8 @@ public class PostDAO {
 		return sqlSession.insert("postMapper.insertImgList", imgList);
 	}
 
-	public List<Post> selectPostList() {
-		return sqlSession.selectList("postMapper.selectPostList");
+	public List<Post> selectPostList(int memberNo) {
+		return sqlSession.selectList("postMapper.selectPostList", memberNo);
 	}
 
 	public int insertLike(Map<String, Integer> likeMap) {
@@ -74,6 +75,34 @@ public class PostDAO {
 
 	public int deleteLike(Map<String, Integer> likeMap) {
 		return sqlSession.insert("postMapper.deleteLike", likeMap);
+	}
+
+	public int plusLike(int postNo) {
+		return sqlSession.update("postMapper.plusLike", postNo);
+	}
+
+	public int minusLike(int postNo) {
+		return sqlSession.update("postMapper.minusLike", postNo);
+	}
+
+	public int deletePost(int postNo) {
+		return sqlSession.update("postMapper.deletePost", postNo);
+	}
+
+	public Post selectPostOne(Post post) {
+		return sqlSession.selectOne("postMapper.selectPostOne", post);
+	}
+
+	public int insertReport(Report report) {
+		return sqlSession.insert("postMapper.insertReport", report);
+	}
+
+	public int checkMemberNo(String memberName) {
+		return sqlSession.selectOne("postMapper.checkMemberNo", memberName);
+	}
+
+	public int searchMemberNo(String memberName) {
+		return sqlSession.selectOne("postMapper.searchMemberNo", memberName);
 	}
 
 

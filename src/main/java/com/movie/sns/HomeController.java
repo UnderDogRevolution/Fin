@@ -1,6 +1,8 @@
 package com.movie.sns;
 
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;

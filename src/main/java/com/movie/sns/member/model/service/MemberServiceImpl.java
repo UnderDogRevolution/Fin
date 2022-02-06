@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.movie.sns.member.controller.EmailController;
 import com.movie.sns.member.model.dao.MemberDAO;
+import com.movie.sns.member.model.dao.MemberDAO2;
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.member.model.vo.MemberAuth;
 
@@ -24,6 +26,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	private MemberDAO dao;
+	
+	@Autowired
+	private MemberDAO2 dao2;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -39,7 +44,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		String encPw = encoder.encode(member.getMemberPw());
 		
+		
+		// 로그인 회원의 정보 담기
 		Member loginMember = dao.login(member.getMemberEmail());
+		
+		
+		// 로그인 회원 프로필 이미지 담기
+		Image loginMemberProfile = dao.selectProfileImage(loginMember.getMemberNo()); 
+		
+		loginMember.setProfileImage( loginMemberProfile );
+		
+		
+		// 로그인 회원 팔로워, 팔로잉 리스트 담기
+		
 		
 		
 		if(loginMember != null && encoder.matches(member.getMemberPw(), loginMember.getMemberPw()) ) {
@@ -53,13 +70,6 @@ public class MemberServiceImpl implements MemberService{
 			
 		}
 		
-		/*
-		if(loginMember != null && member.getMemberPw().equals( loginMember.getMemberPw() ) ) {
-			loginMember.setMemberPw(null);
-		}else {
-			loginMember = null;
-		}
-		*/
 		
 		return loginMember;
 		
@@ -90,7 +100,27 @@ public class MemberServiceImpl implements MemberService{
 		// 암호화 비밀번호 세팅
 		member.setMemberPw(encPw);
 		
-		return dao.signUp(member);
+		// 회원 가입 수행 후 memberNo를 반환받아온다. 실패하면 0 반환받아온다.
+		int result = dao.signUp(member);
+		
+		// 회원 가입 성공 시 memberNo를 이용해 기본 프로필 이미지 삽입하기
+		if(result > 0) {
+			
+			Image profileImage = new Image();
+			
+			// 기본 프로필 이미지 삽입
+			profileImage.setImgPath("/resources/images/common/");
+			profileImage.setImgName("defaultProfileImage.png"); 
+			profileImage.setImgOriginal("defaultProfileImage.png");
+			profileImage.setMemberNo(result);
+			
+			System.out.println("프로필 이미지 정보" + profileImage);
+			
+			result = dao.insertProfileImage(profileImage);
+			
+		}
+		
+		return result;
 	}
 
 

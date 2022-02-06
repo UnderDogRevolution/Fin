@@ -3,8 +3,8 @@ package com.movie.sns.member.model.vo;
 public class Image {
 	private int imgNo;	//이미지 번호
 	private String imgPath; //이미지 경로
-	private String imgName;	//이미지 이름
-	private String imgOriginal;	//이미지 원본
+	private String imgName;	//이미지 새 이름
+	private String imgOriginal;	//이미지 원본 이름
 	private int imgLevel;	//이미지 레벨
 	private int memberNo; //사용자 번호
 	

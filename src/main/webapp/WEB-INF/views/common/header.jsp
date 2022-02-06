@@ -51,7 +51,7 @@
 						</form>
 
 					</li>
-					<li><a href=""> <i class="fas fa-home"
+					<li><a href="${contextPath}"> <i class="fas fa-home"
 							style="padding-top: 5px;"></i></a></li>
 					<li><i class="fas fa-bell noticewrap"
 						style="padding-top: 5px;">
@@ -137,13 +137,21 @@
 
 					<li><i class="far fa-edit boardwrap" style="padding-top: 5px;">
 							<div class="boardMenu">
-
-								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Write()">
-									<a href="" onclick="return false;" > 피드 </a>
-								</div>
-								<div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Review()">
-									<a href="" onclick="return false;" > 리뷰 </a>
-								</div>
+                                <c:choose>
+                                    <c:when test="${loginMember != null}">
+                                        <div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Write()">
+                                            <a href="" onclick="return false;" > 피드 </a>
+                                        </div>
+                                        <div data-bs-toggle="modal" data-bs-target="#postModal" onclick="Review()">
+                                            <a href="" onclick="return false;" > 리뷰 </a>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div>
+                                            <a> Please Login!</a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
 
 							</div>
 
@@ -155,13 +163,13 @@
 
 
 					<li><i class="namewrap"> <img class="myImg"
-							src="${contextPath}/resources/images/header/user.png" alt="">
+							src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" alt="">
 							<div class="myclick">
 								<!-- 내영역 -->
 								<ul>
 
 									<li><a href="">
-											<div class="myclick-li">${loginMember.memberName}</div>
+											<div class="myclick-li">프로필</div>
 									</a></li>
 									<li><a href="">
 											<div class="myclick-li">저장</div>
@@ -169,7 +177,7 @@
 									<li><a href="${contextPath}/member/myPage">
 											<div class="myclick-li">설정</div>
 									</a></li>
-									<li><a href="">
+									<li><a href="${contextPath}/member/logout">
 											<div class="myclick-li">로그아웃</div>
 									</a></li>
 

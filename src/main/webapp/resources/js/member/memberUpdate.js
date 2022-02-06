@@ -2,27 +2,28 @@ const updateCheckObj = {
 	"nickName": true,
 }
 
-// 닉네임 유효성 검사 ( + 중복 확인 )
-$("#nickInput").on("input", function() {
 
-	const memberNickName = $(this).val(); // 입력 받은 이름
+const existingNickName = document.getElementById("nickInput").value;
+
+//  닉네임 중복 검사
+document.getElementById("nickInput").addEventListener("change", (e) => {
+	
+	const memberNickName = e.target.value;
 	const regExp = /^[a-zA-Z가-힣\d]{2,20}$/;
-	const checkNickName = $(this).next();
-	const inputNickName = $(this);
 
-	if (memberNickName.length == 0) { // 빈칸
-		$(this).removeAttr("class", "unique");
-		$(this).removeAttr("class", "duplication");
-		checkNickName.html("");
-		updateCheckObj.nickName = false;
+ 	if(memberNickName == existingNickName){
+        updateCheckObj.nickInput = true;
 
-	} else if (regExp.test(memberNickName)) {
+	}else if (memberNickName.length == 0) { // 빈칸
+		updateCheckObj.nickInput = false;
+
+	}else if (regExp.test(memberNickName)) {
 
 		// 유효한 경우 중복 검사
 		$.ajax({
 
 			url: "nickNameDupCheck",
-			data: { "nickInput": nickInput },
+			data: { "memberNickName": memberNickName },
 			type: "GET",
 
 			success: function(result) {
@@ -31,22 +32,14 @@ $("#nickInput").on("input", function() {
 
 				if (result == 0) { // 닉네임 사용 가능
 
-					inputNickName.removeAttr("class", "duplication");
-					inputNickName.addClass("unique");
-					checkNickName.html(validIcon);
-					updateCheckObj.nickName = true;
+					updateCheckObj.nickInput = true;
 					console.log("사용가능");
 
 				} else { // 닉네임 중복
 
-					inputNickName.removeAttr("class", "unique");
-					inputNickName.addClass("duplication");
-					checkNickName.html(invalidIcon);
-					updateCheckObj.nickName = false;
+					updateCheckObj.nickInput = false;
 					console.log("사용불가능");
-
 				}
-
 			},
 
 			error: function(request, status, error) {
@@ -72,12 +65,12 @@ $("#nickInput").on("input", function() {
 
 
 	} else { // 유효하지 않은 경우
-		checkNickName.html(invalidIcon);
+		alert("유효하지 않은 닉네임입니다.");;
 		updateCheckObj.nickName = false;
 	}
 });
 
-
+//유효기능 함수
 function memberUpdateValidate() {
 
 	for (key in updateCheckObj) {
@@ -94,7 +87,7 @@ function memberUpdateValidate() {
 
 			document.getElementById(key).focus();
 
-			return false; // submit 이벤트 제거
+			return false;
 
 		}
 
@@ -102,7 +95,66 @@ function memberUpdateValidate() {
 
 }
 
+//이미지 수정 부분
+
+$(function() {
+	$(".memberImg").on("click", function() {
+		var index = $(".memberImg").index(this);
+
+		$("[type=file]").eq(index).click();
+	});
+
+});
 
 
+// 백업용 클론
+const fileClone = {}; 
 
+
+// 삭제 배열 순서
+const deleteImages= [];
+
+
+// 미리 보기가 가능하도록 하는 함수
+function loadImg(input, num) {
+
+	if (input.files && input.files[0]) {
+
+		fileClone[num] = $(input).clone(); // 백업 객체에 복제 추가
+		
+		//배열에 num값과 같은 번호가 존재하는 확인
+		if(deleteImages.indexOf(num) != -1 ){ // 존재하는 경우
+
+			// 배열에서 지정된 개수 만큼 요소 삭제 
+			deleteImages.splice( deleteImages.indexOf(num), 1);
+		} 
+
+		var reader = new FileReader();
+		reader.readAsDataURL(input.files[0]);
+		reader.onload = function(e) {
+			$(".memberImg").eq(num).children("img").attr("src", e.target.result);
+		}
+
+
+	} else{
+		console.log("취소 클릭");
+
+		$(input).before(fileClone[num].clone());
+
+		$(input).remove(); 
+
+	}
+}
+
+function deleteImg(){
+
+	$('#img').attr("src","${contextPath}/resources/images/member/defaultProfileImage.png");
+	//$('#img').attr('${Image.ImgName}','defaultProfileImage.png');
+	//$('#img').attr('${Image.ImgOriginal}','defaultProfileImage.png');
+
+ /*Image.ImgPath=("/resources/images/member/");
+ Image.ImgName=("defaultProfileImage.png");
+ Image.ImgOriginal=("defaultProfileImage.png");*/
+ 
+}
 

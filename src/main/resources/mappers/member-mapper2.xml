@@ -34,9 +34,19 @@
 	 	<result property="memberStatusCode" 	column="STATUS_CD"/>
 	 	<result property="memberGradeCode" 	 	column="GRADE_CD"/>
 	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
-	 	<result property="memberContent" 	 	column="MEMBER_CONTENT"/>
 	 
 	 </resultMap>
+	 
+	 
+	 <resultMap type="com.movie.sns.member.model.vo.Image" id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
 	 
 	 
 	 
@@ -93,6 +103,22 @@
 	 	DELETE FROM MEMBER_AUTH
 	 	WHERE MEMBER_EMAIL = #{memberEmail}
 	 </delete>
+	 
+	 
+	 <!-- 회원 가입 시 기본 이미지 삽입하기 -->
+	 <insert id="insertProfileImage">
+	 	INSERT INTO MEMBER_IMG VALUES
+		(SEQ_MEMBER_IMG_NO.NEXTVAL, #{imgPath}, #{imgName}, DEFAULT, #{imgOriginal}, #{memberNo})
+	 </insert>
+	 
+	 
+	 <!-- 로그인 시 회원 프로필 사진 가져오기 -->
+	 <select id="selectProfileImage" resultMap="Image_rm">
+	 	SELECT MEMBER_IMG_PATH, MEMBER_IMG_NM, MEMBER_NO
+		FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	 </select>
+	 
 	
 
 </mapper>

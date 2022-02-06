@@ -17,6 +17,7 @@ import com.movie.sns.post.model.dao.PostDAO;
 import com.movie.sns.post.model.vo.Movie;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
+import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
 
 @Service
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
 	public int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath) {
 		
 		Post post = new Post();
-		post.setMemberNo(1);
+		post.setMemberNo((int)postVO.get("memberNo"));
 		post.setPostContent((String)postVO.get("postContent"));
 		post.setCheckUsePoster((int)postVO.get("checkUsePoster"));
 		
@@ -130,8 +131,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> selectPostList() {
-		return dao.selectPostList();
+	public List<Post> selectPostList(int memberNo) {
+		return dao.selectPostList(memberNo);
 	}
 	
 	@Transactional
@@ -143,6 +144,7 @@ public class PostServiceImpl implements PostService {
 		int result = dao.checkDupLike(likeMap);
 		if(result == 0) {
 			result = dao.insertLike(likeMap);
+			result = dao.plusLike(postNo);
 		}
 		return result;
 	}
@@ -155,9 +157,39 @@ public class PostServiceImpl implements PostService {
 		int result = dao.checkDupLike(likeMap);
 		if(result == 1) {
 			result = dao.deleteLike(likeMap);
+			result = dao.minusLike(postNo);
 		}
 		return result;
 	}
+
+	@Override
+	public int deletePost(int postNo) {
+		return dao.deletePost(postNo);
+	}
+
+	@Override
+	public Post selectPostOne(Post post) {
+		return dao.selectPostOne(post);
+	}
+
+	@Override
+	public int insertReport(Report report) {
+		return dao.insertReport(report);
+	}
+	
+	@Transactional
+	@Override
+	public int searchMemberNo(String memberName) {
+		int result = dao.checkMemberNo(memberName);
+		if(result >0) {
+			result = dao.searchMemberNo(memberName);
+		}
+		
+		
+		return result;
+	}
+	
+	
 	
 	
 	

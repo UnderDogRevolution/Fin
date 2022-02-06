@@ -1,15 +1,19 @@
 package com.movie.sns.member.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +26,6 @@ import com.movie.sns.common.RandomNumber;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.vo.Member;
-import com.movie.sns.member.model.vo.MemberAuth;
 
 
 // 로그인필터
@@ -34,7 +37,6 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
-	
 	
 	// 로그인 화면 전환
 	@RequestMapping(value="login", method=RequestMethod.GET)
@@ -74,7 +76,7 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
-			path = "redirect:/main";
+			path = "redirect:/";
 			
 			
 		}else {
@@ -299,7 +301,12 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
 }
+
+
+
+
+
+
+
+

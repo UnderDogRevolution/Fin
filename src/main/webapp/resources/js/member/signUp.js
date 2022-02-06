@@ -8,6 +8,8 @@ const validIcon = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" x
 const invalidIcon = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M7.5 1.25C4.04375 1.25 1.25 4.04375 1.25 7.5C1.25 10.9563 4.04375 13.75 7.5 13.75C10.9563 13.75 13.75 10.9563 13.75 7.5C13.75 4.04375 10.9563 1.25 7.5 1.25ZM10.625 9.74375L9.74375 10.625L7.5 8.38125L5.25625 10.625L4.375 9.74375L6.61875 7.5L4.375 5.25625L5.25625 4.375L7.5 6.61875L9.74375 4.375L10.625 5.25625L8.38125 7.5L10.625 9.74375Z" fill="#F82F2F"/> </svg>';
 
 
+
+
 // 회원가입 창 입력값 검사용 객체
 const signUpCheckObj = {
 
@@ -31,7 +33,7 @@ function signUpValidate(){
   // 이걸 쉽게 쓰는 방법은..??
   if(
     signUpCheckObj.email == true &&
-    signUpCheckObj.emailCode == true &&
+    // signUpCheckObj.emailCode == true &&
     signUpCheckObj.password == true &&
     signUpCheckObj.password2 == true &&
     signUpCheckObj.nickName == true &&
@@ -220,7 +222,8 @@ function checkAuth(){
       if(result > 0){
         console.log("인증 성공");
         $("#emailCheck-btn").next().html(validIcon);
-        // 이메일 입력창 비활성화
+        
+        // 이메일 입력창 읽기전용으로 변경
         $("#memberEmail").attr("readonly", true);
 
         $("#emailCheck-btn").text("인증 완료");
@@ -234,6 +237,7 @@ function checkAuth(){
         // deleteAuth();
 
         signUpCheckObj.emailCode = true;
+
 
       }else{
         console.log("인증번호 불일치");
@@ -252,6 +256,7 @@ function checkAuth(){
         div.after(resendBtn);
 
         signUpCheckObj.emailCode = false;
+
       }
 
     },
@@ -267,11 +272,15 @@ function checkAuth(){
           console.log(request.responseText);
       }
    
+    },
+
+    complete : function(){
+
+      signUpValidate();
+
     }
 
   });
-
-  signUpValidate();
 
 }
 
@@ -365,7 +374,8 @@ $("#memberEmail").on("input", function(){
 
       url : "emailDupCheck",                         
       data : {"memberEmail" : memberEmail},               
-      type : "GET",                             
+      type : "GET",
+      async: false,                             
 
       success : function(result){
 

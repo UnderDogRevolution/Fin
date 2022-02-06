@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="replyMapper">
+	<insert id="insertReply">
+		INSERT INTO REPLY VALUES(SEQ_REPLY_NO.NEXTVAL, #{replyContent}, DEFAULT, NULL, DEFAULT, #{postNo}, #{memberNo}, 600)
+	</insert>
+	
+	<resultMap type="Reply" id="reply_rm">
+		<id property="replyNo" column="REPLY_NO"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="replyCreateDate" column="REPLY_CREATE_DT"/>
+		<result property="parentReply" column="PARENT_REPLY"/>
+		<result property="likeCount" column="LIKE_COUNT"/>
+		<result property="postNo" column="POST_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberName" column="MEMBER_NM"/>
+		<result property="replyStatusCode" column="REPLY_STATUS_CD"/>
+		<result property="replyStatusName" column="REPLY_STATUS_NM"/>
+
+		<result property="checkLike" column="CHECK_LIKE"/>
+		
+		<collection property="listProfile" column="MEMBER_NO"
+			javaType="java.util.ArrayList" ofType="Image" select="selectProfileList"/>
+	</resultMap>
+	
+	<resultMap type="Image" id="profile_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO"/>
+		<result property="imgPath" column="MEMBER_IMG_PATH"/>
+		<result property="imgName" column="MEMBER_IMG_NM"/>
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL"/>
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	<select id="selectProfileList" resultMap="profile_rm">
+		SELECT * FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectReply" resultMap="reply_rm">
+	SELECT LEVEL, R.* FROM 
+			(
+			SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
+			<if test="memberNo > 0">
+		       		, (SELECT COUNT(*) FROM REPLY_LIKE WHERE REPLY_NO = A.REPLY_NO AND MEMBER_NO = #{memberNo} ) CHECK_LIKE 
+	       </if>
+			       
+			FROM REPLY A
+			JOIN MEMBER USING(MEMBER_NO)
+			WHERE POST_NO = #{postNo} 
+			AND REPLY_STATUS_CD = 600
+			) R
+	START WITH PARENT_REPLY IS NULL
+	CONNECT BY PRIOR REPLY_NO = PARENT_REPLY
+	</select>
+	
+	<insert id="insertComment">
+		INSERT INTO REPLY VALUES(SEQ_REPLY_NO.NEXTVAL, #{replyContent}, DEFAULT, #{parentReply}, DEFAULT, #{postNo}, #{memberNo}, 600)
+	</insert>
+
+	<insert id="insertReplyLike">
+		INSERT INTO REPLY_LIKE VALUES(#{replyNo}, #{memberNo}, DEFAULT)
+	</insert>
+	
+	<delete id="deleteReplyLike">
+		DELETE FROM REPLY_LIKE WHERE REPLY_NO = #{replyNo} AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<select id="checkDupReplyLike" resultType="_int">
+		SELECT COUNT(*) FROM REPLY_LIKE WHERE REPLY_NO = #{replyNo} AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="plusReplyLike">
+		UPDATE REPLY SET LIKE_COUNT = LIKE_COUNT + 1 WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<update id="minusReplyLike">
+		UPDATE REPLY SET LIKE_COUNT = LIKE_COUNT - 1 WHERE REPLY_NO = #{replyNo}
+	</update>
+
+	<update id="deleteReply">
+		UPDATE REPLY SET REPLY_STATUS_CD = 601 WHERE REPLY_NO = #{replyNo}
+	</update>
+</mapper>
