@@ -60,9 +60,8 @@
 
 
 	<resultMap type="ChatFriend" id="chatFriend_rm">
-		<id property="follower" column="FOLLOWER" />
+		<id property="toUser" column="TO_USER" />
 		<result property="memberNo" column="MEMBER_NO" />
-		<result property="statusNo" column="FOLLOWING_STATUS_CD" />
 		<result property="imgPath" column="MEMBER_IMG_PATH" />
 		<result property="imgNm" column="MEMBER_IMG_NM" />
 		<result property="memberNm" column="MEMBER_NM" />
@@ -92,32 +91,37 @@
 	<!-- 채팅방 목록 조회 (상관커리) -->
 	<select id="chatRoomList" resultMap="chatRoom_rm">
 
-		SELECT CHAT_ROOM_NO,
-		MEMBER_NM, MEMBER_NO,
-		(SELECT MEMBER_NO
-		FROM CHAT_ROOM_JOIN J WHERE
-		J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
-		AND
-		MEMBER_NO != #{memberNo})
-		CHAT_FR_NO,
-		(SELECT MEMBER_NM FROM MEMBER A
-		WHERE A.MEMBER_NO =
-		(SELECT
-		MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
-		J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
-		AND MEMBER_NO != #{memberNo})
-		)
-		CHAT_FR_NM
+	SELECT CHAT_ROOM_NO,
+	MEMBER_NM, MEMBER_NO,
+	(SELECT MEMBER_NO
+	FROM
+	CHAT_ROOM_JOIN J WHERE
+	J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
+	AND
+	MEMBER_NO !=
+	#{memberNo})
+	CHAT_FR_NO,
+	(SELECT MEMBER_NM FROM MEMBER A
+	WHERE A.MEMBER_NO
+	=
+	(SELECT
+	MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
+	J.CHAT_ROOM_NO =
+	R.CHAT_ROOM_NO
+	AND MEMBER_NO != #{memberNo})
+	)
+	CHAT_FR_NM
 
-		FROM CHAT_ROOM_JOIN R
-		JOIN
-		MEMBER B USING(MEMBER_NO)
-		WHERE MEMBER_NO =
-		#{memberNo}
-		AND
-		R.STATUS_CD
-		= 1
-		ORDER BY 1 DESC
+	FROM
+	CHAT_ROOM_JOIN R
+	JOIN
+	MEMBER B USING(MEMBER_NO)
+	WHERE MEMBER_NO =
+	#{memberNo}
+	AND
+	R.STATUS_CD
+	= 1
+	ORDER BY 1 DESC
 	</select>
 
 
@@ -184,15 +188,16 @@
 
 	<!-- 팔로워 조회 -->
 	<select id="searchFollower" resultMap="chatFriend_rm">
-		SELECT FOLLOWER,
+		SELECT TO_USER,
 		MEMBER.MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM,
-		FOLLOWER.MEMBER_NO
-		FROM FOLLOWER
-		JOIN MEMBER ON (FOLLOWER = MEMBER.MEMBER_NO)
+		FOLLOW.MEMBER_NO
+		FROM
+		FOLLOW
+		JOIN MEMBER ON (FOLLOW.TO_USER = MEMBER.MEMBER_NO)
 		JOIN
-		MEMBER_IMG ON (FOLLOWER = MEMBER_IMG.MEMBER_NO)
+		MEMBER_IMG ON (FOLLOW.TO_USER = MEMBER_IMG.MEMBER_NO)
 		WHERE
-		FOLLOWER.MEMBER_NO = #{memberNo}
+		FOLLOW.MEMBER_NO = #{memberNo}
 
 	</select>
 
@@ -258,7 +263,7 @@
 		INSERT INTO CHAT_ROOM_JOIN VALUES(#{friendNo},
 		SEQ_CHAT_ROOM_NO.CURRVAL ,2)
 	</insert>
-	
+
 	<!-- 메세지 받을시 상태값 변경 -->
 	<update id="updateJoinUp">
 		UPDATE CHAT_ROOM_JOIN SET STATUS_CD = 1
@@ -271,11 +276,11 @@
 	<!-- 친구 이미지 , 이름세팅하기 -->
 	<select id="selectFriend" resultMap="chatRoom_rm">
 
-        SELECT CHAT_ROOM_NO , MEMBER_NM, MEMBER_IMG_PATH , MEMBER_IMG_NM
-        FROM CHAT_ROOM_JOIN
-        JOIN MEMBER USING(MEMBER_NO)
-        JOIN MEMBER_IMG USING(MEMBER_NO)
-        WHERE MEMBER_NO = #{friendNo}
-        AND CHAT_ROOM_NO = #{chatRoomNo}
+		SELECT CHAT_ROOM_NO , MEMBER_NM, MEMBER_IMG_PATH , MEMBER_IMG_NM
+		FROM CHAT_ROOM_JOIN
+		JOIN MEMBER USING(MEMBER_NO)
+		JOIN MEMBER_IMG USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{friendNo}
+		AND CHAT_ROOM_NO = #{chatRoomNo}
 	</select>
 </mapper>

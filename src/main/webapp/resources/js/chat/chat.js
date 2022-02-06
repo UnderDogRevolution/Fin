@@ -65,7 +65,6 @@ function selectchatting(frNo, memberNo, chatRoomNo,path) {
 				console.log(chatRoomNo);
 				console.log(room.chatRoomNo);
 				if (chatRoomNo == room.chatRoomNo) {
-
 					const chatListWrap = $(".chatList-wrap");
 					const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ','+path+')">');
 					const img = $('<img class="MemberImg">');
@@ -115,7 +114,7 @@ $('#MessageModal').on('show.bs.modal', function(event) {
 				const img = $("<img>");
 				const namewrap = $("<div class = 'friendsName-wrap'>");
 				const msgwrap = $("<div class = 'messagebtn-wrap'>");
-				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.follower + ")'>");
+				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.toUser + ")'>");
 				btn.text("보내기");
 				img.attr("src", contextPath + fr.imgPath + fr.imgNm);
 				namewrap.text(fr.memberNm);
@@ -179,9 +178,9 @@ function goChatting(friendNo) {
 				$("#MessageModal").modal('hide');
 				searchChatting(result.chatRoom.chatRoomNo,friendNo,path)
 			} else {
-				const path =  contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm;
+					const path1 = "'" + contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm + "'";
 				$("#MessageModal").modal('hide');
-				searchChatting(result.chatRoom.chatRoomNo,friendNo,path)
+				searchChatting(result.chatRoom.chatRoomNo,friendNo,path1)
 
 			}
 		},
@@ -559,7 +558,8 @@ chattingSock.onmessage = function(e) {
 
 				} else if (result == 2) {
 					if (memberNo != obj.memberNo) {
-						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo,obj.path)
+						const path1 = "'"+obj.path+"'";
+						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo,path1)
 
 					}
 
