@@ -14,6 +14,7 @@ public class GlobalExceptionHandler {
 	
 	private String path = "common/errorPage";
 	
+	// 만일 이렇게 설정하면 NoHandlerFoundException 발생 시 밑에 핸들러까지 총 2번 처리되는건가??
 	
 	// 404 에러 발생 시
 	// 404 에러는 dispatcherServlet에서 처리하므로 web.xml 파일 수정한 뒤 메서드 설정해야함 
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
 		model.addAttribute("errorCode", "404");
 		model.addAttribute("errorMessage", "[ Page Not Found ]");
 		
-		e.printStackTrace();
+		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
 		
 		return path;
 	}
@@ -40,8 +41,7 @@ public class GlobalExceptionHandler {
 		model.addAttribute("errorCode", "500");
 		model.addAttribute("errorMessage", "[ Server Error ]");
 		
-		System.out.println("==========" + e.getClass().getSimpleName() + "==========");
-		e.printStackTrace();
+		System.out.println("==========" + e.getClass().getSimpleName() + "==========\n");
 		
 		return path;
 	}
