@@ -37,7 +37,11 @@ function revealPost(){
 				const divHeader1 = document.createElement("div")
 				const imgHeader1 = document.createElement("img")
 				imgHeader1.className = "profile-img";
-				imgHeader1.setAttribute("src", contextPath + "/resources/images/temp/raraland.jpg");
+				if(items.listProfile[0]){
+					imgHeader1.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
+				}else{
+					imgHeader1.setAttribute("src", contextPath +"/resources/images/common/defaultProfileImage.png");
+				}
 				divHeader1.append(imgHeader1);
 				const spanHeader1 = document.createElement("span")
 				spanHeader1.innerText = items.memberName;
@@ -268,9 +272,7 @@ function revealPost(){
 						divContent3.append(iContent9);
 						divContent3.append(iContent10);
 						divContent3.append(spanContent1);
-						if(items.rating != null){
-							postContent.append(divContent3)
-						}
+						
 					}
 
 				}
@@ -279,6 +281,9 @@ function revealPost(){
 				divContent2.innerHTML = items.postContent;
 				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
+				if(items.rating != null){
+					postContent.append(divContent3)
+				}
 				// const divContent4 = document.createElement("div")
 				// divContent4.className = "text-count";
 				const divContent5 = document.createElement("div")

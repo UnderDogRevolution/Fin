@@ -109,6 +109,9 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.textarea-box:hover{
+    background-color: #38383a;
+}
 .textarea-box > textarea{
     margin-top: 10px;
     margin-left: 18px;
