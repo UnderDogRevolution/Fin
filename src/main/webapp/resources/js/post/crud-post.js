@@ -72,7 +72,7 @@ let movie;
 const moviedbInput = document.getElementsByClassName("moviedb-input")[0];
 const searchResult2 = document.getElementsByClassName("search-result")[0];
 const textareaBox = document.getElementsByClassName("insert-container-textarea")[0];
-const textCount = document.getElementsByClassName("text-count")[0];
+// const textCount = document.getElementsByClassName("text-count")[0];
 const postImg = document.getElementsByClassName("post-img")[0];
 const reviewTitle = document.getElementsByClassName("modal-review-title")[0];
 const starInput = document.getElementsByClassName("rating")[0];
@@ -88,7 +88,7 @@ function Write(){
 	searchMovie.style.display = "none";	
 	
 	textareaBox.style.display = "block";
-	textCount.style.display = "block";
+	// textCount.style.display = "block";
 	postImg.style.display = "block";
 
 	postSubmit.style.display = "inline";
@@ -101,7 +101,7 @@ function Review(){
 	moviedbInput.style.display = "flex";	
 	searchResult2.style.display = "flex";	
 	textareaBox.style.display = "none";
-	textCount.style.display = "none";
+	// textCount.style.display = "none";
 	postImg.style.display = "none";
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
@@ -326,12 +326,12 @@ const observer = new MutationObserver(mutations => {
                  if(mutation.addedNodes[i] != null){
 
                     // console.log(mutation.addedNodes);
-                    // console.log(mutation.addedNodes[i].innerText);
+                   
                     if(mutation.removedNodes[i].innerText != mutation.addedNodes[i].innerText){
                         let tagName = mutation.addedNodes[i].innerText;
                         // console.log(mutation.addedNodes[i].innerText.indexOf('#'));
                         if(  tagName != null && tagName.length >0 ){
-
+                            // console.log(mutation.addedNodes[i]);
                             if(tagName.indexOf('#') > -1){
                                 tagName = tagName.replace('#', "");
                                 $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
@@ -345,7 +345,7 @@ const observer = new MutationObserver(mutations => {
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
                                                 items2.addEventListener("click", function(){
-                                                    attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                    mutation.addedNodes[i].innerText = items2.innerText;
                                                     inputTextarea.value = inputDiv.innerText;
                                                 })
                                             }
@@ -373,7 +373,7 @@ const observer = new MutationObserver(mutations => {
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){
-                                                        attachTag[attachTag.length-1].innerText = items2.innerText;
+                                                        mutation.addedNodes[i].innerText = items2.innerText;
                                                         inputTextarea.value = inputDiv.innerText;
                                                     })
                                                 }
@@ -416,7 +416,12 @@ observer.observe(inputDiv, config);
 function postValidate(){
     if(typeof memberNo == "undefined"){
         alert("로그인 해주세요!")
-    }else{
+        return;
+    }
+    if(inputTextarea.value.trim().length == 0){
+        alert("내용을 입력해주세요!")
+        return;
+    }
 
         const rating = document.getElementsByClassName("rating-value")[0].innerText
         if(movie != null){
@@ -445,7 +450,7 @@ function postValidate(){
             postVO.checkUsePoster = 0;
         }
         
-
+        
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
         postVO.movie = movie;
@@ -482,7 +487,7 @@ function postValidate(){
             }
 
         })
-    }
+    
 }
 
 // star rating

@@ -58,6 +58,13 @@ public class PostContoller {
 		
 		return new Gson().toJson(tagList);
 	}
+	@RequestMapping(value="searchMemberNo", method = RequestMethod.POST)
+	@ResponseBody
+	public int searchMemberNo(String memberName) {
+		int memberNo = service.searchMemberNo(memberName);
+		return memberNo;
+	}
+
 	@RequestMapping(value="insert", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public int postInsert(@RequestPart(value = "key") Map<String, Object> postVO,

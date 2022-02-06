@@ -177,6 +177,18 @@ public class PostServiceImpl implements PostService {
 		return dao.insertReport(report);
 	}
 	
+	@Transactional
+	@Override
+	public int searchMemberNo(String memberName) {
+		int result = dao.checkMemberNo(memberName);
+		if(result >0) {
+			result = dao.searchMemberNo(memberName);
+		}
+		
+		
+		return result;
+	}
+	
 	
 	
 	

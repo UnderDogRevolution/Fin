@@ -345,3 +345,35 @@ function report(reportTypeNo, targetPK){
 	})
 
 }
+const detailPostTextarea = document.getElementsByClassName("textarea-box")[0];
+const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
+const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
+let text = postContent.replace(tagRegExp, function(target){
+    return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
+})
+text = text.replace(userRegExp, function(target){
+    let memberNo;
+    $.ajax({
+        url: contextPath + "/post/searchMemberNo",
+        data: {"memberName": target.replace("@", "")},
+        type: "POST",
+        async: false,
+        success: function (result) {
+            if(result >0){
+                memberNo = result;
+            }
+        },
+        error: function (req, status, error) {
+            console.log("ajax 실패");
+            console.log(req.responseText);
+            console.log(status);
+            console.log(error);
+        }
+    })
+    if(memberNo>0){
+        return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+    }else{
+        return target;
+    }
+})
+detailPostTextarea.innerHTML = text

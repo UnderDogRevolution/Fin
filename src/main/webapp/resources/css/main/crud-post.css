@@ -82,7 +82,7 @@
 }
 .search-result{
     width: 80%;
-    background-color: powderblue;
+    background-color: inherit;
     margin: auto; display: flex;
     flex-direction: column;
     margin-bottom: 10px; 

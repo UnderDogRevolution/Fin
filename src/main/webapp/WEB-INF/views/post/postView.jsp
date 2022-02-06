@@ -27,7 +27,16 @@
 			<c:when test="${post.postStatusCode == 500}">
 					<div class="post">
 						<div class="post-header">
-							<div><img class="profile-img" src="${contextPath}/resources/images/temp/raraland.jpg"></div>
+							<div>
+								<c:choose>
+									<c:when test="${post.listProfile[0] != null}">
+										<img class="profile-img" src="${contextPath}${post.listProfile[0].imgPath}${post.listProfile[0].imgName}">
+									</c:when>
+									<c:otherwise>
+										<img class="profile-img" src="${contextPath}/resources/images/common/defaultProfileImage.png">
+									</c:otherwise>
+								</c:choose>
+							</div>
 							<span>${post.memberName}</span><span>${post.createDate}</span>
 							<div class="dropdown me-1 header-dropdown"><img id="dropdownMenuOffset" data-bs-toggle="dropdown"
 									aria-expanded="false" data-bs-offset="-40,-10" src="${contextPath}/resources/images/temp/dots.png">
@@ -161,6 +170,7 @@
 		<c:if test="${loginMember.memberNo != null}">
 			const memberNo = ${loginMember.memberNo }
 		</c:if>
+		const postContent = "${post.postContent}";
 	</script>
 	<!-- <script src="${contextPath}/resources/js/post/post.js"></script> -->
 	<script src="${contextPath}/resources/js/post/postView.js"></script>

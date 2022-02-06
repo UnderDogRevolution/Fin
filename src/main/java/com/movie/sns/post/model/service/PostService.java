@@ -31,5 +31,7 @@ public interface PostService {
 
 	int insertReport(Report report);
 
+	int searchMemberNo(String memberName);
+
 
 }

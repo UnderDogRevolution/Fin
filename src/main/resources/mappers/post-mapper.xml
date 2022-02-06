@@ -207,5 +207,16 @@
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, #{memberNo}, #{reportContent}, DEFAULT, #{reportTypeNo}, #{targetPK})
 	</insert>
 	
+	<select id="checkMemberNo" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+	</select>
+
+	<select id="searchMemberNo" resultType="_int">
+		SELECT MEMBER_NO
+		FROM MEMBER
+		WHERE MEMBER_NM = #{memberName}
+	</select>
 	
 </mapper>

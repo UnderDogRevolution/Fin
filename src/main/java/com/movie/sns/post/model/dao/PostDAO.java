@@ -97,5 +97,13 @@ public class PostDAO {
 		return sqlSession.insert("postMapper.insertReport", report);
 	}
 
+	public int checkMemberNo(String memberName) {
+		return sqlSession.selectOne("postMapper.checkMemberNo", memberName);
+	}
+
+	public int searchMemberNo(String memberName) {
+		return sqlSession.selectOne("postMapper.searchMemberNo", memberName);
+	}
+
 
 }

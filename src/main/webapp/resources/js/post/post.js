@@ -1,17 +1,18 @@
 console.log("post.js");
+revealPost()
 
-const like1 = document.querySelectorAll(".container-like > img")[0];
-const like2 = document.querySelectorAll(".container-like > img")[1];
+// const like1 = document.querySelectorAll(".container-like > img")[0];
+// const like2 = document.querySelectorAll(".container-like > img")[1];
 
-like1.addEventListener("click", function(){
-	like1.style.display = "none";
-	like2.style.display = "block";
-})
+// like1.addEventListener("click", function(){
+// 	like1.style.display = "none";
+// 	like2.style.display = "block";
+// })
 
-like2.addEventListener("click", function(){
-	like1.style.display = "block";
-	like2.style.display = "none";
-})
+// like2.addEventListener("click", function(){
+// 	like1.style.display = "block";
+// 	like2.style.display = "none";
+// })
 
 function revealPost(){
 	const postContainer = document.getElementById("container-post")
@@ -278,7 +279,38 @@ function revealPost(){
 				}
 				const divContent2 = document.createElement("div")
 				divContent2.className = "textarea-box";
-				divContent2.innerHTML = items.postContent;
+				const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
+  				const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
+				let text = items.postContent.replace(tagRegExp, function(target){
+					return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
+				})
+				text = text.replace(userRegExp, function(target){
+					let memberNo;
+					$.ajax({
+						url: contextPath + "/post/searchMemberNo",
+						data: {"memberName": target.replace("@", "")},
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								memberNo = result;
+							}
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+					})
+					if(memberNo>0){
+						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+					}else{
+						return target;
+					}
+				})
+				// console.log(text)
+				divContent2.innerHTML = text;
 				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
 				if(items.rating != null){
