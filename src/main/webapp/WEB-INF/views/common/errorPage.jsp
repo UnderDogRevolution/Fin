@@ -43,7 +43,7 @@
 	    관리자에게 문의해주세요. <br></ü>
 	    <br><br>
     </p>
-    <p class="social"> 이동하기  <a href="${pageContext.servletContext.contextPath}">메인 페이지</a> OR <a href="${header.referer}">이전 페이지</a></p>
+    <p class="social"> 이동하기 >>  <a href="${pageContext.servletContext.contextPath}">메인 페이지</a> OR <a href="${header.referer}">이전 페이지</a></p>
     <br><br>
     <p class="output">--- MONTAGE ---</p>
 	

@@ -70,27 +70,6 @@
       margin: 15% 0 10% 0;
     }
 
-    .img-thumbnail {
-      padding: 0.25rem;
-      background-color: #fff;
-      border: 0;
-      max-width: 10%;
-      height: auto;
-    }
-
-    .imgform-control {
-      width: 30%;
-      padding: 0.375rem 0.35rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1;
-      color: #212529;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-    }
-
     .input-group {
       position: relative;
       display: flex;
@@ -114,29 +93,6 @@
       border: 1px solid #ced4da;
       appearance: none;
       border-radius: 0.25rem;
-    }
-
-    .birthform {
-      width: 60%;
-      height: fit-content;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #212529;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      appearance: none;
-      border-radius: 0.25rem;
-    }
-
-    .brithinput-group {
-      position: relative;
-      display: inline-flex;
-      margin: 0 0 0 5%;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      width: 20%;
     }
 
     .btnsub {
@@ -165,23 +121,28 @@
           <label for="exampleFormControlInput1" class="form-label" style="font-weight: bolder; font-size:2rem;">바라는 점</label>
         </div>
 
-        <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
+        <div class="mb-3" style="font-weight: bolder; font-size:1.25rem;">
           <h1>관리자에게 건의사항이나 바라는 점, 아쉬운 점 등이 있으시면, 아래에 텍스트를 작성해 제출해주세요.</h1>
         </div>
-
+        
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">제목</label>
+          <input type="text" class="inputform" id="askTitle"  name="askTitle"
+          style="width: 30%; margin-left: 3%;" placeholder="제목을 입력하세요">
+        </div>
+		
         <div class="mb-3" style="font-weight: bolder; font-size:1rem;">
-        <form>
-          <textarea name="askInput" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
-          id="askInput" style="resize: none;"></textarea>
-        </form>
+         <label for="exampleFormControlInput1" class="form-label"  style="vertical-align:top; margin-right: 3%;">내용</label>
+          <textarea name="askContent" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
+          class="col-inputform" id="askContent" style="resize: none;"></textarea>
         </div>
 <!-- XSS 처리도 해야함 -->
         <br>
 
         <button type="submit" class="btnsub btn-danger btn-lg">제출하기</button>
       </div>
-  </div>
   </form>
+  </div>
 
 	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <c:if test="${ !empty requestScope.title }">

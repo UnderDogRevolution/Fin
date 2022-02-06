@@ -154,21 +154,14 @@ input {
 					수정</label>
 			</div>
 
-
 			<div class="form-inline mb-2">
-
 				<div class="memberImg">
 					<img id="img" src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
 						onerror="this.onerror=null; 
-       					 this.src='../resources/images/member/defaultProfileImage.png'"
-						style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
+       					 this.src='../resources/images/common/defaultProfileImage.png'"
+						name="img" style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
 							<br> 
 				</div>
-			
-			<!-- profileImage.setImgPath("/resources/images/member/");
-         profileImage.setImgName("defaultProfileImage.png"); 
-         profileImage.setImgOriginal("defaultProfileImage.png"); -->
-         
 			</div>
 
 
@@ -179,11 +172,10 @@ input {
 			</div>
 			
 			<div class="form-inline mb-2">
-				<button class="deleteImg" id="deleteImg" onclick="deleteImg();">프로필사진 삭제</button>
+				<p class="deleteImg1" id="deleteImg1" onclick="deleteImg1();" style="cursor: pointer;"><mark>프로필사진 삭제하기</mark></mark></p>
 			</div>
-
 			<br>
-			
+
 			<fieldset disabled>
 				<div class="row-mb-3-con">
 					<label for="currentEmail" class="col-form-label text-end">이메일</label>
@@ -208,7 +200,6 @@ input {
 					value="${loginMember.memberNickName}"
 					style="width: 50%; margin-left: 5%;" placeholder="닉네임을 입력하세요">
 			</div>
-
 			<br>
 
 			<div class="row-mb-3-con">
@@ -220,12 +211,9 @@ input {
 			<button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
 		</div>
 
-		<!-- update용 파라미터 -->
-		<input type="hidden" name="boardNo" value="${board.boardNo}">
+		<input type="hidden" name="memberNo" value="${loginMember.memberNo}">
 		<input type="hidden" name="deleteImages" value="">
-
-
-
+		
 	</form>
 </div>
 

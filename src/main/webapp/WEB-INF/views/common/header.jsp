@@ -28,7 +28,7 @@
 
 				<ul class="menu">
 					<li>
-						<form action="${contextPath}/search/" method="get">
+						<form action="${contextPath}/search/" method="get" id = "search-form">
 
 							<div class="search">
 
@@ -38,7 +38,7 @@
 
 									<div>
 
-											<button>
+											<button id = "searchbtn" type="button">
 											<svg class="bi d-block" xmlns="http://www.w3.org/2000/svg"
 												viewBox="0 0 24 24">
                                                 <path
@@ -163,7 +163,9 @@
 
 
 					<li><i class="namewrap"> <img class="myImg"
-							src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" alt="">
+							src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}" alt=""
+							onerror="this.onerror=null; 
+       					 this.src='../resources/images/common/defaultProfileImage.png'">
 							<div class="myclick">
 								<!-- 내영역 -->
 								<ul>

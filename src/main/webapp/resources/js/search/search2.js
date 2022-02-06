@@ -1,25 +1,26 @@
-console.log("post.js");
-revealPost()
+console.log("search2")
 
-// const like1 = document.querySelectorAll(".container-like > img")[0];
-// const like2 = document.querySelectorAll(".container-like > img")[1];
 
-// like1.addEventListener("click", function(){
-// 	like1.style.display = "none";
-// 	like2.style.display = "block";
-// })
+function searchParam(key) {
+	return new URLSearchParams(location.search).get(key);
+  };
+let searchURL = "";
+function searchKey(word){
+	searchURL = contextPath + "/post/"+ word;
+	searchPostList()
+}
 
-// like2.addEventListener("click", function(){
-// 	like1.style.display = "block";
-// 	like2.style.display = "none";
-// })
-
-function revealPost(){
+const recentDiv = document.getElementById("recent_");
+recentDiv.click();
+function searchPostList(){
+	// const postContainer = document.getElementsByClassName("container-post")[0]
 	const postContainer = document.getElementById("container-post")
 	
-	
+	const searchWord = searchParam("searchResult");
+	console.log(searchWord)
 	$.ajax({
-		url: contextPath + "/post/postView",
+		url: searchURL,
+		data: {"searchWord": searchWord},
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
@@ -597,8 +598,6 @@ function revealPost(){
 
 	
 }
-
-// revealPost 경계선
 
 function insertReply(e){
 	

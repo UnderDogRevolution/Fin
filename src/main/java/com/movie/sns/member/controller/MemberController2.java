@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService2;
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.common.Util;
 
@@ -55,7 +56,7 @@ public class MemberController2 {
 		member.setMemberNickName(nickInput);
 		member.setMemberBirth(birthInput);
 
-		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
+		String webPath = "/resources/images/common/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
 		
@@ -67,7 +68,13 @@ public class MemberController2 {
 
 			loginMember.setMemberNickName(nickInput);
 			loginMember.setMemberBirth(birthInput);
-
+			
+			//loginMember.setProfileImage(imgPath);
+			//loginMember.profileImage(imgName);
+			
+			//images.get(0);
+			//loginMember.setProfileImage((Image)images.get(0));
+			
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
 
 		} else { // 실패

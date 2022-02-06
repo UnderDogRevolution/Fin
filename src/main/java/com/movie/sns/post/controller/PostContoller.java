@@ -154,4 +154,58 @@ public class PostContoller {
 		return service.insertReport(report);
 		
 	}
+
+	@RequestMapping("searchPost")
+	@ResponseBody
+	public String searchPost(String searchWord, HttpSession session){
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchWord", searchWord);
+		map.put("memberNo", memberNo);
+		List<Post> listPost = service.searchPostList(map);
+		
+		
+		return new Gson().toJson(listPost);
+		
+	}
+
+	@RequestMapping("popularPost")
+	@ResponseBody
+	public String popularPostList(String searchWord, HttpSession session){
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchWord", searchWord);
+		map.put("memberNo", memberNo);
+		List<Post> listPost = service.popularPostList(map);
+		
+		
+		return new Gson().toJson(listPost);
+		
+	}
+
+	@RequestMapping("searchMovie")
+	@ResponseBody
+	public String searchMoviePostList(String searchWord, HttpSession session){
+		int memberNo = 0;
+		if(session.getAttribute("loginMember") != null) {
+			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchWord", searchWord);
+		map.put("memberNo", memberNo);
+		List<Post> listPost = service.searchMoviePostList(map);
+		
+		
+		return new Gson().toJson(listPost);
+		
+	}
 }

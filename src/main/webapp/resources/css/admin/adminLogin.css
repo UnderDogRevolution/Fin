@@ -1,0 +1,130 @@
+html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        background-color: #0D0D0D;
+    }
+
+    .admin-header {
+        height: 20%;
+    }
+
+    .admin-container {
+        display: flex;
+        width: 50%;
+        height: 60%;
+        margin: auto;
+        border: 1px solid black;
+    }
+
+    .container1 {
+        /*로그인 영역  */
+        width: 60%;
+        padding: 0;
+        height: 100%;
+        background-color: #404142;
+    }
+
+    .container2 {
+        /* 법 */
+        width: 40%;
+        padding: 0;
+        height: 100%;
+        background-color: white;
+    }
+
+    .adminLogin-header {
+        width: 90%;
+        height: 20%;
+        font-size: 200%;
+        color: white;
+        font-weight: bold;
+        text-align: left;
+        padding-left: 10%;
+        line-height: 160px;
+    }
+    .adminLogin-header2{
+        width: 100%;
+        height: 15%;
+        text-align: center;
+        font-size: 120%;
+        font-weight: bold;
+        line-height: 90px;
+    }
+
+    .adminLogin-main {
+        display: flex;
+        width: 100%;
+        height: 50%;
+    }
+  
+    .adminLogin-main2 {
+        display: flex;
+        width: 100%;
+        height: 84%;
+    }
+    .adminLogin-main2 > textarea{
+        border: none;
+        outline: none;
+        font-size: 100%;
+        text-align: center;
+    }
+
+    .login-input {
+        width: 70%;
+        height: 100%;
+    }
+    .input-wrap{
+        width: 80%;
+        height: 70%;
+        margin: auto;
+        margin-top: 18%;
+
+    }
+    .input-wrap input {
+        width: 100%;
+        margin-top: 9%;
+        height: 20%;
+        outline: none;
+        padding-left: 10%;
+    }
+
+    .login-button {
+        width: 30%;
+        height: 100;
+    }
+    .login-btnwrap{
+        margin: auto;
+        width: 35%;
+        height: 23%;
+        margin-top: 75%;
+        padding: 0;
+    }
+    .login-btnwrap button{
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        color: white;
+        font-size: 60%;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+    .login-btnwrap button:hover{
+        background-color: white;
+        color: black;
+    }
+
+    .adminLogin-footer{
+        padding-top: 10%;
+        width: 100%;
+        height: 20%;
+        text-align: center;
+        font-size: 50%;
+        color: white;
+    }
