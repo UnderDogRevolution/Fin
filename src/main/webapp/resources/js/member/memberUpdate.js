@@ -110,22 +110,16 @@ $(function() {
 // 백업용 클론
 const fileClone = {}; 
 
-
 // 삭제 배열 순서
 const deleteImages= [];
 
-
-// 미리 보기가 가능하도록 하는 함수
+// 미리 보기 함수
 function loadImg(input, num) {
 
 	if (input.files && input.files[0]) {
 
 		fileClone[num] = $(input).clone(); // 백업 객체에 복제 추가
-		
-		//배열에 num값과 같은 번호가 존재하는 확인
 		if(deleteImages.indexOf(num) != -1 ){ // 존재하는 경우
-
-			// 배열에서 지정된 개수 만큼 요소 삭제 
 			deleteImages.splice( deleteImages.indexOf(num), 1);
 		} 
 
@@ -135,26 +129,34 @@ function loadImg(input, num) {
 			$(".memberImg").eq(num).children("img").attr("src", e.target.result);
 		}
 
-
 	} else{
 		console.log("취소 클릭");
-
 		$(input).before(fileClone[num].clone());
-
 		$(input).remove(); 
 
 	}
 }
 
-function deleteImg(){
 
-	$('#img').attr("src","${contextPath}/resources/images/member/defaultProfileImage.png");
-	//$('#img').attr('${Image.ImgName}','defaultProfileImage.png');
-	//$('#img').attr('${Image.ImgOriginal}','defaultProfileImage.png');
-
- /*Image.ImgPath=("/resources/images/member/");
- Image.ImgName=("defaultProfileImage.png");
- Image.ImgOriginal=("defaultProfileImage.png");*/
- 
+function deleteImg1(){
+	
+	$('#img').attr('src','defaultProfileImage.png');
+//이미지 레벨 2개로 만들어서? {img0}{img1}?
 }
 
+
+
+$(".deleteImg").on("click", function(e){
+
+	e.stopPropagation();
+
+	$(this).prev().removeAttr("src"); // 미리보기 이미지 삭제
+
+	const index = $(this).index(".deleteImg");
+	$("input[name=images]").eq(index).val("");
+
+	if(deleteImages.indexOf(index) == -1)	{
+		// deleteImages 배열에 삭제된 이미지의 레벨을 추가
+		deleteImages.push(index);
+	}
+});
