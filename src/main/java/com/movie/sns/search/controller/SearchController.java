@@ -13,7 +13,7 @@ public class SearchController {
 		
 		
 		
-		return "search/search";
+		return "search/search2";
 	}
 	
 	

@@ -105,5 +105,17 @@ public class PostDAO {
 		return sqlSession.selectOne("postMapper.searchMemberNo", memberName);
 	}
 
+	public List<Post> searchPostList(Map<String, Object> map) {
+		return sqlSession.selectList("postMapper.searchPostList", map);
+	}
+
+	public List<Post> popularPostList(Map<String, Object> map) {
+		return sqlSession.selectList("postMapper.popularPostList", map);
+	}
+
+	public List<Post> searchMoviePostList(Map<String, Object> map) {
+		return sqlSession.selectList("postMapper.searchMoviePostList", map);
+	}
+
 
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <link rel="stylesheet" href="${contextPath}/resources/css/search/search.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <title>search</title>
 </head>
 <body>
@@ -37,16 +38,16 @@
                                 <div>
                                     <div class="mvTitle_">
                                         가나다라마바사
-
+            
                                     </div>
                                     <div class="mvCreate">
                                         2016년|유동훈감독
-
-
+            
+            
                                     </div>
                                 </div>
                             </div>
-
+            
                             <!-- 영화 줄거리 -->
                             <div class="mvContent">
                                 <div>
@@ -61,15 +62,15 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                 </div>
-
+            
                             </div>
                             <!-- 이미지 부분 -->
                             <div class="mvImgwrap">
                                 <div class="imgput">
                                     <div class="img_">
                                         <img src="img/라라랜드.jpg" alt="">
-
-
+            
+            
                                     </div>
                                 </div>
                             </div>
@@ -92,8 +93,6 @@
                     
                 </div>
             </div>
-
-
         </main>
     </div>
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
