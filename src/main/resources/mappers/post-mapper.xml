@@ -28,9 +28,9 @@
 	 </resultMap>
 	 
 	 <select id="selectUser" resultMap="member_rm">
-		SELECT MEMBER_NICKNM
+		SELECT MEMBER_NM
 		FROM MEMBER
-		WHERE MEMBER_NICKNM LIKE '%'||#{tagName}||'%'
+		WHERE MEMBER_NM LIKE '%'||#{tagName}||'%'
  	 </select>
  	 
  	 <insert id="insertPost" useGeneratedKeys="true">
