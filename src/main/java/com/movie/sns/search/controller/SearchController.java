@@ -16,19 +16,11 @@ import com.movie.sns.member.model.vo.Member;
 public class SearchController {
 
 	@RequestMapping(value = "/" , method = RequestMethod.GET)
-<<<<<<< HEAD
-	public String search(String searchResult){
-		
-		
-		
-		return "search/search2";
-=======
 	public String search(String searchResult ,Model model){
 		String search  = searchResult;
 		System.out.println(search);
 		model.addAttribute("search" , search);
 		return "search/search";
->>>>>>> e5c444e66e99b14ca76ccc964c39b93bbb1a6620
 	}
 	
 	// 멤버 찾기
