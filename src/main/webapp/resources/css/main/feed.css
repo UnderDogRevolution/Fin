@@ -82,7 +82,8 @@
     color:  white;
     padding-left: 17px;
     flex-basis: 50px;
-    line-height: 50px;
+    line-height: 18px;
+    padding-block: 13px;
 }
 .review-title > span{
     opacity: 0.5;

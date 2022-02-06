@@ -94,7 +94,7 @@ function revealPost(){
 				const divContent3 = document.createElement("div")
 				if(items.movieTitle != null){
 					divContent1.className = "review-title";
-					divContent1.innerHTML = items.movieTitle+"<span> "+items.director+" ("+items.movieDate+")  "+items.movieGenre+"</span>"
+					divContent1.innerHTML = items.movieTitle+"<br> <span> "+items.director+" ("+items.movieDate+")  "+items.movieGenre+"</span>"
 					postContent.append(divContent1) // 리뷰 타이틀 삽입
 					if(items.rating != null){
 						divContent3.className = "post-rating";
