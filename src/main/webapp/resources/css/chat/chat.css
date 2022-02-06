@@ -12,7 +12,7 @@ main {
 	height: 100%;
 	color: #272727;
 	background-color: #272727;
-	padding-top: 54px;
+	padding-top: 80px;
 }
 
 .chatwrap { /* 채팅창 영역 */
@@ -45,6 +45,7 @@ main {
 	width: 20%;
 	height: 60%;
 	padding: 0;
+	cursor: pointer;
 }
 
 .MemberName-wrap>svg>g>g>path { /* 색변환 */
@@ -70,28 +71,31 @@ main {
 	height: 15%;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.507);;
 }
-.MemberName-wrap > div:nth-child(1){
-	display : flex;
-	justify-content : center;
-	align-items : center;
+
+.MemberName-wrap>div:nth-child(1) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 30%;
 	height: 100%;
 }
-.MemberName-wrap > div:nth-child(1) > img{
-	width : 40px;
+
+.MemberName-wrap>div:nth-child(1)>img {
+	width: 40px;
 	height: 40px;
-	
+	border-radius: 49%
 }
+
 .MemberName {
-	display : flex;
+	display: flex;
 	width: 120px;
 	font-size: 15px;
 	text-align: center;
-	align-items : center;
+	align-items: center;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	padding-right : 10px;
+	padding-right: 10px;
 }
 
 .chatList-wrap {
@@ -112,6 +116,19 @@ main {
 	height: 20%;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.507);
 	position: relative;
+	cursor: pointer;
+}
+
+.chat:hover>.chatMemberName>div {
+	color: #942d2d;
+}
+
+.delete-message-room:hover {
+	color: #942d2d;
+}
+
+.delete-message-room:hover+.chatMemberName>div {
+	color: white;
 }
 
 .chat>i {
@@ -131,8 +148,9 @@ main {
 }
 
 .MemberImg {
-	max-width: 40px;
-	max-height: 40px;
+	width: 40px;
+	height: 40px;
+	border-radius: 49%
 }
 
 .chatMemberName {
@@ -171,8 +189,9 @@ main {
 }
 
 .chatContent-header>div:nth-child(1)>img {
-	max-width: 30px;
-	max-height: 30px;
+	width: 30px;
+	height: 30px;
+	border-radius: 49%
 }
 
 .chatContent-header>div:nth-child(2) {
@@ -292,6 +311,7 @@ main {
 .friendsImg-wrap>img {
 	max-width: 30px;
 	max-height: 30px;
+	border-radius: 49%;
 }
 
 .friendsName-wrap { /* 친구목록 이름영역 */
@@ -367,8 +387,9 @@ main {
 	flex-direction: row-reverse;
 	padding: 5px;
 	max-width: 100%;
-	margin-top: 10px;
+	margin-top: 30px;
 	margin-bottom: 10px;
+	padding-right: 10px;
 	align-items: flex-end;
 }
 
@@ -407,6 +428,15 @@ main {
 	align-items: flex-end;
 	padding: 0.3rem;
 	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+.frChattingwrap {
+	display: flex;
+}
+
+.frChattingwrap>img {
+	border-radius: 49%;
 }
 
 .frImg {
@@ -423,6 +453,7 @@ main {
 	font-size: 12px;
 	margin-top: 10px;
 	margin-bottom: 5px;
+	padding-left: 10px;
 }
 
 .frMessage { /*myMessge 영역  */
@@ -515,6 +546,15 @@ main {
 	cursor: pointer;
 }
 
+.myChattingwrap {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.myChattingwrap>img {
+	border-radius: 49%
+}
+
 @media screen and (max-width:1400px) {
 	.myMessage {
 		max-width: 200px;
@@ -522,12 +562,25 @@ main {
 	.frMessage {
 		max-width: 200px;
 	}
-	.frMessage>img {
+	.frMessage>p>img {
 		max-width: 150px;
+		max-height:150px;
 		padding: 20px;
 	}
-	.myMessage>img {
+	.myMessage>p>img {
 		max-width: 150px;
+		max-height:150px;
 		padding: 20px;
 	}
 }
+
+@media screen and (max-width:768px) {
+	.logo > a{
+		padding-left : 110px;
+	}
+	.header > div:nth-child(3) {
+	padding-right: 110px;
+}
+	
+	
+	}
