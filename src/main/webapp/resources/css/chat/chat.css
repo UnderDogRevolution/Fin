@@ -12,7 +12,7 @@ main {
 	height: 100%;
 	color: #272727;
 	background-color: #272727;
-	padding-top: 54px;
+	padding-top: 80px;
 }
 
 .chatwrap { /* 채팅창 영역 */
@@ -116,6 +116,19 @@ main {
 	height: 20%;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.507);
 	position: relative;
+	cursor: pointer;
+}
+
+.chat:hover>.chatMemberName>div {
+	color: #942d2d;
+}
+
+.delete-message-room:hover {
+	color: #942d2d;
+}
+
+.delete-message-room:hover+.chatMemberName>div {
+	color: white;
 }
 
 .chat>i {
@@ -421,9 +434,11 @@ main {
 .frChattingwrap {
 	display: flex;
 }
-.frChattingwrap > img{
+
+.frChattingwrap>img {
 	border-radius: 49%;
 }
+
 .frImg {
 	display: flex;
 	flex-direction: column;
@@ -547,12 +562,25 @@ main {
 	.frMessage {
 		max-width: 200px;
 	}
-	.frMessage>img {
+	.frMessage>p>img {
 		max-width: 150px;
+		max-height:150px;
 		padding: 20px;
 	}
-	.myMessage>img {
+	.myMessage>p>img {
 		max-width: 150px;
+		max-height:150px;
 		padding: 20px;
 	}
 }
+
+@media screen and (max-width:768px) {
+	.logo > a{
+		padding-left : 110px;
+	}
+	.header > div:nth-child(3) {
+	padding-right: 110px;
+}
+	
+	
+	}
