@@ -84,13 +84,6 @@ public class AdminController {
 		return "admin/adminMember";
 	}
 	
-	//게시글 게시판
-	@RequestMapping(value = "post", method = RequestMethod.GET)
-	public String postBoard(Admin member) {
-		
-		
-		return "admin/adminMember";
-	}
 	
 	// 바라는 점
 		@RequestMapping(value = "ask", method = RequestMethod.GET)
