@@ -8,7 +8,6 @@ function rankMovie(){
         dataType : "JSON",
         success: function (movieList) {
             sideUl.innerHTML = ""
-            console.log(movieList)
             for(const movie of movieList){
                 const AVG = movie.AVG;
                 const director = movie.director;
@@ -23,8 +22,6 @@ function rankMovie(){
                     for(let i =0; i < Math.floor(Number(AVG)*2); i++){
                         star += `<i class="fa fa-star side-star" aria-hidden="true" style="color: yellow"></i>`
                     }
-                console.log(AVG)
-                console.log(star)
                 const temp = `<li>
                                 <a href="">
                                     <div>
