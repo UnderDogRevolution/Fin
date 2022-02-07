@@ -2,7 +2,6 @@ package com.movie.sns.admin.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -84,6 +83,23 @@ public class AdminController {
 		
 		return "admin/adminMember";
 	}
+	
+	//게시글 게시판
+	@RequestMapping(value = "post", method = RequestMethod.GET)
+	public String postBoard(Admin member) {
+		
+		
+		return "admin/adminMember";
+	}
+	
+	// 바라는 점
+		@RequestMapping(value = "ask", method = RequestMethod.GET)
+		public String memberAsk(Admin member) {
+			
+			
+			return "admin/ask";
+		}
+		
 
 	// 바라는 점 목록 조회
 	@RequestMapping("askList")
