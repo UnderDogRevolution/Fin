@@ -15,6 +15,6 @@
 	<jsp:include page="crud-post.jsp"></jsp:include>
 	
 	
-	
+	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>
 </body>
 </html>

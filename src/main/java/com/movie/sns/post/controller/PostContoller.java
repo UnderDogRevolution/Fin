@@ -208,4 +208,12 @@ public class PostContoller {
 		return new Gson().toJson(listPost);
 		
 	}
+	
+	@RequestMapping("rankMovie")
+	@ResponseBody
+	public String rankMovie() {
+		
+		List<Movie> movieList = service.rankMovie();
+		return new Gson().toJson(movieList);
+	}
 }

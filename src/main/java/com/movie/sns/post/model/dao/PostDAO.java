@@ -117,5 +117,9 @@ public class PostDAO {
 		return sqlSession.selectList("postMapper.searchMoviePostList", map);
 	}
 
+	public List<Movie> rankMovie() {
+		return sqlSession.selectList("postMapper.rankMovie");
+	}
+
 
 }

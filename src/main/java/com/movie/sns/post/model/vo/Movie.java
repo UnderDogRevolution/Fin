@@ -11,6 +11,23 @@ public class Movie {
 	private String rating;
 	private int postNo;
 	private int memberNo;
+	
+	private int AVG;
+	private int ratingCount;
+	
+	
+	public int getRatingCount() {
+		return ratingCount;
+	}
+	public void setRatingCount(int ratingCount) {
+		this.ratingCount = ratingCount;
+	}
+	public int getAVG() {
+		return AVG;
+	}
+	public void setAVG(int aVG) {
+		AVG = aVG;
+	}
 	public String getMovieNo() {
 		return movieNo;
 	}
@@ -69,8 +86,14 @@ public class Movie {
 	public String toString() {
 		return "Movie [movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDate=" + movieDate + ", director="
 				+ director + ", poster=" + poster + ", movieGenre=" + movieGenre + ", rating=" + rating + ", postNo="
-				+ postNo + ", memberNo=" + memberNo + "]";
+				+ postNo + ", memberNo=" + memberNo + ", AVG=" + AVG + ", getAVG()=" + getAVG() + ", getMovieNo()="
+				+ getMovieNo() + ", getMovieTitle()=" + getMovieTitle() + ", getMovieDate()=" + getMovieDate()
+				+ ", getDirector()=" + getDirector() + ", getPoster()=" + getPoster() + ", getMovieGenre()="
+				+ getMovieGenre() + ", getRating()=" + getRating() + ", getPostNo()=" + getPostNo() + ", getMemberNo()="
+				+ getMemberNo() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+	
 	
 	
 }

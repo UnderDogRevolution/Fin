@@ -39,5 +39,7 @@ public interface PostService {
 
 	List<Post> searchMoviePostList(Map<String, Object> map);
 
+	List<Movie> rankMovie();
+
 
 }
