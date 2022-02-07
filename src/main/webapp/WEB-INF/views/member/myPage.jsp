@@ -166,13 +166,14 @@ input {
 
 
 			<!-- 파일 업로드 (이미지를 누르면 프로필 사진 첨부)-->
-			<div id="fileArea" style="display: none">
+			<div id="fileArea" style="display:none">
 				<input type="file" name="images" onchange="loadImg(this,0)">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
 			
 			<div class="form-inline mb-2">
-				<p class="deleteImg1" id="deleteImg1" onclick="deleteImg1();" style="cursor: pointer;"><mark>프로필사진 삭제하기</mark></mark></p>
+				<p class="deleteImg1" id="deleteImg1" onclick="deleteImg1();" style="cursor: pointer;"><mark>프로필사진 삭제하기</mark></p>
+				<button class="deleteImg" id="deleteImg" onclick="deleteImg();" style="cursor: pointer;">프로필사진 삭제</button>
 			</div>
 			<br>
 

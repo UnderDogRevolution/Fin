@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.movie.sns.common.Util;
@@ -44,6 +45,7 @@ public class MemberService2Impl implements MemberService2 {
 	}
 
 	// 회원 수정
+	@Transactional
 	@Override
 	public int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath,
 			String deleteImages) {
@@ -55,7 +57,6 @@ public class MemberService2Impl implements MemberService2 {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("MemberNo", member.getMemberNo());
 				map.put("deleteImages", deleteImages);
-
 				result = dao.deleteImages(map);
 			}
 		}
@@ -75,6 +76,8 @@ public class MemberService2Impl implements MemberService2 {
 					img.setMemberNo(member.getMemberNo());
 
 					imgList.add(img);
+					
+					member.setProfileImage(img);
 				}
 			}
 
@@ -107,19 +110,7 @@ public class MemberService2Impl implements MemberService2 {
 		return dao.selectImgList();
 	}
 	
-	/*
-	 * //바라는 점
-	 * 
-	 * @Override public int ask(Member member) {
-	 * 
-	 * 
-	 * //개행문자 처리 member.setMemberContent( Util.XSS( member.getMemberContent() ) );
-	 * member.setMemberContent( Util.changeNewLine( member.getMemberContent() ) );
-	 * 
-	 * 
-	 * int memberNo = dao.ask(member); return memberNo; }
-	 */
-
+	
 	// 회원 탈퇴
 	@Override
 	public int secession(int memberNo, String currentPw) {

@@ -68,12 +68,7 @@ public class MemberController2 {
 
 			loginMember.setMemberNickName(nickInput);
 			loginMember.setMemberBirth(birthInput);
-			
-			//loginMember.setProfileImage(imgPath);
-			//loginMember.profileImage(imgName);
-			
-			//images.get(0);
-			//loginMember.setProfileImage((Image)images.get(0));
+			loginMember.setProfileImage(member.getProfileImage());
 			
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
 
@@ -147,23 +142,4 @@ public class MemberController2 {
 	public String ask(Member member) {
 		return "member/ask";
 	}
-
-	/*
-	 * // 바라는 점
-	 * 
-	 * @RequestMapping(value = "ask", method = RequestMethod.POST) public String
-	 * ask(@ModelAttribute("loginMember") Member loginMember, Member member,
-	 * RedirectAttributes ra) {
-	 * 
-	 * member.setMemberNo(loginMember.getMemberNo());
-	 * 
-	 * int result = service.ask(member);
-	 * 
-	 * if (result > 0) { // 성공 Util.swalSetMessage("바라는 점 제출 성공", "제출되었습니다.",
-	 * "success", ra);
-	 * 
-	 * } else { // 실패 Util.swalSetMessage("바라는 점 제출 실패", "제출에 실패하였습니다.", "error",
-	 * ra); } return "redirect:/member/ask"; }
-	 */
-
 }
