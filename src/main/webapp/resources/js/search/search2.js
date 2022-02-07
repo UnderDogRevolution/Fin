@@ -1,30 +1,47 @@
 console.log("search2")
 
+const postContainer = document.getElementById("container-post")
+// postContainer.innerHTML = "";
+	
+let cp =1  // let cp 1 이 함수 실행 아래보다 있으면 안된다.
+const option = {
+	root: document.getElementById("container-post"),
+	rootMargin: '100px 0px 0px 0px'
+  };
 
+const io = new IntersectionObserver((entries, observer) => {
+	entries.forEach((entry) => {
+		if(entry.isIntersecting){
+			console.log(entry);
+			searchPostList()
+		} else {
+		}
+	  });                            
+}, option);
 function searchParam(key) {
 	return new URLSearchParams(location.search).get(key);
   };
+const recentDiv = document.getElementById("recent_");
+recentDiv.click();
+
 let searchURL = "";
 function searchKey(word){
+	postContainer.innerHTML = "";
 	searchURL = contextPath + "/post/"+ word;
 	searchPostList()
 }
 
-const recentDiv = document.getElementById("recent_");
-recentDiv.click();
 function searchPostList(){
-	// const postContainer = document.getElementsByClassName("container-post")[0]
-	const postContainer = document.getElementById("container-post")
 	
 	const searchWord = searchParam("searchResult");
 	console.log(searchWord)
 	$.ajax({
 		url: searchURL,
-		data: {"searchWord": searchWord},
+		data: {"searchWord": searchWord, "cp":cp},
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
-			postContainer.innerHTML = "";
+			
 			console.log(postList)
 			for(const items of postList){
 				const post = document.createElement("div");
@@ -593,7 +610,18 @@ function searchPostList(){
 			console.log(req.responseText);
 			console.log(status);
 			console.log(error);
-		}
+		},
+		complete: function(){
+			
+			const temp = document.getElementsByClassName("post")[(cp*5)-1]
+			cp++;
+			if(temp == null){
+				io.disconnect()
+			}else{
+				console.log(temp)
+				io.observe(temp)
+			}
+		} 
 	})
 
 	
