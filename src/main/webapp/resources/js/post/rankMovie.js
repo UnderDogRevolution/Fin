@@ -24,13 +24,10 @@ function rankMovie(){
                                             <div class="side_mvTitle">${movieTitle}</div>
                                             <div class="mvDt"> ${movieDate} | ${director}</div>
                                         </div>
-                                        <div class="mvstar-rv">
+                                            <div class="mvstar-rv">
                                             
-                                            <div class="star">`
-                                            if(){
-                                                
-                                            }
-                                            `</div>
+                                            <div class="star">
+                                            </div>
                                             <div class="mvrv"> 총 리뷰 ${ratingCount}개</div>
                                         </div>
                                     </div>
