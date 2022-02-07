@@ -1,11 +1,13 @@
 console.log("rankMovie")
-
+rankMovie()
 function rankMovie(){
+    const sideUl = document.getElementsByClassName("side-ul")[0];
     $.ajax({
         url: contextPath + "/post/rankMovie",
         type: "POST",
         dataType : "JSON",
         success: function (movieList) {
+            sideUl.innerHTML = ""
             console.log(movieList)
             for(const movie of movieList){
                 const AVG = movie.AVG;
@@ -14,6 +16,15 @@ function rankMovie(){
                 const movieTitle = movie.movieTitle;
                 const poster = movie.poster;
                 const ratingCount = movie.ratingCount;
+                let star = ``;
+                    for(let i=0; i < 10-Math.floor(Number(AVG)*2); i++){
+                        star += `<i class="fa fa-star side-star" aria-hidden="true" style="color: white"/></i>`
+                    }
+                    for(let i =0; i < Math.floor(Number(AVG)*2); i++){
+                        star += `<i class="fa fa-star side-star" aria-hidden="true" style="color: yellow"></i>`
+                    }
+                console.log(AVG)
+                console.log(star)
                 const temp = `<li>
                                 <a href="">
                                     <div>
@@ -24,15 +35,17 @@ function rankMovie(){
                                             <div class="side_mvTitle">${movieTitle}</div>
                                             <div class="mvDt"> ${movieDate} | ${director}</div>
                                         </div>
-                                            <div class="mvstar-rv">
-                                            
+                                        <div class="mvstar-rv">
                                             <div class="star">
+                                            `+star+`
                                             </div>
                                             <div class="mvrv"> 총 리뷰 ${ratingCount}개</div>
                                         </div>
                                     </div>
                                 </a>
                               </li>`
+                sideUl.innerHTML += temp;
+                
             }
         },
         error: function (req, status, error) {
