@@ -43,17 +43,11 @@ public class MemberController {
 	
 	public String login(HttpServletRequest req) {
 		
-		// 이전 페이지 주소 세션에 담기
+		// 이전 페이지 주소 담기
 		String referer = req.getHeader("Referer");
 		
-		StringBuffer requestURL = req.getRequestURL();
-		String requestURI = req.getRequestURI();
-		
-		System.out.println("requestURL : " + requestURL);
-		System.out.println("requestURI : " + requestURI);
-		System.out.println("REFERER: "+referer);
-		
-		req.getSession().setAttribute("redirectURI", referer);
+		// 이전 페이지 주소를 세션에 담기
+		req.getSession().setAttribute("prevURL", referer);
 		
 		return "member/login";
 	}
@@ -63,13 +57,17 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(@RequestParam(value="saveId", required=false) String saveId,
 						Member member, Model model, RedirectAttributes ra,
-						HttpServletRequest req, HttpServletResponse resp
+						HttpServletRequest req, HttpServletResponse resp,
+						HttpSession session
 						) {
 		
 		
 		Member loginMember = service.login(member);
 		
 		String path = null;	// 주소 저장용
+		
+		// 이전 페이지 주소 세션에서 얻어와 담기
+		String referer = (String)req.getSession().getAttribute("prevURL");
 		
 		if(loginMember != null) {
 			
@@ -88,7 +86,20 @@ public class MemberController {
 			
 			resp.addCookie(cookie);
 			
-			path = "redirect:/";
+			
+			System.out.println("[이전페이지 주소] : " + referer);
+			
+			// 직접 주소치고 들어오면 null 반환하므로 조건 걸어줘야함
+			if(referer != null) {
+				
+				path = "redirect:" + referer;
+				
+			}else {
+				path = "redirect:/";
+			}
+			
+			// 주소에 붙여넣고 세션 만료시키기
+			session.removeAttribute("prevURL");
 			
 			
 		}else {
@@ -105,12 +116,31 @@ public class MemberController {
 	
 	// 로그아웃
 	@RequestMapping("logout")
-	public String logout(SessionStatus status) {
+	public String logout(SessionStatus status, HttpServletRequest req, RedirectAttributes ra) {
 		
+		// 이전 페이지 주소 담기
+		String referer = req.getHeader("Referer");
+		
+		// 이전 페이지 주소를 세션에 담기
+		ra.addFlashAttribute("prevURL", referer);
+		
+		System.out.println("[이전페이지 주소] : " + referer);
+		
+		String path = null;
+		// 직접 주소치고 들어오면 null 반환하므로 조건 걸어줘야함
+		if(referer != null) {
+			
+			path = "redirect:" + referer;
+			
+		}else {
+			path = "redirect:/";
+		}
+		
+		// 로그인 세션 만료시키기
 		status.setComplete();
 		
 		// 최근 페이지로 보내는 법
-		return "redirect:/";
+		return path;
 	}
 	
 	
