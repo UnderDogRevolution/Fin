@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  	
     <div class="side-menu">
-        <ul>
-            <li><a href="">
+        <ul class="side-ul">
+            <li>
+                <a href="">
                     <div>
                         <div class="postImgwrap">
                             <img src="img/라라랜드.jpg" alt="">
@@ -24,8 +25,8 @@
                             <div class="mvrv"> 총 리뷰 (500)개</div>
                         </div>
                     </div>
-                </a></li>
-
+                </a>
+            </li>
 
         </ul>
 

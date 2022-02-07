@@ -15,7 +15,7 @@ public interface MemberService2 {
 	 * @param member
 	 * @return
 	 */
-	int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath, String deleteImages);
+	int updateMember(Member member, List<MultipartFile> images, String webPath, String serverPath, int deleteCheck);
 
 
 	/**
@@ -35,17 +35,10 @@ public interface MemberService2 {
 	 */
 	int secession(int memberNo, String currentPw);
 
+	/** 이미지 리스트
+	 * @return
+	 */
 	List<String> selectImgList();
 	
-	
-	
-	/*	*//**
-			 * 바라는 점
-			 * 
-			 * @param member
-			 * @return
-			 *//*
-				 * int ask(Member member);
-				 */
 
 }

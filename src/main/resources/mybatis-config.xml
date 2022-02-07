@@ -31,6 +31,7 @@
 		<typeAlias type="com.movie.sns.post.model.vo.Post" alias="Post"/>
 		<typeAlias type="com.movie.sns.post.model.vo.PostImage" alias="PostImage"/>
 		<typeAlias type="com.movie.sns.post.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.movie.sns.post.model.vo.Movie" alias="Movie"/>
 		
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoom" alias = "ChatRoom"/>	
 		<typeAlias type ="com.movie.sns.chat.model.vo.ChatRoomJoin" alias = "ChatRoomJoin"/>	

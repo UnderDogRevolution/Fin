@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<div class="adminSide">
 		<div class="member-side" onclick ="location.href='${contextPath}/admin/member'">회원관리</div>
-		<div class="en-side">바라는점</div>
+		<div class="en-side" onclick ="location.href='${contextPath}/admin/ask'">바라는점</div>
 		<div class="board-side">게시판관리</div>
 		<div class="report-side">신고내역확인</div>
 		<div class="statistics-side">통계</div>

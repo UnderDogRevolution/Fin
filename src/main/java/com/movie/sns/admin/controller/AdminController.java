@@ -70,5 +70,12 @@ public class AdminController {
 		return "admin/adminMember";
 	}
 	
-	
+	// 바라는 점
+		@RequestMapping(value = "ask", method = RequestMethod.GET)
+		public String memberAsk(Admin member) {
+			
+			
+			return "admin/ask";
+		}
+		
 }
