@@ -20,7 +20,7 @@
 		SELECT MEMBER_NM , A.MEMBER_NO , MEMBER_NICKNM , MEMBER_EMAIL , TO_CHAR(ENROLL_DT , 'YYYY-MM-DD')ENROLL_DT ,
 		MEMBER_BIRTH, MEMBER_IMG_PATH , MEMBER_IMG_NM
 		,(SELECT COUNT(*) FROM FOLLOW
-		WHERE MEMBER_NO = 1 AND TO_USER = A.MEMBER_NO) CNT
+		WHERE MEMBER_NO = #{memberNo} AND TO_USER = A.MEMBER_NO) CNT
 		FROM MEMBER A
 		JOIN MEMBER_IMG ON(A.MEMBER_NO = MEMBER_IMG.MEMBER_NO )
 		WHERE MEMBER_NM LIKE '%'||#{search}||'%'
@@ -30,7 +30,7 @@
 	</select>
 	<!-- 팔로우  -->
 	<insert id="follow">
-		INSERT INTO FOLLOW VALUES( #{memberNo} , #{friendNo})
+		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo})
 	</insert>
 	<!-- 팔로우 취소  -->
 	<delete id="cancell">

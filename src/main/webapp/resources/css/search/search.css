@@ -27,7 +27,7 @@ a:hover {
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
-	margin: auto;
+	padding-top: 320px;
 	width: 100%;
 	min-width: 768px;
 }

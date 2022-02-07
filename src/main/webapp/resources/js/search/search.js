@@ -22,13 +22,12 @@ $("#peple_").on("click", function() { // ajax
 
 		success: function(list) {
 			console.log(list);
-			$("#container-post").remove();
+			$("#container-post").html("");
 			$.each(list, function(index, member) {
 				path = contextPath + member.imgPath + member.imgNm
 				console.log(path);
 				if (member.CNT > 0) { //내가 팔로우한 사람인 경우
-					const mainwrap = $(".mainwrap");
-					const main = $("<div id = 'container-post'>");
+					const main = $("#container-post");
 					const result = $("<div class='.post'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
@@ -41,7 +40,6 @@ $("#peple_").on("click", function() { // ajax
 					const profdiv2 = $("<div>");
 					const profdiv3 = $("<div>");
 					const profdiv4 = $("<div>");
-					const profdiv5 = $("<div>");
 					const button = $("<div>");
 					const button_ = $("<button id = 'flbtn' onclick = 'flInsert(this"+ ","+ member.memberNo + ")'>");
 					a.append(img_);
@@ -61,13 +59,13 @@ $("#peple_").on("click", function() { // ajax
 					peplewrap.append(button);
 					result.append(peplewrap);
 					main.append(result);
-					mainwrap.append(main);
+					
 					button_.css('background-color', 'black');
 					button_.css('color', 'white');
 				} else {
 
-					const mainwrap = $(".mainwrap");
-					const main = $("<div id = 'container-post'>");
+					
+					const main = $("#container-post");
 					const result = $("<div class='.post'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
@@ -101,7 +99,7 @@ $("#peple_").on("click", function() { // ajax
 					peplewrap.append(button);
 					result.append(peplewrap);
 					main.append(result);
-					mainwrap.append(main);
+					
 					button_.css('color', 'black');
 					button_.css('background-color', 'white');
 
