@@ -75,22 +75,19 @@ public class MemberDAO2 {
 	}
 
 	
+	/** 이미지 수정
+	 * @param img
+	 * @return
+	 */
 	public int updateImage(Image img) {
 		return sqlSession.delete("memberMapper.updateImage", img);
 	}
 
+	/** 이미지 정보리스트
+	 * @return
+	 */
 	public List<String> selectImgList() {
 		return sqlSession.selectList("boardMapper.selectImgList");
 	}
-	
-	/**
-	 * 바라는 점 내용 삽입
-	 * 
-	 * @param member
-	 * @return
-	 *//*
-		 * public int ask(Member member) { return sqlSession.insert("memberMapper.ask",
-		 * member); }
-		 */
 
 }

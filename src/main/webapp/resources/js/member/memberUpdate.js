@@ -140,11 +140,8 @@ function loadImg(input, num) {
 
 function deleteImg1(){
 	
-	$('#img').attr('src','defaultProfileImage.png');
-//이미지 레벨 2개로 만들어서? {img0}{img1}?
+	$('#img').attr('src','/defaultProfileImage.png');
 }
-
-
 
 $(".deleteImg").on("click", function(e){
 
