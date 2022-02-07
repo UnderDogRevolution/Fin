@@ -7,12 +7,6 @@
 		<result property="tagName" column="TAG_NM"/>
 	</resultMap>
 	
-	<select id="selectTag" resultMap="Tag_rm">
-		SELECT TAG_NM
-		FROM TAG
-		WHERE TAG_NM LIKE '%'||#{tagName}||'%'
-	</select>
-	
 	<resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
 	 	<id property="memberNo" column="MEMBER_NO" />
 	 	<result property="memberId" 	  column="MEMBER_ID"/>
@@ -26,6 +20,72 @@
 	 	<result property="statusCode" 	  column="STATUS_CD"/>
 	 	<result property="gradeCode" 	  column="GRADE_CD"/>
 	 </resultMap>
+	 
+	 <resultMap type="Post" id="post_rm">
+		<id property="postNo" column="POST_NO"/>
+		<result property="postContent" column="POST_CONTENT"/>
+		<result property="readCount" column="READ_COUNT"/>
+		<result property="likeCount" column="LIKE_COUNT"/>
+		<result property="createDate" column="CREATE_DT"/>
+		<result property="modifyDate" column="MODIFY_DT"/>
+		<result property="postStatusCode" column="POST_STATUS_CD"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="checkUsePoster" column="CHECK_USE_POSTER"/>
+		<result property="checkLike" column="CHECK_LIKE"/>
+		
+		<result property="rating" column="RATING"/>
+		
+		<result property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="movieDate" column="MOVIE_DT"/>
+		<result property="director" column="MOVIE_DIRECTOR"/>
+		<result property="poster" column="POSTER"/>
+		<result property="movieGenre" column="MOVIE_GENRE"/>
+		
+		<result property="memberName" column="MEMBER_NM"/>
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
+
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
+
+		<result property="replyCount" column="REPLY_COUNT"/>
+		
+		<collection property="listPostImage" column="POST_NO"
+			javaType="java.util.ArrayList" ofType="PostImage" select="selectPostImageList"/>
+			
+		<collection property="listProfile" column="MEMBER_NO"
+			javaType="java.util.ArrayList" ofType="Image" select="selectProfileList"/>
+	</resultMap>
+	
+	<resultMap type="PostImage" id="postImage_rm">
+		<id property="postImageNo" column="POST_IMG_NO"/>
+		<result property="postImagePath" column="POST_IMG_PATH"/>
+		<result property="postImageName" column="POST_IMG_NM"/>
+		<result property="postImageDate" column="POST_IMG_DT"/>
+		<result property="postImageOriginal" column="POST_IMG_ORIGINAL"/>
+		<result property="postImageLevel" column="POST_IMG_LEVEL"/>
+		<result property="postNo" column="POST_NO"/>
+	</resultMap>
+	
+	
+	<resultMap type="Movie" id="movie_rm">
+		<id property="movieNo" column="MOVIE_NO"/>
+		<result property="movieTitle" column="MOVIE_TITLE"/>
+		<result property="movieDate" column="MOVIE_DT"/>
+		<result property="director" column="MOVIE_DIRECTOR"/>
+		<result property="poster" column="POSTER"/>
+		<result property="movieGenre" column="MOVIE_GENRE"/>
+		<result property="AVG" column="AVG"/>
+		<result property="ratingCount" column="RATING_COUNT"/>
+	</resultMap>
+	
+	<select id="selectTag" resultMap="Tag_rm">
+		SELECT TAG_NM
+		FROM TAG
+		WHERE TAG_NM LIKE '%'||#{tagName}||'%'
+	</select>
+	
+	
 	 
 	 <select id="selectUser" resultMap="member_rm">
 		SELECT MEMBER_NM
@@ -79,51 +139,7 @@
 		
 	</insert>
 	
-	<resultMap type="Post" id="post_rm">
-		<id property="postNo" column="POST_NO"/>
-		<result property="postContent" column="POST_CONTENT"/>
-		<result property="readCount" column="READ_COUNT"/>
-		<result property="likeCount" column="LIKE_COUNT"/>
-		<result property="createDate" column="CREATE_DT"/>
-		<result property="modifyDate" column="MODIFY_DT"/>
-		<result property="postStatusCode" column="POST_STATUS_CD"/>
-		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="checkUsePoster" column="CHECK_USE_POSTER"/>
-		<result property="checkLike" column="CHECK_LIKE"/>
-		
-		<result property="rating" column="RATING"/>
-		
-		<result property="movieNo" column="MOVIE_NO"/>
-		<result property="movieTitle" column="MOVIE_TITLE"/>
-		<result property="movieDate" column="MOVIE_DT"/>
-		<result property="director" column="MOVIE_DIRECTOR"/>
-		<result property="poster" column="POSTER"/>
-		<result property="movieGenre" column="MOVIE_GENRE"/>
-		
-		<result property="memberName" column="MEMBER_NM"/>
-		<result property="memberNickName" column="MEMBER_NICKNM"/>
-
-		<result property="memberNickName" column="MEMBER_NICKNM"/>
-		<result property="memberNickName" column="MEMBER_NICKNM"/>
-
-		<result property="replyCount" column="REPLY_COUNT"/>
-		
-		<collection property="listPostImage" column="POST_NO"
-			javaType="java.util.ArrayList" ofType="PostImage" select="selectPostImageList"/>
-			
-		<collection property="listProfile" column="MEMBER_NO"
-			javaType="java.util.ArrayList" ofType="Image" select="selectProfileList"/>
-	</resultMap>
 	
-	<resultMap type="PostImage" id="postImage_rm">
-		<id property="postImageNo" column="POST_IMG_NO"/>
-		<result property="postImagePath" column="POST_IMG_PATH"/>
-		<result property="postImageName" column="POST_IMG_NM"/>
-		<result property="postImageDate" column="POST_IMG_DT"/>
-		<result property="postImageOriginal" column="POST_IMG_ORIGINAL"/>
-		<result property="postImageLevel" column="POST_IMG_LEVEL"/>
-		<result property="postNo" column="POST_NO"/>
-	</resultMap>
 		
 	<select id="selectPostImageList" resultMap="postImage_rm">
 		SELECT * 
@@ -267,6 +283,17 @@
         OR MOVIE_DIRECTOR LIKE '%'||#{searchWord}||'%'
         OR MOVIE_GENRE LIKE '%'||#{searchWord}||'%')
 		ORDER BY LIKE_COUNT DESC
+	</select>
+	
+	<select id="rankMovie" resultMap="movie_rm">
+		SELECT* FROM(
+		SELECT ROWNUM RNUM, A.* FROM(
+		                        SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) RATING_COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
+		                        FROM MOVIE_RATING
+		                        JOIN MOVIE USING (MOVIE_NO)
+		                        WHERE RATING_DT >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
+		                        GROUP BY MOVIE_NO, MOVIE_TITLE, MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
+		ORDER BY AVG DESC) A) WHERE RNUM BETWEEN 1 AND 5
 	</select>
 	
 </mapper>

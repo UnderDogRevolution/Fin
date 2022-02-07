@@ -203,6 +203,11 @@ public class PostServiceImpl implements PostService {
 	public List<Post> searchMoviePostList(Map<String, Object> map) {
 		return dao.searchMoviePostList(map);
 	}
+
+	@Override
+	public List<Movie> rankMovie() {
+		return dao.rankMovie();
+	}
 	
 	
 	
