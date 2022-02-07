@@ -41,7 +41,19 @@ public class MemberController {
 	// 로그인 화면 전환
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	
-	public String login() {
+	public String login(HttpServletRequest req) {
+		
+		// 이전 페이지 주소 세션에 담기
+		String referer = req.getHeader("Referer");
+		
+		StringBuffer requestURL = req.getRequestURL();
+		String requestURI = req.getRequestURI();
+		
+		System.out.println("requestURL : " + requestURL);
+		System.out.println("requestURI : " + requestURI);
+		System.out.println("REFERER: "+referer);
+		
+		req.getSession().setAttribute("redirectURI", referer);
 		
 		return "member/login";
 	}
