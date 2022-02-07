@@ -50,17 +50,17 @@ public class MemberController2 {
 			@RequestParam("nickInput") String nickInput,
 			@RequestParam("birthInput") String birthInput,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra,
-			List<MultipartFile> images, String deleteImages, HttpSession session) {
+			List<MultipartFile> images, int deleteCheck, HttpSession session) {
 
 		member.setMemberNo(loginMember.getMemberNo());
 		member.setMemberNickName(nickInput);
 		member.setMemberBirth(birthInput);
 
-		String webPath = "/resources/images/common/"; // (DB에 저장되는 경로)
+		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
 		
-		int result = service.updateMember(member, images, webPath, serverPath, deleteImages);
+		int result = service.updateMember(member, images, webPath, serverPath, deleteCheck);
 
 		String path = null;
 		

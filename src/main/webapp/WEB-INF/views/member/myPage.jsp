@@ -164,16 +164,15 @@ input {
 				</div>
 			</div>
 
-
 			<!-- 파일 업로드 (이미지를 누르면 프로필 사진 첨부)-->
 			<div id="fileArea" style="display:none">
 				<input type="file" name="images" onchange="loadImg(this,0)">
+				<input type="hidden" name="deleteCheck">
 				<label class="imgform-control" for="inputGroupFile02">사진 등록</label>
 			</div>
 			
-			<div class="form-inline mb-2">
-				<p class="deleteImg1" id="deleteImg1" onclick="deleteImg1();" style="cursor: pointer;"><mark>프로필사진 삭제하기</mark></p>
-				<button class="deleteImg" id="deleteImg" onclick="deleteImg();" style="cursor: pointer;">프로필사진 삭제</button>
+			<div class="btn2">
+				 <button class="deleteImg btn btn-outline-danger" type="button" id="deleteImg"  style="cursor: pointer; margin: 0%;">프로필사진 삭제</button>
 			</div>
 			<br>
 
@@ -213,7 +212,6 @@ input {
 		</div>
 
 		<input type="hidden" name="memberNo" value="${loginMember.memberNo}">
-		<input type="hidden" name="deleteImages" value="">
 		
 	</form>
 </div>
