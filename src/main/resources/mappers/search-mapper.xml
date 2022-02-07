@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="searchMapper">
-  
+
+	<resultMap type="Search" id="search_rm">
+
+		<id property="memberNo" column="MEMBER_NO" />
+
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberNick" column="MEMBER_NICKNM" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="birth" column="MEMBER_BIRTH" />
+		<result property="enrollDt" column="ENROLL_DT" />
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgNm" column="MEMBER_IMG_NM" />
+		<result property="CNT" column="CNT" />
+	</resultMap>
+
+	<select id="searchMember" resultMap="search_rm">
+		SELECT MEMBER_NM , A.MEMBER_NO , MEMBER_NICKNM , MEMBER_EMAIL , TO_CHAR(ENROLL_DT , 'YYYY-MM-DD')ENROLL_DT ,
+		MEMBER_BIRTH, MEMBER_IMG_PATH , MEMBER_IMG_NM
+		,(SELECT COUNT(*) FROM FOLLOW
+		WHERE MEMBER_NO = #{memberNo} AND TO_USER = A.MEMBER_NO) CNT
+		FROM MEMBER A
+		JOIN MEMBER_IMG ON(A.MEMBER_NO = MEMBER_IMG.MEMBER_NO )
+		WHERE MEMBER_NM LIKE '%'||#{search}||'%'
+		AND A.MEMBER_NO != #{memberNo}
+		ORDER BY CNT DESC
+
+	</select>
+	<!-- 팔로우  -->
+	<insert id="follow">
+		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo})
+	</insert>
+	<!-- 팔로우 취소  -->
+	<delete id="cancell">
+	DELETE FROM FOLLOW
+	WHERE TO_USER = #{friendNo} AND MEMBER_NO = #{memberNo}
+	</delete>
 </mapper>
