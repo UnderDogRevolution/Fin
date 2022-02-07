@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
+import com.movie.sns.post.model.vo.Pagination;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Report;
@@ -61,8 +63,13 @@ public class PostDAO {
 		return sqlSession.insert("postMapper.insertImgList", imgList);
 	}
 
-	public List<Post> selectPostList(int memberNo) {
-		return sqlSession.selectList("postMapper.selectPostList", memberNo);
+	public List<Post> selectPostList(int memberNo, Pagination pagination) {
+		// 건너 뛸 행의 수 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		// 건너 뛴 후 조회할 행의 수
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("postMapper.selectPostList", memberNo, rowBounds);
 	}
 
 	public int insertLike(Map<String, Integer> likeMap) {
@@ -119,6 +126,11 @@ public class PostDAO {
 
 	public List<Movie> rankMovie() {
 		return sqlSession.selectList("postMapper.rankMovie");
+	}
+
+
+	public int getListCount() {
+		return sqlSession.selectOne("postMapper.getListCount");
 	}
 
 

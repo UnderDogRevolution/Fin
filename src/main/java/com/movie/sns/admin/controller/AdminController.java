@@ -1,6 +1,7 @@
 package com.movie.sns.admin.controller;
 
-import javax.servlet.http.Cookie;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,14 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.admin.model.service.AdminService;
 import com.movie.sns.admin.model.vo.Admin;
+import com.movie.sns.admin.model.vo.Pagination;
+import com.movie.sns.member.model.vo.Member;
+
 
 @Controller
 @RequestMapping("/admin/*")
+@SessionAttributes({"loginMember"}) 
 public class AdminController {
 
 	@Autowired
@@ -52,23 +58,47 @@ public class AdminController {
 
 		return path;
 	}
-	
+
 	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
-		
+
 		status.setComplete();
-		
+
 		return "redirect:/admin/";
 	}
-	
-	
+
 	// 회원정보조회
 	@RequestMapping(value = "member", method = RequestMethod.GET)
-	public String memberBoard(Admin member) {
+	public String memberBoard(@RequestParam(value="cp", required=false, defaultValue="1")
+	int cp,  Model model,Admin member) {
+
+		Pagination pagination = null;
+		List<Member> memberList = null;
 		
+		pagination =service.getPagination(cp);
+		memberList=service.memberBoard(pagination);
+		
+		
+		model.addAttribute("memberList", memberList);
 		
 		return "admin/adminMember";
 	}
 	
 	
+	// 바라는 점
+		@RequestMapping(value = "ask", method = RequestMethod.GET)
+		public String memberAsk(Admin member) {
+			
+			
+			return "admin/ask";
+		}
+		
+
+	// 바라는 점 목록 조회
+	@RequestMapping("askList")
+	public String selectAskList(Admin member) {
+
+		return "admin/askList";
+	}
+
 }
