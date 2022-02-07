@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,7 +140,10 @@ public class PostServiceImpl implements PostService {
 	}
 	@Override
 	public List<Post> selectPostList(int memberNo, Pagination pagination) {
-		return dao.selectPostList(memberNo);
+		
+		
+		
+		return dao.selectPostList(memberNo, pagination);
 	}
 	
 	@Transactional
