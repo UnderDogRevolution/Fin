@@ -179,9 +179,19 @@
 									<li><a href="${contextPath}/member/myPage">
 											<div class="myclick-li">설정</div>
 									</a></li>
-									<li><a href="${contextPath}/member/logout">
+									<c:choose>
+	                                    <c:when test="${loginMember != null}">
+	                                        <li><a href="${contextPath}/member/logout">
 											<div class="myclick-li">로그아웃</div>
 									</a></li>
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <li><a href="${contextPath}/member/login">
+											<div class="myclick-li">로그인</div>
+											</a></li>
+	                                    </c:otherwise>
+                               		</c:choose>
+									
 
 								</ul>
 							</div>
