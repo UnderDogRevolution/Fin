@@ -59,7 +59,6 @@ public class MemberController2 {
 		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-		
 		int result = service.updateMember(member, images, webPath, serverPath, deleteCheck);
 
 		String path = null;
