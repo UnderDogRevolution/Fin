@@ -84,16 +84,15 @@ public class PostContoller {
 	
 	@RequestMapping(value="postView", method = RequestMethod.GET)
 	@ResponseBody
-	public String selectPostList(HttpSession session ){
+	public String selectPostList(HttpSession session, int cp ){
 		
-		int cp = 1;
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 			
 		}
 		Pagination pagination = service.getPagination(cp);
-		List<Post> listPost = service.selectPostList(memberNo);
+		List<Post> listPost = service.selectPostList(memberNo, pagination);
 		
 		
 		return new Gson().toJson(listPost);
