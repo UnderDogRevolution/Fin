@@ -1,5 +1,26 @@
 console.log("post.js");
-revealPost()
+
+const postContainer = document.getElementById("container-post")
+	
+let cp =1  // let cp 1 이 함수 실행 아래보다 있으면 안된다.
+postContainer.innerHTML = "";
+revealPost() 
+const option = {
+	root: document.getElementById("container-post"),
+	rootMargin: '100px 0px 0px 0px'
+  };
+
+const io = new IntersectionObserver((entries, observer) => {
+	entries.forEach((entry) => {
+		if(entry.isIntersecting){
+			console.log(entry);
+			cp++;
+			revealPost()
+		} else {
+		}
+	  });                            
+}, option);
+
 
 // const like1 = document.querySelectorAll(".container-like > img")[0];
 // const like2 = document.querySelectorAll(".container-like > img")[1];
@@ -15,15 +36,15 @@ revealPost()
 // })
 
 function revealPost(){
-	const postContainer = document.getElementById("container-post")
 	
 	
 	$.ajax({
 		url: contextPath + "/post/postView",
+		data : {"cp": cp},
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
-			postContainer.innerHTML = "";
+			
 			console.log(postList)
 			for(const items of postList){
 				const post = document.createElement("div");
@@ -586,13 +607,25 @@ function revealPost(){
 
 			
 			
+			
+			
+
+			
+			
 		},
 		error: function (req, status, error) {
 			console.log("ajax 실패");
 			console.log(req.responseText);
 			console.log(status);
 			console.log(error);
-		}
+		},
+		complete: function(){
+			
+			// document.querySelectorAll('.post').forEach((post) => io.observe(post));
+			const temp = document.getElementsByClassName("post")[(cp*5)-1]
+			console.log(temp)
+			io.observe(temp)
+		} 
 	})
 
 	
