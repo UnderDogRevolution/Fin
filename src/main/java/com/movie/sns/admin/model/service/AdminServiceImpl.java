@@ -1,10 +1,14 @@
 package com.movie.sns.admin.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.movie.sns.admin.model.dao.AdminDAO;
 import com.movie.sns.admin.model.vo.Admin;
+import com.movie.sns.admin.model.vo.Pagination;
+import com.movie.sns.member.model.vo.Member;
 
 
 
@@ -34,6 +38,18 @@ public class AdminServiceImpl implements AdminService{
 	public AdminServiceImpl(AdminDAO dao) {
 		super();
 		this.dao = dao;
+	}
+
+	@Override
+	public Pagination getPagination(int cp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Member> memberBoard(Pagination pagination) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
