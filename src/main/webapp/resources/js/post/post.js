@@ -1,5 +1,17 @@
 console.log("post.js");
 revealPost()
+const option = {
+	root: document.getElementById("container-post"),
+	rootMargin: '100px 0px 0px 0px',
+	threshold: 1.0
+  };
+
+const io = new IntersectionObserver((entries, observer) => {
+	entries.forEach((entry) => {
+		console.log(entry)
+	});                            
+}, option);
+
 
 // const like1 = document.querySelectorAll(".container-like > img")[0];
 // const like2 = document.querySelectorAll(".container-like > img")[1];
@@ -586,13 +598,22 @@ function revealPost(){
 
 			
 			
+			
+			
+
+			
+			
 		},
 		error: function (req, status, error) {
 			console.log("ajax 실패");
 			console.log(req.responseText);
 			console.log(status);
 			console.log(error);
-		}
+		},
+		complete: function(){
+			
+			document.querySelectorAll('.post').forEach((post) => io.observe(post));
+		} 
 	})
 
 	

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- JSTL c태그 사용을 위한 taglib 추가 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="container-post" style="padding-top: 122px; padding-right: 30%;"> <!-- 마진으로 하면 오류가 난다 무슨 문제인지는 모르겠다. -->
+<div id="container-post" style="padding-top: 122px; padding-right: 30%; height: 1000px; overflow: scroll;"> <!-- 마진으로 하면 오류가 난다 무슨 문제인지는 모르겠다. -->
 
     
     <div class="post">

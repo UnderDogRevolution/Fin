@@ -27,6 +27,7 @@ import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.service.PostService;
 import com.movie.sns.post.model.service.ReplyService;
 import com.movie.sns.post.model.vo.Movie;
+import com.movie.sns.post.model.vo.Pagination;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Reply;
 import com.movie.sns.post.model.vo.Report;
@@ -84,11 +85,14 @@ public class PostContoller {
 	@RequestMapping(value="postView", method = RequestMethod.GET)
 	@ResponseBody
 	public String selectPostList(HttpSession session ){
+		
+		int cp = 1;
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 			
 		}
+		Pagination pagination = service.getPagination(cp);
 		List<Post> listPost = service.selectPostList(memberNo);
 		
 		

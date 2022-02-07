@@ -127,36 +127,20 @@ function loadImg(input, num) {
 		reader.readAsDataURL(input.files[0]);
 		reader.onload = function(e) {
 			$(".memberImg").eq(num).children("img").attr("src", e.target.result);
+			$("[name=deleteCheck]").val(0);
 		}
 
 	} else{
 		console.log("취소 클릭");
 		$(input).before(fileClone[num].clone());
 		$(input).remove(); 
-
+   
 	}
 }
 
 
-function deleteImg1(){
+$("#deleteImg").on("click", function(){
+	$('#img').attr('src','../resources/images/common/defaultProfileImage.png');
+	$("[name=deleteCheck]").val(1);
 	
-	$('#img').attr('src','defaultProfileImage.png');
-//이미지 레벨 2개로 만들어서? {img0}{img1}?
-}
-
-
-
-$(".deleteImg").on("click", function(e){
-
-	e.stopPropagation();
-
-	$(this).prev().removeAttr("src"); // 미리보기 이미지 삭제
-
-	const index = $(this).index(".deleteImg");
-	$("input[name=images]").eq(index).val("");
-
-	if(deleteImages.indexOf(index) == -1)	{
-		// deleteImages 배열에 삭제된 이미지의 레벨을 추가
-		deleteImages.push(index);
-	}
-});
+})
