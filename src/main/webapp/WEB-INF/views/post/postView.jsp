@@ -9,14 +9,13 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
-	${post}
+
 	<c:if test="${post.postStatusCode == 501}">
 		<script>
 			alert("삭제된 게시글 입니다.")
 			window.history.back();
 		</script>
 	</c:if>
-	${loginMember}
     <%--<jsp:include page="../main/feed.jsp"></jsp:include>--%>
 	
 	<jsp:include page="../main/side.jsp"></jsp:include>
@@ -115,5 +114,6 @@
 	</script>
 	<!-- <script src="${contextPath}/resources/js/post/post.js"></script> -->
 	<script src="${contextPath}/resources/js/post/postView.js"></script>
+	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>
 </body>
 </html>

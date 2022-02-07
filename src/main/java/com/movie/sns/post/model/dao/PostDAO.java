@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
+import com.movie.sns.post.model.vo.Pagination;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Report;
@@ -119,6 +120,11 @@ public class PostDAO {
 
 	public List<Movie> rankMovie() {
 		return sqlSession.selectList("postMapper.rankMovie");
+	}
+
+
+	public int getListCount() {
+		return sqlSession.selectOne("postMapper.getListCount");
 	}
 
 

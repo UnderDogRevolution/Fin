@@ -15,6 +15,7 @@ import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.dao.PostDAO;
 import com.movie.sns.post.model.vo.Movie;
+import com.movie.sns.post.model.vo.Pagination;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Report;
@@ -129,9 +130,15 @@ public class PostServiceImpl implements PostService {
 		
 		return result;
 	}
-
+	
+	
 	@Override
-	public List<Post> selectPostList(int memberNo) {
+	public Pagination getPagination(int cp) {
+		int listCount = dao.getListCount();
+		return new Pagination(listCount, cp);
+	}
+	@Override
+	public List<Post> selectPostList(int memberNo, Pagination pagination) {
 		return dao.selectPostList(memberNo);
 	}
 	
@@ -208,6 +215,8 @@ public class PostServiceImpl implements PostService {
 	public List<Movie> rankMovie() {
 		return dao.rankMovie();
 	}
+
+	
 	
 	
 	

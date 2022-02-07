@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Movie;
+import com.movie.sns.post.model.vo.Pagination;
 import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
@@ -19,7 +20,7 @@ public interface PostService {
 
 	int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath);
 
-	List<Post> selectPostList(int memberNo);
+	List<Post> selectPostList(int memberNo, Pagination pagination);
 
 	int insertLike(int postNo, int memberNo);
 
@@ -40,6 +41,8 @@ public interface PostService {
 	List<Post> searchMoviePostList(Map<String, Object> map);
 
 	List<Movie> rankMovie();
+
+	Pagination getPagination(int cp);
 
 
 }
