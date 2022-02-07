@@ -11,6 +11,10 @@ import com.movie.sns.admin.model.vo.Admin;
 
 
 
+/**
+ * @author home
+ *
+ */
 @Service
 public class AdminServiceImpl implements AdminService{
 
@@ -23,8 +27,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Admin adminLogin(Admin member) {
 
-			
+		
 		return dao.adminLogin(member);
+	}
+
+	public AdminServiceImpl(AdminDAO dao) {
+		super();
+		this.dao = dao;
 	}
 	
 	
