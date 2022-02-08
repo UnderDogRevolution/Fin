@@ -130,7 +130,9 @@
 			const contextPath = "${contextPath}";
 		}
 		<c:if test="${loginMember.memberNo != null}">
-			const memberNo = ${loginMember.memberNo }
+				if(memberNo != null){
+					const memberNo = ${loginMember.memberNo }
+				}
 		</c:if>
 		const postContent = "${post.postContent}";
 		const postNo = ${post.postNo};
