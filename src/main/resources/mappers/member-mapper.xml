@@ -141,4 +141,18 @@
 	</update>
 
 
+	<insert id="insertAsk" useGeneratedKeys="true" parameterType="Ask">
+		
+		<!-- 
+			INSERT 구문이 수행되기 전에 <selectKey> 내부 SELECT를 수행해서
+			조회 결과인 int형 값을 파라미터로 전달 받은 Board 객체의 boardNo 필드에 저장
+		 -->
+		<selectKey order="BEFORE" resultType="_int" keyProperty="askNo">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO BOARD(ASK_NO, ASK_TITLE, ASK_CONTENT, MEMBER_NO, ASK_DATE)
+		VALUES(#{askNo}, #{askTitle}, #{askContent}, #{memberNo}, #{askDate})
+	</insert>
+
 </mapper>

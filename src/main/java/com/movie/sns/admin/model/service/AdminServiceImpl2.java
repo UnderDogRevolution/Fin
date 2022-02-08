@@ -20,7 +20,7 @@ import com.movie.sns.member.model.vo.Member;
  *
  */
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl2 implements AdminService{
 
 	@Autowired
 	private AdminDAO dao;
@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService{
 		return dao.adminLogin(member);
 	}
 
-	public AdminServiceImpl(AdminDAO dao) {
+	public AdminServiceImpl2(AdminDAO dao) {
 		super();
 		this.dao = dao;
 	}

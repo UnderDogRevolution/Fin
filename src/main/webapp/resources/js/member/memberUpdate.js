@@ -142,5 +142,5 @@ function loadImg(input, num) {
 $("#deleteImg").on("click", function(){
 	$('#img').attr('src','../resources/images/common/defaultProfileImage.png');
 	$("[name=deleteCheck]").val(1);
-	
+	console.log("기본이미지로 변경");
 })

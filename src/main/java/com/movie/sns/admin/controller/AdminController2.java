@@ -25,7 +25,7 @@ import com.movie.sns.member.model.vo.Member;
 @Controller
 @RequestMapping("/admin/*")
 @SessionAttributes({"loginMember"}) 
-public class AdminController {
+public class AdminController2 {
 
 	@Autowired
 	private AdminService service;
