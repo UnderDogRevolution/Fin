@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
 	}
 	@Transactional // RuntimException 예외 발생 시 Rollback
 	@Override
-	public int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath) {
+	public Map<String, Object> insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath) {
 		
 		Post post = new Post();
 		post.setMemberNo((int)postVO.get("memberNo"));
@@ -122,14 +122,21 @@ public class PostServiceImpl implements PostService {
 					result = dao.insertMovie(movie); // 영화 등록
 				}
 				if(result>0 && movie.getRating() != null) {
-					result = dao.insertRating(movie); // 영화 별점 등록
+					result = dao.dupCheckRating(movie);
+					if(result >0) {
+						result = dao.updateRating(movie);
+					}else {
+						result = dao.insertRating(movie); // 영화 별점 등록
+					}
 				}
 				
 			}
 		}
 		
-		
-		return result;
+		Map<String, Object> tempMap = new HashMap<String, Object>();
+		tempMap.put("result", result);
+		tempMap.put("post", post);
+		return tempMap;
 	}
 	
 	

@@ -481,6 +481,7 @@ function postValidate(){
             success: function (result) {
                 if(result >0){
                     alert("게시글 등록 성공!");
+                    location.href = contextPath + "/post/view/" + result;
                 }else{
                     alert("게시글 등록 실패!");
                 }

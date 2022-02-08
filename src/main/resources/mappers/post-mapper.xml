@@ -125,8 +125,19 @@
 	 	INSERT INTO MOVIE VALUES(#{movieNo}, #{movieTitle}, #{movieDate}, #{director}, #{poster}, #{movieGenre})
 	 </insert>
 
+	 <select id="dupCheckRating" resultType="_int">
+	 	SELECT COUNT(*)
+		FROM MOVIE_RATING
+		WHERE MEMBER_NO = #{memberNo}
+		AND MOVIE_NO = #{movieNo}
+	 </select>
+	
+	 <insert id="updateRating">
+	 	UPDATE MOVIE_RATING SET RATING = #{rating},  MODIFY_RATING_DT = SYSDATE WHERE MEMBER_NO = #{memberNo} AND MOVIE_NO = #{movieNo}
+	 </insert>
+
 	 <insert id="insertRating">
-	 	INSERT INTO MOVIE_RATING VALUES(SEQ_MOVIE_RATING_NO.NEXTVAL, ${rating}, ${movieNo}, ${memberNo}, ${postNo})
+	 	INSERT INTO MOVIE_RATING VALUES(SEQ_MOVIE_RATING_NO.NEXTVAL, ${rating}, ${movieNo}, ${memberNo}, ${postNo}, DEFAULT, DEFAULT)
 	 </insert>
 	 
 	 <insert id="insertImgList" parameterType="list">
@@ -295,14 +306,21 @@
 	</select>
 	
 	<select id="rankMovie" resultMap="movie_rm">
+	<![CDATA[ 
 		SELECT* FROM(
-		SELECT ROWNUM RNUM, A.* FROM(
-		                        SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) RATING_COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
-		                        FROM MOVIE_RATING
-		                        JOIN MOVIE USING (MOVIE_NO)
-		                        WHERE RATING_DT >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
-		                        GROUP BY MOVIE_NO, MOVIE_TITLE, MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
-		ORDER BY AVG DESC) A) WHERE RNUM BETWEEN 1 AND 5
+			SELECT ROWNUM RNUM, A.* FROM(
+                SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
+                FROM MOVIE_RATING
+                JOIN MOVIE USING (MOVIE_NO)
+                
+                WHERE 
+                (CASE
+                    WHEN RATING_DT < MODIFY_RATING_DT THEN MODIFY_RATING_DT 
+                    ELSE RATING_DT
+                END) >= TO_CHAR(SYSDATE-7,'YYYYMMDD')
+                GROUP BY MOVIE_NO, MOVIE_TITLE, MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
+			ORDER BY AVG DESC) A) WHERE RNUM <6
+		]]>
 	</select>
 	
 </mapper>
