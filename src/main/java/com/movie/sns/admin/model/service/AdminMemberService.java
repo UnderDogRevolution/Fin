@@ -14,6 +14,7 @@ public interface AdminMemberService {
 	Pagination getPagination(int cp);
 
 	List<Member> selectMemberList(Pagination pagination);
+
 	
 	
 	

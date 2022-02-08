@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper2">
+
+	<resultMap type="Admin" id="admin_rm">
+
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="name" column="MEMBER_NM" />
+		<result property="nickName" column="MEMBER_NICKNM" />
+		<result property="password" column="MEMBER_PW" />
+		<result property="email" column="MEMBER_EMAIL" />
+		<result property="birth" column="MEMBER_BIRTH" />
+		<result property="enrollDt" column="ENROLL_DT" />
+		<result property="statusCd" column="STATUS_CD" />
+		<result property="gradeCd" column="GRADE_CD" />
+		
+	</resultMap>
+	
+	<resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
+
+		<id property="memberNo" column="MEMBER_NO" />
+
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberNickName" column="MEMBER_NICKNM" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="enrollDate" column="ENROLL_DT" />
+		<result property="modifyDate" column="MODIFY_DT" />
+		<result property="memberStatusCode" column="STATUS_CD" />
+		<result property="memberGradeCode" column="GRADE_CD" />
+		
+
+	</resultMap>
+
+	<!-- 전체 회원 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE GRADE_CD = 100
+	</select>
+	
+	<!-- 회원 정보 조회 -->
+	<select id="selectMember">
+	
+	</select>
+	
+	
+
+</mapper>
