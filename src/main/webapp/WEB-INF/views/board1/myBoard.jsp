@@ -56,16 +56,16 @@
 						<div class="boardCount">
 
 							<div class="Count">
-								<span>게시글</span> <span>111</span>
+								<span>게시글</span> <span>${followerCount}</span>
 
 							</div>
 							<div class="Count" data-bs-toggle="modal"
 								data-bs-target="#followerList">
-								<span>팔로워</span> <span>111</span>
+								<span>팔로워</span> <span>${followCount}</span>
 							</div>
 							<div class="Count" data-bs-toggle="modal"
 								data-bs-target="#followerList2">
-								<span>팔로우</span> <span>111</span>
+								<span>팔로우</span> <span>${followerCount}</span>
 							</div>
 
 
@@ -494,7 +494,7 @@
 						
 						success : function(result) {
 							
-							
+							html.push('<a class="follow" >팔로잉</a>');
 							
 							
 							
