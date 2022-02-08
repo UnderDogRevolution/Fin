@@ -33,7 +33,7 @@ function signUpValidate(){
   // 이걸 쉽게 쓰는 방법은..??
   if(
     signUpCheckObj.email == true &&
-    // signUpCheckObj.emailCode == true &&
+    signUpCheckObj.emailCode == true &&
     signUpCheckObj.password == true &&
     signUpCheckObj.password2 == true &&
     signUpCheckObj.nickName == true &&

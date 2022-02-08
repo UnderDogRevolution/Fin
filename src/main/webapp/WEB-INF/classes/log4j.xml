@@ -29,18 +29,18 @@
 	</appender>
 	
 	<!-- 날짜별 로그파일 생성하기 -->
-   	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+   	<!-- <appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
    
 	    <param name="File" value="/workspace/UnderDog/logs/montage_log.log" />
-	    <param name="Append" value="true" /> <!-- 이어쓰기 -->
+	    <param name="Append" value="true" /> 이어쓰기
 	    <param name="encoding" value="UTF-8" />
 	    
-	    <!-- 날짜가 바뀌면 파일명 뒤에 추가되는 패턴 -->
+	    날짜가 바뀌면 파일명 뒤에 추가되는 패턴
 	    <param name="DatePattern" value="'.'yyyy-MM-dd" />
 	    <layout class="org.apache.log4j.PatternLayout">
 	         <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
       	</layout>	
-   	</appender>
+   	</appender> -->
 	
 	
 	<!-- Application Loggers -->
@@ -99,7 +99,7 @@
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
-		<appender-ref ref="dailyRollingFile" />
+		<!-- <appender-ref ref="dailyRollingFile" /> -->
 	</root>
 	
 </log4j:configuration>

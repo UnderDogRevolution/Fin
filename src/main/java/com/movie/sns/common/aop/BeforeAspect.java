@@ -38,7 +38,9 @@ public class BeforeAspect {
 		HttpServletRequest request = ( (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes() ).getRequest();
 		
 		// 로그인 회원정보 얻기, 정보가 없는 경우엔 null
-		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+		// Admin의 loginMember와 Member loginMember의 자료형이 안맞아서 충돌남 -> 어드민 로그인 세션의 이름을 바꿔야할듯 
+		
+//		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
 		
 		// 로그 변수 생성
 		String log = "";
@@ -46,12 +48,12 @@ public class BeforeAspect {
 		
 		// IP 주소는 그냥 가져오지 않았음
 		// 편의상 닉네임을 ID로 칭함 (중복 불가능하므로)
-		if(loginMember != null) {
-			log += "[ID : " + loginMember.getMemberNickName() + "]  ";
-		}
-		
+//		if(loginMember != null) {
+//			log += "[ID : " + loginMember.getMemberNickName() + "]  ";
+//		}
+//		
 		log += "[Controller]" + className + "." + methodName + "()";
-		
+//		
 		logger.info(log);
 		
 	}
