@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 
@@ -88,6 +89,19 @@ public class MemberDAO2 {
 	 */
 	public List<String> selectImgList() {
 		return sqlSession.selectList("boardMapper.selectImgList");
+	}
+
+	
+	/** 문의글 삽입
+	 * @param member
+	 * @return
+	 */
+	public int insertAsk(AdminAsk member) {
+		
+		int result = sqlSession.insert("askMapper.insertAsk", member);
+		
+		if(result > 0) 	return member.getAskNo();
+		else			return 0;
 	}
 
 }

@@ -24,8 +24,8 @@ import com.movie.sns.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin/*")
-@SessionAttributes({"adminLoginMember"}) 
-public class AdminController {
+@SessionAttributes({"loginMember"}) 
+public class AdminController2 {
 
 	@Autowired
 	private AdminService service;
@@ -46,7 +46,7 @@ public class AdminController {
 
 		if (loginMember != null) {
 
-			model.addAttribute("adminLoginMember", loginMember);
+			model.addAttribute("loginMember", loginMember);
 
 			path = "admin/adminMain";
 
