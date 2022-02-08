@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  	
     <div class="side-menu">
-        <!-- <div style="float:right; padding-right:28px; font-weight: bold;">
-            <span>최신</span><span> / </span><span>팔로우</span>
-        </div> -->
+        
         <ul class="side-ul">
             <li>
                 <a href="">

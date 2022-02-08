@@ -1,5 +1,4 @@
 console.log("postView")
-
 //게시글 좋아요
 const whitePopcorn = document.getElementsByClassName("white-popcorn");
 const vividPopcorn = document.getElementsByClassName("vivid-popcorn");

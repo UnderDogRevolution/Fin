@@ -3,6 +3,7 @@ console.log("post.js");
 const postContainer = document.getElementById("container-post")
 	
 let cp =1  // let cp 1 이 함수 실행 아래보다 있으면 안된다.
+let onlyFollow = 0;
 postContainer.innerHTML = "";
 revealPost() 
 const option = {
@@ -40,11 +41,15 @@ function revealPost(){
 	
 	$.ajax({
 		url: contextPath + "/post/postView",
-		data : {"cp": cp},
+		data : {"cp": cp, "onlyFollow": onlyFollow},
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
-			
+			if(onlyFollow == 1 && postList.length == 0){
+				alert("팔로우를 해주세요!")
+				recentPost()
+				return;
+			}
 			console.log(postList)
 			for(const items of postList){
 				const post = document.createElement("div");
@@ -891,6 +896,10 @@ function comment(e, replyNo){
 
 
 function insertComment(e, replyNo){
+	if(typeof memberNo == "undefined"  || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
@@ -1022,3 +1031,21 @@ const topButton = document.getElementsByClassName("top-button")[0]
 topButton.addEventListener("click", function(){
 	postContainer.scrollTo(0,0);
 })
+
+function onlyFollowPost(){
+	if(typeof memberNo == "undefined"  || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
+	postContainer.innerHTML = "";
+	cp = 1;
+	onlyFollow = 1;
+	revealPost()
+}
+
+function recentPost(){
+	postContainer.innerHTML = "";
+	cp = 1;
+	onlyFollow = 0;
+	revealPost()
+}

@@ -1,9 +1,7 @@
 
 /* 사이드바 */
 .side-menu {
-    /* overflow-y: auto; */
     border: none;
-    width: 40%;
     max-width: 350px;
     min-width: 150px;
     max-height: 600px;
