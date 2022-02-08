@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService{
 	 *
 	 */
 	@Override
-	public Admin adminLogin(Admin member) {
+	public Member adminLogin(Member member) {
 
 		
 		return dao.adminLogin(member);
