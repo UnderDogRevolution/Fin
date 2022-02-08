@@ -11,7 +11,7 @@ import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 @Repository
-public class AdminDAO {
+public class AdminDAO2 {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	

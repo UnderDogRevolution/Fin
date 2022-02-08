@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.member.model.vo.Member;
 
 public interface MemberService2 {
@@ -39,6 +40,13 @@ public interface MemberService2 {
 	 * @return
 	 */
 	List<String> selectImgList();
+
+
+	/** 바라는점 글삽입
+	 * @param member
+	 * @return
+	 */
+	int insertAsk(AdminAsk member);
 	
 
 }
