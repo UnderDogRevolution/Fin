@@ -14,7 +14,7 @@ const io = new IntersectionObserver((entries, observer) => {
 	entries.forEach((entry) => {
 		if(entry.isIntersecting){
 			console.log(entry);
-			cp++;
+			
 			revealPost()
 		} else {
 		}
@@ -623,8 +623,13 @@ function revealPost(){
 			
 			// document.querySelectorAll('.post').forEach((post) => io.observe(post));
 			const temp = document.getElementsByClassName("post")[(cp*5)-1]
-			console.log(temp)
-			io.observe(temp)
+			cp++;
+			if(temp == null){
+				io.disconnect()
+			}else{
+				console.log(temp)
+				io.observe(temp)
+			}
 		} 
 	})
 
@@ -1007,3 +1012,7 @@ function report(reportTypeNo, targetPK){
 
 }
 
+const topButton = document.getElementsByClassName("top-button")[0]
+topButton.addEventListener("click", function(){
+	postContainer.scrollTo(0,0);
+})

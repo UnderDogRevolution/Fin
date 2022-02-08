@@ -8,10 +8,22 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
+	<style>
+		#main-container{
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			width: 100%;
+			height: 96%;
+			margin-top: 129px;
+		}
+	</style>
 <body>
-    <jsp:include page="feed.jsp"></jsp:include>
+	<div id="main-container">
+		<jsp:include page="feed.jsp"></jsp:include>
+		<jsp:include page="side.jsp"></jsp:include>
+	</div>
 	
-	<jsp:include page="side.jsp"></jsp:include>
 	<jsp:include page="crud-post.jsp"></jsp:include>
 	
 	

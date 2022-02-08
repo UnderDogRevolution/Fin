@@ -160,7 +160,7 @@ public class PostContoller {
 
 	@RequestMapping("searchPost")
 	@ResponseBody
-	public String searchPost(String searchWord, HttpSession session){
+	public String searchPost(String searchWord, HttpSession session, int cp){
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
@@ -169,7 +169,8 @@ public class PostContoller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchWord", searchWord);
 		map.put("memberNo", memberNo);
-		List<Post> listPost = service.searchPostList(map);
+		Pagination pagination = service.getPagination(cp);
+		List<Post> listPost = service.searchPostList(map, pagination);
 		
 		
 		return new Gson().toJson(listPost);
@@ -178,7 +179,7 @@ public class PostContoller {
 
 	@RequestMapping("popularPost")
 	@ResponseBody
-	public String popularPostList(String searchWord, HttpSession session){
+	public String popularPostList(String searchWord, HttpSession session, int cp){
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
@@ -187,7 +188,9 @@ public class PostContoller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchWord", searchWord);
 		map.put("memberNo", memberNo);
-		List<Post> listPost = service.popularPostList(map);
+		
+		Pagination pagination = service.getPagination(cp);
+		List<Post> listPost = service.popularPostList(map, pagination);
 		
 		
 		return new Gson().toJson(listPost);
@@ -196,7 +199,7 @@ public class PostContoller {
 
 	@RequestMapping("searchMovie")
 	@ResponseBody
-	public String searchMoviePostList(String searchWord, HttpSession session){
+	public String searchMoviePostList(String searchWord, HttpSession session, int cp){
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
@@ -205,7 +208,8 @@ public class PostContoller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchWord", searchWord);
 		map.put("memberNo", memberNo);
-		List<Post> listPost = service.searchMoviePostList(map);
+		Pagination pagination = service.getPagination(cp);
+		List<Post> listPost = service.searchMoviePostList(map, pagination);
 		
 		
 		return new Gson().toJson(listPost);
