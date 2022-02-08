@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.movie.sns.admin.model.dao.AdminDAO1;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.Pagination;
+import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 
@@ -44,6 +45,25 @@ public class AdminServiceImpl1 implements AdminService1{
 				
 		
 		return post;
+	}
+
+	@Override
+	public int changeStatus(AdminPost post) {
+		int result = 0;
+		System.out.println("값 보기" +post.getStatus());
+		result = dao.changeStatus(post);
+		if(post.getStatus() == "502") {
+			result = dao.insertBlind(post);
+			
+		}
+			
+		//
+		return result;
+	}
+
+	@Override
+	public List<PostStatus> selectStatus() {
+		return dao.selectStatus();
 	}
 
 

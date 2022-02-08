@@ -137,20 +137,24 @@ public class MemberController2 {
 		return "redirect:/member/login";
 	}
 
-	// 바라는 점 화면 전환
+	
+	
+	
+	
+	// 문의 글 화면 전환
 	@RequestMapping(value = "ask", method = RequestMethod.GET)
-	public String ask(Member member) {
-		return "member/ask";
+	public String askInsert(Model model) {
+		return "member/askInsert";
 	}
 	
-	//바라는 점 글 삽입
+	//문의 글 삽입
 	@RequestMapping(value="ask", method=RequestMethod.POST)
-	public String boardInsert(Model model, AdminAsk member,
+	public String boardInsert(Model model, AdminAsk ask,
 		  @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
 		
-		member.setMemberNo(loginMember.getMemberNo());
+		ask.setMemberNo(loginMember.getMemberNo());
 		
-		int askNo = service.insertAsk(member);
+		int askNo = service.insertAsk(ask);
 		
 		String path = null;
 		if(askNo > 0) { // 삽입 성공
@@ -160,7 +164,6 @@ public class MemberController2 {
 			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
 		}
 		
-		return "redirect:/admin/askList";
-	//경로 개판
+		return "redirect:/AdminAsk/askList";
 	}
 }

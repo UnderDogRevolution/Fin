@@ -8,32 +8,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.sns.admin.model.vo.Admin;
+import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 @Repository
-public class AdminDAO {
+public class AdminDAO2 {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
 
-	/** 관리자 로그인
-	 * @param member
+	/** 전체 게시글 수 count
+	 * @return listCount
+	 */
+	public int getListCount() {
+		return sqlSession.selectOne("adminMapper3.getListCount");
+	}
+	
+	
+	
+	
+	/** 10페이지 범위 문의글 목록 조회
+	 * @param pagination
 	 * @return
 	 */
-	public Member adminLogin(Member member) {
-		
-		return sqlSession.selectOne("adminMapper.login", member);
-	}
-
-
-	public List<Member> selectAskList(Pagination pagination) {
+	public List<AdminAsk> selectAskList(Pagination pagination) {
 
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
 		int limit = pagination.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("boardMapper.selectAskList", null, rowBounds);
+		return sqlSession.selectList("adminMapper3.selectAskList", null, rowBounds);
+	}
+
+
+
+
+	/** 문의글 상세 조회
+	 * @param askNo
+	 * @return
+	 */
+	public AdminAsk selectAsk(int askNo) {
+		return sqlSession.selectOne("adminMapper3.selectAsk", askNo);
 	}
 
 }

@@ -9,7 +9,7 @@ import com.movie.sns.member.model.vo.Member;
 public interface AdminService {
 	
 	// 관리자 로그인
-	Admin adminLogin(Admin member);
+	Member adminLogin(Member member);
 
 	Pagination getPagination(int cp);
 

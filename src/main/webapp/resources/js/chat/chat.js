@@ -52,7 +52,7 @@ function selectChatRoom() {
 }
 
 // 채팅방 업로드 되면 그 채팅방 요소만 추가하기
-function selectchatting(frNo, memberNo, chatRoomNo,path) {
+function selectchatting(frNo, memberNo, chatRoomNo, path) {
 
 
 	$.ajax({
@@ -66,7 +66,7 @@ function selectchatting(frNo, memberNo, chatRoomNo,path) {
 				console.log(room.chatRoomNo);
 				if (chatRoomNo == room.chatRoomNo) {
 					const chatListWrap = $(".chatList-wrap");
-					const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ','+path+')">');
+					const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ',' + path + ')">');
 					const img = $('<img class="MemberImg">');
 					img.attr("src", contextPath + room.img[0].imgPath + room.img[0].imgName);
 					const imgdiv = $('<div class="chatMemberImg">');
@@ -176,11 +176,11 @@ function goChatting(friendNo) {
 				chat.append(icon);
 				chatListWrap.prepend(chat);
 				$("#MessageModal").modal('hide');
-				searchChatting(result.chatRoom.chatRoomNo,friendNo,path)
+				searchChatting(result.chatRoom.chatRoomNo, friendNo, path)
 			} else {
-					const path1 = "'" + contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm + "'";
+				const path1 = "'" + contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm + "'";
 				$("#MessageModal").modal('hide');
-				searchChatting(result.chatRoom.chatRoomNo,friendNo,path1)
+				searchChatting(result.chatRoom.chatRoomNo, friendNo, path1)
 
 			}
 		},
@@ -558,8 +558,8 @@ chattingSock.onmessage = function(e) {
 
 				} else if (result == 2) {
 					if (memberNo != obj.memberNo) {
-						const path1 = "'"+obj.path+"'";
-						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo,path1)
+						const path1 = "'" + obj.path + "'";
+						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo, path1)
 
 					}
 
