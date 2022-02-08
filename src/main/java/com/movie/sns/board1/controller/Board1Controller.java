@@ -49,7 +49,19 @@ public class Board1Controller {
 			System.out.println("result:" + result);
 
 			model.addAttribute("follow", result);
-
+			
+			int result2 = followCount(memberNo);
+			
+			model.addAttribute("followCount", result2);
+			
+			int result3 = followerCount(memberNo);
+			
+			model.addAttribute("followerCount", result3);
+			
+			int result4 = postCount(memberNo);
+			
+			model.addAttribute("followerCount", result4);
+			
 		}
 
 		return "board1/myBoard";
@@ -155,7 +167,52 @@ public class Board1Controller {
 		return result;
 
 	}
-
+	
+	
+	public int followCount( int memberNo) {
+		
+		
+		
+		int result = service.followCount(memberNo);
+		
+		
+		return result;
+		
+		
+		
+		
+		
+	}
+	
+	public int followerCount( int memberNo) {
+		
+		
+		
+		int result = service.followerCount(memberNo);
+		
+		
+		return result;
+		
+		
+		
+		
+		
+	}
+	
+	public int postCount( int memberNo) {
+		
+		
+		
+		int result = service.postCount(memberNo);
+		
+		
+		return result;
+		
+		
+		
+		
+		
+	}
 //	@ResponseBody
 //	@RequestMapping(value = "myBoard/{memberNo}/save", method = RequestMethod.GET)
 //	public String selectSave(@PathVariable("memberNo") int memberNo , Model model, HttpSession session) {
