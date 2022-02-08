@@ -36,15 +36,15 @@
 								<c:otherwise>
 									<span>${memberName}</span>
 										${follow}
-									<c:choose>
-										<c:when test="${follow eq 0}">
-											<a class="follow" >팔로우</a>
-
-										</c:when>
-										<c:otherwise>
-											<a class="follower" >팔로잉</a>
-										</c:otherwise>
-									</c:choose>
+										<c:choose>
+											<c:when test="${follow eq 0}">
+												<a class="follow" >팔로우</a>
+	
+											</c:when>
+											<c:otherwise>
+												<a class="follower" >팔로잉</a>
+											</c:otherwise>
+										</c:choose>
 									<a>메세지 보내기</a>
 								</c:otherwise>
 							</c:choose>
@@ -55,15 +55,15 @@
 						</div>
 						<div class="boardCount">
 
-							<div class="Count">
-								<span>게시글</span> <span>${followerCount}</span>
+							<div class="Count post_count">
+								<span>게시글</span> <span>${postCount}</span>
 
 							</div>
-							<div class="Count" data-bs-toggle="modal"
+							<div class="Count follower_count" data-bs-toggle="modal"
 								data-bs-target="#followerList">
 								<span>팔로워</span> <span>${followCount}</span>
 							</div>
-							<div class="Count" data-bs-toggle="modal"
+							<div class="Count follow_count" data-bs-toggle="modal"
 								data-bs-target="#followerList2">
 								<span>팔로우</span> <span>${followerCount}</span>
 							</div>
@@ -361,7 +361,7 @@
 										data-bs-target="#followerList">팔로워</div>
 									<div class="setting-update" data-bs-toggle="modal"
 										data-bs-target="#followerList2">팔로우</div>
-									<div class="setting-update">차단 관리</div>
+									
 
 									<div class="setting-update">로그 아웃</div>
 
@@ -428,16 +428,14 @@
 
 									if (list[i].poster !== undefined
 											& list[i].postContent !== undefined) {
-										html
-												.push('<div class="show" style="background: url('
+										html.push('<div class="show" style="background: url('
 														+ list[i].poster
 														+ ') no-repeat center center; background-size: cover;"></div>');
 									} else if (list[i].poster === undefined
 											&& list[i].postContent !== undefined) {
 
 										if (list[i].listPostImage[0] === undefined) {
-											html
-													.push('<div class="show"><span>'
+											html.push('<div class="show"><span>'
 															+ list[i].postContent
 															+ '</span></div>');
 										} else {
@@ -479,10 +477,11 @@
 
 		}
 
-		$(".follow").on("click",function() {
+		$(document).on("click", '.follow', function() {
 					
-				
+			var html = [];
 					
+			var _this = $(this);
 
 					// var mode = $(this).data('mode');
 
@@ -493,8 +492,17 @@
 						dataType : "JSON",
 						
 						success : function(result) {
+/* 
+							html.push('<a class="follower">팔로잉</a>');
+
+							$('.nickname .follow-wrap').html(html.join('')); */
 							
-							html.push('<a class="follow" >팔로잉</a>');
+							_this.removeClass('follow').addClass('follower');
+							_this.text('팔로잉');
+							var follower_count = parseInt($('.follower_count span').eq(1).text());
+							$('.follower_count span').eq(1).text(follower_count + 1);
+							
+
 							
 							
 							
@@ -520,18 +528,27 @@
 
 				});
 
-		$(".follower").on("click",function() {
+		$(document).on("click", '.follower', function() {
 
-					
-
+			var html = [];	
+			
+			var _this = $(this);
+			
 					$.ajax({
 
 						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/deleteFollow",
 						type : "get",
 						dataType : "JSON",
 						
-						success : function(result) {
+						success : function(result) {			
 							
+
+							_this.removeClass('follower').addClass('follow');
+							_this.text('팔로우');
+							var follower_count =  parseInt($('.follower_count span').eq(1).text());
+							$('.follower_count span').eq(1).text(follower_count - 1);
+
+
 							
 						},
 
@@ -551,6 +568,14 @@
 					});
 
 				});
+		
+		
+		$('#followerList').on('shown.bs.modal', function () {
+				alert('열렸다');
+				
+			}).on('hide.bs.modal', function() {
+				alert('닫는다');
+			});
 	</script>
 
 </body>
