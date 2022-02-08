@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/side.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-</head>
 	<style>
 		#main-container{
 			display: flex;
@@ -18,10 +17,19 @@
 			margin-top: 129px;
 		}
 	</style>
+	
+</head>
 <body>
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>
-		<jsp:include page="side.jsp"></jsp:include>
+		<div style="margin-left: 4%;">
+			<jsp:include page="side.jsp"></jsp:include>
+			<div style="float:right; padding-right:28px; font-weight: bold;">
+				<span onclick="recentPost();">최신</span><span> / </span ><span onclick="onlyFollowPost()">팔로우</span>
+			</div>
+
+		</div>
+
 	</div>
 	
 	<jsp:include page="crud-post.jsp"></jsp:include>

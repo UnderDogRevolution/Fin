@@ -21,6 +21,12 @@ public interface Board1Service {
 
 	int followCheck(Member member);
 
+	int followCount(int memberNo);
+
+	int followerCount(int memberNo);
+
+	int postCount(int memberNo);
+
 
 	
 

@@ -43,10 +43,10 @@ public interface MemberService2 {
 
 
 	/** 바라는점 글삽입
-	 * @param member
+	 * @param ask
 	 * @return
 	 */
-	int insertAsk(AdminAsk member);
+	int insertAsk(AdminAsk ask);
 	
 
 }
