@@ -60,6 +60,7 @@
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper1.xml"/>
 		<mapper resource="/mappers/admin-mapper2.xml"/>
+		<mapper resource="/mappers/admin-mapper3.xml"/>
 	</mappers>
 
 

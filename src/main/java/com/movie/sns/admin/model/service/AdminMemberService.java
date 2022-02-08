@@ -13,7 +13,17 @@ public interface AdminMemberService {
 	 */
 	Pagination getPagination(int cp);
 
+	/** 회원 리스트 조회하기
+	 * @param pagination
+	 * @return
+	 */
 	List<Member> selectMemberList(Pagination pagination);
+
+	/** 회원 정보 상세 조회하기
+	 * @param memberNo
+	 * @return
+	 */
+	Member selectMemberDetail(int memberNo);
 
 	
 	

@@ -93,14 +93,14 @@ public class MemberDAO2 {
 
 	
 	/** 문의글 삽입
-	 * @param member
+	 * @param ask
 	 * @return
 	 */
-	public int insertAsk(AdminAsk member) {
+	public int insertAsk(AdminAsk ask) {
 		
-		int result = sqlSession.insert("askMapper.insertAsk", member);
+		int result = sqlSession.insert("askMapper.insertAsk", ask);
 		
-		if(result > 0) 	return member.getAskNo();
+		if(result > 0) 	return ask.getAskNo();
 		else			return 0;
 	}
 
