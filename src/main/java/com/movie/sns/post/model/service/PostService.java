@@ -18,7 +18,7 @@ public interface PostService {
 
 	List<Member> selectUser(String tagName);
 
-	int insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath);
+	Map<String, Object> insertPost(Map<String, Object> postVO, List<MultipartFile> fileList, String webPath, String serverPath);
 
 	List<Post> selectPostList(int memberNo, Pagination pagination);
 
