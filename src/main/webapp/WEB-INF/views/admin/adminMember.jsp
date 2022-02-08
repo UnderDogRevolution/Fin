@@ -11,7 +11,15 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
+<style>
+	#memberDetailContent *{
+		color: #323232;
+	}
+	.memberDetail-body td{
+		font-size: 15px;
+	}
 
+</style>
 
 </head>
 
@@ -28,8 +36,20 @@
 				
 				
 				<div class="adminBoard">
+				
+				<%-- 파라미터 중 sv가 있다면 변수 생성 --%>
+				<c:if test="${!empty param.sv}">
+					<c:set var="s" value="&sk=${param.sk}&sv=${param.sv}"/>
+				</c:if>
+				
+				<%-- 파라미터 중 ct가 있다면 변수 생성 --%>
+				<c:if test="${!empty param.ct}">
+					<c:set var="c" value="&ct=${param.ct}"/>
+				</c:if>
+				
 					<div class="adminHeader">회원관리</div>
 					<div class="adminBoardMain">
+					
 						<div class="adminSearch">
 							<form action="" class="adminSearchForm">
 								<select name="" id="" class="select">
@@ -39,15 +59,14 @@
 								</select> <input type="text">
 								<button>검색</button>
 							</form>
-
-
 						</div>
+						
 
 						<div class="adminBoardtable">
 
 							<div class="table">
 								
-								<table class="table table-hover table-striped my-5"
+								<table class="table my-5"
 									id="list-table">
 
 									<thead>
@@ -76,29 +95,20 @@
 										
 													<tr>
 														<td style="width: 70px;">${member.memberNo}</td>
-														<td style="width: 140px;">${member.memberNo}</td>
-														<td style="width: 300px;">${member.memberNo}</td>
-														<td style="width: 100px;">${member.memberNo}</td>
-														<td>${member.memberNo}</td>
-														<td>${member.memberNo}</td>
+														<td style="width: 140px; cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</td>
+														<td style="width: 300px;">${member.memberEmail}</td>
+														<td style="width: 100px;">${member.memberStatusName}</td>
+														<td>${member.enrollDate}</td>
+														<td>${member.violationCount}</td>
 													</tr>
 													
 												</c:forEach>
 											</c:otherwise>
 										</c:choose>
 									
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
 									</tbody>
 
 									<tfoot>
-
 									</tfoot>
 
 								</table>
@@ -106,10 +116,38 @@
 							</div>
 
 						</div>
-
-
 					</div>
-
+					
+					
+					<%---------------------- Pagination ----------------------%>
+					<div class="my-5">
+						<ul class="pagination">
+							
+							
+							<c:if test="${pagination.startPage != 1 }">
+								<li><a class="page-link" href="list?cp=1"${s}>&lt;&lt;</a></li>
+								<li><a class="page-link" href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+							</c:if>
+							
+							<%-- 페이지네이션 번호 목록 --%>
+							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+								<c:choose>
+									<c:when test="${i == pagination.currentPage}">
+										<li><a class="page-link" style="color:black; font-weight:bold;">${i}</a></li>   
+									</c:when>
+									
+									<c:otherwise>
+										<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							
+							<c:if test="${pagination.endPage != pagination.maxPage }">
+								<li><a class="page-link" href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+								<li><a class="page-link" href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
+							</c:if>
+						</ul>
+					</div>
 				</div>
 
 
@@ -117,6 +155,84 @@
 			</div>
 		</main>
 	</div>
+
+	<!-- 회원 정보 상세 조회 모달 -->
+	<div class="modal fade" id="memberDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content" style="color: #323232;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">회원 상세 정보</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body" id="memberDetailContent">
+				
+					<div class="memberDetail-header">
+
+						<div class="memberProfile" style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: auto; margin-bottom: 10px;">
+						    <img class="inputMemberProfileImage" src="${contextPath}/resources/images/common/defaultProfileImage.png" style="width: 150px; height: 150px; object-fit: cover; ">
+						  </div>
+						  <div class="inputMemberEmail">
+						    <p>Email</p>
+						  </div>
+						  
+						</div>
+
+						<div class="memberDetail-body">
+						  <table>
+						    
+						    <tr>
+						      <td>이름 : </td>
+						      <td class="inputMemberName">홍길동</td>
+						    </tr>
+						
+						    <tr>
+						      <td>닉네임 :</td>
+						      <td class="inputMemberNickName">길동이</td>
+						    </tr>
+						
+						    <tr>
+						      <td>회원번호 : </td>
+						      <td class="inputMemberNo">1</td>
+						    </tr>
+						
+						    <tr>
+						      <td>생일 : </td>
+						      <td class="inputMemberBirth">미입력</td>
+						    </tr>
+						
+						    <tr>
+						      <td>가입일 : </td>
+						      <td class="inputMemberEnrollDate">2022-02-08 18:38:00</td>
+						    </tr>
+						
+						    <tr>
+						      <td>회원 상태 : </td>
+						      <td class="inputMemberStatusName">정지</td>
+						    </tr>
+						
+						    <tr>
+						      <td>경고 횟수 : </td>
+						      <td class="inputViolationCount">1회</td>
+						    </tr>
+						
+						  </table>
+						
+						</div>
+					
+				</div>
+				
+				<!-- <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary">저장</button>
+				</div> -->
+				
+			</div>
+		</div>
+	</div>
+
+
+
 
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

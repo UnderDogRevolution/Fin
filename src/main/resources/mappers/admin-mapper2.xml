@@ -96,5 +96,32 @@
 	</select>
 	
 	
+	<select id="selectMemberDetail" resultMap="member_rm">
+	SELECT 
+    MEMBER.MEMBER_NO MEMBER_NO,
+    MEMBER_NM,
+    MEMBER_NICKNM,
+    MEMBER_EMAIL,
+    ENROLL_DT,
+    MODIFY_DT,
+    STATUS_CD,
+    GRADE_CD,
+    MEMBER_BIRTH,
+    MEMBER_STATUS_NM,
+    GRADE_NM,
+    
+    (SELECT COUNT(*)
+    FROM VIOLATION
+    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
+    
+	FROM MEMBER
+	JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
+	JOIN GRADE USING(GRADE_CD)
+	
+	WHERE GRADE_CD = 100
+	AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
 
 </mapper>
