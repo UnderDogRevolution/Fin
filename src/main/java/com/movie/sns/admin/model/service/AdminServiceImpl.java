@@ -51,6 +51,11 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Member> selectAskList(Pagination pagination) {
+		return dao.selectAskList(pagination);
+	}
 	
 	
 }

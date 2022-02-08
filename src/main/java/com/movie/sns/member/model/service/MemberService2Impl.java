@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.dao.MemberDAO2;
 import com.movie.sns.member.model.vo.*;
@@ -109,6 +110,9 @@ public class MemberService2Impl implements MemberService2 {
 	}
 	
 	
+	/** 프로필사진 이미지 리스트
+	 *
+	 */
 	@Override
 	public List<String> selectImgList() {
 		return dao.selectImgList();
@@ -126,4 +130,21 @@ public class MemberService2Impl implements MemberService2 {
 		}
 		return result;
 	}
+
+	//문의글 삽입
+	@Override
+	public int insertAsk(AdminAsk member) {
+
+		//제목, 내용에 개행문자 처리
+		member.setAskTitle(Util.XSS(member.getAskTitle()));
+		member.setAskContent(Util.XSS(member.getAskContent()));
+		member.setAskContent(Util.changeNewLine(member.getAskContent()));
+		
+		int askNo=dao.insertAsk(member);
+						
+		return askNo;
+	}
+	
+	
+	
 }

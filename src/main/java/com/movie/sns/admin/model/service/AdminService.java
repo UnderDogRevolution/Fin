@@ -15,4 +15,6 @@ public interface AdminService {
 
 	List<Member> memberBoard(Pagination pagination);
 
+	List<Member> selectAskList(Pagination pagination);
+
 }

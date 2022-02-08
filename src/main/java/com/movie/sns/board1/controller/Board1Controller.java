@@ -1,6 +1,8 @@
 package com.movie.sns.board1.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -85,13 +87,24 @@ public class Board1Controller {
 
 	@ResponseBody
 	@RequestMapping(value = "myBoard/{memberNo}/insertFollow", method = RequestMethod.GET)
-	public int insertFollow(@PathVariable("memberNo") int memberNo, String mode, Model model, HttpSession session,
-			 Member member) {
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		member.setToUser(loginMember.getMemberNo());
-		member.setMemberNo(memberNo);
+	public int insertFollow(@PathVariable("memberNo") int friendNo, String mode, Model model, HttpSession session,
+			Member member) {
 
-		int result = service.insertFollow(member);
+		Member loginMember = (Member) session.getAttribute("loginMember");
+
+//		member.setToUser(loginMember.getMemberNo());
+//		
+//		member.setMemberNo(memberNo);
+		int memberNo = loginMember.getMemberNo();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("memberNo", memberNo);
+		map.put("friendNo", friendNo);
+
+		System.out.println(map);
+
+		int result = service.insertFollow(map);
 
 		return result;
 
@@ -99,13 +112,18 @@ public class Board1Controller {
 
 	@ResponseBody
 	@RequestMapping(value = "myBoard/{memberNo}/deleteFollow", method = RequestMethod.GET)
-	public int deleteFollow(@PathVariable("memberNo") int memberNo, String mode, Model model, HttpSession session,
-			 Member member) {
-		
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		member.setToUser(loginMember.getMemberNo());
+	public int deleteFollow(@PathVariable("memberNo") int friendNo, String mode, Model model, HttpSession session,
+			Member member) {
 
-		int result = service.deleteFollow(member);
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		int memberNo = loginMember.getMemberNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("memberNo", memberNo);
+		map.put("friendNo", friendNo);
+
+		int result = service.deleteFollow(map);
 
 		return result;
 
@@ -129,8 +147,8 @@ public class Board1Controller {
 	public int followCheck(int loginMemberNo, int memberNo) {
 		Member member = new Member();
 
-		member.setToUser(loginMemberNo);
-		member.setMemberNo(memberNo);
+		member.setToUser(memberNo);
+		member.setMemberNo(loginMemberNo);
 		System.out.println(member);
 		int result = service.followCheck(member);
 

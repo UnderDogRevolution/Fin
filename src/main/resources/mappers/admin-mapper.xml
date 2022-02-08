@@ -3,8 +3,8 @@
 <mapper namespace="adminMapper">
 
 	<resultMap type="Admin" id="admin_rm">
-
 		<id property="memberNo" column="MEMBER_NO" />
+		
 		<result property="name" column="MEMBER_NM" />
 		<result property="nickName" column="MEMBER_NICKNM" />
 		<result property="password" column="MEMBER_PW" />
@@ -26,4 +26,8 @@
 		AND MEMBER_PW = #{password}
 		AND GRADE_CD = 101
 	</select>
+	
+	
+	
+ 	
 </mapper>

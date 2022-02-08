@@ -148,5 +148,13 @@ public class PostDAO {
 		return sqlSession.selectOne("postMapper.getListCount");
 	}
 
+	public int dupCheckRating(Movie movie) {
+		return sqlSession.selectOne("postMapper.dupCheckRating", movie);
+	}
+
+	public int updateRating(Movie movie) {
+		return sqlSession.update("postMapper.updateRating", movie);
+	}
+
 
 }

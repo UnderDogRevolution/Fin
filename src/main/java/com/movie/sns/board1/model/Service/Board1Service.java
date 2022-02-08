@@ -1,6 +1,7 @@
 package com.movie.sns.board1.model.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
@@ -13,11 +14,13 @@ public interface Board1Service {
 
 	List<Post> selectLike(int memberNo);
 
-	int insertFollow(Member member);
+	
+	int insertFollow(Map<String, Object> map);
 
-	int deleteFollow(Member member);
+	int deleteFollow(Map<String, Object> map);
 
 	int followCheck(Member member);
+
 
 	
 

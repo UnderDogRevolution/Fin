@@ -21,6 +21,7 @@ import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 
 
+
 @Controller
 @RequestMapping("/admin/*")
 @SessionAttributes({"adminLoginMember"}) 
@@ -96,8 +97,19 @@ public class AdminController {
 
 	// 바라는 점 목록 조회
 	@RequestMapping("askList")
-	public String selectAskList(Admin member) {
+	public String selectAskList(Admin member, @RequestParam(value="cp", required=false, defaultValue="1") 
+	int cp,  Model model) {
 
+		Pagination pagination = null;
+		List<Member> askList = null;
+		
+		pagination = service.getPagination(cp);
+		askList = service.selectAskList(pagination);
+				
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("askList", askList);
+		
+		
 		return "admin/askList";
 	}
 

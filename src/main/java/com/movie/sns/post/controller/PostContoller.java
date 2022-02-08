@@ -77,9 +77,12 @@ public class PostContoller {
 		
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-		int result = service.insertPost(postVO, fileList, webPath, serverPath);
-		
-		return result;
+		Map<String, Object> map = service.insertPost(postVO, fileList, webPath, serverPath);
+		if((int)map.get("result") >0) {
+			return ((Post)map.get("post")).getPostNo();
+		}else {
+			return 0;
+		}
 	}
 	
 	@RequestMapping(value="postView", method = RequestMethod.GET)

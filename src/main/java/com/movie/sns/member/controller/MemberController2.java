@@ -25,8 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService2;
-import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
+import com.movie.sns.admin.model.vo.AdminAsk;
+
 import com.movie.sns.common.Util;
 
 @Controller
@@ -140,5 +141,26 @@ public class MemberController2 {
 	@RequestMapping(value = "ask", method = RequestMethod.GET)
 	public String ask(Member member) {
 		return "member/ask";
+	}
+	
+	//바라는 점 글 삽입
+	@RequestMapping(value="ask", method=RequestMethod.POST)
+	public String boardInsert(Model model, AdminAsk member,
+		  @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
+		
+		member.setMemberNo(loginMember.getMemberNo());
+		
+		int askNo = service.insertAsk(member);
+		
+		String path = null;
+		if(askNo > 0) { // 삽입 성공
+			Util.swalSetMessage("게시글 삽입 성공", null, "success", ra);
+			path = "view/"+askNo;
+		}else { // 실패
+			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
+		}
+		
+		return "redirect:/admin/askList";
+	//경로 개판
 	}
 }
