@@ -20,11 +20,11 @@
 			<div class="profile">
 				<div class="myinfo">
 					<div class="picture1">
-						<div class="picture2" ></div>
+						<div class="picture2"></div>
 					</div>
 					<div class="introduce">
 						<div class="nickname">
-
+							
 							<c:choose>
 								<c:when test="${loginMember.memberNo == memberNo}">
 
@@ -35,7 +35,16 @@
 								</c:when>
 								<c:otherwise>
 									<span>${memberName}</span>
-									<a>팔로우</a>
+										${follow}
+									<c:choose>
+										<c:when test="${follow eq 0}">
+											<a class="follow" >팔로우</a>
+
+										</c:when>
+										<c:otherwise>
+											<a class="follower" >팔로잉</a>
+										</c:otherwise>
+									</c:choose>
 									<a>메세지 보내기</a>
 								</c:otherwise>
 							</c:choose>
@@ -77,7 +86,7 @@
 
 				</ul>
 				<div class="board-show">
-<!-- 					<div class="show"></div>
+					<!-- 					<div class="show"></div>
 					<div class="show"></div>
 					<div class="show"></div>
 
@@ -375,11 +384,8 @@
 
 
 	<script>
-
-	
 		var thisMemberNo = window.location.href.split("/")[6];
-		
-	
+
 		getPostList('post');
 
 		$(".save li").on("click", function() {
@@ -387,83 +393,165 @@
 			$(".save li").removeClass("active");
 
 			$(this).addClass("active");
+
 			var mode = $(this).data('mode');
-		
+
 			// 게시물 - mode : post
 			// 저장됨 - mode : save
-			getPostList(mode);
-		
-			
 
+			getPostList(mode);
 
 		});
-		
+
 		function getPostList(mode) {
-			
-			if(!mode) {
+
+			if (!mode) {
 				mode = 'post';
 			}
-	
-			
+
 			var html = [];
 			var board_show = $(".board-show");
 
-		
 			$.ajax({
-			
-				url : contextPath + "/board1/myBoard/" + thisMemberNo + "/post",
-				type : "get",
-				dataType : "JSON",
-				data: { mode: mode },
-				success : function(list) {
-					
 
-					if(list.length > 0) {
-						
-						for(var i = 0; i < list.length; i++) {
+						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/post",
+						type : "get",
+						dataType : "JSON",
+						data : {
+							mode : mode
+						},
+						success : function(list) {
 							
-							
-							if(list[i].poster !== undefined & list[i].postContent !== undefined) {
-								html.push('<div class="show" style="background: url(' + list[i].poster + ') no-repeat center center; background-size: cover;"></div>');
-							}else if(list[i].poster === undefined && list[i].postContent !== undefined) {
-								
-								if(list[i].listPostImage[0] === undefined) {
-									html.push('<div class="show"><span>' + list[i].postContent + '</span></div>');
-								}else {
-									console.log(list[i].listPostImage[0].postImagePath);
-									html.push('<div class="show" style="background: url(/fin' + list[i].listPostImage[0].postImagePath + list[i].listPostImage[0].postImageName + ') no-repeat center center; background-size: cover;"></div>');
+							if (list.length > 0) {
+
+								for (var i = 0; i < list.length; i++) {
+
+									if (list[i].poster !== undefined
+											& list[i].postContent !== undefined) {
+										html
+												.push('<div class="show" style="background: url('
+														+ list[i].poster
+														+ ') no-repeat center center; background-size: cover;"></div>');
+									} else if (list[i].poster === undefined
+											&& list[i].postContent !== undefined) {
+
+										if (list[i].listPostImage[0] === undefined) {
+											html
+													.push('<div class="show"><span>'
+															+ list[i].postContent
+															+ '</span></div>');
+										} else {
+											console
+													.log(list[i].listPostImage[0].postImagePath);
+											html
+													.push('<div class="show" style="background: url(/fin'
+															+ list[i].listPostImage[0].postImagePath
+															+ list[i].listPostImage[0].postImageName
+															+ ') no-repeat center center; background-size: cover;"></div>');
+										}
+
+									} else {
+										html.push('<div class="show"></div>');
+									}
+
 								}
-								
-							}else {
-								html.push('<div class="show"></div>');
+
+								board_show.html(html.join(''));
+
 							}
-							
+
+						},
+
+						error : function(request, status, error) {
+
+							// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+							if (request.status == 404) {
+								console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+							} else if (request.status == 500) {
+								console.log("서버 내부 에러 발생");
+								console.log(request.responseText);
+							}
+
 						}
-					
-						
-						board_show.html(html.join(''));
-						
-					}
 
-				},
+					});
 
-				error : function(request, status, error) {
-
-					// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
-					if (request.status == 404) {
-						console.log("ajax 요청 주소가 올바르지 않습니다.");
-
-					} else if (request.status == 500) {
-						console.log("서버 내부 에러 발생");
-						console.log(request.responseText);
-					}
-
-				}
-
-			});
-			
-			
 		}
+
+		$(".follow").on("click",function() {
+					
+				
+					
+
+					// var mode = $(this).data('mode');
+
+					$.ajax({
+
+						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/insertFollow",
+						type : "post",
+						
+						
+						success : function(result) {
+							
+							$(".follow").remove();
+							html.push('<a class="follower" data-mode="follower">'팔로잉'</a>');
+							
+							
+						
+							
+							
+						},
+
+						error : function(request, status, error) {
+
+							// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+							if (request.status == 404) {
+								console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+							} else if (request.status == 500) {
+								console.log("서버 내부 에러 발생");
+								console.log(request.responseText);
+							}
+
+						}
+
+					});
+
+				});
+
+		$(".follower").on("click",function() {
+
+					
+
+					$.ajax({
+
+						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/deleteFollow",
+						type : "post",
+						
+						
+						success : function(result) {
+							
+							$(".follower").remove();
+							html.push('<a class="follow" data-mode="follow">'팔로우'</a>');
+						},
+
+						error : function(request, status, error) {
+
+							// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+							if (request.status == 404) {
+								console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+							} else if (request.status == 500) {
+								console.log("서버 내부 에러 발생");
+								console.log(request.responseText);
+							}
+
+						}
+
+					});
+
+				});
 	</script>
 
 </body>

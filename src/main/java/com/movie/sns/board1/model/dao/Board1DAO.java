@@ -32,8 +32,25 @@ public class Board1DAO {
 	}
 
 	public List<Post> selectLike(int memberNo) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList("boardMapper.selectLike", memberNo);
 	}
+
+	public int insertFollow(Member member) {
+		
+		return sqlSession.insert("boardMapper.insertFollow", member);
+	}
+
+	public int deleteFollow(Member member) {
+		
+		return sqlSession.delete("boardMapper.deleteFollow", member);
+	}
+
+	public int followCheck(Member member) {
+		
+		return sqlSession.selectOne("boardMapper.followCheck", member);
+	}
+
+
 
 }

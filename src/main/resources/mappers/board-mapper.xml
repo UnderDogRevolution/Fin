@@ -76,9 +76,19 @@
 		resultMap="member_rm">
 		SELECT MEMBER_NM
 		FROM MEMBER
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE MEMBER.MEMBER_NO = #{memberNo}
 
 	</select>
+	
+	<select id="followCheck" resultType="int">
+		SELECT COUNT(*) AS RESULT
+		FROM MEMBER
+		LEFT OUTER JOIN FOLLOW ON (MEMBER.MEMBER_NO = FOLLOW.MEMBER_NO)
+		WHERE MEMBER.MEMBER_NO = #{memberNo} AND TO_USER = #{toUser}
+
+	</select>
+	
+	
 
 	<select id="selectList" parameterType="_int" resultMap="post_rm">
 		SELECT
@@ -128,6 +138,18 @@
 
 
 	</select>
+	
+	 <insert id="insertFollow">
+	 	INSERT INTO FOLLOW VALUES
+	 	(#{memberNo}, #{toUser} ,SEQ_FOLLOW_NO.NEXTVAL)
+	 </insert>
+	 
+	 <delete id="deleteFollow">
+	 	DELETE FROM FOLLOW
+	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND TO_USER = #{toUser}
+	 </delete>
+	
 
 
 </mapper>

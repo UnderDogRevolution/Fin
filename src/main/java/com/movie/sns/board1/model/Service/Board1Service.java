@@ -13,6 +13,16 @@ public interface Board1Service {
 
 	List<Post> selectLike(int memberNo);
 
+	int insertFollow(Member member);
+
+	int deleteFollow(Member member);
+
+	int followCheck(Member member);
+
+	
+
+	
+
 	
 
 	

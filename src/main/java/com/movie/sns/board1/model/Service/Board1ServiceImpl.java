@@ -35,8 +35,28 @@ public class Board1ServiceImpl implements Board1Service {
 		return dao.selectLike(memberNo);
 	}
 
-	
+	@Override
+	public int insertFollow(Member member) {
+		
+		return dao.insertFollow(member);
+		
+		
+	}
 
+	@Override
+	public int deleteFollow(Member member) {
+		
+		return dao.deleteFollow(member);
+	}
+
+	@Override
+	public int followCheck(Member member) {
+		
+		return dao.followCheck(member);
+	}
+
+	
+	
 	
 	
 	
