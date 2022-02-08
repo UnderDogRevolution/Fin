@@ -22,7 +22,14 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		
 		int listCount = dao.getListCount(); 
 		
-		return null;
+		return new Pagination(listCount, cp);
+	}
+
+
+	@Override
+	public List<Member> selectMemberList(Pagination pagination) {
+		
+		return dao.selectMemberList(pagination);
 	}
 
 
