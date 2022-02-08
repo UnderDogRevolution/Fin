@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-02-07 12:11:38 [INFO] [Controller]MainController.mainPageForward()
 2022-02-07 12:11:38 [INFO] ----------------------------------------
 
@@ -2152,3 +2153,5 @@ org.springframework.jdbc.BadSqlGrammarException:
 2022-02-07 19:12:51 [DEBUG]  [반환값] Pagination [currentPage=6, listCount=26, limit=5, pageSize=10, maxPage=6, startPage=1, endPage=6, prevPage=1, nextPage=6]
 2022-02-07 19:12:51 [DEBUG] [Service]PostServiceImpl-selectPostList() [Running Time]53ms [Param][0, Pagination [currentPage=6, listCount=26, limit=5, pageSize=10, maxPage=6, startPage=1, endPage=6, prevPage=1, nextPage=6]]
 2022-02-07 19:12:51 [DEBUG]  [반환값] [Post [postNo=64, postContent=경우의 수 1<br>사진없이 게시글 업로드<br>#No사진<br>, readCount=0, likeCount=0, createDate=2022-01-31, modifyDate=2022-01-31, postStatusCode=500, memberNo=1, checkUsePoster=0, checkLike=0, movieNo=null, movieTitle=null, movieDate=null, director=null, poster=null, movieGenre=null, rating=null, memberName=홍길동, memberNickName=길동이, listPostImage=[], listProfile=[Image [imgNo=26, imgPath=/resources/images/member/, imgName=20220207163658_73571.PNG, imgOriginal=2.PNG, imgLevel=0, memberNo=1]], replyCount=0, tagArr=null, getListProfile()=[Image [imgNo=26, imgPath=/resources/images/member/, imgName=20220207163658_73571.PNG, imgOriginal=2.PNG, imgLevel=0, memberNo=1]], getCheckLike()=0, getReplyCount()=0, getCheckUsePoster()=0, getMemberName()=홍길동, getMemberNickName()=길동이, getListPostImage()=[], getMovieNo()=null, getMovieTitle()=null, getMovieDate()=null, getDirector()=null, getPoster()=null, getMovieGenre()=null, getRating()=null, getTagArr()=null, getPostNo()=64, getPostContent()=경우의 수 1<br>사진없이 게시글 업로드<br>#No사진<br>, getReadCount()=0, getLikeCount()=0, getCreateDate()=2022-01-31, getModifyDate()=2022-01-31, getPostStatusCode()=500, getMemberNo()=1, getClass()=class com.movie.sns.post.model.vo.Post, hashCode()=1752312862, toString()=com.movie.sns.post.model.vo.Post@68722c1e]]
+=======
+>>>>>>> 0625f75b88d52865b48e574eec875d512b6048eb

@@ -10,6 +10,10 @@ public class AdminMemberDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	public int getListCount() {
+		return sqlSession.selectOne("");
+	}
 	
 	
 }

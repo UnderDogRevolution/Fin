@@ -2,104 +2,110 @@ package com.movie.sns.admin.model.vo;
 
 public class AdminPost {
 	private int postNo;
+	private String memberNm;
 	private String postContent;
 	private int readCount;
 	private int likeCount;
-	private String createDate;
-	private String modifyDate;
-	private int postStatusCode;
+	private String createDt;
 	private int memberNo;
-	private int checkUsePoster; 
+	private String statusNm;
+		
 	
-	private int checkLike;
+	public AdminPost() {
+	}
+
+
+	public String getMemberNm() {
+		return memberNm;
+	}
+
+
+	public void setMemberNm(String memberNm) {
+		this.memberNm = memberNm;
+	}
+
 
 	public int getPostNo() {
 		return postNo;
 	}
 
+
 	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
+
 
 	public String getPostContent() {
 		return postContent;
 	}
 
+
 	public void setPostContent(String postContent) {
 		this.postContent = postContent;
 	}
+
 
 	public int getReadCount() {
 		return readCount;
 	}
 
+
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
+
 
 	public int getLikeCount() {
 		return likeCount;
 	}
 
+
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
 
-	public String getCreateDate() {
-		return createDate;
+
+	public String getCreateDt() {
+		return createDt;
 	}
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+
+	public void setCreateDt(String createDt) {
+		this.createDt = createDt;
 	}
 
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public int getPostStatusCode() {
-		return postStatusCode;
-	}
-
-	public void setPostStatusCode(int postStatusCode) {
-		this.postStatusCode = postStatusCode;
-	}
 
 	public int getMemberNo() {
 		return memberNo;
 	}
 
+
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
-	public int getCheckUsePoster() {
-		return checkUsePoster;
+
+
+
+	public String getStatusNm() {
+		return statusNm;
 	}
 
-	public void setCheckUsePoster(int checkUsePoster) {
-		this.checkUsePoster = checkUsePoster;
+
+	public void setStatusNm(String statusNm) {
+		this.statusNm = statusNm;
 	}
 
-	public int getCheckLike() {
-		return checkLike;
-	}
-
-	public void setCheckLike(int checkLike) {
-		this.checkLike = checkLike;
-	}
 
 	@Override
 	public String toString() {
-		return "AdminPost [postNo=" + postNo + ", postContent=" + postContent + ", readCount=" + readCount
-				+ ", likeCount=" + likeCount + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-				+ ", postStatusCode=" + postStatusCode + ", memberNo=" + memberNo + ", checkUsePoster=" + checkUsePoster
-				+ ", checkLike=" + checkLike + "]";
+		return "AdminPost [postNo=" + postNo + ", memberNm=" + memberNm + ", postContent=" + postContent
+				+ ", readCount=" + readCount + ", likeCount=" + likeCount + ", createDt=" + createDt + ", memberNo="
+				+ memberNo + ", statusNm=" + statusNm + "]";
 	}
+
+
+
 	
 	
 }
