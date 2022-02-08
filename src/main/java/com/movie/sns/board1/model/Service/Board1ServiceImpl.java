@@ -3,6 +3,7 @@ package com.movie.sns.board1.model.Service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,17 +37,17 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 
 	@Override
-	public int insertFollow(Member member) {
+	public int insertFollow(Map<String, Object> map) {
 		
-		return dao.insertFollow(member);
+		return dao.insertFollow(map);
 		
 		
 	}
 
 	@Override
-	public int deleteFollow(Member member) {
+	public int deleteFollow(Map<String, Object> map) {
 		
-		return dao.deleteFollow(member);
+		return dao.deleteFollow(map);
 	}
 
 	@Override
