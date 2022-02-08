@@ -21,8 +21,7 @@ const io = new IntersectionObserver((entries, observer) => {
 function searchParam(key) {
 	return new URLSearchParams(location.search).get(key);
   };
-const recentDiv = document.getElementById("recent_");
-recentDiv.click();
+
 
 let searchURL = "";
 function searchKey(word){
@@ -30,7 +29,8 @@ function searchKey(word){
 	searchURL = contextPath + "/post/"+ word;
 	searchPostList()
 }
-
+const recentDiv = document.getElementById("recent_");
+recentDiv.click();
 function searchPostList(){
 	
 	const searchWord = searchParam("searchResult");

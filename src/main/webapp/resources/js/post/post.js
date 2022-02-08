@@ -1012,3 +1012,7 @@ function report(reportTypeNo, targetPK){
 
 }
 
+const topButton = document.getElementsByClassName("top-button")[0]
+topButton.addEventListener("click", function(){
+	postContainer.scrollTo(0,0);
+})

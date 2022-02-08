@@ -2,6 +2,15 @@
     background-color: inherit;
 }
 
+#container-post{
+    height: 850px;
+    overflow: scroll;
+}
+
+#container-post::-webkit-scrollbar{
+    display: none;
+}
+
 .post{
     margin: auto;
     background-color: #404142;
@@ -11,7 +20,6 @@
     flex-direction: column;
     margin-bottom: 50px;
 }
-
 
 
 .post-box{
@@ -182,9 +190,9 @@
     left: initial;
 }
 
-html::-webkit-scrollbar{
+/* html::-webkit-scrollbar{
     display: none;
-}
+} */
 .reply{
     width: 100%;
     height: 270px;
@@ -320,4 +328,12 @@ html::-webkit-scrollbar{
 .input-content-reply img{
     width: 80%;
     height: 80%;
+}
+
+.top-button{
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+    width: 1.5%;
+    height: 2.5%;
 }
