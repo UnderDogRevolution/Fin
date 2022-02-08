@@ -489,13 +489,13 @@
 					$.ajax({
 
 						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/insertFollow",
-						type : "post",
-						
+						type : "get",
+						dataType : "JSON",
 						
 						success : function(result) {
 							
-							$(".follow").remove();
-							html.push('<a class="follower" data-mode="follower">'팔로잉'</a>');
+							
+							
 							
 							
 						
@@ -527,13 +527,12 @@
 					$.ajax({
 
 						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/deleteFollow",
-						type : "post",
-						
+						type : "get",
+						dataType : "JSON",
 						
 						success : function(result) {
 							
-							$(".follower").remove();
-							html.push('<a class="follow" data-mode="follow">'팔로우'</a>');
+							
 						},
 
 						error : function(request, status, error) {

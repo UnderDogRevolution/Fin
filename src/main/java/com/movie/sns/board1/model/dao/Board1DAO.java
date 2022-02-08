@@ -6,6 +6,7 @@ import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +37,14 @@ public class Board1DAO {
 		return sqlSession.selectList("boardMapper.selectLike", memberNo);
 	}
 
-	public int insertFollow(Member member) {
+	public int insertFollow(Map<String, Object> map) {
 		
-		return sqlSession.insert("boardMapper.insertFollow", member);
+		return sqlSession.insert("boardMapper.insertFollow", map);
 	}
 
-	public int deleteFollow(Member member) {
+	public int deleteFollow(Map<String, Object> map) {
 		
-		return sqlSession.delete("boardMapper.deleteFollow", member);
+		return sqlSession.delete("boardMapper.deleteFollow", map);
 	}
 
 	public int followCheck(Member member) {
