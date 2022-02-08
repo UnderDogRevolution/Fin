@@ -18,10 +18,13 @@ public class Member {
 	private Image profileImage;		// 프로필 이미지
 	
 	// 팔로우 리스트, 팔로잉 리스트 추가 예정
-	
+	private int toUser; // 나를 팔로우한 회원번호 
 	
 	// 기본생성자
 	public Member() {	}
+
+
+
 
 
 	public int getMemberNo() {
@@ -132,6 +135,18 @@ public class Member {
 	public void setProfileImage(Image profileImage) {
 		this.profileImage = profileImage;
 	}
+	
+	public int getToUser() {
+		return toUser;
+	}
+
+
+	public void setToUser(int toUser) {
+		this.toUser = toUser;
+	}
+
+
+
 
 
 	@Override
@@ -139,9 +154,13 @@ public class Member {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberNickName=" + memberNickName
 				+ ", memberPw=" + memberPw + ", memberEmail=" + memberEmail + ", enrollDate=" + enrollDate
 				+ ", modifyDate=" + modifyDate + ", memberBirth=" + memberBirth + ", memberStatusCode="
-				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + ", profileImage=" + profileImage + "]";
+				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + ", profileImage=" + profileImage
+				+ ", toUser=" + toUser + "]";
 	}
 
+
+
+	
 	
 
 

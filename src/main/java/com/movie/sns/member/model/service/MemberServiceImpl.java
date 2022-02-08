@@ -49,19 +49,21 @@ public class MemberServiceImpl implements MemberService{
 		Member loginMember = dao.login(member.getMemberEmail());
 		
 		
-		// 로그인 회원 프로필 이미지 담기
-		Image loginMemberProfile = dao.selectProfileImage(loginMember.getMemberNo()); 
-		
-		loginMember.setProfileImage( loginMemberProfile );
-		
-		
-		// 로그인 회원 팔로워, 팔로잉 리스트 담기
-		
-		
-		
+		// 로그인에 성공한 경우
 		if(loginMember != null && encoder.matches(member.getMemberPw(), loginMember.getMemberPw()) ) {
 			
 			loginMember.setMemberPw(null);
+			
+			
+			// 로그인 회원 프로필 이미지 담기
+			Image loginMemberProfile = dao.selectProfileImage(loginMember.getMemberNo()); 
+			
+			loginMember.setProfileImage( loginMemberProfile );
+			
+			
+			// 로그인 회원 팔로워, 팔로잉 리스트 담기
+			
+			
 			
 		}
 		else {

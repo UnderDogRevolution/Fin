@@ -112,16 +112,31 @@ public class PostDAO {
 		return sqlSession.selectOne("postMapper.searchMemberNo", memberName);
 	}
 
-	public List<Post> searchPostList(Map<String, Object> map) {
-		return sqlSession.selectList("postMapper.searchPostList", map);
+	public List<Post> searchPostList(Map<String, Object> map, Pagination pagination) {
+		// 건너 뛸 행의 수 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		// 건너 뛴 후 조회할 행의 수
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("postMapper.searchPostList", map, rowBounds);
 	}
 
-	public List<Post> popularPostList(Map<String, Object> map) {
-		return sqlSession.selectList("postMapper.popularPostList", map);
+	public List<Post> popularPostList(Map<String, Object> map, Pagination pagination) {
+		// 건너 뛸 행의 수 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		// 건너 뛴 후 조회할 행의 수
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("postMapper.popularPostList", map, rowBounds);
 	}
 
-	public List<Post> searchMoviePostList(Map<String, Object> map) {
-		return sqlSession.selectList("postMapper.searchMoviePostList", map);
+	public List<Post> searchMoviePostList(Map<String, Object> map, Pagination pagination) {
+		// 건너 뛸 행의 수 계산
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		// 건너 뛴 후 조회할 행의 수
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("postMapper.searchMoviePostList", map, rowBounds);
 	}
 
 	public List<Movie> rankMovie() {

@@ -9,7 +9,19 @@ public interface Board1Service {
 
 	Member selectProfile(int memberNo);
 
-//	List<Post> selectList(int memberNo);
+	List<Post> selectList(int memberNo);
+
+	List<Post> selectLike(int memberNo);
+
+	int insertFollow(Member member);
+
+	int deleteFollow(Member member);
+
+	int followCheck(Member member);
+
+	
+
+	
 
 	
 
