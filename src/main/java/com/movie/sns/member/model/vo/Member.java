@@ -17,135 +17,160 @@ public class Member {
 	
 	private Image profileImage;		// 프로필 이미지
 	
-	// 팔로우 리스트, 팔로잉 리스트 추가 예정
+	private String memberStatusName;	// 회원 상태 이름
+	private String memberGradeName;		// 회원 등급 이름
+	
+	private int violationCount;		// 경고 횟수
+	private int violationNo;			// 경고 번호
+	private String violationContent;	// 경고 내용
+	
+	// 팔로잉 리스트, 팔로워 리스트 추가 예정
 	private int toUser; // 나를 팔로우한 회원번호 
 	
 	// 기본생성자
 	public Member() {	}
+	
+	
+
+	private int getViolationCount() {
+		return violationCount;
+	}
 
 
 
+	private void setViolationCount(int violationCount) {
+		this.violationCount = violationCount;
+	}
 
 
-	public int getMemberNo() {
+
+	private int getMemberNo() {
 		return memberNo;
 	}
 
-
-	public void setMemberNo(int memberNo) {
+	private void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
-
-	public String getMemberName() {
+	private String getMemberName() {
 		return memberName;
 	}
 
-
-	public void setMemberName(String memberName) {
+	private void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
 
-
-	public String getMemberNickName() {
+	private String getMemberNickName() {
 		return memberNickName;
 	}
 
-
-	public void setMemberNickName(String memberNickName) {
+	private void setMemberNickName(String memberNickName) {
 		this.memberNickName = memberNickName;
 	}
 
-
-	public String getMemberPw() {
+	private String getMemberPw() {
 		return memberPw;
 	}
 
-
-	public void setMemberPw(String memberPw) {
+	private void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
 	}
 
-
-	public String getMemberEmail() {
+	private String getMemberEmail() {
 		return memberEmail;
 	}
 
-
-	public void setMemberEmail(String memberEmail) {
+	private void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
 
-
-	public String getEnrollDate() {
+	private String getEnrollDate() {
 		return enrollDate;
 	}
 
-
-	public void setEnrollDate(String enrollDate) {
+	private void setEnrollDate(String enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 
-
-	public String getModifyDate() {
+	private String getModifyDate() {
 		return modifyDate;
 	}
 
-
-	public void setModifyDate(String modifyDate) {
+	private void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
-
-	public String getMemberBirth() {
+	private String getMemberBirth() {
 		return memberBirth;
 	}
 
-
-	public void setMemberBirth(String memberBirth) {
+	private void setMemberBirth(String memberBirth) {
 		this.memberBirth = memberBirth;
 	}
 
-
-	public int getMemberStatusCode() {
+	private int getMemberStatusCode() {
 		return memberStatusCode;
 	}
 
-
-	public void setMemberStatusCode(int memberStatusCode) {
+	private void setMemberStatusCode(int memberStatusCode) {
 		this.memberStatusCode = memberStatusCode;
 	}
 
-
-	public int getMemberGradeCode() {
+	private int getMemberGradeCode() {
 		return memberGradeCode;
 	}
 
-
-	public void setMemberGradeCode(int memberGradeCode) {
+	private void setMemberGradeCode(int memberGradeCode) {
 		this.memberGradeCode = memberGradeCode;
 	}
 
-
-	public Image getProfileImage() {
+	private Image getProfileImage() {
 		return profileImage;
 	}
 
-
-	public void setProfileImage(Image profileImage) {
+	private void setProfileImage(Image profileImage) {
 		this.profileImage = profileImage;
 	}
-	
-	public int getToUser() {
+
+	private String getMemberStatusName() {
+		return memberStatusName;
+	}
+
+	private void setMemberStatusName(String memberStatusName) {
+		this.memberStatusName = memberStatusName;
+	}
+
+	private String getMemberGradeName() {
+		return memberGradeName;
+	}
+
+	private void setMemberGradeName(String memberGradeName) {
+		this.memberGradeName = memberGradeName;
+	}
+
+	private int getViolationNo() {
+		return violationNo;
+	}
+
+	private void setViolationNo(int violationNo) {
+		this.violationNo = violationNo;
+	}
+
+	private String getViolationContent() {
+		return violationContent;
+	}
+
+	private void setViolationContent(String violationContent) {
+		this.violationContent = violationContent;
+	}
+
+	private int getToUser() {
 		return toUser;
 	}
 
-
-	public void setToUser(int toUser) {
+	private void setToUser(int toUser) {
 		this.toUser = toUser;
 	}
-
-
 
 
 
@@ -155,8 +180,15 @@ public class Member {
 				+ ", memberPw=" + memberPw + ", memberEmail=" + memberEmail + ", enrollDate=" + enrollDate
 				+ ", modifyDate=" + modifyDate + ", memberBirth=" + memberBirth + ", memberStatusCode="
 				+ memberStatusCode + ", memberGradeCode=" + memberGradeCode + ", profileImage=" + profileImage
-				+ ", toUser=" + toUser + "]";
+				+ ", memberStatusName=" + memberStatusName + ", memberGradeName=" + memberGradeName
+				+ ", violationCount=" + violationCount + ", violationNo=" + violationNo + ", violationContent="
+				+ violationContent + ", toUser=" + toUser + "]";
 	}
+
+	
+
+
+	
 
 
 

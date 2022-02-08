@@ -16,6 +16,7 @@
 		
 	</resultMap>
 	
+	<!-- 팔로워, 팔로잉 수, 이미지 추가 예정 -->
 	<resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
 
 		<id property="memberNo" column="MEMBER_NO" />
@@ -24,13 +25,33 @@
 		<result property="memberNickName" column="MEMBER_NICKNM" />
 		<result property="memberPw" column="MEMBER_PW" />
 		<result property="memberEmail" column="MEMBER_EMAIL" />
-		<result property="memberBirth" column="MEMBER_BIRTH" />
 		<result property="enrollDate" column="ENROLL_DT" />
 		<result property="modifyDate" column="MODIFY_DT" />
 		<result property="memberStatusCode" column="STATUS_CD" />
 		<result property="memberGradeCode" column="GRADE_CD" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
 		
+		<result property="memberStatusName" column="MEMBER_STATUS_NM" />
+		<result property="memberGradeName" column="GRADE_NM" />
 
+		<result property="violationCount" column="VIOLATION_CNT" />
+		<result property="violationNo" column="VIOLATION_NO" />
+		<result property="violationContent" column="VIOLATION_CONTENT" />
+		
+		<collection property="profileImage" column="MEMBER_NO"
+			
+			select="selectMemberImg" />
+		
+	</resultMap>
+	
+	<resultMap type="com.movie.sns.member.model.vo.Image" id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
 
 	<!-- 전체 회원 수 조회 -->
@@ -39,9 +60,39 @@
 		WHERE GRADE_CD = 100
 	</select>
 	
-	<!-- 회원 정보 조회 -->
-	<select id="selectMember">
+
+	<!-- 회원 이미지 조회 -->	
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH, MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
+	
+	<!-- 회원 정보 조회 -->
+	<select id="selectMember" resultMap="member_rm">
+	SELECT 
+    MEMBER.MEMBER_NO MEMBER_NO,
+    MEMBER_NM,
+    MEMBER_NICKNM,
+    MEMBER_EMAIL,
+    ENROLL_DT,
+    MODIFY_DT,
+    STATUS_CD,
+    GRADE_CD,
+    MEMBER_BIRTH,
+    MEMBER_STATUS_NM,
+    GRADE_NM,
+    
+    (SELECT COUNT(*)
+    FROM VIOLATION
+    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
+    
+	FROM MEMBER
+	JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
+	JOIN GRADE USING(GRADE_CD)
+	
+	WHERE GRADE_CD = 100
+	ORDER BY MEMBER_NO 
 	</select>
 	
 	
