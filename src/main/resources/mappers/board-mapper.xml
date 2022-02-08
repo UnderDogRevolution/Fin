@@ -1,33 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
-	 
-	 
-	 <resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
-	 
-	 	<id property="memberNo" column="MEMBER_NO" />
-	 
-	 	<result property="memberName" 	 		column="MEMBER_NM"/>
-	 	<result property="memberNickName" 	 	column="MEMBER_NICKNM"/>
-	 	<result property="memberPw" 	 		column="MEMBER_PW"/>
-	 	<result property="memberEmail" 	 		column="MEMBER_EMAIL"/>
-	 	<result property="enrollDate"   		column="ENROLL_DT"/>
-	 	<result property="modifyDate" 			column="MODIFY_DT"/>
-	 	<result property="memberStatusCode" 	column="STATUS_CD"/>
-	 	<result property="memberGradeCode" 	 	column="GRADE_CD"/>
-	 	<result property="memberBirth" 	 		column="MEMBER_BIRTH"/>
-	 
-	 </resultMap>
-	 
 
-	<select id="selectProfile" parameterType="_int"  resultMap="member_rm" >
-	 	SELECT MEMBER_NM
-	 	FROM MEMBER
-	 	WHERE MEMBER_NO = #{memberNo}
-	 	
-	 </select>
+
+	<resultMap type="com.movie.sns.member.model.vo.Member"
+		id="member_rm">
+
+		<id property="memberNo" column="MEMBER_NO" />
+
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberNickName" column="MEMBER_NICKNM" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="enrollDate" column="ENROLL_DT" />
+		<result property="modifyDate" column="MODIFY_DT" />
+		<result property="memberStatusCode" column="STATUS_CD" />
+		<result property="memberGradeCode" column="GRADE_CD" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+
+	</resultMap>
+
+	<resultMap type="Post" id="post_rm">
+		<id property="postNo" column="POST_NO" />
+		<result property="postContent" column="POST_CONTENT" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="createDate" column="CREATE_DT" />
+		<result property="modifyDate" column="MODIFY_DT" />
+		<result property="postStatusCode" column="POST_STATUS_CD" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="checkUsePoster" column="CHECK_USE_POSTER" />
+		<result property="checkLike" column="CHECK_LIKE" />
+
+		<result property="rating" column="RATING" />
+
+		<result property="movieNo" column="MOVIE_NO" />
+		<result property="movieTitle" column="MOVIE_TITLE" />
+		<result property="movieDate" column="MOVIE_DT" />
+		<result property="director" column="MOVIE_DIRECTOR" />
+		<result property="poster" column="POSTER" />
+		<result property="movieGenre" column="MOVIE_GENRE" />
+
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberNickName" column="MEMBER_NICKNM" />
+
+		<result property="replyCount" column="REPLY_COUNT" />
+
+		<collection property="listPostImage" column="POST_NO"
+			javaType="java.util.ArrayList" ofType="PostImage"
+			select="selectPostImageList" />
+	</resultMap>
+
+	<resultMap type="PostImage" id="postImage_rm">
+		<id property="postImageNo" column="POST_IMG_NO" />
+		<result property="postImagePath" column="POST_IMG_PATH" />
+		<result property="postImageName" column="POST_IMG_NM" />
+		<result property="postImageDate" column="POST_IMG_DT" />
+		<result property="postImageOriginal" column="POST_IMG_ORIGINAL" />
+		<result property="postImageLevel" column="POST_IMG_LEVEL" />
+		<result property="postNo" column="POST_NO" />
+	</resultMap>
+
+	<select id="selectPostImageList" resultMap="postImage_rm">
+		SELECT *
+		FROM POST_IMG
+		WHERE POST_NO = #{postNo}
+		ORDER BY POST_IMG_NO
+	</select>
+
+
+
+
+
+	<select id="selectProfile" parameterType="_int"
+		resultMap="member_rm">
+		SELECT MEMBER_NM
+		FROM MEMBER
+		WHERE MEMBER.MEMBER_NO = #{memberNo}
+
+	</select>
+	
+	<select id="followCheck" resultType="int">
+		SELECT COUNT(*) AS RESULT
+		FROM MEMBER
+		LEFT OUTER JOIN FOLLOW ON (MEMBER.MEMBER_NO = FOLLOW.MEMBER_NO)
+		WHERE MEMBER.MEMBER_NO = #{memberNo} AND TO_USER = #{toUser}
+
+	</select>
 	
 	
+
+	<select id="selectList" parameterType="_int" resultMap="post_rm">
+		SELECT
+		C.POST_NO, POST_CONTENT, LIKE_COUNT, TO_CHAR(CREATE_DT,
+		'YYYY-MM-DD')CREATE_DT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') MODIFY_DT,
+		CHECK_USE_POSTER,
+		C.MEMBER_NO, MEMBER_NM, MEMBER_NICKNM, A.MOVIE_NO,
+		D.MOVIE_TITLE,
+		TO_CHAR(D.MOVIE_DT, 'YYYY-MM-DD') MOVIE_DT,
+		D.MOVIE_DIRECTOR,
+		D.POSTER, D.MOVIE_GENRE, RATING,
+		POST_STATUS_CD,
+		(SELECT COUNT(*) FROM REPLY WHERE POST_NO = C.POST_NO) REPLY_COUNT
+		FROM POST C
+		LEFT JOIN MOVIE_RATING A ON (C.POST_NO = A.POST_NO)
+		LEFT
+		JOIN MEMBER B ON (C.MEMBER_NO = B.MEMBER_NO)
+		LEFT JOIN MOVIE D ON
+		(A.MOVIE_NO = D.MOVIE_NO)
+		WHERE POST_STATUS_CD = 500
+		AND MEMBER_NO =
+		#{memberNo}
+		ORDER BY POST_NO DESC
+
+
+	</select>
+
+	<select id="selectLike" parameterType="_int" resultMap="post_rm">
+		SELECT
+		C.POST_NO, POST_CONTENT, LIKE_COUNT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD')
+		CREATE_DT, TO_CHAR(CREATE_DT, 'YYYY-MM-DD') MODIFY_DT,
+		CHECK_USE_POSTER,
+		C.MEMBER_NO, MEMBER_NM, MEMBER_NICKNM, A.MOVIE_NO, D.MOVIE_TITLE,
+		TO_CHAR(D.MOVIE_DT, 'YYYY-MM-DD') MOVIE_DT, D.MOVIE_DIRECTOR,
+		D.POSTER, D.MOVIE_GENRE, RATING,
+		POST_STATUS_CD, (SELECT COUNT(*) FROM REPLY WHERE POST_NO = C.POST_NO) REPLY_COUNT
+
+		FROM POST C
+		LEFT JOIN MOVIE_RATING A ON (C.POST_NO = A.POST_NO)
+		LEFT JOIN MEMBER B ON (C.MEMBER_NO = B.MEMBER_NO)
+		LEFT JOIN MOVIE D ON (A.MOVIE_NO = D.MOVIE_NO)
+		WHERE POST_STATUS_CD = 500
+		AND C.POST_NO IN (SELECT POST_NO
+		FROM "LIKE"
+		WHERE MEMBER_NO = #{memberNo})
+		ORDER BY POST_NO DESC
+
+
+	</select>
+	
+	 <insert id="insertFollow">
+	 	INSERT INTO FOLLOW VALUES
+	 	(#{memberNo}, #{toUser} ,SEQ_FOLLOW_NO.NEXTVAL)
+	 </insert>
 	 
+	 <delete id="deleteFollow">
+	 	DELETE FROM FOLLOW
+	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND TO_USER = #{toUser}
+	 </delete>
+	
+
 
 </mapper>

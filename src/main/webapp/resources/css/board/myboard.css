@@ -145,8 +145,16 @@
     background-color: gray;
     width: calc(33.333333% - 20px);
     padding-bottom: calc(33.333333% - 20px);
-
+	position: relative;
     justify-content: center;
+}
+.board-show .show span {
+	position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    display: inline-block;
 }
 .modal-body {
     max-height: 368px;
@@ -224,5 +232,12 @@ cursor: pointer !important;
 main{
 	
 	    padding-top: 66px;
+	
+}
+
+.setting-update > a{
+	
+	text-decoration: none;
+    color: black;
 	
 }
