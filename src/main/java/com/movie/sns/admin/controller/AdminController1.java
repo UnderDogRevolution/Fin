@@ -30,7 +30,7 @@ public class AdminController1 {
 	//게시글 게시판
 	@RequestMapping(value = "post", method = RequestMethod.GET)
 	public String postBoard(
-			@RequestParam(value="cp", required=false, defaultValue="1")int cp,  Model model) {
+			@RequestParam(value="cp", required=false, defaultValue="1")int cp,  Model model ) {
 			
 	
 		Pagination pagination =service.getPagination(cp);

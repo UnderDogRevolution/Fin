@@ -23,11 +23,12 @@ select:focus {
 	outline: none;
 }
 
-#postContent {
-	overflow: auto;;
+.postContent {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	display: block;
+	height: 30px;
 }
 </style>
 
@@ -96,7 +97,7 @@ select:focus {
 
 														<td style="width: 140px;">${post.memberNm}</td>
 
-														<td id='postContent' style="width: 370px;"><a
+														<td class='postContent' style="width: 370x;"><a
 															style="text-decoration: none; color: white;"
 															href="${contextPath}+/post/+${post.postNo}">${post.postContent}<a></td>
 
