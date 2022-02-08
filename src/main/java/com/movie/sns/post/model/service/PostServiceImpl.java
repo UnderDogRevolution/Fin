@@ -185,6 +185,8 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public int insertReport(Report report) {
+		report.setReportContent(Util.XSS(report.getReportContent()));
+		report.setReportContent(Util.changeNewLine(report.getReportContent()));
 		return dao.insertReport(report);
 	}
 	
@@ -201,18 +203,18 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> searchPostList(Map<String, Object> map) {
-		return dao.searchPostList(map);
+	public List<Post> searchPostList(Map<String, Object> map, Pagination pagination) {
+		return dao.searchPostList(map, pagination);
 	}
 
 	@Override
-	public List<Post> popularPostList(Map<String, Object> map) {
-		return dao.popularPostList(map);
+	public List<Post> popularPostList(Map<String, Object> map, Pagination pagination) {
+		return dao.popularPostList(map, pagination);
 	}
 
 	@Override
-	public List<Post> searchMoviePostList(Map<String, Object> map) {
-		return dao.searchMoviePostList(map);
+	public List<Post> searchMoviePostList(Map<String, Object> map, Pagination pagination) {
+		return dao.searchMoviePostList(map, pagination);
 	}
 
 	@Override
