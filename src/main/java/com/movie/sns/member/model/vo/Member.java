@@ -31,146 +31,348 @@ public class Member {
 	public Member() {	}
 	
 	
+	
 
-	private int getViolationCount() {
+
+
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+
+
+
+
+
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+
+
+
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+
+
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
+
+
+
+
+
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+
+
+
+
+
+
+
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
+
+
+
+
+
+
+
+	public String getMemberPw() {
+		return memberPw;
+	}
+
+
+
+
+
+
+
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
+	}
+
+
+
+
+
+
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+
+
+
+
+
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+
+
+
+
+
+
+
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+
+
+
+
+
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+
+
+
+
+
+
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+
+
+
+
+
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+
+
+
+
+
+
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+
+
+
+
+
+
+
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
+	}
+
+
+
+
+
+
+
+	public int getMemberStatusCode() {
+		return memberStatusCode;
+	}
+
+
+
+
+
+
+
+	public void setMemberStatusCode(int memberStatusCode) {
+		this.memberStatusCode = memberStatusCode;
+	}
+
+
+
+
+
+
+
+	public int getMemberGradeCode() {
+		return memberGradeCode;
+	}
+
+
+
+
+
+
+
+	public void setMemberGradeCode(int memberGradeCode) {
+		this.memberGradeCode = memberGradeCode;
+	}
+
+
+
+
+
+
+
+	public Image getProfileImage() {
+		return profileImage;
+	}
+
+
+
+
+
+
+
+	public void setProfileImage(Image profileImage) {
+		this.profileImage = profileImage;
+	}
+
+
+
+
+
+
+
+	public String getMemberStatusName() {
+		return memberStatusName;
+	}
+
+
+
+
+
+
+
+	public void setMemberStatusName(String memberStatusName) {
+		this.memberStatusName = memberStatusName;
+	}
+
+
+
+
+
+
+
+	public String getMemberGradeName() {
+		return memberGradeName;
+	}
+
+
+
+
+
+
+
+	public void setMemberGradeName(String memberGradeName) {
+		this.memberGradeName = memberGradeName;
+	}
+
+
+
+
+
+
+
+	public int getViolationCount() {
 		return violationCount;
 	}
 
 
 
-	private void setViolationCount(int violationCount) {
+
+
+
+
+	public void setViolationCount(int violationCount) {
 		this.violationCount = violationCount;
 	}
 
 
 
-	private int getMemberNo() {
-		return memberNo;
-	}
 
-	private void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
 
-	private String getMemberName() {
-		return memberName;
-	}
 
-	private void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
 
-	private String getMemberNickName() {
-		return memberNickName;
-	}
-
-	private void setMemberNickName(String memberNickName) {
-		this.memberNickName = memberNickName;
-	}
-
-	private String getMemberPw() {
-		return memberPw;
-	}
-
-	private void setMemberPw(String memberPw) {
-		this.memberPw = memberPw;
-	}
-
-	private String getMemberEmail() {
-		return memberEmail;
-	}
-
-	private void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
-	}
-
-	private String getEnrollDate() {
-		return enrollDate;
-	}
-
-	private void setEnrollDate(String enrollDate) {
-		this.enrollDate = enrollDate;
-	}
-
-	private String getModifyDate() {
-		return modifyDate;
-	}
-
-	private void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	private String getMemberBirth() {
-		return memberBirth;
-	}
-
-	private void setMemberBirth(String memberBirth) {
-		this.memberBirth = memberBirth;
-	}
-
-	private int getMemberStatusCode() {
-		return memberStatusCode;
-	}
-
-	private void setMemberStatusCode(int memberStatusCode) {
-		this.memberStatusCode = memberStatusCode;
-	}
-
-	private int getMemberGradeCode() {
-		return memberGradeCode;
-	}
-
-	private void setMemberGradeCode(int memberGradeCode) {
-		this.memberGradeCode = memberGradeCode;
-	}
-
-	private Image getProfileImage() {
-		return profileImage;
-	}
-
-	private void setProfileImage(Image profileImage) {
-		this.profileImage = profileImage;
-	}
-
-	private String getMemberStatusName() {
-		return memberStatusName;
-	}
-
-	private void setMemberStatusName(String memberStatusName) {
-		this.memberStatusName = memberStatusName;
-	}
-
-	private String getMemberGradeName() {
-		return memberGradeName;
-	}
-
-	private void setMemberGradeName(String memberGradeName) {
-		this.memberGradeName = memberGradeName;
-	}
-
-	private int getViolationNo() {
+	public int getViolationNo() {
 		return violationNo;
 	}
 
-	private void setViolationNo(int violationNo) {
+
+
+
+
+
+
+	public void setViolationNo(int violationNo) {
 		this.violationNo = violationNo;
 	}
 
-	private String getViolationContent() {
+
+
+
+
+
+
+	public String getViolationContent() {
 		return violationContent;
 	}
 
-	private void setViolationContent(String violationContent) {
+
+
+
+
+
+
+	public void setViolationContent(String violationContent) {
 		this.violationContent = violationContent;
 	}
 
-	private int getToUser() {
+
+
+
+
+
+
+	public int getToUser() {
 		return toUser;
 	}
 
-	private void setToUser(int toUser) {
+
+
+
+
+
+
+	public void setToUser(int toUser) {
 		this.toUser = toUser;
 	}
+
+
+
+
 
 
 

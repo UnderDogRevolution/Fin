@@ -65,9 +65,9 @@
 									<tbody>
 										<c:choose>
 											<c:when test="${empty memberList}"> 
-												<%-- 조회된 회원 목록이 없을 때 --%>
+												<%-- 조회한 회원 목록이 없을 때 --%>
 												<tr>
-													<td colspan="6">게시글이 존재하지 않습니다.</td>
+													<td colspan="6">조회 결과가 존재하지 않습니다.</td>
 												</tr>
 											</c:when>
 											
