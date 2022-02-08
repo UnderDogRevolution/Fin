@@ -20,6 +20,7 @@ import com.movie.sns.member.model.vo.Member;
 @WebFilter(	filterName = "loginFilter" ,
 			urlPatterns = { "/member/*", "/chat/*" } )
 // member/* , 글쓰기,수정,삭제,북마크 등등   chat/* 
+// main/* , admin/* 추가 예정 
 public class LoginFilter implements Filter{
 
 	public void init(FilterConfig filterConfig) throws ServletException {
