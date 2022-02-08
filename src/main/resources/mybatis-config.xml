@@ -57,6 +57,7 @@
 		<mapper resource="/mappers/search-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper1.xml"/>
+		<mapper resource="/mappers/admin-mapper2.xml"/>
 	</mappers>
 
 
