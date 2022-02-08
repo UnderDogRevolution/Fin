@@ -63,13 +63,13 @@ public class PostDAO {
 		return sqlSession.insert("postMapper.insertImgList", imgList);
 	}
 
-	public List<Post> selectPostList(int memberNo, Pagination pagination) {
+	public List<Post> selectPostList(Map<String, Object> map, Pagination pagination) {
 		// 건너 뛸 행의 수 계산
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		// 건너 뛴 후 조회할 행의 수
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("postMapper.selectPostList", memberNo, rowBounds);
+		return sqlSession.selectList("postMapper.selectPostList", map, rowBounds);
 	}
 
 	public int insertLike(Map<String, Integer> likeMap) {

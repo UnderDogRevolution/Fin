@@ -87,7 +87,7 @@ public class PostContoller {
 	
 	@RequestMapping(value="postView", method = RequestMethod.GET)
 	@ResponseBody
-	public String selectPostList(HttpSession session, int cp ){
+	public String selectPostList(HttpSession session, int cp, int onlyFollow ){
 		
 		int memberNo = 0;
 		if(session.getAttribute("loginMember") != null) {
@@ -95,7 +95,10 @@ public class PostContoller {
 			
 		}
 		Pagination pagination = service.getPagination(cp);
-		List<Post> listPost = service.selectPostList(memberNo, pagination);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("onlyFollow", onlyFollow);
+		List<Post> listPost = service.selectPostList(map, pagination);
 		
 		
 		return new Gson().toJson(listPost);

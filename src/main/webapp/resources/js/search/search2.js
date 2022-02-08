@@ -29,8 +29,17 @@ function searchKey(word){
 	searchURL = contextPath + "/post/"+ word;
 	searchPostList()
 }
-const recentDiv = document.getElementById("recent_");
-recentDiv.click();
+
+const searchType = searchParam("st");
+if(searchType == "movie"){
+	const movieDiv = document.getElementById("mv_");
+	movieDiv.click(); 
+}else{
+	const recentDiv = document.getElementById("recent_");
+	recentDiv.click();
+
+}
+
 function searchPostList(){
 	
 	const searchWord = searchParam("searchResult");
@@ -614,10 +623,11 @@ function searchPostList(){
 		complete: function(){
 			
 			const temp = document.getElementsByClassName("post")[(cp*5)-1]
-			cp++;
+			
 			if(temp == null){
 				io.disconnect()
 			}else{
+				cp++;
 				console.log(temp)
 				io.observe(temp)
 			}
@@ -628,7 +638,10 @@ function searchPostList(){
 }
 
 function insertReply(e){
-	
+	if(typeof memberNo == "undefined"  || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value

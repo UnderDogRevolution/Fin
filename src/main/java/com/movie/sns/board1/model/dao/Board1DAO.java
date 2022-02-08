@@ -52,6 +52,21 @@ public class Board1DAO {
 		return sqlSession.selectOne("boardMapper.followCheck", member);
 	}
 
+	public int followCount(int memberNo) {
+		
+		return sqlSession.selectOne("boardMapper.followCount", memberNo);
+	}
+
+	public int followerCount(int memberNo) {
+		
+		return sqlSession.selectOne("boardMapper.followerCount", memberNo);
+	}
+
+	public int postCount(int memberNo) {
+		
+		return sqlSession.selectOne("boardMapper.postCount", memberNo);
+	}
+
 
 
 }

@@ -146,11 +146,11 @@ public class PostServiceImpl implements PostService {
 		return new Pagination(listCount, cp);
 	}
 	@Override
-	public List<Post> selectPostList(int memberNo, Pagination pagination) {
+	public List<Post> selectPostList(Map<String, Object> map, Pagination pagination) {
 		
 		
 		
-		return dao.selectPostList(memberNo, pagination);
+		return dao.selectPostList(map, pagination);
 	}
 	
 	@Transactional

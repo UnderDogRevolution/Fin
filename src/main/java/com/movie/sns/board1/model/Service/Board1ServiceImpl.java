@@ -56,6 +56,24 @@ public class Board1ServiceImpl implements Board1Service {
 		return dao.followCheck(member);
 	}
 
+	@Override
+	public int followCount(int memberNo) {
+		
+		return dao.followCount(memberNo);
+	}
+
+	@Override
+	public int followerCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.followerCount(memberNo);
+	}
+
+	@Override
+	public int postCount(int memberNo) {
+		// TODO Auto-generated method stub
+		return dao.postCount(memberNo);
+	}
+
 	
 	
 	
