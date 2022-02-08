@@ -43,6 +43,12 @@ public class AdminMemberController {
 		
 		memberList = service.selectMemberList(pagination);
 		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("memberList", memberList);
+		
+		System.out.println("==================================");
+		System.out.println(memberList);
+		System.out.println("==================================");
 		
 		return "admin/adminMember";
 	}

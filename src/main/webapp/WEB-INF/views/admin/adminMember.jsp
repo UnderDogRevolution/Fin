@@ -63,6 +63,30 @@
 									</thead>
 									
 									<tbody>
+										<c:choose>
+											<c:when test="${empty memberList}"> 
+												<%-- 조회된 회원 목록이 없을 때 --%>
+												<tr>
+													<td colspan="6">게시글이 존재하지 않습니다.</td>
+												</tr>
+											</c:when>
+											
+											<c:otherwise>
+												<c:forEach items="${memberList}" var="member">
+										
+													<tr>
+														<td style="width: 70px;">${member.memberNo}</td>
+														<td style="width: 140px;">${member.memberNo}</td>
+														<td style="width: 300px;">${member.memberNo}</td>
+														<td style="width: 100px;">${member.memberNo}</td>
+														<td>${member.memberNo}</td>
+														<td>${member.memberNo}</td>
+													</tr>
+													
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									
 										<tr>
 											<td style="width: 70px;">1</td>
 											<td style="width: 140px;">김밥계란</td>
