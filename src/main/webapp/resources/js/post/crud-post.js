@@ -131,9 +131,9 @@ inputContent.addEventListener("input", function(){
     if(row > 9){
         inputContent.value = inputContent.value.slice(0, -1)
     }
-    if(count >= 500){
-        inputContent.value = inputContent.value.substring(0, 500)
-        count = 500   
+    if(count >= 350){
+        inputContent.value = inputContent.value.substring(0, 350)
+        count = 350   
     }
     
     countBox.innerText = count;

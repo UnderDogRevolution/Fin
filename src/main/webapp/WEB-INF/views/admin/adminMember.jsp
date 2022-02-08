@@ -44,7 +44,9 @@
 						</div>
 
 						<div class="adminBoardtable">
+
 							<div class="table">
+								
 								<table class="table table-hover table-striped my-5"
 									id="list-table">
 
@@ -59,6 +61,7 @@
 										</tr>
 
 									</thead>
+									
 									<tbody>
 										<tr>
 											<td style="width: 70px;">1</td>
@@ -68,91 +71,21 @@
 											<td>2020-03-31</td>
 											<td>1</td>
 										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
-										</tr>
-										<tr>
-											<td style="width: 70px;">1</td>
-											<td style="width: 140px;">김밥계란</td>
-											<td style="width: 300px;">user01@gmail.com</td>
-											<td style="width: 100px;">정상</td>
-											<td>2020-03-31</td>
-											<td>1</td>
 									</tbody>
+
 									<tfoot>
 
-
 									</tfoot>
+
 								</table>
+
 							</div>
 
 						</div>
 
 
-
-
 					</div>
+
 				</div>
 
 
@@ -161,6 +94,15 @@
 		</main>
 	</div>
 
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<!-- 전역 변수 -->
+	<script>
+		const contextPath = "${contextPath}";
+	</script>
+
+	<script src="${contextPath}/resources/js/admin/adminMemberController.js"></script>
 
 
 </body>

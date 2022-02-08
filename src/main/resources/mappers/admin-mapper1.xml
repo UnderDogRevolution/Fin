@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper1">
+
+	<resultMap type="AdminPost" id="adminPost_rm">
+
+		<id property="postNo" column="POST_NO" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="postContent" column="POST_CONTENT" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="createDt" column="CREATE_DT" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="statusNm" column="POST_STATUS_NM" />
+	</resultMap>
+
+	<select id="postCount" resultType="_int">
+		SELECT COUNT(*) FROM POST
+	</select>
+
+	<select id="adminPost" resultMap="adminPost_rm">
+		SELECT POST_NO , MEMBER_NM,
+		POST_CONTENT , READ_COUNT ,
+		LIKE_COUNT,TO_CHAR(CREATE_DT , 'YYYY-MM-DD') CREATE_DT
+		, MEMBER_NO ,
+		POST_STATUS_NM
+		FROM POST
+		JOIN POST_STATUS USING(POST_STATUS_CD)
+		JOIN
+		MEMBER USING (MEMBER_NO)
+	</select>
+</mapper>

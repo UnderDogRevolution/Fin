@@ -56,7 +56,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                     </div>
                     <div class="container-content-count">
                         <span class="content-count">0</span>
-                        <span>/500</span>
+                        <span>/350</span>
                     </div>
 
                 </div>
@@ -78,7 +78,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 
     
 </div>
-<div id="fileArea">
+<div id="fileArea" style="display: none;">
     <input class="files" type="file" name="images" onchange="loadImg(this,0)"> 
 </div>
 <script src="${contextPath}/resources/js/post/crud-post.js"></script>
