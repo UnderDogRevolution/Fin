@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/side.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-</head>
 	<style>
 		#main-container{
 			display: flex;
@@ -18,6 +17,9 @@
 			margin-top: 129px;
 		}
 	</style>
+</head>
+
+
 <body>
 	<div id="main-container">
 
@@ -32,7 +34,7 @@
 		
 
 
-		<div id="container-post">
+		<div id="container-post" style="height: 1000px;">
 			<c:choose>
 				<c:when test="${post.postStatusCode == 500}">
 						<div class="post">
@@ -66,7 +68,8 @@
 									<div class="review-title">${post.movieTitle} <span>(${post.movieDate}) ${post.movieGenre}</span></div>
 								</c:if>
 								<div class="textarea-box">${post.postContent}</div>
-								<c:if test="${post.rating > 0}">
+								
+								<c:if test="${post.rating > '0'}">
 									<div class="post-rating">
 									<c:forEach var="i" begin="1" end="${post.rating*2}">
 										<i class="fa fa-star rating-star" aria-hidden="true" style="color: yellow"></i>

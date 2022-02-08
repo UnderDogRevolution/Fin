@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/side.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-</head>
 	<style>
 		#main-container{
 			display: flex;
@@ -18,6 +17,8 @@
 			margin-top: 129px;
 		}
 	</style>
+	
+</head>
 <body>
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>

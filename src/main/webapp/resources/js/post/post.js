@@ -640,7 +640,10 @@ function revealPost(){
 // revealPost 경계선
 
 function insertReply(e){
-	
+	if(typeof memberNo == "undefined"  || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
@@ -677,6 +680,8 @@ function insertReply(e){
 			}
 	
 		})
+	}else{
+		alert("댓글 내용을 입력해주세요!")
 	}
 }
 
