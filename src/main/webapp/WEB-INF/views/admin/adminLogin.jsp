@@ -20,7 +20,7 @@
 
 				<div class="login-input">
 					<div class="input-wrap">
-						<input type="text" name = "email"> <input type="password" name = "password">
+						<input type="text" name = "memberEmail"> <input type="password" name = "memberPw">
 					</div>
 				</div>
 				<div class="login-button">

@@ -8,10 +8,6 @@
 
 
 	<script>
-	const memberNo = "${loginMember.memberNo}";
-	const memberNickName = "${loginMember.memberNickName}";
-	const memberName = "${loginMember.memberName}";
-	const contextPath = "${contextPath}";
 	</script>
 
     <!-- 부트스트랩 -->

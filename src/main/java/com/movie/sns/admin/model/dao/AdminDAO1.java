@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.Pagination;
+import com.movie.sns.admin.model.vo.PostStatus;
 @Repository
 public class AdminDAO1 {
 	@Autowired
@@ -24,6 +25,19 @@ public class AdminDAO1 {
 		int limit = pagination.getLimit(); 
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return sqlSession.selectList("adminMapper1.adminPost",null ,rowBounds);
+	}
+
+	public int changeStatus(AdminPost post) {
+		return sqlSession.update("adminMapper1.changeStatus" , post);
+	}
+
+	public int insertBlind(AdminPost post) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("adminMapper1.blind" , post);
+	}
+
+	public List<PostStatus> selectStatus() {
+		return sqlSession.selectList("adminMapper1.selectStatus");
 	}
 	
 

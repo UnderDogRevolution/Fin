@@ -20,7 +20,7 @@ public class AdminDAO {
 	 * @param member
 	 * @return
 	 */
-	public Admin adminLogin(Admin member) {
+	public Member adminLogin(Member member) {
 		
 		return sqlSession.selectOne("adminMapper.login", member);
 	}

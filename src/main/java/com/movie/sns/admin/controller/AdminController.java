@@ -24,7 +24,7 @@ import com.movie.sns.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/admin/*")
-@SessionAttributes({"adminLoginMember"}) 
+@SessionAttributes({"loginMember"}) 
 public class AdminController {
 
 	@Autowired
@@ -37,16 +37,16 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(Admin member, Model model, RedirectAttributes ra, HttpServletRequest req,
+	public String login(Member member, Model model, RedirectAttributes ra, HttpServletRequest req,
 			HttpServletResponse resp) {
 
-		Admin loginMember = service.adminLogin(member);
+		Member loginMember = service.adminLogin(member);
 		System.out.println("loginMember" + loginMember);
 		String path = null;
 
 		if (loginMember != null) {
 
-			model.addAttribute("adminLoginMember", loginMember);
+			model.addAttribute("loginMember", loginMember);
 
 			path = "admin/adminMain";
 
