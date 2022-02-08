@@ -16,7 +16,9 @@ select {
 	border-radius: 0; /* 아이폰 사파리 보더 없애기 */
 	-webkit-appearance: none; /* 화살표 없애기 for chrome*/
 	-moz-appearance: none; /* 화살표 없애기 for firefox*/
-	appearance: none /* 화살표 없애기 공통*/
+	appearance: none; /* 화살표 없애기 공통*/
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 select:focus {
@@ -29,6 +31,8 @@ select:focus {
 	white-space: nowrap;
 	display: block;
 	height: 30px;
+	width: 300px;
+	text-align: left;
 }
 </style>
 
@@ -52,9 +56,9 @@ select:focus {
 						<div class="adminSearch">
 							<form action="" class="adminSearchForm">
 								<select name="" id="" class="select">
-									<option value="">게시글번호</option>
-									<option value="">회원번호</option>
-									<option value="">게시글상태</option>
+									<option value="postNo">게시글번호</option>
+									<option value="memberNo">회원번호</option>
+									<option value="status">게시글상태</option>
 
 								</select> <input type="text">
 								<button>검색</button>
@@ -65,14 +69,14 @@ select:focus {
 
 						<div class="adminBoardtable">
 							<div class="table">
-								<table class="table table-hover table-striped my-5"
+								<table class="table my-5"
 									id="list-table">
 
 									<thead>
 										<tr>
-											<th style="width: 100px;">게시글번호</th>
-											<th style="width: 140px;">작성자</th>
-											<th style="width: 200px;">내용</th>
+											<th>게시글번호</th>
+											<th>작성자</th>
+											<th>내용</th>
 											<th>조회수</th>
 											<th>좋아요</th>
 											<th>작성일</th>
@@ -93,20 +97,20 @@ select:focus {
 											<c:otherwise>
 												<c:forEach items="${post}" var="post">
 													<tr>
-														<td style="width: 70px;">${post.postNo}</td>
+														<td>${post.postNo}</td>
 
-														<td style="width: 140px;">${post.memberNm}</td>
+														<td>${post.memberNm}</td>
 
-														<td class='postContent' style="width: 370x;"><a
+														<td class='postContent'><a
 															style="text-decoration: none; color: white;"
-															href="${contextPath}+/post/+${post.postNo}">${post.postContent}<a></td>
+															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
 
-														<td style="width: 100px;">${post.createDt}</td>
 
 														<td>${post.readCount}</td>
 														<td>${post.likeCount}</td>
+														<td style="width: 100px;">${post.createDt}</td>
 
-														<td style="width: 100px;"><select name="postStatus"
+														<td><select name="postStatus"
 															id="" class="select"
 															style="background-color: #3a3939; border: none; color: white;">
 																<option value="${post.postNo},500">일반</option>
@@ -134,8 +138,8 @@ select:focus {
 
 
 					</div>
-				</div>
 				<div class="my-5">
+					<div>
 					<ul class="pagination">
 
 
@@ -155,7 +159,7 @@ select:focus {
 								</c:when>
 
 								<c:otherwise>
-									<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
+									<li><a class="page-link" href="post?cp=${i}${c}${s}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -166,7 +170,9 @@ select:focus {
 							<li><a class="page-link"
 								href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
 						</c:if>
-					</ul>
+						</ul>
+					</div>
+				</div>
 				</div>
 
 
