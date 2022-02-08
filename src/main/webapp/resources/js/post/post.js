@@ -623,10 +623,11 @@ function revealPost(){
 			
 			// document.querySelectorAll('.post').forEach((post) => io.observe(post));
 			const temp = document.getElementsByClassName("post")[(cp*5)-1]
-			cp++;
+			
 			if(temp == null){
 				io.disconnect()
 			}else{
+				cp++;
 				console.log(temp)
 				io.observe(temp)
 			}
@@ -933,7 +934,7 @@ function deletePost(e){
 			success: function (result) {
 				if(result>0){
 					alert("게시글이 삭제 되었습니다.")
-					revealPost()
+					location.reload()
 
 				}else{
 					alert("게시글 삭제 중 문제가 발생했습니다.")

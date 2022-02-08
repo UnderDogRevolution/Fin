@@ -284,7 +284,7 @@
 		LEFT JOIN MOVIE D ON  (A.MOVIE_NO = D.MOVIE_NO)
 		WHERE POST_STATUS_CD = 500
 		AND POST_CONTENT LIKE '%'||#{searchWord}||'%'
-		ORDER BY LIKE_COUNT DESC
+		ORDER BY POST_NO DESC
 	</select>
 
 	<select id="searchMoviePostList" resultMap="post_rm">
@@ -302,14 +302,14 @@
 		AND (MOVIE_TITLE LIKE '%'||#{searchWord}||'%'
         OR MOVIE_DIRECTOR LIKE '%'||#{searchWord}||'%'
         OR MOVIE_GENRE LIKE '%'||#{searchWord}||'%')
-		ORDER BY LIKE_COUNT DESC
+		ORDER BY POST_NO DESC
 	</select>
 	
 	<select id="rankMovie" resultMap="movie_rm">
 	<![CDATA[ 
 		SELECT* FROM(
 			SELECT ROWNUM RNUM, A.* FROM(
-                SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
+                SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) RATING_COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
                 FROM MOVIE_RATING
                 JOIN MOVIE USING (MOVIE_NO)
                 
