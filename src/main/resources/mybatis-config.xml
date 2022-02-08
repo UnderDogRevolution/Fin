@@ -40,6 +40,7 @@
 		<typeAlias type="com.movie.sns.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.AdminPost" alias="AdminPost"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.AdminAsk" alias="AdminAsk"/>
+		<typeAlias type="com.movie.sns.admin.model.vo.PostStatus" alias="PostStatus"/>
 		
 		
 		<typeAlias type="com.movie.sns.search.model.vo.Search" alias="Search"/>
@@ -59,6 +60,7 @@
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper1.xml"/>
 		<mapper resource="/mappers/admin-mapper2.xml"/>
+		<mapper resource="/mappers/admin-mapper3.xml"/>
 	</mappers>
 
 

@@ -133,14 +133,14 @@ public class MemberService2Impl implements MemberService2 {
 
 	//문의글 삽입
 	@Override
-	public int insertAsk(AdminAsk member) {
+	public int insertAsk(AdminAsk ask) {
 
 		//제목, 내용에 개행문자 처리
-		member.setAskTitle(Util.XSS(member.getAskTitle()));
-		member.setAskContent(Util.XSS(member.getAskContent()));
-		member.setAskContent(Util.changeNewLine(member.getAskContent()));
+		ask.setAskTitle(Util.XSS(ask.getAskTitle()));
+		ask.setAskContent(Util.XSS(ask.getAskContent()));
+		ask.setAskContent(Util.changeNewLine(ask.getAskContent()));
 		
-		int askNo=dao.insertAsk(member);
+		int askNo=dao.insertAsk(ask);
 						
 		return askNo;
 	}

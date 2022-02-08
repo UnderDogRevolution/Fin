@@ -19,6 +19,9 @@ select {
 	appearance: none; /* 화살표 없애기 공통*/
 	border-radius: 5px;
 	cursor: pointer;
+	background-color: #3a3939;
+	border: none;
+	color: white;
 }
 
 select:focus {
@@ -34,6 +37,21 @@ select:focus {
 	width: 300px;
 	text-align: left;
 }
+.adminSearch{
+    padding-left: 20px;
+    }
+ #searchPost{
+ margin-left : 10px;
+ margin-right : 10px;
+	 }
+ #searchbtn{
+ 	width: 50px;
+	font-size: 15px;
+	height: 31px;
+	border: none;
+	border-radius: 5px;
+	margin-left: 5px;
+ }
 </style>
 
 </head>
@@ -54,23 +72,21 @@ select:focus {
 					<div class="adminHeader">게시글관리</div>
 					<div class="adminBoardMain">
 						<div class="adminSearch">
-							<form action="" class="adminSearchForm">
-								<select name="" id="" class="select">
+								<select name="selectPost" id="" class="selectPostsend">
 									<option value="postNo">게시글번호</option>
 									<option value="memberNo">회원번호</option>
 									<option value="status">게시글상태</option>
+									<option value="createDt">작성일</option>
 
-								</select> <input type="text">
-								<button>검색</button>
-							</form>
+								</select> <input type="text" name = "postSearch" id = "searchPost">
+								<button id= "searchbtn"   onclick = "selectPostList();">검색</button>
 
 
 						</div>
 
 						<div class="adminBoardtable">
 							<div class="table">
-								<table class="table my-5"
-									id="list-table">
+								<table class="table my-5" id="list-table">
 
 									<thead>
 										<tr>
@@ -108,18 +124,23 @@ select:focus {
 
 														<td>${post.readCount}</td>
 														<td>${post.likeCount}</td>
-														<td style="width: 100px;">${post.createDt}</td>
+														<td style="width: 100px;">${post.createDt}${post.status}</td>
 
-														<td><select name="postStatus"
-															id="" class="select"
-															style="background-color: #3a3939; border: none; color: white;">
-																<option value="${post.postNo},500">일반</option>
-																<option value="${post.postNo},501">유저삭제</option>
-																<option value="${post.postNo},502">블라인드</option>
-																<option value="${post.postNo},503">비공개글</option>
-																<option value="${post.postNo},504">팔로워 공유</option>
-
-														</select></td>
+														<td>
+																<select name="statusCd" id="" class="select"
+																	onchange="changeStatus(event,${post.postNo})">
+																<c:forEach items = "${cd}" var = "c">
+																	<c:if test="${post.statusNm == c.statusNm}">
+																		<option value="${c.statusCd}" selected>${c.statusNm}</option>
+																	</c:if>
+																	
+																	<c:if test="${post.statusNm != c.statusNm}">
+																		<option value="${c.statusCd}">${c.statusNm}</option>
+																	</c:if>
+																	
+																</c:forEach> 
+																</select>
+															</td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -138,41 +159,41 @@ select:focus {
 
 
 					</div>
-				<div class="my-5">
-					<div>
-					<ul class="pagination">
+					<div class="my-5">
+						<div>
+							<ul class="pagination">
 
 
-						<c:if test="${pagination.startPage != 1 }">
-							<li><a class="page-link" href="list?cp=1" ${s}>&lt;&lt;</a></li>
-							<li><a class="page-link"
-								href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
-						</c:if>
-
-						<%-- 페이지네이션 번호 목록 --%>
-						<c:forEach begin="${pagination.startPage}"
-							end="${pagination.endPage}" step="1" var="i">
-							<c:choose>
-								<c:when test="${i == pagination.currentPage}">
+								<c:if test="${pagination.startPage != 1 }">
+									<li><a class="page-link" href="list?cp=1" ${s}>&lt;&lt;</a></li>
 									<li><a class="page-link"
-										style="color: black; font-weight: bold;">${i}</a></li>
-								</c:when>
+										href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+								</c:if>
 
-								<c:otherwise>
-									<li><a class="page-link" href="post?cp=${i}${c}${s}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+								<%-- 페이지네이션 번호 목록 --%>
+								<c:forEach begin="${pagination.startPage}"
+									end="${pagination.endPage}" step="1" var="i">
+									<c:choose>
+										<c:when test="${i == pagination.currentPage}">
+											<li><a class="page-link"
+												style="color: black; font-weight: bold;">${i}</a></li>
+										</c:when>
 
-						<c:if test="${pagination.endPage != pagination.maxPage }">
-							<li><a class="page-link"
-								href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
-							<li><a class="page-link"
-								href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
-						</c:if>
-						</ul>
+										<c:otherwise>
+											<li><a class="page-link" href="post?cp=${i}${c}${s}">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+								<c:if test="${pagination.endPage != pagination.maxPage }">
+									<li><a class="page-link"
+										href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+									<li><a class="page-link"
+										href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
+								</c:if>
+							</ul>
+						</div>
 					</div>
-				</div>
 				</div>
 
 
@@ -181,6 +202,10 @@ select:focus {
 	</div>
 
 
+	<script src="${contextPath}/resources/js/admin/adminPost.js"></script>
 
+	<script type="text/javascript">
+	const contextPath = "${contextPath}";
+	</script>
 </body>
 </html>

@@ -16,7 +16,7 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	@Autowired
 	private AdminMemberDAO dao;
 
-	
+	// 페이지내이션
 	@Override
 	public Pagination getPagination(int cp) {
 		
@@ -25,11 +25,18 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return new Pagination(listCount, cp);
 	}
 
-
+	// 회원 리스트 조회
 	@Override
 	public List<Member> selectMemberList(Pagination pagination) {
 		
 		return dao.selectMemberList(pagination);
+	}
+
+	// 회원 정보 상세 조회
+	@Override
+	public Member selectMemberDetail(int memberNo) {
+
+		return dao.selectMemberDetail(memberNo);
 	}
 
 

@@ -46,11 +46,30 @@ public class AdminMemberController {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("memberList", memberList);
 		
-		System.out.println("==================================");
-		System.out.println(memberList);
-		System.out.println("==================================");
+//		System.out.println("==================================");
+//		System.out.println("회원 정보 : " + memberList);
+//		System.out.println("==================================");
 		
 		return "admin/adminMember";
+	}
+	
+	
+	// 회원 상세정보 조회
+	// 회원의 상세 정보를 담아서 Member로 전달
+	@RequestMapping(value="selectMemberDetail", method=RequestMethod.GET)
+	@ResponseBody
+	public Member selectMemberDetail(int memberNo, Member member) {
+		
+		member = service.selectMemberDetail(memberNo);
+		
+		if(member != null) {
+			
+			return member;
+			
+		}else {
+			return null;
+		}
+		
 	}
 	
 	
