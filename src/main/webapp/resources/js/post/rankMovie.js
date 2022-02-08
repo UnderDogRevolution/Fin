@@ -23,7 +23,7 @@ function rankMovie(){
                         star += `<i class="fa fa-star side-star" aria-hidden="true" style="color: yellow"></i>`
                     }
                 const temp = `<li>
-                                <a href="">
+                                <a href="${contextPath}/search/?searchResult=${movieTitle}&st=movie">
                                     <div>
                                         <div class="postImgwrap">
                                             <img src="${poster}">

@@ -1,5 +1,4 @@
 console.log("postView")
-
 //게시글 좋아요
 const whitePopcorn = document.getElementsByClassName("white-popcorn");
 const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
@@ -129,7 +128,11 @@ function deletePost(e){
 }
 
 function insertReply(e){
-	
+	console
+	if(typeof memberNo == "undefined" || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value

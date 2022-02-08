@@ -157,7 +157,18 @@
 		DELETE FROM FOLLOW
 		WHERE TO_USER = #{friendNo} AND MEMBER_NO = #{memberNo}
 	</delete>
-
+	
+	<select id="followCount" resultType="_int">
+		SELECT COUNT(*) FROM FOLLOW WHERE TO_USER = #{memberNo}
+	</select>
+	
+	<select id="followerCount" resultType="_int">
+		SELECT COUNT(*) FROM FOLLOW WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="postCount" resultType="_int">
+		SELECT COUNT(*) FROM POST WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 
 </mapper>

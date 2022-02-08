@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/side.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-</head>
 	<style>
 		#main-container{
 			display: flex;
@@ -18,6 +17,9 @@
 			margin-top: 129px;
 		}
 	</style>
+</head>
+
+
 <body>
 	<div id="main-container">
 
@@ -28,11 +30,8 @@
 				window.history.back();
 			</script>
 		</c:if>
-		<%--<jsp:include page="../main/feed.jsp"></jsp:include>--%>
 		
-
-
-		<div id="container-post">
+		<div id="container-post" style="height: 1000px;">
 			<c:choose>
 				<c:when test="${post.postStatusCode == 500}">
 						<div class="post">
@@ -63,10 +62,11 @@
 							</div>
 							<div class="post-content">
 								<c:if test="${post.movieTitle != null}">
-									<div class="review-title">${post.movieTitle} <span>(${post.movieDate}) ${post.movieGenre}</span></div>
+									<div class="review-title">${post.movieTitle} <br> <span>${post.director} (${post.movieDate}) ${post.movieGenre}</span></div>
 								</c:if>
 								<div class="textarea-box">${post.postContent}</div>
-								<c:if test="${post.rating > 0}">
+								
+								<c:if test="${post.rating > '0'}">
 									<div class="post-rating">
 									<c:forEach var="i" begin="1" end="${post.rating*2}">
 										<i class="fa fa-star rating-star" aria-hidden="true" style="color: yellow"></i>
@@ -116,21 +116,26 @@
 			</c:choose>
 		</div>
 		</div>
-		
-		<jsp:include page="../main/side.jsp"></jsp:include>
+
+		<div style="margin-left: 4%;">
+			<jsp:include page="../main/side.jsp"></jsp:include>
+		</div>
 	</div>
 
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
-		const contextPath = "${contextPath}";
+		console.log("뭐지?")
+		if(contextPath != null){
+			const contextPath = "${contextPath}";
+		}
 		<c:if test="${loginMember.memberNo != null}">
 			const memberNo = ${loginMember.memberNo }
 		</c:if>
 		const postContent = "${post.postContent}";
 		const postNo = ${post.postNo};
+		console.log(postNo)
 	</script>
-	<!-- <script src="${contextPath}/resources/js/post/post.js"></script> -->
 	<script src="${contextPath}/resources/js/post/postView.js"></script>
 	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>
 </body>
