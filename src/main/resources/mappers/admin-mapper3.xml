@@ -47,10 +47,8 @@
 	
 	<!-- 문의글 상세 조회 -->
 	<select id="selectAsk" resultMap="adminAsk_rm">
-      SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, MEMBER_NO, MEMBER_NM,
-          TO_CHAR(ASK_DATE, 'YYYY"년" MM"월" DD"일" ) ASK_DATE
-      FROM ADMIN_ASK
-      JOIN MEMBER USING(MEMBER_NO)
+      SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_DATE, MEMBER_NO, MEMBER_NM
+      FROM ADMIN_ASK JOIN MEMBER USING(MEMBER_NO)
       WHERE ASK_NO = #{askNo}
 	</select>
 

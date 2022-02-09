@@ -66,6 +66,10 @@ body > * {
 tr{
 	color: white !important;
 }
+
+td{
+	color: white !important;
+}
 .header{
     position: fixed;
     display: flex;

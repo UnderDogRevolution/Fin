@@ -25,6 +25,7 @@ function searchParam(key) {
 
 let searchURL = "";
 function searchKey(word){
+	cp = 1;
 	postContainer.innerHTML = "";
 	searchURL = contextPath + "/post/"+ word;
 	searchPostList()
@@ -50,8 +51,16 @@ function searchPostList(){
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
-			
 			console.log(postList)
+			if(postList.length == 0){
+				const templateLiterals = ` <div id="no-search-result">
+											<img src="${contextPath}/resources/images/temp/search_icon.png">
+											<br>
+											<span>검색 결과가 없습니다.</span>
+										</div>`
+				postContainer.innerHTML = templateLiterals;
+				return;
+			}
 			for(const items of postList){
 				const post = document.createElement("div");
 				post.className = "post";
@@ -366,14 +375,71 @@ function searchPostList(){
 				// post-footer
 				const divFooter1 = document.createElement("div")
 				divFooter1.className = "container-like";
+
+				// 게시글 좋아요
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
 				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
 				imgFooter1.setAttribute("style", "width: 100%;");
+				imgFooter1.addEventListener("click", function(){
+					const postNo = this.nextElementSibling.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({ 
+						url: contextPath + "/post/deleteLike",
+						data : {"postNo": postNo},
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result>0){
+								element.style.display = "none";
+								element.nextElementSibling.style.display = "block";
+								count.innerText = Number(count.innerText)-1;
+							}else{
+								alert("좋아요 연속 클릭으로 오류가 발생했습니다.")
+							}
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+				
+					})
+				})
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
+				imgFooter2.addEventListener("click", function(){
+					const postNo = this.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({
+						url: contextPath + "/post/insertLike",
+						data: { "postNo": postNo },
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								element.style.display = "none";
+								element.previousElementSibling.style.display = "block";
+								count.innerText = Number(count.innerText)+1;
+							}else{
+								alert("좋아요 기능에 오류가 발생했습니다.")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+				})
 
 				if(items.checkLike == '1'){
 					imgFooter2.setAttribute("style", "width: 100%; display:none;")
@@ -395,91 +461,13 @@ function searchPostList(){
 				const imgFooter3 = document.createElement("img")
 				imgFooter3.setAttribute("src", contextPath +"/resources/images/temp/reply.png")
 				imgFooter3.setAttribute("style", "width: 100%;");
-				const spanFooter2 = document.createElement("span")
-				spanFooter2.innerText = items.replyCount;
-				divFooter2.append(imgFooter3)
-				divFooter2.append(spanFooter2);
-				
-				postFooter.append(divFooter1);
-				postFooter.append(divFooter2);
-				// post
-	
-				post.append(postHeader)
-				post.append(postContent)
-				post.append(postFooter);
-				postContainer.append(post);
-			}
-			
-			//게시글 좋아요
-			const whitePopcorn = document.getElementsByClassName("white-popcorn");
-			const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
 
-			for (const items of whitePopcorn) {
-				items.addEventListener("click", function () {
-					const postNo = this.nextElementSibling.innerText;
-					let count = this.nextElementSibling.nextElementSibling;
-					$.ajax({
-						url: contextPath + "/post/insertLike",
-						data: { "postNo": postNo },
-						type: "POST",
-						async: false,
-						success: function (result) {
-							if(result >0){
-								items.style.display = "none";
-								items.previousElementSibling.style.display = "block";
-								count.innerText = Number(count.innerText)+1;
-							}else{
-								alert("좋아요 기능에 오류가 발생했습니다.")
-							}
-
-						},
-						error: function (req, status, error) {
-							console.log("ajax 실패");
-							console.log(req.responseText);
-							console.log(status);
-							console.log(error);
-						}
-
-					})
-				})
-			}
-			for(const items of vividPopcorn){
-				items.addEventListener("click", function(){
-					const postNo = this.nextElementSibling.nextElementSibling.innerText;
-					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
-					$.ajax({ 
-						url: contextPath + "/post/deleteLike",
-						data : {"postNo": postNo},
-						type: "POST",
-						async: false,
-						success: function (result) {
-							if(result>0){
-								items.style.display = "none";
-								items.nextElementSibling.style.display = "block";
-								count.innerText = Number(count.innerText)-1;
-							}else{
-								alert("좋아요 연속 클릭으로 오류가 발생했습니다.")
-							}
-						},
-						error: function (req, status, error) {
-							console.log("ajax 실패");
-							console.log(req.responseText);
-							console.log(status);
-							console.log(error);
-						}
-				
-					})
-				})
-			}
-			
-
-			// 댓글 조회
-			const replyImg = document.querySelectorAll(".container-reply > img")
-			for(const items of replyImg){
-				items.addEventListener("click", function(){
+				// 댓글 조회
+				imgFooter3.addEventListener("click", function(){
 					const post = this.parentNode.parentNode.parentNode
 
-					const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+					// const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+					;
 					
 					const inputReplyDiv = document.createElement("div");
 					inputReplyDiv.className = "input-content-reply";
@@ -541,77 +529,28 @@ function searchPostList(){
 						}
 						post.append(inputReplyDiv)
 						if(Number(post.querySelectorAll(".container-reply > span")[0].innerText) > 0){
-							const replyDiv = selectReply(postNo)
+							const replyDiv = selectReply(items.postNo)
 							post.append(replyDiv)
 						}
 					}
-
-					// 댓글 좋아요
-					const replyVividImg = document.getElementsByClassName("reply-vivid");
-					const replywhiteImg = document.getElementsByClassName("reply-white");
-					for(const items of replywhiteImg){
-						items.addEventListener("click", function () {
-							const replyNo = this.nextElementSibling.innerText;
-							let count = this.nextElementSibling.nextElementSibling;
-							$.ajax({
-								url: contextPath + "/reply/insertReplyLike",
-								data: { "replyNo": replyNo },
-								type: "POST",
-								async: false,
-								success: function (result) {
-									if(result >0){
-										items.style.display = "none";
-										items.previousElementSibling.style.display = "inline";
-										count.innerText = Number(count.innerText)+1;
-									}else{
-										alert("좋아요 기능에 오류가 발생했습니다.")
-									}
-		
-								},
-								error: function (req, status, error) {
-									console.log("ajax 실패");
-									console.log(req.responseText);
-									console.log(status);
-									console.log(error);
-								}
-		
-							})
-						})
-					}
-					for(const items of replyVividImg){
-						items.addEventListener("click", function () {
-							const replyNo = this.nextElementSibling.nextElementSibling.innerText;
-							let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
-							$.ajax({
-								url: contextPath + "/reply/deleteReplyLike",
-								data: { "replyNo": replyNo },
-								type: "POST",
-								async: false,
-								success: function (result) {
-									if(result >0){
-										items.style.display = "none";
-										items.nextElementSibling.style.display = "inline";
-										count.innerText = Number(count.innerText)-1;
-									}else{
-										alert("좋아요 기능에 오류가 발생했습니다.")
-									}
-		
-								},
-								error: function (req, status, error) {
-									console.log("ajax 실패");
-									console.log(req.responseText);
-									console.log(status);
-									console.log(error);
-								}
-		
-							})
-						})
-					}
-					
 				})
-			}
 
-			
+
+
+				const spanFooter2 = document.createElement("span")
+				spanFooter2.innerText = items.replyCount;
+				divFooter2.append(imgFooter3)
+				divFooter2.append(spanFooter2);
+				
+				postFooter.append(divFooter1);
+				postFooter.append(divFooter2);
+				// post
+	
+				post.append(postHeader)
+				post.append(postContent)
+				post.append(postFooter);
+				postContainer.append(post);
+			}
 			
 		},
 		error: function (req, status, error) {
@@ -760,7 +699,7 @@ function selectReply(postNo){
 				dots.setAttribute("id", "dropdownMenuOffset")
 				dots.setAttribute("data-bs-toggle", "dropdown")
 				dots.setAttribute("aria-expanded", "false")
-				dots.setAttribute("data-bs-offset", "-40,-10")
+				dots.setAttribute("data-bs-offset", "0, 0")
 
 				const dropUl = document.createElement("ul");
 				dropUl.setAttribute("class", "dropdown-menu")
@@ -800,14 +739,82 @@ function selectReply(postNo){
 
 				textReply.append(contentDiv);
 
+
 				
 				const constDiv2 = document.createElement("div")
+				// 댓글 좋아요
 				const vividPopcorn = document.createElement("img");
 				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
 				vividPopcorn.className = "reply-vivid";
+				vividPopcorn.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
+					const replyNo = this.nextElementSibling.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({
+						url: contextPath + "/reply/deleteReplyLike",
+						data: { "replyNo": replyNo },
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								element.style.display = "none";
+								element.nextElementSibling.style.display = "inline";
+								count.innerText = Number(count.innerText)-1;
+							}else{
+								alert("좋아요 기능에 오류가 발생했습니다.")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+				})
 				const whitePopcorn = document.createElement("img");
 				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
 				whitePopcorn.className = "reply-white";
+				whitePopcorn.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
+					const replyNo = this.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({
+						url: contextPath + "/reply/insertReplyLike",
+						data: { "replyNo": replyNo },
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								//ajax안에 this는 또 안먹는다. 밖에서 정의해야한다.
+								element.style.display = "none";
+								element.previousElementSibling.style.display = "inline";
+								count.innerText = Number(count.innerText)+1;
+							}else{
+								alert("좋아요 기능에 오류가 발생했습니다.")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+					
+				})
 
 				if(items.checkLike == 1){
 					vividPopcorn.setAttribute("style", "width: 20px; height: 20px;")

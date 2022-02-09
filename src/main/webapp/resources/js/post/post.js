@@ -628,13 +628,16 @@ function selectReply(postNo){
 						lineReply.innerText = "──── 답글";
 						lineReply.addEventListener("click", function(e){
 							let tempE = this.nextElementSibling
-							while(tempE.className == "child-reply"){
-								if(tempE.style.display == "none"){
-									tempE.style.display = "flex";
-								}else if(tempE.style.display =="flex"){
-									tempE.style.display = "none";
+							if(tempE.className != null){
+								console.log(tempE.className == "child-reply")
+								while(tempE.className == "child-reply"){
+									if(tempE.style.display == "none"){
+										tempE.style.display = "flex";
+									}else if(tempE.style.display =="flex"){
+										tempE.style.display = "none";
+									}
+									tempE = tempE.nextElementSibling;
 								}
-								tempE = tempE.nextElementSibling;
 							}
 						})
 						replyDiv.append(lineReply);
