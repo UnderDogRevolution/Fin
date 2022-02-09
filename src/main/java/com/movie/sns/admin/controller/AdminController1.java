@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
 import com.movie.sns.admin.model.service.AdminService1;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
@@ -73,6 +74,9 @@ public class AdminController1 {
 			
 			System.out.println("페이지네이션 결과" +pagination);
 			System.out.println("검색 결과" +List);
+			Map<String, Object> map =  new HashMap<String, Object>();
+			map.put("List" , List);
+			map.put("pagination" , pagination);
 			
 			/*
 			 * if(search.equals("memberNo")) { pagination =service.getPagination(cp);
@@ -92,12 +96,10 @@ public class AdminController1 {
 			 * 
 			 * }else if(search.equals("status")) {
 			 * 
-			 * 
-			 * 
 			 * }
 			 */
 			
-		return null;
+		return new Gson().toJson(map);
 	} 
 	
 	
