@@ -319,7 +319,7 @@ detailPostTextarea.innerHTML = text
 function selectReply(postNo){
     const replyDiv = document.createElement("div");
 	replyDiv.className = "reply"
-    replyDiv.setAttribute("style", "overflow: visible; height: auto;")
+    replyDiv.setAttribute("style", "overflow: visible; max-height: 100%;")
 	$.ajax({
 		url: contextPath + "/reply/select",
 		data: {"postNo": postNo},
@@ -395,7 +395,7 @@ function selectReply(postNo){
 				dots.setAttribute("id", "dropdownMenuOffset")
 				dots.setAttribute("data-bs-toggle", "dropdown")
 				dots.setAttribute("aria-expanded", "false")
-				dots.setAttribute("data-bs-offset", "-40,-10")
+				dots.setAttribute("data-bs-offset", "10,-10")
 
 				const dropUl = document.createElement("ul");
 				dropUl.setAttribute("class", "dropdown-menu")
@@ -422,9 +422,12 @@ function selectReply(postNo){
 				dropLi2.append(a2);
 				dropLi3.append(a3);
 				if(typeof memberNo != "undefined"){
-					if(items.memberNo = memberNo){
+					if(items.memberNo == memberNo){
 						dropUl.append(dropLi1);
 						dropUl.append(dropLi2);
+					}else{
+						dropUl.append(dropLi2);
+
 					}
 				}else{
 					dropUl.append(dropLi3);
@@ -438,10 +441,10 @@ function selectReply(postNo){
 				
 				const constDiv2 = document.createElement("div")
 				const vividPopcorn = document.createElement("img");
-				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/like2.png")
 				vividPopcorn.className = "reply-vivid";
 				const whitePopcorn = document.createElement("img");
-				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/like.png")
 				whitePopcorn.className = "reply-white";
 
 				if(items.checkLike == 1){

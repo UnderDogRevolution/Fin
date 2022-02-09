@@ -151,7 +151,6 @@
 
 	<!-- 문의글 삽입 -->
 		<insert id="insertAsk" useGeneratedKeys="true" parameterType="AdminAsk">
-
 		INSERT INTO ADMIN_ASK VALUES(SEQ_ASK_NO.NEXTVAL, #{askTitle}, #{askContent}, DEFAULT, #{memberNo})
 	</insert>
 	

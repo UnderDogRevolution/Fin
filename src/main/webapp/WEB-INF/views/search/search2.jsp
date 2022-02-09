@@ -23,7 +23,7 @@
             </div>
         </main>
     </div>
-    <div id="container-post" style=" ">
+    <div id="container-post" >
     </div>
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
     <script>

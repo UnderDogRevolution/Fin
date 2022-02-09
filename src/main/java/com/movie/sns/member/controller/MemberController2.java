@@ -51,7 +51,8 @@ public class MemberController2 {
 			@RequestParam("nickInput") String nickInput,
 			@RequestParam("birthInput") String birthInput,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra,
-			List<MultipartFile> images, int deleteCheck, HttpSession session) {
+			List<MultipartFile> images, 
+			@RequestParam(value="deleteCheck", required = false, defaultValue = "0" )int deleteCheck, HttpSession session) {
 
 		member.setMemberNo(loginMember.getMemberNo());
 		member.setMemberNickName(nickInput);
@@ -71,7 +72,6 @@ public class MemberController2 {
 			loginMember.setProfileImage(member.getProfileImage());
 			
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
-
 		} else { // 실패
 			Util.swalSetMessage("회원정보 수정 실패", "회원정보 변경에 실패하였습니다.", "error", ra);
 		}
