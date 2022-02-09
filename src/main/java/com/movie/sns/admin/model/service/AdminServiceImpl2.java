@@ -9,7 +9,6 @@ import com.movie.sns.admin.model.dao.AdminDAO2;
 import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.common.Util;
-import com.movie.sns.member.model.vo.Member;
 
 @Service
 public class AdminServiceImpl2 implements AdminService2 {
@@ -31,6 +30,15 @@ public class AdminServiceImpl2 implements AdminService2 {
 		return new Pagination(listCount, cp);
 	}
 
+	/** 문의글 목록 조회
+	 *
+	 */
+	@Override
+	public List<AdminAsk> selectAskList(Pagination pagination) {
+		return dao.selectAskList(pagination);
+	}
+	
+	
 	/** 문의글 상세 조회
 	 *
 	 */
@@ -40,14 +48,6 @@ public class AdminServiceImpl2 implements AdminService2 {
 		AdminAsk ask=dao.selectAsk(askNo);
 		
 		return ask;
-	}
-	
-	/** 지정된 범위 문의글 목록 조회
-	 *
-	 */
-	@Override
-	public List<AdminAsk> selectAskList(Pagination pagination){
-		return dao.selectAskList(pagination);
 	}
 
 

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.admin.model.vo.Pagination;
-import com.movie.sns.member.model.vo.Member;
 
 public interface AdminService2 {
 
@@ -26,6 +25,8 @@ public interface AdminService2 {
 	 * @return
 	 */
 	AdminAsk selectAsk(int askNo, int memberNo);
+
+
 	
 	
 }

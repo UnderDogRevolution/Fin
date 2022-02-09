@@ -153,17 +153,15 @@ public class MemberController2 {
 		  @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
 		
 		ask.setMemberNo(loginMember.getMemberNo());
-		
 		int askNo = service.insertAsk(ask);
 		
-		String path = null;
 		if(askNo > 0) { // 삽입 성공
 			Util.swalSetMessage("게시글 삽입 성공", null, "success", ra);
-			path = "view/"+askNo;
+
 		}else { // 실패
 			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
 		}
 		
-		return "redirect:/AdminAsk/askList";
+		return "redirect:/member/ask";
 	}
 }

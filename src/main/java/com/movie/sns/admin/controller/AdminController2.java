@@ -27,26 +27,29 @@ import com.movie.sns.common.Util;
 
 
 @Controller
-@RequestMapping("/AdminAsk/*")
-@SessionAttributes({"adminLoginMember"}) 
+@RequestMapping("/admin/*")
+@SessionAttributes({"loginMember"}) 
 public class AdminController2 {
 
 	@Autowired
 	private AdminService2 service;
 
 		// 바라는 점 목록 조회
-		@RequestMapping("list")
+		@RequestMapping("ask")
 		public String selectAskList(@RequestParam(value="cp", required=false, defaultValue="1") 
 		int cp,  Model model) {
 
 			Pagination pagination = null;
-			List<Member> askList = null;
+			List<AdminAsk> askList = null;
+			
+			pagination = service.getPagination(cp);
+			askList = service.selectAskList(pagination);
 			
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("askList", askList);
 			
 			
-			return "AdminAsk/askList";
+			return "admin/adminAskList";
 		}
 	
 	

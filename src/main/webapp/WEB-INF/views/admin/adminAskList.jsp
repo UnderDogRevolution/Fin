@@ -52,7 +52,7 @@
 												<td style="width: 70px;">${AdminAsk.askNo}</td>
 												<td style="width: 140px;">${AdminAsk.askTitle}</td>
 												<td style="width: 300px;">${AdminAsk.askContent}</td>
-												<td style="width: 100px;">${loginMember.memberName}</td>
+												<td style="width: 100px;">${AdminAsk.memberName}</td>
 												<td style="width: 100px;">${AdminAsk.askDate}</td>
 											</tr>
 
