@@ -80,6 +80,7 @@ function revealPost(){
 				const aHeader2 = document.createElement("a")
 				aHeader2.innerText = "링크복사";
 				aHeader2.className = "dropdown-item"
+				aHeader2.setAttribute("onclick", "copyURL("+items.postNo+");")
 				const aHeader3 = document.createElement("a")
 				aHeader3.innerText = "삭제";
 				aHeader3.className = "dropdown-item"
@@ -1038,3 +1039,15 @@ function recentPost(){
 	onlyFollow = 0;
 	revealPost()
 }
+
+function copyURL(postNo){
+
+	var tempElem = document.createElement('textarea');
+	tempElem.value = "localhost:8080/fin/post/view/" + postNo;  
+	document.body.appendChild(tempElem);
+
+	tempElem.select();
+	document.execCommand("copy");
+	document.body.removeChild(tempElem);
+}
+
