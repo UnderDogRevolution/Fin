@@ -50,7 +50,7 @@
 								<div class="dropdown me-1 header-dropdown"><img id="dropdownMenuOffset" data-bs-toggle="dropdown"
 										aria-expanded="false" data-bs-offset="10,-10" src="${contextPath}/resources/images/temp/dots.png">
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-										<li><a class="dropdown-item">링크복사</a></li>
+										<li><a class="dropdown-item" onclick="copyURL(${post.postNo});">링크복사</a></li>
 										<c:if test="${loginMember != null}">
 											<li><a class="dropdown-item" onclick="report(0, ${post.postNo})">신고하기</a></li>
 										</c:if>

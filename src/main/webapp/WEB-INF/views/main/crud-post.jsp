@@ -28,7 +28,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                         </div>
                     </div> -->
                 </div>
-                <div class="modal-side" style="width: 100px; height: 100px; background-color: white; color: black; position: absolute; z-index: 2000; right: -25%;">
+                <div class="modal-side" >
                     <ul>
                         
                     </ul>
