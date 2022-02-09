@@ -65,7 +65,7 @@ function revealPost(){
 				imgHeader2.setAttribute("id", "dropdownMenuOffset");
 				imgHeader2.setAttribute("data-bs-toggle", "dropdown");
 				imgHeader2.setAttribute("aria-expanded", "false");
-				imgHeader2.setAttribute("data-bs-offset", "-40,-10");
+				imgHeader2.setAttribute("data-bs-offset", "10,-10");
 				imgHeader2.setAttribute("src", contextPath + "/resources/images/temp/dots.png");
 				const ulHeader = document.createElement("ul")
 				ulHeader.className = "dropdown-menu";
@@ -80,6 +80,7 @@ function revealPost(){
 				const aHeader2 = document.createElement("a")
 				aHeader2.innerText = "링크복사";
 				aHeader2.className = "dropdown-item"
+				aHeader2.setAttribute("onclick", "copyURL("+items.postNo+");")
 				const aHeader3 = document.createElement("a")
 				aHeader3.innerText = "삭제";
 				aHeader3.className = "dropdown-item"
@@ -293,7 +294,7 @@ function revealPost(){
 				const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
   				const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
 				let text = items.postContent.replace(tagRegExp, function(target){
-					return "<a href='"+contextPath+"/search/?searchResult=%23"+target.replace("#","")+"' style='color: blue;'>" + target + "</a>";
+					return "<a href='"+contextPath+"/search/?searchResult=%23"+target.replace("#","")+"' style='color: #0075de;'>" + target + "</a>";
 				})
 				text = text.replace(userRegExp, function(target){
 					let memberNo;
@@ -315,7 +316,7 @@ function revealPost(){
 						}
 					})
 					if(memberNo>0){
-						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: #ffd700;'>" + target + "</a>";
 					}else{
 						return target;
 					}
@@ -353,9 +354,13 @@ function revealPost(){
 				// 게시글 좋아요
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
-				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/yellow_popcorn.png")
 				imgFooter1.setAttribute("style", "width: 100%;");
 				imgFooter1.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
 					const element = this;
@@ -384,9 +389,13 @@ function revealPost(){
 				})
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
-				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 				imgFooter2.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;
@@ -609,7 +618,7 @@ function selectReply(postNo){
 		dataType: "JSON",
 		async : false,
 		success: function (replyList) {
-			console.log(replyList);
+			console.log(replyList);//memeberNo가 개발자 콘솔에서 다르게 출력되는 문제가 있다 실제로 js안에서는 이상이 없다.
 			let plag = 0;
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
@@ -628,15 +637,21 @@ function selectReply(postNo){
 						lineReply.innerText = "──── 답글";
 						lineReply.addEventListener("click", function(e){
 							let tempE = this.nextElementSibling
-							if(tempE.className != null){
-								console.log(tempE.className == "child-reply")
-								while(tempE.className == "child-reply"){
-									if(tempE.style.display == "none"){
-										tempE.style.display = "flex";
-									}else if(tempE.style.display =="flex"){
-										tempE.style.display = "none";
+							if(tempE.className != null){ // while문이 돌때 마지막 구문에 문제가 생기는 경우가 있었다.
+
+								while(true){
+									if(tempE.className  == "child-reply"){
+										if(tempE.style.display == "none"){
+											tempE.style.display = "flex";
+										}else if(tempE.style.display =="flex"){
+											tempE.style.display = "none";
+										}
+									}else{
+										break;
 									}
-									tempE = tempE.nextElementSibling;
+
+									if(tempE.parentNode.lastChild == tempE) break;
+									else 	tempE = tempE.nextElementSibling;
 								}
 							}
 						})
@@ -660,7 +675,7 @@ function selectReply(postNo){
 				const userInfo = document.createElement("div")
 				userInfo.className ="user-reply";
 				const userInfoDiv1 = document.createElement("div")
-				userInfoDiv1.innerText = items.memberName;
+				userInfoDiv1.innerText = items.memberName + items.memberNo ;
 				userInfo.append(userInfoDiv1)
 				const userInfoDiv2 = document.createElement("div")
 				userInfoDiv2.innerText = items.replyCreateDate;
@@ -680,7 +695,7 @@ function selectReply(postNo){
 				dots.setAttribute("id", "dropdownMenuOffset")
 				dots.setAttribute("data-bs-toggle", "dropdown")
 				dots.setAttribute("aria-expanded", "false")
-				dots.setAttribute("data-bs-offset", "-40,-10")
+				dots.setAttribute("data-bs-offset", "10,-10")
 
 				const dropUl = document.createElement("ul");
 				dropUl.setAttribute("class", "dropdown-menu")
@@ -706,10 +721,14 @@ function selectReply(postNo){
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
+				// console.log(items.memberNo == memberNo)
 				if(typeof memberNo != "undefined"){
-					if(items.memberNo = memberNo){
+					if(items.memberNo == memberNo){ //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
 						dropUl.append(dropLi2);
+					}else{
+						dropUl.append(dropLi2);
+
 					}
 				}else{
 					dropUl.append(dropLi3);
@@ -725,7 +744,7 @@ function selectReply(postNo){
 				const constDiv2 = document.createElement("div")
 				// 댓글 좋아요
 				const vividPopcorn = document.createElement("img");
-				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/like2.png")
 				vividPopcorn.className = "reply-vivid";
 				vividPopcorn.addEventListener("click", function(){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
@@ -760,7 +779,7 @@ function selectReply(postNo){
 					})
 				})
 				const whitePopcorn = document.createElement("img");
-				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/like.png")
 				whitePopcorn.className = "reply-white";
 				whitePopcorn.addEventListener("click", function(){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
@@ -1028,3 +1047,15 @@ function recentPost(){
 	onlyFollow = 0;
 	revealPost()
 }
+
+function copyURL(postNo){
+
+	var tempElem = document.createElement('textarea');
+	tempElem.value = "localhost:8080/fin/post/view/" + postNo;  
+	document.body.appendChild(tempElem);
+
+	tempElem.select();
+	document.execCommand("copy");
+	document.body.removeChild(tempElem);
+}
+

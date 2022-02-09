@@ -2,10 +2,11 @@
 /* 사이드바 */
 .side-menu {
     border: none;
-    max-width: 350px;
+    width: 100%;
+    /* max-width: 350px;
     min-width: 150px;
     max-height: 600px;
-    min-height: 400px;
+    min-height: 400px; */
     /* background-color: #404142; */
     background-color: inherit;
     font-weight: 100;
@@ -16,7 +17,6 @@
     width: 100%;
     height: 100%;
     line-height: 60px;
-    /* margin-top: 5%; */
 
 }
 
@@ -48,7 +48,7 @@
 }
 
 .side-menu ul li>a>div>div {
-    font-size: 70%;
+    font-size: 68%;
     line-height: 40px;
 }
 
@@ -60,24 +60,25 @@
 }
 
 .postImgwrap>img {
-    width: 80%;
+    width: 100%;
     height: 80%;
-    padding: 5px;
+    padding: 3.5px;
 }
 
 .mvtext {
     color: white;
-    height: 100%;
-    width: 52%;
+    height: 80%;
+    width: 73%;
     overflow: hidden;
+    padding-left: 3%;
 }
 
 .side_mvTitle {
     display: flex;
     justify-content: left;
     align-items: flex-end;
-    width: 100%;
-    height: 50%;
+    width: 96%;
+    height: 49%;
     font-size: 15px;
     border: none;
     overflow: hidden;
@@ -91,7 +92,7 @@
     justify-content: left;
     align-items: flex-end;
     width: 100%;
-    height: 20%;
+    height: 35%;
     border: none;
     color: #F2F2F2;
     overflow: hidden;

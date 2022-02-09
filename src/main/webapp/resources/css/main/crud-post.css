@@ -211,3 +211,24 @@
 .on-poster:hover{
     color:#E0BA79;
 }
+
+.modal-side{
+    display: none;
+    width: 187px;
+    height: 100px;
+    background-color: #f0f0f0;
+    color: black;
+    position: absolute;
+    z-index: 2000;
+    right: 61%;
+    border-radius: 5px;
+    top: 41%;
+    overflow-y: scroll;
+}
+
+.modal-side li:hover{
+    background-color: #dcd7d7;
+}
+.modal-side::-webkit-scrollbar{
+    display: none;
+}

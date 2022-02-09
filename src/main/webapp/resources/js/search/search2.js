@@ -52,7 +52,7 @@ function searchPostList(){
 		dataType: 'json',
 		success: function (postList) {
 			console.log(postList)
-			if(postList.length == 0){
+			if(cp ==1 && postList.length == 0){
 				const templateLiterals = ` <div id="no-search-result">
 											<img src="${contextPath}/resources/images/temp/search_icon.png">
 											<br>
