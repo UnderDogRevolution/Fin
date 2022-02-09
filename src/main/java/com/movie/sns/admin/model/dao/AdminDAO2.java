@@ -7,10 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.admin.model.vo.Pagination;
-import com.movie.sns.member.model.vo.Member;
 @Repository
 public class AdminDAO2 {
 	@Autowired
@@ -26,7 +24,7 @@ public class AdminDAO2 {
 	
 	
 	
-	/** 10페이지 범위 문의글 목록 조회
+	/**  문의글 목록 조회
 	 * @param pagination
 	 * @return
 	 */

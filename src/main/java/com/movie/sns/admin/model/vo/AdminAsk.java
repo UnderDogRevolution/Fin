@@ -2,33 +2,18 @@ package com.movie.sns.admin.model.vo;
 
 public class AdminAsk {
 	
-	private int memberNo;			//회원번호
-	private String memberName;		// 이름		
+	private int memberNo;			//회원번호	
 	
 	private int askNo;				//문의번호
 	private String askTitle;		//문의제목
 	private String askContent;		//문의내용
-	private String askDate;			//문의작성일
-	
+	private String askDate;
+	private String memberName;
 	public AdminAsk() {}
 	
+
 	public int getMemberNo() {
 		return memberNo;
-	}
-
-
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
-
-
-	public String getMemberName() {
-		return memberName;
-	}
-
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
 	}
 
 
@@ -72,10 +57,29 @@ public class AdminAsk {
 	}
 
 
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
 	@Override
 	public String toString() {
-		return "AdminAsk [memberNo=" + memberNo + ", memberName=" + memberName + ", askNo=" + askNo + ", askTitle="
-				+ askTitle + ", askContent=" + askContent + ", askDate=" + askDate + "]";
+		return "AdminAsk [memberNo=" + memberNo + ", askNo=" + askNo + ", askTitle=" + askTitle + ", askContent="
+				+ askContent + ", askDate=" + askDate + ", memberName=" + memberName + "]";
 	}
+
+
+
 	
+
 }

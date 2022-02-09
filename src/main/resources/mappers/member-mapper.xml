@@ -56,7 +56,6 @@
 
 
 	<!-- 닉네임 중복 검사 -->
-	<!-- int자료형 별칭 : _int Integer 별칭 : int -->
 	<select id="nickNameDupCheck" parameterType="string"
 		resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
@@ -152,13 +151,8 @@
 
 	<!-- 문의글 삽입 -->
 		<insert id="insertAsk" useGeneratedKeys="true" parameterType="AdminAsk">
-		
-		<selectKey order="BEFORE" resultType="_int" keyProperty="askNo">
-			SELECT SEQ_ASK_NO.NEXTVAL FROM DUAL
-		</selectKey>
-	
-		INSERT INTO ADMIN_ASK(ASK_NO, ASK_TITLE, ASK_CONTENT, MEMBER_NO, MEMBER_NM, ASK_DATE)
-		VALUES(#{askNo}, #{askTitle}, #{askContent}, #{memberNo}, #{memberName}, #{askDate})
+
+		INSERT INTO ADMIN_ASK VALUES(SEQ_ASK_NO.NEXTVAL, #{askTitle}, #{askContent}, DEFAULT, #{memberNo})
 	</insert>
 	
 </mapper>

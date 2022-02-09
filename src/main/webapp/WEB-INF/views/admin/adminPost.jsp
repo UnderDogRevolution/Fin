@@ -34,24 +34,38 @@ select:focus {
 	white-space: nowrap;
 	display: block;
 	height: 30px;
-	width: 300px;
+	width: 150px;
 	text-align: left;
+	padding-left: 15px;
 }
-.adminSearch{
-    padding-left: 20px;
-    }
- #searchPost{
- margin-left : 10px;
- margin-right : 10px;
-	 }
- #searchbtn{
- 	width: 50px;
+
+.adminSearch {
+	padding-left: 20px;
+}
+
+#searchPost {
+	margin-left: 10px;
+	margin-right: 10px;
+	outline: none;
+	width: 200px;
+	height: 30px;
+	border-radius: 5px;
+	padding : 10px;
+}
+
+#searchbtn {
+	width: 50px;
 	font-size: 15px;
 	height: 31px;
 	border: none;
 	border-radius: 5px;
-	margin-left: 5px;
- }
+	background-color: #942d2d;
+	color: white;
+}
+.selectPostsend{
+    width: 100px;
+    text-align: center;
+}
 </style>
 
 </head>
@@ -72,14 +86,14 @@ select:focus {
 					<div class="adminHeader">게시글관리</div>
 					<div class="adminBoardMain">
 						<div class="adminSearch">
-								<select name="selectPost" id="" class="selectPostsend">
-									<option value="postNo">게시글번호</option>
-									<option value="memberNo">회원번호</option>
-									<option value="status">게시글상태</option>
-									<option value="createDt">작성일</option>
+							<select name="selectPost" id="" class="selectPostsend">
+								<option value="memberNo">회원번호</option>
+								<option value="memberNm">회원이름</option>
+								<option value="postNo">게시글번호</option>
+								<option value="status">게시글상태</option>
 
-								</select> <input type="text" name = "postSearch" id = "searchPost">
-								<button id= "searchbtn"   onclick = "selectPostList();">검색</button>
+							</select> <input type="text" name="postSearch" id="searchPost">
+							<button id="searchbtn" onclick="selectPostList();">검색</button>
 
 
 						</div>
@@ -91,11 +105,13 @@ select:focus {
 									<thead>
 										<tr>
 											<th>게시글번호</th>
+											<th>회원번호</th>
 											<th>작성자</th>
 											<th>내용</th>
 											<th>조회수</th>
 											<th>좋아요</th>
 											<th>작성일</th>
+											<th>수정일</th>
 											<th>상태</th>
 										</tr>
 
@@ -114,33 +130,33 @@ select:focus {
 												<c:forEach items="${post}" var="post">
 													<tr>
 														<td>${post.postNo}</td>
-
+														<td>${post.memberNo}</td>
 														<td>${post.memberNm}</td>
 
-														<td class='postContent'><a
-															style="text-decoration: none; color: white;"
-															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
+														<td class='postContent'>
+														
+														<a style="text-decoration: none; color: white;" href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a>
+														
+														</td>
 
 
 														<td>${post.readCount}</td>
 														<td>${post.likeCount}</td>
-														<td style="width: 100px;">${post.createDt}${post.status}</td>
-
-														<td>
-																<select name="statusCd" id="" class="select"
-																	onchange="changeStatus(event,${post.postNo})">
-																<c:forEach items = "${cd}" var = "c">
+														<td>${post.createDt}</td>
+														<td>${post.modifyDt}</td>
+														<td><select name="statusCd" id="" class="select"
+															onchange="changeStatus(event,${post.postNo})">
+																<c:forEach items="${cd}" var="c">
 																	<c:if test="${post.statusNm == c.statusNm}">
 																		<option value="${c.statusCd}" selected>${c.statusNm}</option>
 																	</c:if>
-																	
+
 																	<c:if test="${post.statusNm != c.statusNm}">
 																		<option value="${c.statusCd}">${c.statusNm}</option>
 																	</c:if>
-																	
-																</c:forEach> 
-																</select>
-															</td>
+
+																</c:forEach>
+														</select></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
