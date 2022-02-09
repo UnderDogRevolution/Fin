@@ -315,8 +315,9 @@
                 SELECT MOVIE_NO, COUNT(MOVIE_RATING_NO) RATING_COUNT, AVG(RATING) AVG, MOVIE_TITLE, TO_CHAR(MOVIE_DT, 'YYYY') MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR
                 FROM MOVIE_RATING
                 JOIN MOVIE USING (MOVIE_NO)
-                
-                WHERE 
+              	JOIN POST USING (POST_NO)
+                WHERE POST_STATUS_CD = 500
+                AND
                 (CASE
                     WHEN RATING_DT < MODIFY_RATING_DT THEN MODIFY_RATING_DT 
                     ELSE RATING_DT
