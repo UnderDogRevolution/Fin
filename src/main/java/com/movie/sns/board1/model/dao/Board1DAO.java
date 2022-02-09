@@ -2,6 +2,7 @@ package com.movie.sns.board1.model.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
 
@@ -67,14 +68,14 @@ public class Board1DAO {
 		return sqlSession.selectOne("boardMapper.postCount", memberNo);
 	}
 
-	public List<Member> selectFollow(int memberNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("boardMapper.selectFollow", memberNo);
+	public List<ChatFriend> selectFollow(int memberNo) {
+		
+		return sqlSession.selectList("boardMapper.selectFollow", memberNo);
 	}
 
-	public List<Member> selectFollower(int memberNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("boardMapper.selectFollower", memberNo);
+	public List<ChatFriend> selectFollower(int memberNo) {
+		
+		return sqlSession.selectList("boardMapper.selectFollower", memberNo);
 	}
 
 

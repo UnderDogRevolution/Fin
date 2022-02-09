@@ -65,6 +65,7 @@
 		<result property="imgPath" column="MEMBER_IMG_PATH" />
 		<result property="imgNm" column="MEMBER_IMG_NM" />
 		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberNickNm" column="MEMBER_NICKNM" />
 	</resultMap>
 
 
@@ -188,7 +189,7 @@
 
 	<!-- 팔로워 조회 -->
 	<select id="searchFollower" resultMap="chatFriend_rm">
-		SELECT TO_USER,
+		SELECT TO_USER, MEMBER.MEMBER_NICKNM,
 		MEMBER.MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM,
 		FOLLOW.MEMBER_NO
 		FROM

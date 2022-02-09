@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 import com.movie.sns.board1.model.Service.Board1Service;
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
 
@@ -218,34 +219,29 @@ public class Board1Controller {
 	@RequestMapping(value = "myBoard/{memberNo}/selectFriend", method = RequestMethod.GET)
 	public String selectFriend(@PathVariable("memberNo") int memberNo, String mode, Model model, HttpSession session) {
 
-		System.out.println("mode: " + mode);
-		List<Member> list = null;
+		
+		List<ChatFriend> list = null;
 
-		if ("follow".equals(mode)) {
-			System.out.println("*****gd*****");
-			// 게시글 목록 조회 Service 호출
-			list = service.selectFollow(memberNo);
-
-			model.addAttribute("pList", list);
-
+		
+			
 			// System.out.println("=====================================================");
 			// System.out.println(list);
 			// System.out.println(memberNo);
 
-		} else if ("follow".equals(mode)) {
+		
 			list = service.selectFollower(memberNo);
 
 			// System.out.println("=====================================================");
 			// System.out.println(list);
 			// System.out.println(memberNo);
-
-		}
+			
+		
 		return new Gson().toJson(list);
 
 	}
 	
 	
-	//
+	
 	
 	
 	

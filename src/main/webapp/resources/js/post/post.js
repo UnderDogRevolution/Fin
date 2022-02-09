@@ -80,6 +80,7 @@ function revealPost(){
 				const aHeader2 = document.createElement("a")
 				aHeader2.innerText = "링크복사";
 				aHeader2.className = "dropdown-item"
+				aHeader2.setAttribute("onclick", "copyURL("+items.postNo+");")
 				const aHeader3 = document.createElement("a")
 				aHeader3.innerText = "삭제";
 				aHeader3.className = "dropdown-item"
@@ -356,6 +357,10 @@ function revealPost(){
 				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/yellow_popcorn.png")
 				imgFooter1.setAttribute("style", "width: 100%;");
 				imgFooter1.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
 					const element = this;
@@ -387,6 +392,10 @@ function revealPost(){
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 				imgFooter2.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;
@@ -1038,3 +1047,15 @@ function recentPost(){
 	onlyFollow = 0;
 	revealPost()
 }
+
+function copyURL(postNo){
+
+	var tempElem = document.createElement('textarea');
+	tempElem.value = "localhost:8080/fin/post/view/" + postNo;  
+	document.body.appendChild(tempElem);
+
+	tempElem.select();
+	document.execCommand("copy");
+	document.body.removeChild(tempElem);
+}
+
