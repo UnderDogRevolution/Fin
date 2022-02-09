@@ -67,6 +67,16 @@ public class Board1DAO {
 		return sqlSession.selectOne("boardMapper.postCount", memberNo);
 	}
 
+	public List<Member> selectFollow(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardMapper.selectFollow", memberNo);
+	}
+
+	public List<Member> selectFollower(int memberNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardMapper.selectFollower", memberNo);
+	}
+
 
 
 }

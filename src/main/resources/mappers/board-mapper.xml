@@ -3,8 +3,7 @@
 <mapper namespace="boardMapper">
 
 
-	<resultMap type="com.movie.sns.member.model.vo.Member"
-		id="member_rm">
+		<resultMap type="com.movie.sns.member.model.vo.Member" id="member_rm">
 
 		<id property="memberNo" column="MEMBER_NO" />
 
@@ -17,7 +16,28 @@
 		<result property="memberStatusCode" column="STATUS_CD" />
 		<result property="memberGradeCode" column="GRADE_CD" />
 		<result property="memberBirth" column="MEMBER_BIRTH" />
+		
+		<result property="memberStatusName" column="MEMBER_STATUS_NM" />
+		<result property="memberGradeName" column="GRADE_NM" />
 
+		<result property="violationCount" column="VIOLATION_CNT" />
+		<result property="violationNo" column="VIOLATION_NO" />
+		<result property="violationContent" column="VIOLATION_CONTENT" />
+		
+		<collection property="profileImage" column="MEMBER_NO"
+			
+			select="selectMemberImg" />
+		
+	</resultMap>
+	
+		<resultMap type="com.movie.sns.member.model.vo.Image" id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
 
 	<resultMap type="Post" id="post_rm">
@@ -68,16 +88,20 @@
 		ORDER BY POST_IMG_NO
 	</select>
 
-
+	<!-- 회원 이미지 조회 -->	
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH, MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 
 
 	<select id="selectProfile" parameterType="_int"
 		resultMap="member_rm">
-		SELECT MEMBER_NM
+		SELECT MEMBER_NO, MEMBER_NM, MEMBER_IMG_PATH, MEMBER_IMG_NM 
 		FROM MEMBER
-		WHERE MEMBER.MEMBER_NO =
-		#{memberNo}
+		JOIN  MEMBER_IMG USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
 
 	</select>
 

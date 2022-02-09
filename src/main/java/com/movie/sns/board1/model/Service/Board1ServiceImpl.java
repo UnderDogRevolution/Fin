@@ -74,6 +74,18 @@ public class Board1ServiceImpl implements Board1Service {
 		return dao.postCount(memberNo);
 	}
 
+	@Override
+	public List<Member> selectFollow(int memberNo) {
+		
+		return dao.selectFollow(memberNo);
+	}
+
+	@Override
+	public List<Member> selectFollower(int memberNo) {
+		
+		return dao.selectFollower(memberNo);
+	}
+
 	
 	
 	

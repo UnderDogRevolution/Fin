@@ -269,13 +269,11 @@ public class MemberController {
 				// 주소로 요청이 오면 유효기간을 검사하고 변경페이지 or 메인페이지로 forward 
 			}
 			
-
-			
-			
-			
-			
 			// 가입한 이메일인 경우(sweetAlert 사용예정)
-			ra.addFlashAttribute("message", "이메일 발송 성공!");
+			String successMessage = "메일 전송 성공";
+			String text = memberEmail + "로 변경링크를 전송했습니다.";
+			String icon = "success";
+			Util.swalSetMessage(successMessage, text, icon, ra);
 			
 		}else {
 			
@@ -290,10 +288,6 @@ public class MemberController {
 		return "redirect:/member/findPw";
 		
 	}
-	
-	
-	
-	
 	
 	
 	// 비밀번호 재설정 화면 호출	
@@ -312,7 +306,7 @@ public class MemberController {
 	
 	// 비밀번호 재설정하기 
 	@RequestMapping(value="resetPw", method=RequestMethod.POST)
-	public String resetPw(@RequestParam("djsejehr") String encEmail, String memberPw ) {
+	public String resetPw(@RequestParam("djsejehr") String encEmail, String memberPw , RedirectAttributes ra) {
 		
 		
 		// 새로 변경한 비밀번호
@@ -325,7 +319,11 @@ public class MemberController {
 		
 		if(result > 0) {
 			
-			System.out.println("수정 완료!");
+			String successMessage = "변경 성공";
+			String text = "비밀번호 변경에 성공했습니다.";
+			String icon = "success";
+			Util.swalSetMessage(successMessage, text, icon, ra);
+			
 			path = "redirect:/member/login";
 			
 		}else {
