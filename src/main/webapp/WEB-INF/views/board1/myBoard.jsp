@@ -20,11 +20,12 @@
 			<div class="profile">
 				<div class="myinfo">
 					<div class="picture1">
-						<div class="picture2" style="background-image: url('${contextPath}${member.profileImage.imgPath}${member.profileImage.imgName}')"></div>
+						<div class="picture2"
+							style="background-image: url('${contextPath}${member.profileImage.imgPath}${member.profileImage.imgName}')"></div>
 					</div>
 					<div class="introduce">
 						<div class="nickname">
-							
+
 							<c:choose>
 								<c:when test="${loginMember.memberNo == memberNo}">
 
@@ -35,16 +36,16 @@
 								</c:when>
 								<c:otherwise>
 									<span>${memberName}</span>
-										
-										<c:choose>
-											<c:when test="${follow eq 0}">
-												<a class="follow" >팔로우</a>
-	
-											</c:when>
-											<c:otherwise>
-												<a class="follower" >팔로잉</a>
-											</c:otherwise>
-										</c:choose>
+
+									<c:choose>
+										<c:when test="${follow eq 0}">
+											<a class="follow">팔로우</a>
+
+										</c:when>
+										<c:otherwise>
+											<a class="follower">팔로잉</a>
+										</c:otherwise>
+									</c:choose>
 									<a>메세지 보내기</a>
 								</c:otherwise>
 							</c:choose>
@@ -110,7 +111,7 @@
 			<!-- Modal -->
 
 			<!-- follwerList 팔로워 목록 -->
-			<div class="modal fade" id="followerList" tabindex="-1" 
+			<div class="modal fade" id="followerList" tabindex="-1"
 				aria-labelledby="followerListLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -121,7 +122,7 @@
 						</div>
 						<div class="modal-body">
 							<div class="list-wrap">
-								<div class="list-item">
+								<!-- <div class="list-item">
 									<div class="img"></div>
 									<div class="info">
 										<span>user01</span> <span>이상원</span>
@@ -210,7 +211,7 @@
 									<div class="del-button-wrap">
 										<a href="#self">삭제</a>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -361,7 +362,7 @@
 										data-bs-target="#followerList">팔로워</div>
 									<div class="setting-update" data-bs-toggle="modal"
 										data-bs-target="#followerList2">팔로우</div>
-									
+
 
 									<div class="setting-update">로그 아웃</div>
 
@@ -578,13 +579,98 @@
 		
 		
 		$('#followerList').on('shown.bs.modal', function () {
-				alert('열렸다');
-				
-				
-				
+			  var html = [];  
+			const follow = $(".list-wrap");
+			$.ajax({
+
+				url: contextPath + "/chat/searchFollower",
+				dataType: "JSON",
+				type: "POST",
+				success: function(rList) {
+					console.log(rList)
+					
+					  if(rList.length > 0){
+						for(var i = 0; i < rList.length; i++){
+							
+						html.push(
+								'<div class="list-item">' +
+									'<div class="img"></div>' +
+									'<div class="info">' +
+										'<span>'+ rList[i].memberNickNm +'</span>'+ 
+										'<span>'+ rList[i].memberNm +'</span>' +
+									'</div>' +
+									'<div class="del-button-wrap">'+
+									'<a href="#self">삭제</a>'+
+									'</div>' +
+								'</div>'
+								);
+							
+							
+						}
+					}  
+					
+								follow.html(html.join(''));
+					
+				},
+				error: function() {
+
+				}
+
+
+
+			});
 				
 			}).on('hide.bs.modal', function() {
 				alert('닫는다');
+			});
+		
+		
+		$('#followerList2').on('shown.bs.modal', function () {
+			var html = [];  
+			const follow = $(".list-wrap");
+			
+			$.ajax({
+
+				url: contextPath + "/board1/myBoard/" + thisMemberNo + "/selectFriend",
+				dataType: "JSON",
+				type: "GET",
+				success: function(list) {
+					console.log(list)
+					if(list.length > 0){
+						for(var i = 0; i < list.length; i++){
+							
+						html.push(
+								'<div class="list-item">' +
+									'<div class="img"></div>' +
+									'<div class="info">' +
+										'<span>'+ list[i].memberNickNm +'</span>'+ 
+										'<span>'+ list[i].memberNm +'</span>' +
+									'</div>' +
+									'<div class="del-button-wrap">'+
+									'<a href="#self">팔로우 취소</a>'+
+									'</div>' +
+								'</div>'
+								);
+							
+							
+						}
+					}  
+					
+								follow.html(html.join(''));
+					
+				}
+					
+				,
+				error: function() {
+
+				}
+
+
+
+			});
+				
+			}).on('hide.bs.modal', function() {
+				alert('닫는다2');
 			});
 	</script>
 
