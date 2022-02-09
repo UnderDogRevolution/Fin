@@ -20,7 +20,7 @@
 			<div class="profile">
 				<div class="myinfo">
 					<div class="picture1">
-						<div class="picture2"></div>
+						<div class="picture2" style="background-image: url('${contextPath}${member.profileImage.imgPath}${member.profileImage.imgName}')"></div>
 					</div>
 					<div class="introduce">
 						<div class="nickname">
@@ -35,7 +35,7 @@
 								</c:when>
 								<c:otherwise>
 									<span>${memberName}</span>
-										${follow}
+										
 										<c:choose>
 											<c:when test="${follow eq 0}">
 												<a class="follow" >팔로우</a>
@@ -384,6 +384,13 @@
 
 
 	<script>
+	const memberNo = "${loginMember.memberNo}";
+	const memberNickName = "${loginMember.memberNickName}";
+	const memberName = "${loginMember.memberName}";
+	const contextPath = "${contextPath}";
+	const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
+	
+	
 		var thisMemberNo = window.location.href.split("/")[6];
 
 		getPostList('post');
@@ -497,10 +504,10 @@
 
 							$('.nickname .follow-wrap').html(html.join('')); */
 							
-							_this.removeClass('follow').addClass('follower');
+							  _this.removeClass('follow').addClass('follower');
 							_this.text('팔로잉');
 							var follower_count = parseInt($('.follower_count span').eq(1).text());
-							$('.follower_count span').eq(1).text(follower_count + 1);
+							$('.follower_count span').eq(1).text(follower_count + 1);  
 							
 
 							
@@ -543,11 +550,11 @@
 						success : function(result) {			
 							
 
-							_this.removeClass('follower').addClass('follow');
+							 _this.removeClass('follower').addClass('follow');
 							_this.text('팔로우');
 							var follower_count =  parseInt($('.follower_count span').eq(1).text());
 							$('.follower_count span').eq(1).text(follower_count - 1);
-
+ 
 
 							
 						},

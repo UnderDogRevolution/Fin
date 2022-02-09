@@ -27,6 +27,10 @@ public interface Board1Service {
 
 	int postCount(int memberNo);
 
+	List<Member> selectFollow(int memberNo);
+
+	List<Member> selectFollower(int memberNo);
+
 
 	
 
