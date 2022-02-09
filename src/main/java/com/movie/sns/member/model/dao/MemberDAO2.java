@@ -97,11 +97,7 @@ public class MemberDAO2 {
 	 * @return
 	 */
 	public int insertAsk(AdminAsk ask) {
-		
-		int result = sqlSession.insert("askMapper.insertAsk", ask);
-		
-		if(result > 0) 	return ask.getAskNo();
-		else			return 0;
+		return sqlSession.insert("memberMapper.insertAsk", ask);
 	}
 
 }

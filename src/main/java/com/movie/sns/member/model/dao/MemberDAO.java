@@ -109,9 +109,9 @@ public class MemberDAO {
 	/** 해당 이메일의 변경 요청 모두 삭제하기(DB 기록값)
 	 * @param memberEmail
 	 */
-	public void deleteResetLog(String memberEmail) {
+	public int deleteResetLog(String memberEmail) {
 
-		sqlSession.delete("memberMapper2.deleteResetLog", memberEmail);
+		return sqlSession.delete("memberMapper2.deleteResetLog", memberEmail);
 	}
 
 

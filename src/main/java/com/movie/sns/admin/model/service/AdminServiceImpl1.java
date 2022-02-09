@@ -25,10 +25,10 @@ public class AdminServiceImpl1 implements AdminService1{
 	
 	
 	@Override
-	public Pagination getPagination(int cp) {
+	public Pagination getPagination(int cp,AdminPost post) {
 		
-		int postCount = dao.postCount(cp);
-		
+		int postCount = dao.postCount(cp,post);
+			System.out.println("카운트"+postCount);
 		return new Pagination(postCount, cp);
 	}
 
@@ -36,21 +36,14 @@ public class AdminServiceImpl1 implements AdminService1{
 	 *
 	 */
 	@Override
-	public List<AdminPost> adminPost(Pagination pagination ) {
+	public List<AdminPost> adminPost(Pagination pagination, AdminPost post ) {
 		
-
-		List<AdminPost> post =  dao.adminPost(pagination);
-		
-		
-				
-		
-		return post;
+		return   dao.adminPost(pagination,post);
 	}
 
 	@Override
 	public int changeStatus(AdminPost post) {
 		int result = 0;
-		System.out.println("값 보기" +post.getStatus());
 		result = dao.changeStatus(post);
 		if(post.getStatus() == "502") {
 			result = dao.insertBlind(post);

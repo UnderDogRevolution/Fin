@@ -120,33 +120,37 @@
 					
 					
 					<%---------------------- Pagination ----------------------%>
+					
+					
 					<div class="my-5">
-						<ul class="pagination">
-							
-							
-							<c:if test="${pagination.startPage != 1 }">
-								<li><a class="page-link" href="list?cp=1"${s}>&lt;&lt;</a></li>
-								<li><a class="page-link" href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
-							</c:if>
-							
-							<%-- 페이지네이션 번호 목록 --%>
-							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
-								<c:choose>
-									<c:when test="${i == pagination.currentPage}">
-										<li><a class="page-link" style="color:black; font-weight:bold;">${i}</a></li>   
-									</c:when>
-									
-									<c:otherwise>
-										<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							
-							<c:if test="${pagination.endPage != pagination.maxPage }">
-								<li><a class="page-link" href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
-								<li><a class="page-link" href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
-							</c:if>
-						</ul>
+						<div>
+							<ul class="pagination">
+								
+								
+								<c:if test="${pagination.startPage != 1 }">
+									<li><a class="page-link" href="list?cp=1"${s}>&lt;&lt;</a></li>
+									<li><a class="page-link" href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+								</c:if>
+								
+								<%-- 페이지네이션 번호 목록 --%>
+								<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+									<c:choose>
+										<c:when test="${i == pagination.currentPage}">
+											<li><a class="page-link" style="color:black; font-weight:bold;">${i}</a></li>   
+										</c:when>
+										
+										<c:otherwise>
+											<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<c:if test="${pagination.endPage != pagination.maxPage }">
+									<li><a class="page-link" href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+									<li><a class="page-link" href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
+								</c:if>
+							</ul>
+						</div>
 					</div>
 				</div>
 
@@ -173,7 +177,7 @@
 						    <img class="inputMemberProfileImage" src="${contextPath}/resources/images/common/defaultProfileImage.png" style="width: 150px; height: 150px; object-fit: cover; ">
 						  </div>
 						  <div class="inputMemberEmail">
-						    <p>Email</p>
+						    
 						  </div>
 						  
 						</div>
@@ -183,37 +187,37 @@
 						    
 						    <tr>
 						      <td>이름 : </td>
-						      <td class="inputMemberName">홍길동</td>
+						      <td class="inputMemberName"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>닉네임 :</td>
-						      <td class="inputMemberNickName">길동이</td>
+						      <td class="inputMemberNickName"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>회원번호 : </td>
-						      <td class="inputMemberNo">1</td>
+						      <td class="inputMemberNo"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>생일 : </td>
-						      <td class="inputMemberBirth">미입력</td>
+						      <td class="inputMemberBirth"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>가입일 : </td>
-						      <td class="inputMemberEnrollDate">2022-02-08 18:38:00</td>
+						      <td class="inputMemberEnrollDate"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>회원 상태 : </td>
-						      <td class="inputMemberStatusName">정지</td>
+						      <td class="inputMemberStatusName"></td>
 						    </tr>
 						
 						    <tr>
 						      <td>경고 횟수 : </td>
-						      <td class="inputViolationCount">1회</td>
+						      <td class="inputViolationCount"></td>
 						    </tr>
 						
 						  </table>

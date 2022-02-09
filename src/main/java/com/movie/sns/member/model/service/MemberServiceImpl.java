@@ -141,12 +141,19 @@ public class MemberServiceImpl implements MemberService{
 		emailMap.put("memberEmail", memberEmail);
 		emailMap.put("encEmail", encEmail);
 		
-		int result = dao.insertEncEmail(emailMap);
+		// 수행 전 비밀번호 변경 링크 지우기
+		int result = dao.deleteResetLog(memberEmail);
 		
-		// 데이터 삽입을 성공한 경우
 		if(result > 0) {
 			
-			emailCtrl.sendPwLink(memberEmail, encEmail, req);
+			result = dao.insertEncEmail(emailMap);
+			
+			// 데이터 삽입을 성공한 경우
+			if(result > 0) {
+				
+				emailCtrl.sendPwLink(memberEmail, encEmail, req);
+				
+			}
 			
 		}
 		
@@ -157,6 +164,7 @@ public class MemberServiceImpl implements MemberService{
 
 	// 비밀번호 재설정하기
 	@Override
+	@Transactional
 	public int resetPw(String encEmail, String newPw) {
 		
 		

@@ -9,6 +9,7 @@ public class AdminPost {
 	private String createDt;
 	private int memberNo;
 	private String statusNm;
+	private String modifyDt;
 	private String blind;
 	private String status;
 	private String searchPost;
@@ -17,6 +18,16 @@ public class AdminPost {
 	}
 
 	
+	public String getModifyDt() {
+		return modifyDt;
+	}
+
+
+	public void setModifyDt(String modifyDt) {
+		this.modifyDt = modifyDt;
+	}
+
+
 	public String getSearchPost() {
 		return searchPost;
 	}
@@ -143,9 +154,10 @@ public class AdminPost {
 	public String toString() {
 		return "AdminPost [postNo=" + postNo + ", memberNm=" + memberNm + ", postContent=" + postContent
 				+ ", readCount=" + readCount + ", likeCount=" + likeCount + ", createDt=" + createDt + ", memberNo="
-				+ memberNo + ", statusNm=" + statusNm + ", blind=" + blind + ", status=" + status + ", searchPost="
-				+ searchPost + ", inputResult=" + inputResult + "]";
+				+ memberNo + ", statusNm=" + statusNm + ", modifyDt=" + modifyDt + ", blind=" + blind + ", status="
+				+ status + ", searchPost=" + searchPost + ", inputResult=" + inputResult + "]";
 	}
+
 
 
 

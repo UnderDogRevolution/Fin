@@ -104,9 +104,12 @@
 <c:if test="${!empty requestScope.title}">
 	<script>
 	swal.fire({
-			title : "${title}",
+    title : "${title}",
 			html  : "${text}",
-			icon  : "${icon}" 
+			icon  : "${icon}",
+      showConfirmButton: true,
+      confirmButtonText: '확인',
+      confirmButtonColor: '#F05454'
 		})
 	</script>
 </c:if>
