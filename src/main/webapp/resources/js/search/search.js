@@ -19,9 +19,17 @@ $("#peple_").on("click", function() { // ajax
 		data: { "search": search },
 		type: "GET",
 		dataType: 'JSON',
-
 		success: function(list) {
 			console.log(list);
+			if(list.length == 0){
+				const templateLiterals = ` <div id="no-search-result">
+											<img src="${contextPath}/resources/images/temp/search_icon.png">
+											<br>
+											<span>검색 결과가 없습니다.</span>
+										</div>`
+				postContainer.innerHTML = templateLiterals;
+				return;
+			}
 			$("#container-post").html("");
 			$.each(list, function(index, member) {
 				path = contextPath + member.imgPath + member.imgNm
