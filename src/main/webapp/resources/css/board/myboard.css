@@ -45,14 +45,14 @@
 
 }
 
-.nickname>span {
+.nickname span {
     color: white;
     font-size: 30px;
     margin: 5%;
 
 }
 
-.nickname>a {
+.nickname a {
     background: #ababab;
     padding: 5px 10px;
     border-radius: 5px;

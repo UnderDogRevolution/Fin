@@ -22,7 +22,7 @@
 <body>
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>
-		<div style="margin-left: 4%;">
+		<div style="margin-left: 4%; flex-basis: 18%;">
 			<jsp:include page="side.jsp"></jsp:include>
 			<div style="float:right; padding-right:28px; font-weight: bold;">
 				<span onclick="recentPost();">최신</span><span> / </span ><span onclick="onlyFollowPost()">팔로우</span>

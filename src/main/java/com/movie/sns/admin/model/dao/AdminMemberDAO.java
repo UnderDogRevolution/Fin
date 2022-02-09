@@ -29,6 +29,11 @@ public class AdminMemberDAO {
 		
 		return sqlSession.selectList("adminMapper2.selectMember", null, rowBounds);
 	}
+
+	public Member selectMemberDetail(int memberNo) {
+
+		return sqlSession.selectOne("adminMapper2.selectMemberDetail", memberNo);
+	}
 	
 	
 }

@@ -9,9 +9,62 @@ public class AdminPost {
 	private String createDt;
 	private int memberNo;
 	private String statusNm;
-		
-	
+	private String modifyDt;
+	private String blind;
+	private String status;
+	private String searchPost;
+	private String inputResult; 
 	public AdminPost() {
+	}
+
+	
+	public String getModifyDt() {
+		return modifyDt;
+	}
+
+
+	public void setModifyDt(String modifyDt) {
+		this.modifyDt = modifyDt;
+	}
+
+
+	public String getSearchPost() {
+		return searchPost;
+	}
+
+
+	public void setSearchPost(String searchPost) {
+		this.searchPost = searchPost;
+	}
+
+
+	public String getInputResult() {
+		return inputResult;
+	}
+
+
+	public void setInputResult(String inputResult) {
+		this.inputResult = inputResult;
+	}
+
+
+	public String getBlind() {
+		return blind;
+	}
+
+
+	public void setBlind(String blind) {
+		this.blind = blind;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
@@ -101,8 +154,14 @@ public class AdminPost {
 	public String toString() {
 		return "AdminPost [postNo=" + postNo + ", memberNm=" + memberNm + ", postContent=" + postContent
 				+ ", readCount=" + readCount + ", likeCount=" + likeCount + ", createDt=" + createDt + ", memberNo="
-				+ memberNo + ", statusNm=" + statusNm + "]";
+				+ memberNo + ", statusNm=" + statusNm + ", modifyDt=" + modifyDt + ", blind=" + blind + ", status="
+				+ status + ", searchPost=" + searchPost + ", inputResult=" + inputResult + "]";
 	}
+
+
+
+
+
 
 
 

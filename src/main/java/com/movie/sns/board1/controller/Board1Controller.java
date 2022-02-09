@@ -60,7 +60,7 @@ public class Board1Controller {
 			
 			int result4 = postCount(memberNo);
 			
-			model.addAttribute("followerCount", result4);
+			model.addAttribute("postCount", result4);
 			
 		}
 

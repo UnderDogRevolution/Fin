@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.movie.sns.admin.model.dao.AdminDAO1;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.Pagination;
+import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.common.Util;
 import com.movie.sns.member.model.vo.Member;
 
@@ -24,10 +25,10 @@ public class AdminServiceImpl1 implements AdminService1{
 	
 	
 	@Override
-	public Pagination getPagination(int cp) {
+	public Pagination getPagination(int cp,AdminPost post) {
 		
-		int postCount = dao.postCount(cp);
-		
+		int postCount = dao.postCount(cp,post);
+			System.out.println("카운트"+postCount);
 		return new Pagination(postCount, cp);
 	}
 
@@ -35,15 +36,27 @@ public class AdminServiceImpl1 implements AdminService1{
 	 *
 	 */
 	@Override
-	public List<AdminPost> adminPost(Pagination pagination ) {
+	public List<AdminPost> adminPost(Pagination pagination, AdminPost post ) {
 		
+		return   dao.adminPost(pagination,post);
+	}
 
-		List<AdminPost> post =  dao.adminPost(pagination);
-		
-		
-				
-		
-		return post;
+	@Override
+	public int changeStatus(AdminPost post) {
+		int result = 0;
+		result = dao.changeStatus(post);
+		if(post.getStatus() == "502") {
+			result = dao.insertBlind(post);
+			
+		}
+			
+		//
+		return result;
+	}
+
+	@Override
+	public List<PostStatus> selectStatus() {
+		return dao.selectStatus();
 	}
 
 
