@@ -110,7 +110,7 @@
 			<!-- Modal -->
 
 			<!-- follwerList 팔로워 목록 -->
-			<div class="modal fade" id="followerList" tabindex="-1"
+			<div class="modal fade" id="followerList" tabindex="-1" 
 				aria-labelledby="followerListLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -579,6 +579,9 @@
 		
 		$('#followerList').on('shown.bs.modal', function () {
 				alert('열렸다');
+				
+				
+				
 				
 			}).on('hide.bs.modal', function() {
 				alert('닫는다');
