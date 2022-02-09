@@ -170,7 +170,7 @@
 								<!-- 내영역 -->
 								<ul>
 
-									<li><a href="">
+									<li><a href="${contextPath}/board1/myBoard/${loginMember.memberNo}">
 											<div class="myclick-li">프로필</div>
 									</a></li>
 									<li><a href="">
