@@ -125,10 +125,8 @@
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
-		console.log("뭐지?")
-		if(contextPath != null){
-			const contextPath = "${contextPath}";
-		}
+		const contextPath = "${contextPath}"
+		const memberNo = ${loginMember.memberNo};
 		<c:if test="${loginMember.memberNo != null}">
 				if(memberNo != null){
 					const memberNo = ${loginMember.memberNo }
@@ -136,7 +134,6 @@
 		</c:if>
 		const postContent = "${post.postContent}";
 		const postNo = ${post.postNo};
-		console.log(postNo)
 	</script>
 	<script src="${contextPath}/resources/js/post/postView.js"></script>
 	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>
