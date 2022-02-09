@@ -2,6 +2,7 @@ package com.movie.sns.admin.model.service;
 
 import java.util.List;
 
+import com.movie.sns.admin.model.vo.MemberStatus;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 
@@ -24,6 +25,11 @@ public interface AdminMemberService {
 	 * @return
 	 */
 	Member selectMemberDetail(int memberNo);
+
+	/** 회원 상태 정보 얻어오기
+	 * @return
+	 */
+	List<MemberStatus> selectStatus();
 
 	
 	

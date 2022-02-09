@@ -64,19 +64,34 @@
 
 						<div class="adminBoardtable">
 
-							<div class="table">
+							<div class="table table-hover table-dark align-middle">
 								
 								<table class="table my-5"
 									id="list-table">
 
 									<thead>
 										<tr>
-											<th style="width: 100px;">회원번호</th>
+											<th style="width: 100px;"><span>회원번호 ▼</span></th>
 											<th style="width: 140px;">이름</th>
-											<th style="width: 200px;">이메일</th>
-											<th>회원상태</th>
-											<th>가입일</th>
-											<th>신고</th>
+											<th style="width: 200px;">닉네임</th>
+											<th>이메일</th>
+											<th><span>가입일 ▼</span></th>
+											<th>
+												<select name="" id="" class="" 
+												style="
+												width: 80px;
+												text-align: center;
+												background-color: #3a3939;
+												border: none;
+												color: white;
+												outline: none;">
+													<option value="" disabled selected>회원상태</option>
+													<option value="">전체</option>
+													<option value="">정상</option>
+													<option value="">정지</option>
+													<option value="">탈퇴</option>
+												</select>
+											</th>
 										</tr>
 
 									</thead>
@@ -94,12 +109,21 @@
 												<c:forEach items="${memberList}" var="member">
 										
 													<tr>
-														<td style="width: 70px;">${member.memberNo}</td>
-														<td style="width: 140px; cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</td>
-														<td style="width: 300px;">${member.memberEmail}</td>
-														<td style="width: 100px;">${member.memberStatusName}</td>
+														<td>${member.memberNo}</td>
+														<td><span style="cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</span></td>
+														<td>${member.memberNickName}</td>
+														<td>${member.memberEmail}</td>
 														<td>${member.enrollDate}</td>
-														<td>${member.violationCount}</td>
+														<td>
+															<select name="" id="" class="" style="width: 80px; text-align: center;
+																	background-color: #3a3939; border: none;
+																	color: white; outline: none;">
+																<c:forEach items="${statusList}" var="s">
+																	<option value="${s.statusCode}">${s.statusName}</option>
+																</c:forEach>
+															</select>
+															
+														</td>
 													</tr>
 													
 												</c:forEach>
@@ -165,7 +189,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content" style="color: #323232;">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원 상세 정보</h5>
+					<h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px; font-weight: bold;">회원 상세 정보</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
@@ -176,14 +200,14 @@
 						<div class="memberProfile" style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: auto; margin-bottom: 10px;">
 						    <img class="inputMemberProfileImage" src="${contextPath}/resources/images/common/defaultProfileImage.png" style="width: 150px; height: 150px; object-fit: cover; ">
 						  </div>
-						  <div class="inputMemberEmail">
+						  <div class="inputMemberEmail" style="text-align: center;font-size: 25px;font-weight: bold;margin: 20px;">
 						    
 						  </div>
 						  
 						</div>
 
 						<div class="memberDetail-body">
-						  <table>
+						  <table style="margin: auto;">
 						    
 						    <tr>
 						      <td>이름 : </td>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.movie.sns.admin.model.service.AdminMemberService;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminMemberSearch;
+import com.movie.sns.admin.model.vo.MemberStatus;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 
@@ -43,6 +44,12 @@ public class AdminMemberController {
 		
 		memberList = service.selectMemberList(pagination);
 		
+		// 회원 상태 얻어오기
+		List<MemberStatus> statusList = service.selectStatus();
+		
+		System.out.println(statusList);
+		
+		model.addAttribute("statusList", statusList);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("memberList", memberList);
 		
@@ -71,6 +78,9 @@ public class AdminMemberController {
 		}
 		
 	}
+	
+	
+	
 	
 	
 

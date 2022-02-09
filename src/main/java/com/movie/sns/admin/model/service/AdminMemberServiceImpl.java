@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.movie.sns.admin.model.dao.AdminMemberDAO;
+import com.movie.sns.admin.model.vo.MemberStatus;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 
@@ -37,6 +38,11 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	public Member selectMemberDetail(int memberNo) {
 
 		return dao.selectMemberDetail(memberNo);
+	}
+
+	@Override
+	public List<MemberStatus> selectStatus() {
+		return dao.selectStatus();
 	}
 
 

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.movie.sns.admin.model.vo.MemberStatus;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
 
@@ -33,6 +34,10 @@ public class AdminMemberDAO {
 	public Member selectMemberDetail(int memberNo) {
 
 		return sqlSession.selectOne("adminMapper2.selectMemberDetail", memberNo);
+	}
+
+	public List<MemberStatus> selectStatus() {
+		return sqlSession.selectList("adminMapper2.selectStatus");
 	}
 	
 	

@@ -55,6 +55,12 @@
 		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
+	
+	
+	<resultMap type="com.movie.sns.admin.model.vo.MemberStatus" id="Status_rm">
+		<result property="statusCode" column="MEMBER_STATUS_CD"/>
+		<result property="statusName" column="MEMBER_STATUS_NM"/>
+	</resultMap>
 
 	<!-- 전체 회원 수 조회 -->
 	<select id="getListCount" resultType="_int">
@@ -124,6 +130,11 @@
 	AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	
+	<select id="selectStatus" resultMap="Status_rm">
+		SELECT MEMBER_STATUS_CD, MEMBER_STATUS_NM
+		FROM MEMBER_STATUS
+	</select>
 	
 
 </mapper>
