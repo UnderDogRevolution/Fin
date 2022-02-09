@@ -591,3 +591,14 @@ function replyLike(replyVividImg, replywhiteImg){
 		})
 	}
 }
+
+function copyURL(postNo){
+
+	var tempElem = document.createElement('textarea');
+	tempElem.value = "localhost:8080/fin/post/view/" + postNo;  
+	document.body.appendChild(tempElem);
+
+	tempElem.select();
+	document.execCommand("copy");
+	document.body.removeChild(tempElem);
+}

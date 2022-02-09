@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.movie.sns.board1.model.dao.Board1DAO;
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
 
@@ -75,13 +76,15 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 
 	@Override
-	public List<Member> selectFollow(int memberNo) {
+	public List<ChatFriend> selectFollow(int memberNo) {
 		
 		return dao.selectFollow(memberNo);
+		
+		
 	}
 
 	@Override
-	public List<Member> selectFollower(int memberNo) {
+	public List<ChatFriend> selectFollower(int memberNo) {
 		
 		return dao.selectFollower(memberNo);
 	}
