@@ -287,7 +287,7 @@
 		LEFT JOIN MOVIE D ON  (A.MOVIE_NO = D.MOVIE_NO)
 		WHERE POST_STATUS_CD = 500
 		AND POST_CONTENT LIKE '%'||#{searchWord}||'%'
-		ORDER BY POST_NO DESC
+		ORDER BY LIKE_COUNT DESC
 	</select>
 
 	<select id="searchMoviePostList" resultMap="post_rm">

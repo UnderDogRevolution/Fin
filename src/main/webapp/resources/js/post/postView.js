@@ -319,7 +319,7 @@ detailPostTextarea.innerHTML = text
 function selectReply(postNo){
     const replyDiv = document.createElement("div");
 	replyDiv.className = "reply"
-    replyDiv.setAttribute("style", "overflow: visible; height: auto;")
+    replyDiv.setAttribute("style", "overflow: visible; max-height: 100%;")
 	$.ajax({
 		url: contextPath + "/reply/select",
 		data: {"postNo": postNo},

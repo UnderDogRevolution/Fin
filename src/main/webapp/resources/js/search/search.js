@@ -28,7 +28,7 @@ $("#peple_").on("click", function() { // ajax
 				console.log(path);
 				if (member.CNT > 0) { //내가 팔로우한 사람인 경우
 					const main = $("#container-post");
-					const result = $("<div class='.post'>");
+					const result = $("<div class='user-post'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
 					const img_ = $("<img>");
@@ -66,7 +66,7 @@ $("#peple_").on("click", function() { // ajax
 
 					
 					const main = $("#container-post");
-					const result = $("<div class='.post'>");
+					const result = $("<div class='user-post'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
 					const img_ = $("<img>");
