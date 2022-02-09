@@ -40,6 +40,18 @@ public class AdminDAO1 {
 	public List<PostStatus> selectStatus() {
 		return sqlSession.selectList("adminMapper1.selectStatus");
 	}
+
+	public AdminPost postView(String postNo) {
+		return sqlSession.selectOne("adminMapper1.postView",postNo);
+	}
+
+	public PostStatus searchStatus(AdminPost post) {
+		return sqlSession.selectOne("adminMapper1.searchStatus", post);
+	}
+
+	public int deleteBlind(AdminPost post) {
+		return sqlSession.delete("adminMapper1.deleteBlind" , post);
+	}
 	
 
 }

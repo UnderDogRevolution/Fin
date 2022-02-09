@@ -5,8 +5,13 @@ function getParam(key) {
 
 let li;
 let blind;
-let path = $(".select").val();
+let path;
+ $(".select").on('focus', function () {
+   path = this.value;
+})
+
 function changeStatus(event, postNo) {
+console.log(path);
 
 	const status = $(".select").val();
 
@@ -15,11 +20,11 @@ function changeStatus(event, postNo) {
 	if (status == 502) {
 		blind = prompt("사유를 입력해주세요");
 		if (blind == null) {
-			$(event.target).val(path), prop("selected", true);
+			$(event.target).val(path).prop("selected", true);
 			return false;
 		} else if (blind.trim().length == 0) {
 			alert("블라인드 사유를 입력해주세요")
-			$(event.target).val(path), prop("selected", true);
+			$(event.target).val(path).prop("selected", true);
 			return false;
 		};
 	} else {
@@ -80,10 +85,11 @@ function selectPostList(cp) {//검색
 
 			$(".tbody").html("");
 			$(".pagination").html("");
-
+			
 			console.log(map.List);
 			if (map.List.length == 0) {
 				$(".tbody").html("<tr><td colspan='9'>등록된게시글이 존재하지 않습니다.</td></tr>")
+			
 			};
 
 
@@ -108,6 +114,7 @@ function selectPostList(cp) {//검색
 				for (let i = 500; i < 505; i++) {
 					const option = $("<option>");
 					option.val(i);
+					path = 	option.val(i);
 					if (i == post.status) {
 						option.attr("selected", "selected")
 					}
@@ -193,3 +200,80 @@ function selectPostList(cp) {//검색
 
 }
 
+function postModal(postNo){
+	$("#postModal").modal("show");
+	$(".postListContent").html("");
+	
+	$.ajax({
+		url : contextPath + "/admin/postView",
+		data : {"postNo": postNo},
+		dataType : "JSON",
+		
+		
+		success:function(post){
+			
+				const a = $('<a style="text-decoration: none; color: white;"'
+					+ 'href="' + contextPath + '/post/view/' + post.postNo + '">' + post.postContent + '</a>')
+				const select = $('<select  name="statusCd"  class="select"></select>');
+				select.attr("onchange", "changeStatus(event," + post.postNo + ")");
+				console.log(select);
+				for (let i = 500; i < 505; i++) {
+					const option = $("<option>");
+					option.val(i);
+					if (i == post.status) {
+						option.attr("selected", "selected")
+					}
+						if (i == 500) {
+						option.text("일반")
+						option.val("500");
+					} else if (i == 501) {
+						option.text("유저삭제")
+						option.val("501");
+					} else if (i == 502) {
+						option.text("블라인드")
+						option.val("502");
+					} else if (i == 503) {
+						option.text("비공개")
+						option.val("503");
+					} else if (i == 504) {
+						option.text("팔로워 공유")
+						option.val("504");
+					}					
+					select.append(option);
+				}
+		
+			$($(".postListContent")[0]).html(post.postNo);
+			$($(".postListContent")[1]).html(post.memberNo);
+			$($(".postListContent")[2]).html(post.memberNm);
+			$($(".postListContent")[3]).append(a);
+			$($(".postListContent")[4]).html(post.readCount);
+			$($(".postListContent")[5]).html(post.likeCount);
+			$($(".postListContent")[6]).html(post.createDt);
+			$($(".postListContent")[7]).html(post.modifyDt);
+			$($(".postListContent")[8]).append(select);
+			$($(".postListContent")[9]).html(post.blind);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		},
+		error:function(){
+			
+			
+		}
+		
+		
+	});
+	
+	
+}
+
+$(document).on('change','.select',function(){
+	}) 

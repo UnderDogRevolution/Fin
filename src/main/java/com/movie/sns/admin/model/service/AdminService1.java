@@ -15,6 +15,8 @@ public interface AdminService1 {
 	int changeStatus(AdminPost post);
 
 	List<PostStatus> selectStatus();
+
+	AdminPost postView(String postNo);
 	
 	
 	
