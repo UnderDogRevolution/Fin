@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper2">
 
+	<!-- 김연준 작업용 -->
+
 	<resultMap type="Admin" id="admin_rm">
 
 		<id property="memberNo" column="MEMBER_NO" />
