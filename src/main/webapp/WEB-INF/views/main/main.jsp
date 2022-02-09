@@ -19,7 +19,7 @@
 	</style>
 	
 </head>
-<body>
+<body style="position: fixed;">
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>
 		<div style="margin-left: 4%; flex-basis: 18%;">

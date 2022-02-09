@@ -22,7 +22,7 @@ a:hover {
 	padding-top : 100px;
 }
 
-#container-post {
+/* #container-post {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -33,7 +33,7 @@ a:hover {
 	overflow: scroll;
 	padding-top: 34%;
 	border: 1px dashed red;
-}
+} */
 
 .searchnav {
 	display: flex;
@@ -81,36 +81,37 @@ a:hover {
 }
 
 /* -------------------------------------------영화------------------------------------------ */
-.post {
+.user-post {
 	padding: 10px;
-	width: 60%;
+	width: 34%;
 	min-width: 600px;
 	margin-bottom: 20px;
 	background-color: #3a3939;
 	border-radius: 5px;
+	margin: auto;
 }
 
-.post>a {
+.user-post>a {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 }
 
-.post-header {
+/* .post-header {
 	display: flex;
 	width: 100%;
 	height: 70px;
 	justify-content: center;
 	align-items: center;
 	border-bottom: 1px solid #090A0D;
-}
+} */
 
-.post-header>div {
+/* .post-header>div {
 	display: flex;
 	width: 100%;
 	height: 100%;
-}
+} */
 
 .userImg_ {
 	display: flex;
@@ -170,9 +171,9 @@ a:hover {
 	cursor: pointer;
 }
 
-.dropdown-menu {
+/* .dropdown-menu {
 	transform: translate3d(-110px, 51px, 0px) !important;
-}
+} */
 
 .mvTitle {
 	display: flex;
