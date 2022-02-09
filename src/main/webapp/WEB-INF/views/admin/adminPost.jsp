@@ -50,7 +50,7 @@ select:focus {
 	width: 200px;
 	height: 30px;
 	border-radius: 5px;
-	padding : 10px;
+	padding: 10px;
 }
 
 #searchbtn {
@@ -62,9 +62,10 @@ select:focus {
 	background-color: #942d2d;
 	color: white;
 }
-.selectPostsend{
-    width: 100px;
-    text-align: center;
+
+.selectPostsend {
+	width: 100px;
+	text-align: center;
 }
 </style>
 
@@ -74,6 +75,13 @@ select:focus {
 
 
 <body>
+
+	<%-- <c:if test="${!empty post.searchPost}">
+		<c:set var="s" value="&sk=${param.searchPost}&sv=${param.inputResult}" />
+	</c:if>
+ --%>
+
+
 	<div class="mainController">
 		<main>
 
@@ -86,21 +94,20 @@ select:focus {
 					<div class="adminHeader">게시글관리</div>
 					<div class="adminBoardMain">
 						<div class="adminSearch">
-							<select name="selectPost" id="" class="selectPostsend">
+							<select name="searchPost" id="" class="selectPostsend">
 								<option value="memberNo">회원번호</option>
 								<option value="memberNm">회원이름</option>
 								<option value="postNo">게시글번호</option>
 								<option value="status">게시글상태</option>
-
-							</select> <input type="text" name="postSearch" id="searchPost">
-							<button id="searchbtn" onclick="selectPostList();">검색</button>
+							</select> 
+							<input type="number" name="inputResult" id="searchPost" oninput="selectPostList();">
 
 
 						</div>
 
 						<div class="adminBoardtable">
 							<div class="table">
-								<table class="table my-5" id="list-table">
+								<table class="table" id="list-table">
 
 									<thead>
 										<tr>
@@ -116,12 +123,12 @@ select:focus {
 										</tr>
 
 									</thead>
-									<tbody>
+									<tbody class="tbody">
 										<c:choose>
 
 											<c:when test="${empty post}">
 												<tr>
-													<td colspan="6">등록된게시글이 존재하지 않습니다.</td>
+													<td colspan="9">등록된게시글이 존재하지 않습니다.</td>
 												</tr>
 
 
@@ -133,11 +140,9 @@ select:focus {
 														<td>${post.memberNo}</td>
 														<td>${post.memberNm}</td>
 
-														<td class='postContent'>
-														
-														<a style="text-decoration: none; color: white;" href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a>
-														
-														</td>
+														<td class='postContent'><a
+															style="text-decoration: none; color: white;"
+															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
 
 
 														<td>${post.readCount}</td>
@@ -175,15 +180,15 @@ select:focus {
 
 
 					</div>
+
 					<div class="my-5">
 						<div>
 							<ul class="pagination">
 
-
 								<c:if test="${pagination.startPage != 1 }">
-									<li><a class="page-link" href="list?cp=1" ${s}>&lt;&lt;</a></li>
+									<li><a class="page-link" href="?cp=1" ${s}>&lt;&lt;</a></li>
 									<li><a class="page-link"
-										href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+										href="?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
 								</c:if>
 
 								<%-- 페이지네이션 번호 목록 --%>
@@ -196,20 +201,26 @@ select:focus {
 										</c:when>
 
 										<c:otherwise>
-											<li><a class="page-link" href="post?cp=${i}${c}${s}">${i}</a></li>
+											<li><a class="page-link" href="?cp=${i}${c}${s}">${i}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 
 								<c:if test="${pagination.endPage != pagination.maxPage }">
 									<li><a class="page-link"
-										href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+										href="?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
 									<li><a class="page-link"
-										href="list?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
+										href="?cp=${pagination.maxPage }${c}${s}">&gt;&gt;</a></li>
 								</c:if>
 							</ul>
 						</div>
 					</div>
+
+
+
+
+
+
 				</div>
 
 
@@ -222,6 +233,10 @@ select:focus {
 
 	<script type="text/javascript">
 	const contextPath = "${contextPath}";
+	const c = "${c}";
+	const s = "${s}";
+	
+	
 	</script>
 </body>
 </html>
