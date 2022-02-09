@@ -44,8 +44,9 @@ public class LoginFilter implements Filter{
 		HttpSession session = req.getSession();
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-			
-		// ---------------- 비회원인 경우 ----------------
+		// 관리자 필터
+		
+		// ---------------- 비로그인  ----------------
 		if(loginMember == null) {
 			
 			// 비회원 + /member/* 인 경우
@@ -79,13 +80,13 @@ public class LoginFilter implements Filter{
 			
 			
 			
-		// ---------------- 회원인 경우 ----------------
+		// ---------------- 로그인 ----------------
 		}else {
 			
 			if(arr[0].equals("member")) {
 				
 				// 회원 + /member/login , /member/signUp , member/findPw 인 경우
-				if(arr[1].equals("login") || arr[1].equals("signUp") ||arr[1].equals("findPw")) {
+				if(arr[1].equals("login") || arr[1].equals("signUp") ||arr[1].equals("findPw") || arr[1].equals("resetPw") ) {
 					resp.sendRedirect(req.getContextPath());
 					// resp.sendRedirect(req.getContextPath()+"/main");
 				}else {
