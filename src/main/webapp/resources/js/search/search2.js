@@ -52,6 +52,15 @@ function searchPostList(){
 		dataType: 'json',
 		success: function (postList) {
 			console.log(postList)
+			if(postList.length == 0){
+				const templateLiterals = ` <div id="no-search-result">
+											<img src="${contextPath}/resources/images/temp/search_icon.png">
+											<br>
+											<span>검색 결과가 없습니다.</span>
+										</div>`
+				postContainer.innerHTML = templateLiterals;
+				return;
+			}
 			for(const items of postList){
 				const post = document.createElement("div");
 				post.className = "post";

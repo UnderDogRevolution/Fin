@@ -409,3 +409,20 @@ a:hover {
 	border-radius: 49%;
 }
 /* -------------------------------------------------사람 끝------------------------------------------  */
+
+/* 검색 결과가 없을 때 */
+#no-search-result{
+	width: 20%;
+	margin-top: 3%;
+	margin-left: 41%;
+	text-align: center;
+}
+#no-search-result >img{
+	width: 80%;
+}
+#no-search-result > span{
+	font-size: 2.5em;
+	margin-top: 10%;
+	display: inline-block;
+	white-space: nowrap;
+}
