@@ -14,22 +14,21 @@
 			flex-direction: row;
 			width: 100%;
 			height: 96%;
-			margin-top: 129px;
+			padding-top: 129px;
 		}
+		/* margin-top을 주면 body가 주저 앉는다. 그래서 padding-top을 줘야 한다. */
 	</style>
 	
 </head>
-<body>
+<body >
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>
-		<div style="margin-left: 4%; flex-basis: 18%;">
+		<div style="margin-left: 4%; flex-basis: 18%; display: flex; flex-direction: column; align-items: flex-start;">
 			<jsp:include page="side.jsp"></jsp:include>
-			<div style="float:right; padding-right:28px; font-weight: bold;">
+			<div style="font-weight: bold; margin-left: 9%; margin-top: 5%;">
 				<span onclick="recentPost();">최신</span><span> / </span ><span onclick="onlyFollowPost()">팔로우</span>
 			</div>
-
 		</div>
-
 	</div>
 	
 	<jsp:include page="crud-post.jsp"></jsp:include>

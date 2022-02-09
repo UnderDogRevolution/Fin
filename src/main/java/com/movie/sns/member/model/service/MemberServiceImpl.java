@@ -142,21 +142,16 @@ public class MemberServiceImpl implements MemberService{
 		emailMap.put("encEmail", encEmail);
 		
 		// 수행 전 비밀번호 변경 링크 지우기
-		int result = dao.deleteResetLog(memberEmail);
+		dao.deleteResetLog(memberEmail);
 		
+		int result = dao.insertEncEmail(emailMap);
+		
+		// 데이터 삽입을 성공한 경우
 		if(result > 0) {
 			
-			result = dao.insertEncEmail(emailMap);
-			
-			// 데이터 삽입을 성공한 경우
-			if(result > 0) {
-				
-				emailCtrl.sendPwLink(memberEmail, encEmail, req);
-				
-			}
+			emailCtrl.sendPwLink(memberEmail, encEmail, req);
 			
 		}
-		
 		
 		return result;
 	}
@@ -189,12 +184,13 @@ public class MemberServiceImpl implements MemberService{
 				dao.deleteResetLog(memberEmail);
 				
 			}else {
-				System.out.println("비밀번호 변경 실패");
+				// 비번 수정 실패
+				result = 0;
 			}
 			
 		}else {
-			
-			System.out.println("유효한 링크가 아닙니다.");
+			// 유효한 링크가 아닙니다.
+			result = -1;
 		}
 
 		return result;
