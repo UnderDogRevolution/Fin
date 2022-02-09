@@ -39,8 +39,8 @@ function changeStatus(event , postNo){
 function selectPostList(){//검색
 	const searchPost = $(".selectPostsend").val(); // select 값
 	const inputResult = $("#searchPost").val(); //input 값
-	console.log(name);
 	console.log(searchPost);
+	console.log(inputResult);
 	$.ajax({
 		url : contextPath + "/admin/searchPost",
 		data : {"searchPost" : searchPost , "inputResult" : inputResult},
