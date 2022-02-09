@@ -251,7 +251,8 @@ public class MemberController {
 	
 	// 비밀번호 찾기 링크 만들기
 	@RequestMapping(value = "findPw", method=RequestMethod.POST)
-	public String findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
+	@ResponseBody
+	public int findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
 		
 		// 가입 여부 체크하기
 		int result = service.emailDupCheck(memberEmail);
@@ -285,7 +286,7 @@ public class MemberController {
 		
 		ra.addFlashAttribute("result", result);
 		
-		return "redirect:/member/findPw";
+		return result;
 		
 	}
 	
@@ -326,11 +327,20 @@ public class MemberController {
 			
 			path = "redirect:/member/login";
 			
+		}else if(result == -1){
+			// 링크 만료
+			String successMessage = "변경 실패";
+			String text = "변경 링크가 만료되었습니다. <br> 다시 시도해주세요.";
+			String icon = "error";
+			Util.swalSetMessage(successMessage, text, icon, ra);
+			path = "redirect:/member/findPw";
 		}else {
-			
-			System.out.println("수정 실패!");
-			path = "main";
-			
+			// 수정 실패
+			String successMessage = "변경 실패";
+			String text = "비밀번호 설정에 실패했습니다. <br> 관리자에게 문의해주세요.";
+			String icon = "error";
+			Util.swalSetMessage(successMessage, text, icon, ra);
+			path = "redirect:/member/findPw";
 		}
 		
 		
