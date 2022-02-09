@@ -26,6 +26,16 @@
 
 				<jsp:include page="adminSide.jsp" />
 
+				<%-- 파라미터 중 sv가 있다면 변수 생성 --%>
+				<c:if test="${!empty param.sv}">
+					<c:set var="s" value="&sk=${param.sk}&sv=${param.sv}" />
+				</c:if>
+
+				<%-- 파라미터 중 ct가 있다면 변수 생성 --%>
+				<c:if test="${!empty param.ct}">
+					<c:set var="c" value="&ct=${param.ct}" />
+				</c:if>
+
 
 				<div class="adminBoard">
 					<div class="adminHeader">문의글 리스트</div>
@@ -59,45 +69,47 @@
 										</tbody>
 									</c:forEach>
 
-										<tfoot>
-										</tfoot>
+									<tfoot>
+									</tfoot>
 								</table>
 							</div>
 						</div>
-						
+
 						<%---------------------- Pagination ----------------------%>
-		
-		<div class="my-5">
-			<ul class="pagination">
-				
-				
-				<c:if test="${pagination.startPage != 1 }">
-					<li><a class="page-link" href="list?cp=1${c}${s}">&lt;&lt;</a></li>
-					<li><a class="page-link" href="list?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
-				</c:if>
-				
-				<%-- 페이지네이션 번호 목록 --%>
-				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
-					<c:choose>
-						<c:when test="${i == pagination.currentPage}">
-							<li><a class="page-link" style="color:black; font-weight:bold;">${i}</a></li>   
-						</c:when>
-						
-						<c:otherwise>
-							<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				
-				<c:if test="${pagination.endPage != pagination.maxPage }">
-					<li><a class="page-link" href="list?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
-					<li><a class="page-link" href="list?cp=${pagination.maxPage}${c}${s}">&gt;&gt;</a></li>
-				</c:if>
-			</ul>
-		</div>
-						
-						
-						
+
+						<div class="my-5">
+							<ul class="pagination">
+
+
+								<c:if test="${pagination.startPage != 1 }">
+									<li><a class="page-link" href="asklist?cp=1${c}${s}">&lt;&lt;</a></li>
+									<li><a class="page-link"
+										href="asklist?cp=${pagination.prevPage}${c}${s}">&lt;</a></li>
+								</c:if>
+
+								<%-- 페이지네이션 번호 목록 --%>
+								<c:forEach begin="${pagination.startPage}"
+									end="${pagination.endPage}" step="1" var="i">
+									<c:choose>
+										<c:when test="${i == pagination.currentPage}">
+											<li><a class="page-link"
+												style="color: black; font-weight: bold;">${i}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li><a class="page-link" href="asklist?cp=${i}${c}${s}">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+								<c:if test="${pagination.endPage != pagination.maxPage }">
+									<li><a class="page-link"
+										href="asklist?cp=${pagination.nextPage}${c}${s}">&gt;</a></li>
+									<li><a class="page-link"
+										href="asklist?cp=${pagination.maxPage}${c}${s}">&gt;&gt;</a></li>
+								</c:if>
+							</ul>
+						</div>
 					</div>
 				</div>
 

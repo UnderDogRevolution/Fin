@@ -88,7 +88,7 @@ public class MemberDAO2 {
 	 * @return
 	 */
 	public List<String> selectImgList() {
-		return sqlSession.selectList("boardMapper.selectImgList");
+		return sqlSession.selectList("memberMapper.selectImgList");
 	}
 
 	

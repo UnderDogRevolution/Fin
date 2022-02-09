@@ -71,21 +71,11 @@ public class AdminController2 {
 			// 게시글 상세 조회 Service 호출
 			AdminAsk ask = service.selectAsk(askNo, memberNo);
 			
-			String path = null;
-			if(ask != null) { // 조회 성공 시
-				
-				model.addAttribute("ask", ask);
-				path = "AdminAsk/AdminAskView";
-				
-			}else { // 조회 실패 시
-				
-				com.movie.sns.common.Util.swalSetMessage("해당 글이 존재하지 않습니다.", null, "info", ra);
-				path = "redirect:../list";
-			}
 			
-			return path;
+			
+			return "admin/adminAskView";
 		}
 		
-		//문의글 삭제(후순위)
+
 		
 }
