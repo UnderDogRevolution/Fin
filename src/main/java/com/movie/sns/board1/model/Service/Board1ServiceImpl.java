@@ -76,9 +76,9 @@ public class Board1ServiceImpl implements Board1Service {
 	}
 
 	@Override
-	public List<ChatFriend> selectFollow(int memberNo) {
+	public List<ChatFriend> followFriend(int memberNo) {
 		
-		return dao.selectFollow(memberNo);
+		return dao.followFriend(memberNo);
 		
 		
 	}
