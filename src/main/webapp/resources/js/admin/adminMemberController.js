@@ -1,5 +1,3 @@
-
-
 // 회원 정보 상세 조회 함수
 function showMemberDetail(memberNo){
   

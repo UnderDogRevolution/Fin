@@ -62,11 +62,11 @@
 							</div>
 							<div class="Count follower_count" data-bs-toggle="modal"
 								data-bs-target="#followerList">
-								<span>팔로워</span> <span>${followCount}</span>
+								<span>팔로워</span> <span>${followerCount}</span>
 							</div>
 							<div class="Count follow_count" data-bs-toggle="modal"
 								data-bs-target="#followerList2">
-								<span>팔로우</span> <span>${followerCount}</span>
+								<span>팔로우</span> <span>${followCount}</span>
 							</div>
 
 
@@ -583,21 +583,21 @@
 			const follow = $(".list-wrap");
 			$.ajax({
 
-				url: contextPath + "/chat/searchFollower",
+				url: contextPath + "/board1/myBoard/" + thisMemberNo + "/followFriend",
 				dataType: "JSON",
-				type: "POST",
-				success: function(rList) {
-					console.log(rList)
+				type: "GET",
+				success: function(list) {
+					console.log(list)
 					
-					  if(rList.length > 0){
-						for(var i = 0; i < rList.length; i++){
+					  if(list.length > 0){
+						for(var i = 0; i < list.length; i++){
 							
 						html.push(
 								'<div class="list-item">' +
 									'<div class="img"></div>' +
 									'<div class="info">' +
-										'<span>'+ rList[i].memberNickNm +'</span>'+ 
-										'<span>'+ rList[i].memberNm +'</span>' +
+										'<span>'+ list[i].memberNickNm +'</span>'+ 
+										'<span>'+ list[i].memberNm +'</span>' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
 									'<a href="#self">삭제</a>'+

@@ -216,6 +216,31 @@ public class Board1Controller {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "myBoard/{memberNo}/followFriend", method = RequestMethod.GET)
+	public String followFriend(@PathVariable("memberNo") int memberNo, String mode, Model model, HttpSession session) {
+		
+		
+		List<ChatFriend> list = null;
+		
+		
+		
+		// System.out.println("=====================================================");
+		// System.out.println(list);
+		// System.out.println(memberNo);
+		
+		
+		list = service.followFriend(memberNo);
+		
+		// System.out.println("=====================================================");
+		// System.out.println(list);
+		// System.out.println(memberNo);
+		
+		
+		return new Gson().toJson(list);
+		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "myBoard/{memberNo}/selectFriend", method = RequestMethod.GET)
 	public String selectFriend(@PathVariable("memberNo") int memberNo, String mode, Model model, HttpSession session) {
 

@@ -28,7 +28,7 @@ public interface Board1Service {
 
 	int postCount(int memberNo);
 
-	List<ChatFriend> selectFollow(int memberNo);
+	List<ChatFriend> followFriend(int memberNo);
 
 	List<ChatFriend> selectFollower(int memberNo);
 
