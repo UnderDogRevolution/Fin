@@ -42,11 +42,6 @@
 					<c:set var="s" value="&sk=${param.sk}&sv=${param.sv}"/>
 				</c:if>
 				
-				<%-- 파라미터 중 ct가 있다면 변수 생성 --%>
-				<c:if test="${!empty param.ct}">
-					<c:set var="c" value="&ct=${param.ct}"/>
-				</c:if>
-				
 					<div class="adminHeader">회원관리</div>
 					<div class="adminBoardMain">
 					
@@ -77,6 +72,7 @@
 											<th>이메일</th>
 											<th><span>가입일 ▼</span></th>
 											<th>
+												회원상태
 												<select name="" id="" class="" 
 												style="
 												width: 80px;
@@ -87,9 +83,10 @@
 												outline: none;">
 													<option value="" disabled selected>회원상태</option>
 													<option value="">전체</option>
-													<option value="">정상</option>
-													<option value="">정지</option>
-													<option value="">탈퇴</option>
+													
+													<c:forEach items="${statusList}" var="s">
+														<option value="${s.statusCode}">${s.statusName}</option>
+													</c:forEach>
 												</select>
 											</th>
 										</tr>
@@ -119,7 +116,7 @@
 																	background-color: #3a3939; border: none;
 																	color: white; outline: none;">
 																<c:forEach items="${statusList}" var="s">
-																	<option value="${s.statusCode}">${s.statusName}</option>
+																	<option <c:if test="${s.statusCode == member.memberStatusCode}">selected</c:if> value="${s.statusCode}">${s.statusName}</option>
 																</c:forEach>
 															</select>
 															
@@ -207,7 +204,7 @@
 						</div>
 
 						<div class="memberDetail-body">
-						  <table style="margin: auto;">
+						  <table style="margin: auto;" style="color: #323232 !important;">
 						    
 						    <tr>
 						      <td>이름 : </td>
