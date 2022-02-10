@@ -13,7 +13,7 @@
 
 <style>
 	#memberDetailContent *{
-		color: #323232;
+		color: #323232 !important;
 	}
 	.memberDetail-body td{
 		font-size: 15px;
@@ -71,6 +71,9 @@
 
 									<thead>
 										<tr>
+											<th style="width: 50px;">
+												<input type="checkbox" name="selectAll">
+											</th>
 											<th style="width: 100px;"><span>회원번호 ▼</span></th>
 											<th style="width: 140px;">이름</th>
 											<th style="width: 200px;">닉네임</th>
@@ -101,7 +104,7 @@
 											<c:when test="${empty memberList}"> 
 												<%-- 조회한 회원 목록이 없을 때 --%>
 												<tr>
-													<td colspan="6">조회 결과가 존재하지 않습니다.</td>
+													<td colspan="7">조회 결과가 존재하지 않습니다.</td>
 												</tr>
 											</c:when>
 											
@@ -109,10 +112,13 @@
 												<c:forEach items="${memberList}" var="member">
 										
 													<tr>
+														<td><input type="checkbox" name="selectOne"></td>
 														<td>${member.memberNo}</td>
+
 														<td><span style="cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</span></td>
 														<td>${member.memberNickName}</td>
 														<td>${member.memberEmail}</td>
+
 														<td>${member.enrollDate}</td>
 														<td>
 															<select name="" id="" class="" style="width: 80px; text-align: center;
