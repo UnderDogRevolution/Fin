@@ -14,7 +14,7 @@
 			flex-direction: row;
 			width: 100%;
 			height: 96%;
-			margin-top: 129px;
+			padding-top: 129px;
 		}
 	</style>
 </head>
@@ -48,9 +48,9 @@
 								</div>
 								<span>${post.memberName}</span><span>${post.createDate}</span>
 								<div class="dropdown me-1 header-dropdown"><img id="dropdownMenuOffset" data-bs-toggle="dropdown"
-										aria-expanded="false" data-bs-offset="-40,-10" src="${contextPath}/resources/images/temp/dots.png">
+										aria-expanded="false" data-bs-offset="10,-10" src="${contextPath}/resources/images/temp/dots.png">
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-										<li><a class="dropdown-item">링크복사</a></li>
+										<li><a class="dropdown-item" onclick="copyURL(${post.postNo});">링크복사</a></li>
 										<c:if test="${loginMember != null}">
 											<li><a class="dropdown-item" onclick="report(0, ${post.postNo})">신고하기</a></li>
 										</c:if>
@@ -94,12 +94,12 @@
 								<div class="container-like">
 									<c:choose>
 										<c:when test="${post.checkLike != 1}">
-											<img class="vivid-popcorn" src="${contextPath}/resources/images/temp/new vivid popcorn2.png" style="width: 100%; display:none;">
-											<img class="white-popcorn" src="/fin/resources/images/temp/new white popcorn.png" style="width: 100%;">
+											<img class="vivid-popcorn" src="${contextPath}/resources/images/temp/yellow_popcorn.png" style="width: 100%; display:none;">
+											<img class="white-popcorn" src="${contextPath}/resources/images/temp/gray_popcorn2.png" style="width: 100%;">
 										</c:when>
 										<c:otherwise>
-											<img class="vivid-popcorn" src="${contextPath}/resources/images/temp/new vivid popcorn2.png" style="width: 100%;">
-											<img class="white-popcorn" src="/fin/resources/images/temp/new white popcorn.png" style="width: 100%;  display:none;">
+											<img class="vivid-popcorn" src="${contextPath}/resources/images/temp/yellow_popcorn.png" style="width: 100%;">
+											<img class="white-popcorn" src="${contextPath}/resources/images/temp/gray_popcorn2.png" style="width: 100%;  display:none;">
 										</c:otherwise>
 									</c:choose>
 									<span style="display:none;">${post.postNo}</span><span>${post.likeCount}</span></div>

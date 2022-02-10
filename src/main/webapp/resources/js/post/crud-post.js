@@ -313,16 +313,17 @@ function changeContent(){
         return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
     })
     change = change.replace(userRegExp, function(target){
-        return "<a href='#' class='attach' style='color: purple;'>" + target + "</a>";
+        return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
     change = change.replace(movieRegExp, function(target){
-        return "<a href='#' class='attach' style='color: yellow;'>" + target + "</a>";
+        return "<a href='#' class='attach' style='color: #ffd700;'>" + target + "</a>";
     })
     inputDiv.innerHTML = change;
     // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
 }
 // const bef = []
 let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
+const modalSide = document.getElementsByClassName("modal-side")[0];
 // MUtationObserver는 신이야!
 const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation =>{
@@ -346,8 +347,11 @@ const observer = new MutationObserver(mutations => {
                                     type: "POST",
                                     dataType : "JSON",
                                     success: function (tagList) {
+                                        tagListUl.innerHTML ="";
+                                       
                                         for(const items of tagList){
                                             tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
+                                            modalSide.style.display = "block";
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
                                                 items2.addEventListener("click", function(){
@@ -376,6 +380,7 @@ const observer = new MutationObserver(mutations => {
                                         success: function (tagList) {
                                             for(const items of tagList){
                                                 tagListUl.innerHTML += '<li>@'+ items.memberName +'</li>';
+                                                modalSide.style.display = "block";
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){
@@ -442,7 +447,12 @@ function postValidate(){
         const postVO = {}
         const tagName = document.querySelectorAll(".insert-container-textarea > div > .attach");
         const tagArr = []
+        
         for(const items of tagName){
+            if(items.innerText.length > 21){
+                alert("해시태그의 길이가 너무 깁니다! (최대 20)")
+                return;
+            }
             if(items.innerText.indexOf('#') >-1){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
@@ -505,3 +515,13 @@ for(const items of starRadio){
         ratingValue.innerText = this.value;
     })
 }
+
+document.addEventListener("click", function(e){
+    
+    if(e.target == modalSide){
+        console.log("a")
+    }else{
+        modalSide.style.display = "none";
+    }
+
+})

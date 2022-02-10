@@ -7,6 +7,7 @@ public class ChatFriend {
 	private String imgPath; // 이미지 서버저장경로
 	private String imgNm; // 이미지 번호
 	private String memberNm; // 상대방 이름
+	private String memberNickNm; // 상대방 이름
 	
 	public ChatFriend() {
 	}
@@ -50,14 +51,22 @@ public class ChatFriend {
 	public void setMemberNm(String memberNm) {
 		this.memberNm = memberNm;
 	}
+	
+	public String getMemberNickNm() {
+		return memberNickNm;
+	}
+
+	public void setMemberNickNm(String memberNickNm) {
+		this.memberNickNm = memberNickNm;
+	}
 
 	@Override
 	public String toString() {
 		return "ChatFriend [toUser=" + toUser + ", memberNo=" + memberNo + ", imgPath=" + imgPath + ", imgNm=" + imgNm
-				+ ", memberNm=" + memberNm + "]";
+				+ ", memberNm=" + memberNm + ", memberNickNm=" + memberNickNm + "]";
 	}
 
-
+	
 
 
 

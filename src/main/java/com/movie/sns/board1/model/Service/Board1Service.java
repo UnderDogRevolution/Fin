@@ -3,6 +3,7 @@ package com.movie.sns.board1.model.Service;
 import java.util.List;
 import java.util.Map;
 
+import com.movie.sns.chat.model.vo.ChatFriend;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.post.model.vo.Post;
 
@@ -27,9 +28,9 @@ public interface Board1Service {
 
 	int postCount(int memberNo);
 
-	List<Member> selectFollow(int memberNo);
+	List<ChatFriend> followFriend(int memberNo);
 
-	List<Member> selectFollower(int memberNo);
+	List<ChatFriend> selectFollower(int memberNo);
 
 
 	
