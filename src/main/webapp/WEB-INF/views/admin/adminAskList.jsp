@@ -27,53 +27,19 @@ select:focus {
 	outline: none;
 }
 
-.postContent {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	display: block;
-	height: 30px;
-	width: 150px;
-	text-align: left;
-	padding-left: 15px;
-}
-
-.adminSearch {
-	padding-left: 20px;
-}
-
-#searchPost {
-	margin-left: 10px;
-	margin-right: 10px;
-	outline: none;
-	width: 200px;
-	height: 30px;
-	border-radius: 5px;
-	padding: 10px;
-}
-
-#searchbtn {
-	width: 50px;
-	font-size: 15px;
-	height: 31px;
-	border: none;
-	border-radius: 5px;
-	background-color: #942d2d;
-	color: white;
-}
-
-.selectPostsend {
-	width: 100px;
-	text-align: center;
-}
-
 #askDetailContent * {
 	color: #323232;
 }
 
-.askDetail-body td {
+.askDetail-body * {
 	font-size: 15px;
+	color: black !important;
 }
+
+.table{table-layout:fixed}
+.table td {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
+
+
 </style>
 </head>
 <jsp:include page="adminHeader.jsp" />
@@ -195,9 +161,19 @@ select:focus {
 
 								<tr>
 									<td>회원번호 :</td>
-									<td class="askMemberNo"></td>
+									<td class="askAskNo"></td>
 								</tr>
 
+								<tr>
+									<td>이름 :</td>
+									<td class="askMemberName"></td>
+								</tr>
+								
+								<tr>
+									<td>작성일 :</td>
+									<td class="askDate"></td>
+								</tr>
+								
 								<tr>
 									<td>제목 :</td>
 									<td class="askTitle"></td>
@@ -205,17 +181,7 @@ select:focus {
 
 								<tr>
 									<td>내용 :</td>
-									<td class="askContent"></td>
-								</tr>
-
-								<tr>
-									<td>이름 :</td>
-									<td class="askMemberName"></td>
-								</tr>
-
-								<tr>
-									<td>작성일 :</td>
-									<td class="askDate"></td>
+									<td class="askContent" rowspan="5"></td>
 								</tr>
 
 							</table>
@@ -243,5 +209,6 @@ select:focus {
 	</script>
 
 	<script src="${contextPath}/resources/js/admin/adminAskController.js"></script>
+	
 </body>
 </html>
