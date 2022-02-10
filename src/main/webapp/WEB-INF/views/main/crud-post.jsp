@@ -33,6 +33,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                         
                     </ul>
                 </div>
+                <span class="on-youtube">유튜브 링크 등록</span>
                     <div class="insert-container-textarea">
                         <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
                         <div></div>
