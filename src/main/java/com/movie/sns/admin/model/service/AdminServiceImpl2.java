@@ -37,23 +37,23 @@ public class AdminServiceImpl2 implements AdminService2 {
 	public List<AdminAsk> selectAskList(Pagination pagination) {
 		return dao.selectAskList(pagination);
 	}
+
 	
-	
-	/** 문의글 상세 조회
+	/**문의글 상세 조회
 	 *
 	 */
 	@Override
-	public AdminAsk selectAsk(int askNo, int memberNo) {
-
-		AdminAsk ask=dao.selectAsk(askNo);
-		
-		return ask;
+	public AdminAsk selectAskDetail(int askNo) {
+		return dao.selectAskDetail(askNo);
 	}
 
-
-	/** 문의글 삭제
-	 *
+	/*
+	 * @Override public int selectAskDetail(AdminAsk ask) { return
+	 * dao.selectAskDetail(ask); }
 	 */
+	
+	
+
 	
 	
 	
