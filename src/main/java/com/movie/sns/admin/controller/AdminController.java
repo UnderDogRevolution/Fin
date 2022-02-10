@@ -36,7 +36,7 @@ public class AdminController {
 		return "admin/adminLogin";
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "main", method = RequestMethod.POST)
 	public String login(Member member, Model model, RedirectAttributes ra, HttpServletRequest req,
 			HttpServletResponse resp) {
 
@@ -59,7 +59,16 @@ public class AdminController {
 
 		return path;
 	}
-
+	
+	@RequestMapping(value ="main", method = RequestMethod.GET)
+	public String adminMain() {
+		
+		
+		return "admin/adminMain";
+	} 
+		
+	
+	
 	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
 

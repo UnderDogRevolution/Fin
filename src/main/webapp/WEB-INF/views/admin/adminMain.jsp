@@ -28,11 +28,11 @@
 
             <div class="adminBoard">
                 <div>
-                    <div class="memberNum">총회원 수 명
+                    <div onclick ="location.href='${contextPath}/admin/member/list'" class="memberNum">총회원 수 명
                             
                     </div>
                     <div></div>
-                    <div class="boardNum">
+                    <div onclick ="location.href='${contextPath}/admin/post'"  class="boardNum">
                         총 게시글 수 100개
                     </div>
                 </div>
@@ -42,9 +42,9 @@
                     <div></div>
                 </div>
                 <div>
-                    <div class="enNum">바라는 점 100개</div>
+                    <div onclick ="location.href='${contextPath}/admin/ask'" class="enNum">바라는 점 100개</div>
                     <div></div>
-                    <div class="replyNum">총 댓글 100개</div>
+                    <div  onclick ="location.href='${contextPath}/admin/reply'" class="replyNum">총 댓글 100개</div>
                 </div>
                
 

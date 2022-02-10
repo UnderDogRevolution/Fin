@@ -18,8 +18,10 @@ import com.google.gson.Gson;
 import com.movie.sns.admin.model.service.AdminService1;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
+import com.movie.sns.admin.model.vo.AdminReply;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
+import com.movie.sns.admin.model.vo.ReplyStatus;
 import com.movie.sns.member.model.vo.Member;
 
 @Controller
@@ -56,6 +58,7 @@ public class AdminController1 {
 
 		return result;
 	}
+	
 
 	@ResponseBody
 	@RequestMapping(value = "searchPost", method = RequestMethod.GET)
@@ -94,10 +97,63 @@ public class AdminController1 {
 	// 게시글 상세조회
 	@ResponseBody
 	@RequestMapping(value = "postView", method = RequestMethod.GET)
-	public String searchPost(String postNo) {
+	public String postView(String postNo) {
 		AdminPost result = service.postView(postNo);
 		System.out.println("결과" +result);
 		return new Gson().toJson(result);
 	}
+	//댓글상세
+	@ResponseBody
+	@RequestMapping(value = "replyView", method = RequestMethod.GET)
+	public String replyView(String replyNo) {
+		AdminReply result = service.replyView(replyNo);
+		System.out.println("결과" +result);
+		return new Gson().toJson(result);
+	}
 
+	
+		// 댓글 조회
+		@RequestMapping(value = "reply", method = RequestMethod.GET)
+		public String reply(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model
+							,AdminReply reply
+				
+				) {
+			
+			Pagination pagination = service.getReplyPagination(cp, reply);
+			List<AdminReply> List = service.adminReply(pagination, reply);
+			List<ReplyStatus> cd = service.selectReplyStatus();
+			System.out.println(cd);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("reply", List);
+			model.addAttribute("cd", cd);
+			
+			
+			return "admin/adminReply";
+		}
+	
+		
+		
+		@ResponseBody
+		@RequestMapping(value = "searchReply", method = RequestMethod.GET)
+		public String searchReply(AdminReply reply, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+			Pagination pagination = service.getReplyPagination(cp, reply);
+			List<AdminReply> List = service.adminReply(pagination, reply);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("List", List);
+			map.put("pagination", pagination);
+
+
+			return new Gson().toJson(map);
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "changeStatusReply", method = RequestMethod.GET)
+		public int changeStatus(AdminReply reply) {
+			int result = service.changeStatus(reply);
+			
+			return result;
+		}
+		
+		
 }

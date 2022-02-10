@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
+import com.movie.sns.admin.model.vo.AdminReply;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
+import com.movie.sns.admin.model.vo.ReplyStatus;
 @Repository
 public class AdminDAO1 {
 	@Autowired
@@ -24,7 +26,6 @@ public class AdminDAO1 {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		int limit = pagination.getLimit(); 
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		System.out.println("결과 : " + sqlSession.selectList("adminMapper1.adminPost",post,rowBounds));
 		return sqlSession.selectList("adminMapper1.adminPost",post,rowBounds);
 	}
 
@@ -52,6 +53,44 @@ public class AdminDAO1 {
 	public int deleteBlind(AdminPost post) {
 		return sqlSession.delete("adminMapper1.deleteBlind" , post);
 	}
+
+	public int replyCount(int cp, AdminReply reply) {
+		return sqlSession.selectOne("adminMapper1.replyCount" , reply);
+	}
+
+	public List<AdminReply> adminReply(Pagination pagination, AdminReply reply) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("adminMapper1.adminReply" , reply , rowBounds );
+	}
+
+	public List<ReplyStatus> selectReplyStatus() {
+		return sqlSession.selectList("adminMapper1.selectReplyStatus");
+	}
+
+	public ReplyStatus searchStatus(AdminReply reply) {
+		return sqlSession.selectOne("adminMapper1.searchStatusReply", reply);
+	}
+
+	public int deleteBlind(AdminReply reply) {
+		return sqlSession.delete("adminMapper1.deleteReplyBlind" , reply);
+	}
+
+	public int changeStatus(AdminReply reply) {
+		return sqlSession.update("adminMapper1.changeReplyStatus", reply);
+	}
+
+	public int insertBlind(AdminReply reply) {
+		return sqlSession.insert("adminMapper1.insertReplyBlind", reply);
+	}
+
+	public AdminReply replyView(String replyNo) {
+		return sqlSession.selectOne("adminMapper1.replyView", replyNo);
+	}
+	
+	
+	
 	
 
 }
