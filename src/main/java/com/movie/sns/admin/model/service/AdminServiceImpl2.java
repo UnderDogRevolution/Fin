@@ -47,14 +47,5 @@ public class AdminServiceImpl2 implements AdminService2 {
 		return dao.selectAskDetail(askNo);
 	}
 
-	/*
-	 * @Override public int selectAskDetail(AdminAsk ask) { return
-	 * dao.selectAskDetail(ask); }
-	 */
-	
-	
-
-	
-	
 	
 }

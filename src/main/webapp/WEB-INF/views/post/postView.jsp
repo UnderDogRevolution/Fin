@@ -47,8 +47,8 @@
 									</c:choose>
 								</div>
 								<span>${post.memberName}</span><span>${post.createDate}</span>
-								<div class="dropdown me-1 header-dropdown"><img id="dropdownMenuOffset" data-bs-toggle="dropdown"
-										aria-expanded="false" data-bs-offset="10,-10" src="${contextPath}/resources/images/temp/dots.png">
+								<div class="dropdown me-1 header-dropdown">
+									<img id="dropdownMenuOffset" data-bs-toggle="dropdown"	aria-expanded="false" data-bs-offset="10,-10" src="${contextPath}/resources/images/temp/dots.png">
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
 										<li><a class="dropdown-item" onclick="copyURL(${post.postNo});">링크복사</a></li>
 										<c:if test="${loginMember != null}">
@@ -117,7 +117,7 @@
 		</div>
 		</div>
 
-		<div style="margin-left: 4%;">
+		<div style="margin-left: 4%; flex-basis: 18%; display: flex; flex-direction: column; align-items: flex-start;">
 			<jsp:include page="../main/side.jsp"></jsp:include>
 		</div>
 	</div>
@@ -126,14 +126,14 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
 		const contextPath = "${contextPath}"
-		const memberNo = ${loginMember.memberNo};
 		<c:if test="${loginMember.memberNo != null}">
-				if(memberNo != null){
-					const memberNo = ${loginMember.memberNo }
+				if(typeof memberNo == "undefined"){
+					const memberNo = ${loginMember.memberNo };
 				}
 		</c:if>
 		const postContent = "${post.postContent}";
 		const postNo = ${post.postNo};
+		const postMemberNo = ${post.memberNo};
 	</script>
 	<script src="${contextPath}/resources/js/post/postView.js"></script>
 	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>

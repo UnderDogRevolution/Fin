@@ -45,14 +45,4 @@ public class AdminDAO2 {
 		return sqlSession.selectOne("adminMapper3.selectAskDetail", askNo);
 	}
 
-
-
-	/*
-	 * public int selectAskDetail(AdminAsk ask) { return
-	 * sqlSession.selectOne("memberMapper.selectAskDetail", ask); }
-	 */
-
-
-	
-
 }
