@@ -28,15 +28,5 @@ public interface AdminService2 {
 	 * @return
 	 */
 	AdminAsk selectAskDetail(int askNo);
-
-
-	//int selectAskDetail(AdminAsk ask);
-
-
-
-
-
-
-	
 	
 }
