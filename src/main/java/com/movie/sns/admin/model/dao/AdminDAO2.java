@@ -22,8 +22,6 @@ public class AdminDAO2 {
 	}
 	
 	
-	
-	
 	/**  문의글 목록 조회
 	 * @param pagination
 	 * @return
@@ -39,14 +37,12 @@ public class AdminDAO2 {
 	}
 
 
-
-
 	/** 문의글 상세 조회
-	 * @param askNo
+	 * @param memberNo
 	 * @return
 	 */
-	public AdminAsk selectAsk(int askNo) {
-		return sqlSession.selectOne("adminMapper3.selectAsk", askNo);
+	public AdminAsk selectAskDetail(int askNo) {
+		return sqlSession.selectOne("adminMapper3.selectAskDetail", askNo);
 	}
 
 }

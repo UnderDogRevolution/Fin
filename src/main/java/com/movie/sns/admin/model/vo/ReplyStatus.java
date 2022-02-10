@@ -1,6 +1,6 @@
 package com.movie.sns.admin.model.vo;
 
-public class PostStatus {
+public class ReplyStatus {
 	
 	
 	private int statusCd;

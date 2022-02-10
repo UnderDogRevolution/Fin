@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.admin.model.service.AdminService2;
-import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminAsk;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
@@ -53,29 +53,14 @@ public class AdminController2 {
 		}
 	
 	
-		// 바라는 점 상세 조회
-		@RequestMapping("view/{askNo}")
-		public String selectBoard(@PathVariable("askNo") int askNo,
-				@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-				Model model, RedirectAttributes ra, HttpSession session,
-				@ModelAttribute("loginMember") Member loginMember) {
-				
-			int memberNo = 0;
+		// 바라는 점 상세 조회 modal
+		@RequestMapping(value="selectAskDetail", method=RequestMethod.GET)
+		@ResponseBody
+		public AdminAsk selectAskDetail(int askNo, AdminAsk ask, Model model) {
 			
-			// session에 loginMember가 있을 경우
-			if(session.getAttribute("loginMember") != null) {
-				memberNo = ( (Member)session.getAttribute("loginMember") ).getMemberNo();
-			}
+			ask= service.selectAskDetail(askNo);
+			model.addAttribute("ask", ask);
 			
-			
-			// 게시글 상세 조회 Service 호출
-			AdminAsk ask = service.selectAsk(askNo, memberNo);
-			
-			
-			
-			return "admin/adminAskView";
+			return	ask;
 		}
-		
-
-		
-}
+	}

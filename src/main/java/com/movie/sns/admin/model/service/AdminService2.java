@@ -13,20 +13,20 @@ public interface AdminService2 {
 	 */
 	Pagination getPagination(int cp);
 
+	
+	
 	/** 문의글 목록 조회
 	 * @param pagination
 	 * @return
 	 */
 	List<AdminAsk> selectAskList(Pagination pagination);
 
-	/** 문의글 상세 조회
-	 * @param askNo
+	
+	
+	/** 문의글 상세 조회 모달
 	 * @param memberNo
 	 * @return
 	 */
-	AdminAsk selectAsk(int askNo, int memberNo);
-
-
-	
+	AdminAsk selectAskDetail(int askNo);
 	
 }

@@ -49,6 +49,9 @@ function revealPost(){
 				const divHeader1 = document.createElement("div")
 				const imgHeader1 = document.createElement("img")
 				imgHeader1.className = "profile-img";
+				imgHeader1.addEventListener("click", function(){
+					location.href = contextPath +"/board1/myBoard/"+ items.memberNo;
+				})
 				if(items.listProfile[0]){
 					imgHeader1.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
 				}else{
