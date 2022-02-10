@@ -68,9 +68,9 @@ public class Board1DAO {
 		return sqlSession.selectOne("boardMapper.postCount", memberNo);
 	}
 
-	public List<ChatFriend> selectFollow(int memberNo) {
+	public List<ChatFriend> followFriend(int memberNo) {
 		
-		return sqlSession.selectList("boardMapper.selectFollow", memberNo);
+		return sqlSession.selectList("boardMapper.followFriend", memberNo);
 	}
 
 	public List<ChatFriend> selectFollower(int memberNo) {

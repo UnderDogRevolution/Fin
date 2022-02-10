@@ -212,7 +212,7 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
-	<select id="selectFollow" resultMap="chatFriend_rm">
+	<select id="followFriend" resultMap="chatFriend_rm">
 		SELECT TO_USER,
 		MEMBER.MEMBER_NICKNM,
 		MEMBER.MEMBER_NM, MEMBER_IMG_PATH,

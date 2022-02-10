@@ -602,3 +602,8 @@ function copyURL(postNo){
 	document.execCommand("copy");
 	document.body.removeChild(tempElem);
 }
+
+
+document.getElementsByClassName("profile-img")[0].addEventListener("click",function(){
+	location.href = contextPath +"/board1/myBoard/"+ postMemberNo;
+})

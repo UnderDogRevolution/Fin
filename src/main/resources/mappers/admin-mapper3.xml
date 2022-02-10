@@ -46,14 +46,12 @@
 	</select>
 	
 	<!-- 문의글 상세 조회 -->
-	<select id="selectAsk" resultMap="adminAsk_rm">
-      SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_DATE, MEMBER_NO, MEMBER_NM
-      FROM ADMIN_ASK JOIN MEMBER USING(MEMBER_NO)
-      WHERE ASK_NO = #{askNo}
+	<select id="selectAskDetail" resultMap="adminAsk_rm">
+		SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_DATE, MEMBER_NO, MEMBER_NM
+		FROM ADMIN_ASK 
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE ASK_NO = #{ASK_NO}
 	</select>
-
-
-	
 
 	
 	
