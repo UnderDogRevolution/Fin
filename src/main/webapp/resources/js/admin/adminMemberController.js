@@ -72,3 +72,46 @@ function showMemberDetail(memberNo){
 
 
 // 회원 리스트 조회하기
+function findMember(){
+
+  const sk = $("#sk").val();
+  const sv = $("#sv").val();
+
+  console.log("검색 분류:" +sk);
+  console.log("검색 값: "+sv);
+
+  $.ajax({
+
+    url : "selectMemberList2",
+    type : "get",
+    data : {"sk" : sk , "sv" : sv},
+    dataType : "JSON",
+
+    success : function(memberList){
+
+      console.log(memberList);
+      
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+          console.log(request.responseText);
+      }
+   
+    },
+
+    complete : function(){
+
+    }
+
+  });
+
+
+
+}

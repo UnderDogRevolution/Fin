@@ -46,14 +46,14 @@
 					<div class="adminBoardMain">
 					
 						<div class="adminSearch">
-							<form action="" class="adminSearchForm">
-								<select name="" id="" class="select">
-									<option value="">회원번호</option>
-									<option value="">회원이름</option>
+								<select name="sk" class="select" id="sk">
+									<option value="number">회원번호</option>
+									<option value="name">이름</option>
+									<option value="nickName">닉네임</option>
+									<option value="email">이메일</option>
 
-								</select> <input type="text">
-								<button>검색</button>
-							</form>
+								</select> <input name="sv" type="text" id="sv">
+								<button onclick="findMember();">검색</button>
 						</div>
 						
 
@@ -66,8 +66,8 @@
 
 									<thead>
 										<tr>
-											<th style="width: 50px;">
-												<input type="checkbox" name="selectAll">
+											<th style="width: 50px; line-height: 22px;">
+												<input class="form-check-input" type="checkbox" name="selectAll">
 											</th>
 											<th style="width: 100px;"><span>회원번호 ▼</span></th>
 											<th style="width: 140px;">이름</th>
@@ -109,7 +109,7 @@
 												<c:forEach items="${memberList}" var="member">
 										
 													<tr>
-														<td><input type="checkbox" name="selectOne"></td>
+														<td style="line-height: 22px;"><input class="form-check-input" type="checkbox" name="selectOne"></td>
 														<td>${member.memberNo}</td>
 
 														<td><span style="cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</span></td>
@@ -271,10 +271,34 @@
 	<!-- 전역 변수 -->
 	<script>
 		const contextPath = "${contextPath}";
+		
+		// 쿼리스트링에서 파라미터를 얻어와 반환하는 함수
+		function getParam(key){
+			return new URLSearchParams(location.search).get(key)
+		}
+		
+		// 1) name 속성값이 sk인 select의 자식 option 태그 모두 얻어오기
+		const skOptions = document.querySelectorAll("select[name='sk'] > option")
+
+		// 2) 향상된 for문을 이용해서 option 하나씩 접근
+		for(let option of skOptions){
+
+			// 3) 현재 접근한 option의 value와 쿼리스트링 sk값이 같다면
+			if( option.value == getParam("sk")){
+				
+				// 4) 일치하는 option 태그에 selected 속성 추가
+				option.setAttribute("selected", true)
+			}
+
+		}
+		
+		// 검색 input 세팅하기
+		document.querySelector("input[name='sv']").value = getParam("sv")
 	</script>
 
 	<script src="${contextPath}/resources/js/admin/adminMemberController.js"></script>
-
+	
 
 </body>
 </html>
+

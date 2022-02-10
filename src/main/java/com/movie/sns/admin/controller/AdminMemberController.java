@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
 import com.movie.sns.admin.model.service.AdminMemberService;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminMemberSearch;
@@ -30,8 +31,7 @@ public class AdminMemberController {
 
 	// 회원정보조회
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String memberBoard(	Admin member,
-								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+	public String memberBoard(	@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								Model model /*, AdminMemberSearch search */) 
 	{
 		// search 추가 예정
@@ -59,6 +59,55 @@ public class AdminMemberController {
 		
 		return "admin/adminMember";
 	}
+	
+	// 회원정보조회(ajax를 이용한 조회 페이지)
+		@RequestMapping(value = "selectMemberList2", method = RequestMethod.GET)
+		@ResponseBody
+		public String memberInfoList( @RequestParam(value="cp", required=false, defaultValue="1") int cp,
+									 Model model, AdminMemberSearch search /*, 
+									 @RequestParam(value="sk", required=false) String sk, 
+									 @RequestParam(value="sv", required=false) String sv */ ) 
+		{
+			// search 추가 예정
+			
+			Pagination pagination = null;
+			List<Member> memberList = null;
+			
+//			search.setSk(sk);
+//			search.setSv(sv);
+//			
+//			System.out.println(sk + " + " + sv);
+			System.out.println(search + "검색 결과");
+			
+			// 검색 값이 있는 경우
+			if(search.getSv() != null && !search.getSv().trim().equals("")) {
+				
+				pagination = service.getPagination(cp, search);
+				memberList = service.selectMemberList(pagination, search);
+				
+			}else {
+				
+				// 검색 조건이 따로 없는 경우
+				pagination = service.getPagination(cp);
+				memberList = service.selectMemberList(pagination);
+				
+			}
+			
+			// 회원 상태 얻어오기
+			List<MemberStatus> statusList = service.selectStatus();
+			
+			System.out.println(statusList);
+			
+			model.addAttribute("statusList", statusList);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("memberList", memberList);
+			
+//			System.out.println("==================================");
+//			System.out.println("회원 정보 : " + memberList);
+//			System.out.println("==================================");
+			
+			return new Gson().toJson(memberList);
+		}
 	
 	
 	// 회원 상세정보 조회
