@@ -109,11 +109,10 @@ function selectPostList(cp) {//검색
 				$(td2).text(post.memberNo);
 				$(td3).append(a2);
 				$(td4).append(a);
-				$(td5).text(post.readCount);
-				$(td6).text(post.likeCount);
-				$(td7).text(post.createDt);
-				$(td8).text(post.modifyDt);
-				$(td9).append(select);
+				$(td5).append(post.likeCount)
+				$(td6).text(post.createDt);
+				$(td7).text(post.modifyDt);
+				$(td8).append(select);
 
 				tr.append(td1)
 				tr.append(td2)
@@ -130,8 +129,8 @@ function selectPostList(cp) {//검색
 
 			if (pagination.startPage != 1) {
 
-				const li1 = $('<li class="page-link" onclick = "selectPostList()">&lt;&lt;</li>')
-				const li2 = $('<li class="page-link" onclick = "selectPostList()>&lt;</li>');
+				const li1 = $('<li class="page-link" onclick = "selectPostList(1)">&lt;&lt;</li>')
+				const li2 = $('<li class="page-link" onclick = "selectPostList('+pagination.prevPage+')">&lt;</li>');
 
 				$(".pagination").append(li1);
 				$(".pagination").append(li2);
@@ -150,9 +149,10 @@ function selectPostList(cp) {//검색
 
 			if (pagination.endPage != pagination.maxPage) {
 
-				const li1 = $('	<li class="page-link"> &gt;/li>');
-				const li2 = $('<li class="page-link">&gt;&gt;</li>');
-
+				const li1 = $('<li  onclick = "selectPostList('+pagination.nextPage+')" class="page-link" >&gt;</li>');
+				const li2 = $('<li onclick = "selectPostList('+pagination.maxPage+')" class="page-link">&gt;&gt;</li>');
+				//li1.addClass("page-link");
+				//li2.addClass("page-link");
 				$(".pagination").append(li1);
 				$(".pagination").append(li2);
 			}
@@ -180,9 +180,11 @@ function postModal(postNo) {
 		url: contextPath + "/admin/postView",
 		data: { "postNo": postNo },
 		dataType: "JSON",
-
+		
 
 		success: function(post) {
+			
+			console.log(post.blind);
 			const a2 = $('<a style="text-decoration: none; color: white;"'
 				+ 'href="' + contextPath + '/board1/myBoard/' + post.memberNo + '">' + post.memberNm + '</a>')
 			const a = $('<a style="text-decoration: none; color: white;"'
@@ -222,15 +224,11 @@ function postModal(postNo) {
 			$($(".postListContent")[1]).html(post.memberNo);
 			$($(".postListContent")[2]).append(a2);
 			$($(".postListContent")[3]).append(a);
-			$($(".postListContent")[4]).html(post.readCount);
-			$($(".postListContent")[5]).html(post.likeCount);
-			$($(".postListContent")[6]).html(post.createDt);
-			$($(".postListContent")[7]).html(post.modifyDt);
-			$($(".postListContent")[8]).append(select);
-			$($(".postListContent")[9]).html(post.blind);
-
-
-
+			$($(".postListContent")[4]).html(post.likeCount);
+			$($(".postListContent")[5]).html(post.createDt);
+			$($(".postListContent")[6]).html(post.modifyDt);
+			$($(".postListContent")[7]).append(select);
+			$($(".postListContent")[8]).html(post.blind);
 
 
 
@@ -290,13 +288,13 @@ function changeStatus(event, postNo) {
 
 		success: function() {
 			alert("변경되었습니다.")
-			$($(".postListContent")[9]).html("");
 			if (blind != null) {
-				$($(".postListContent")[9]).html(blind);
+				$($(".postListContent")[8]).html(blind);
 
 
 
 			}
+			$($(".postListContent")[8]).html("");
 
 		},
 

@@ -49,16 +49,20 @@ public class AdminServiceImpl1 implements AdminService1 {
 		int result = 0;
 		PostStatus searchStatus;
 		searchStatus = dao.searchStatus(post);
+		System.out.println(searchStatus);
 		if (searchStatus.getStatusCd() == 502) {
 			result = dao.deleteBlind(post);
-			if (result > 0) {
+			if (result >= 0) {
 				result = dao.changeStatus(post);
 			}
 		} else {
 
 			result = dao.changeStatus(post);
+			System.out.println("하..." + result);
+			
 
 			if (result > 0) {
+				
 				searchStatus = dao.searchStatus(post);
 				if (searchStatus.getStatusCd() == 502) {
 					result = dao.insertBlind(post);
@@ -127,5 +131,6 @@ public class AdminServiceImpl1 implements AdminService1 {
 	public AdminReply replyView(String replyNo) {
 		return dao.replyView(replyNo);
 	}
+
 
 }
