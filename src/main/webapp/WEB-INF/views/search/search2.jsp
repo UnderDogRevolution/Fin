@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
+<title>search</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/search/search.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-<title>search</title>
 </head>
 <body>
 
@@ -18,8 +18,8 @@
                 <div id="peple_">인물</div>
             </nav>
             <div class="main-search">
-                <div class="search-result">
-                </div>
+                <!-- <div class="search-result">
+                </div> -->
             </div>
         </main>
     </div>

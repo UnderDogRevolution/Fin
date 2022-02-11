@@ -239,6 +239,7 @@ iframe{
 .insert-media > img{
     width: 7%;
     margin-left: 3%;
+    cursor: pointer;
 }
 .youtube-box{
     width: 100%;
