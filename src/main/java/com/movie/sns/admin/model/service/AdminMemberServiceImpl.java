@@ -62,6 +62,12 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 		return dao.selectMemberList(pagination,search);
 	}
 
+	// 회원의 상태 변경
+	@Override
+	public int changeStatus(Member member) {
+		return dao.changeStatus(member);
+	}
+
 
 	
 	

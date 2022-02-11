@@ -217,5 +217,12 @@
 	
 	<!-- 정렬은 정렬할 컬럼값을 받아오고, orderby를 조건에 맞게 바꾸도록 -->
 	
+	
+	<!-- 회원 상태 변경 -->
+	<update id="changeStatus">
+		UPDATE MEMBER SET
+		STATUS_CD = #{memberStatusCode}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

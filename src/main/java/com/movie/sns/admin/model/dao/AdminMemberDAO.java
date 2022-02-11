@@ -76,6 +76,15 @@ public class AdminMemberDAO {
 		
 		return sqlSession.selectList("adminMapper2.selectSearchMemberList", search, rowBounds);
 	}
+
+	/** 회원 상태 수정
+	 * @param member
+	 * @return result
+	 */
+	public int changeStatus(Member member) {
+
+		return sqlSession.update("adminMapper2.changeStatus", member);
+	}
 	
 	
 }

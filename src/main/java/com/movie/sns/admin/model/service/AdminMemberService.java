@@ -42,9 +42,15 @@ public interface AdminMemberService {
 	/** 검색 조건을 만족하는 회원 리스트
 	 * @param pagination
 	 * @param search
-	 * @return
+	 * @return memberList
 	 */
 	List<Member> selectMemberList(Pagination pagination, AdminMemberSearch search);
+
+	/** 회원 상태 변경하기
+	 * @param member
+	 * @return result
+	 */
+	int changeStatus(Member member);
 
 	
 	

@@ -1,6 +1,7 @@
 package com.movie.sns.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,6 +130,24 @@ public class AdminMemberController {
 	}
 	
 	
+	
+	// 회원 상태 변경
+	@RequestMapping(value="changeStatus", method=RequestMethod.GET)
+	@ResponseBody
+	public int changeStatus(Member member) {
+		
+		System.out.println("변경할 회원 번호:"+member.getMemberNo());
+		System.out.println("변경할 회원 상태:"+member.getMemberStatusCode());
+		
+		int result = service.changeStatus(member);
+		
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+		
+	}
 	
 	
 	

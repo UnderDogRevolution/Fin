@@ -118,7 +118,8 @@
 
 														<td>${member.enrollDate}</td>
 														<td>
-															<select name="" id="" class="" style="width: 80px; text-align: center;
+														
+															<select onchange="changeStatus(this.value, ${member.memberNo}, event);" style="width: 80px; text-align: center;
 																	background-color: #3a3939; border: none;
 																	color: white; outline: none;">
 																<c:forEach items="${statusList}" var="s">
