@@ -21,6 +21,7 @@ import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
+import com.movie.sns.post.model.vo.Youtube;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -54,6 +55,8 @@ public class PostServiceImpl implements PostService {
 		
 		post.setPostContent(Util.XSS(post.getPostContent()));
 		post.setPostContent(Util.changeNewLine(post.getPostContent()));
+		
+		Youtube youtube = new Youtube();
 		
 		int result = dao.insertPost(post);
 		
@@ -131,6 +134,17 @@ public class PostServiceImpl implements PostService {
 				}
 				
 			}
+		}
+		
+		// 유튜브 등록
+		if(postVO.get("youtube") != null) {
+			Map<String, Object> youtubeMap = new HashMap<String, Object>();
+			youtubeMap = (Map<String, Object>)postVO.get("youtube");
+			youtube.setYoutubePath((String)youtubeMap.get("path"));
+			youtube.setVideoId((String)youtubeMap.get("id"));
+			youtube.setThumbnail((String)youtubeMap.get("thumbnail"));
+			youtube.setPostNo(post.getPostNo());
+			result = dao.insertYoutube(youtube);
 		}
 		
 		Map<String, Object> tempMap = new HashMap<String, Object>();

@@ -52,6 +52,13 @@ public interface AdminMemberService {
 	 */
 	int changeStatus(Member member);
 
+	/** 회원 상태 일괄 변경
+	 * @param checkedMemberNo
+	 * @param statusValue 
+	 * @return
+	 */
+	int multiChangeStatus(int[] checkedMemberNo, int statusValue);
+
 	
 	
 	

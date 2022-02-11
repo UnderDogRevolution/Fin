@@ -88,6 +88,12 @@
 											<img src="${contextPath}${post.listPostImage[0].postImagePath}${post.listPostImage[0].postImageName}">
 										</div>
 									</c:when>
+									<c:when test="${post.checkUsePoster == 0 && !post.listPostImage[0] && post.youtubePath != null}">
+										<div class="container-img" style="height: 500px;">
+											${post.youtubePath}
+										</div>
+									</c:when>
+									
 								</c:choose>
 							</div>
 							<div class="post-footer">

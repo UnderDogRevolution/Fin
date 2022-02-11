@@ -67,8 +67,32 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	public int changeStatus(Member member) {
 		return dao.changeStatus(member);
 	}
+	
+	// 회원 상태 일괄 변경
+	@Override
+	public int multiChangeStatus(int[] checkedMemberNo, int statusValue) {
+		
+		int result = 0;
+		
+		if(statusValue == 202) {
+			
+			result = dao.multiChangeStatus(checkedMemberNo);
+			
+		}else if(statusValue == 200) {
+			
+			result = dao.multiChangeStatus2(checkedMemberNo);
+			
+		}else if(statusValue == 201) {
+			
+			result = dao.multiChangeStatus3(checkedMemberNo);
+			
+		}
+		
+		return result;
+	}
 
-
+	
+	
 	
 	
 	

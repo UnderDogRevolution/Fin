@@ -67,7 +67,7 @@
 									<thead>
 										<tr>
 											<th style="width: 50px; line-height: 22px;">
-												<input class="form-check-input" type="checkbox" name="selectAll">
+												<input class="form-check-input" type="checkbox" id="all">
 											</th>
 											<th style="width: 100px;"><span>회원번호 ▼</span></th>
 											<th style="width: 140px;">이름</th>
@@ -84,7 +84,6 @@
 												border: none;
 												color: white;
 												outline: none;">
-													<option value="" disabled selected>회원상태</option>
 													<option value="">전체</option>
 													
 													<c:forEach items="${statusList}" var="s">
@@ -109,7 +108,7 @@
 												<c:forEach items="${memberList}" var="member">
 										
 													<tr>
-														<td style="line-height: 22px;"><input class="form-check-input" type="checkbox" name="selectOne"></td>
+														<td style="line-height: 22px;"><input class="form-check-input chk" type="checkbox" name="selectOne"></td>
 														<td>${member.memberNo}</td>
 
 														<td><span style="cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</span></td>
@@ -148,7 +147,9 @@
 					
 					
 					<%---------------------- Pagination ----------------------%>
-					
+					<button onclick="changeCheckbox(202);">정지</button>
+					<button onclick="changeCheckbox(200);">일반</button>
+					<button onclick="changeCheckbox(201);">탈퇴</button>
 					
 					<div class="my-5">
 						<div>

@@ -136,7 +136,6 @@
           <textarea name="askContent" rows="10" cols="80" maxlength="300" placeholder="300자 이내로 내용을 적어주세요." 
           class="col-inputform" id="askContent" style="resize: none;"></textarea>
         </div>
-<!-- XSS 처리도 해야함 -->
         <br>
 
         <button type="submit" class="btnsub btn-danger btn-lg">제출하기</button>
@@ -145,6 +144,20 @@
   </div>
 
 	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	  
+	  <script>
+		function askValidate(){
+
+			const askTitle = document.getElementById("askTitle");
+			const askContent = document.getElementById("askContent");
+			
+			if(askTitle.value.trim().length == 0||askContent.value.trim().length == 0){
+				alert("빈칸인 부분을 입력해주세요");
+				return false;
+			}
+			return confirm("정말 제출하시겠습니까?");
+		}
+	</script>
 	  
  <c:if test="${ !empty requestScope.title }">
 	<script>

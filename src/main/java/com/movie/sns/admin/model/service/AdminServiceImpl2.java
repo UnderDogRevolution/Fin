@@ -47,5 +47,10 @@ public class AdminServiceImpl2 implements AdminService2 {
 		return dao.selectAskDetail(askNo);
 	}
 
+	@Override
+	public int askDelete(int askNo) {
+		return dao.askDelete(askNo);
+	}
+
 	
 }
