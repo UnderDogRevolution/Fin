@@ -49,6 +49,7 @@ function revealPost(){
 				const divHeader1 = document.createElement("div")
 				const imgHeader1 = document.createElement("img")
 				imgHeader1.className = "profile-img";
+				imgHeader1.setAttribute("id", items.memberNo);
 				imgHeader1.addEventListener("click", function(){
 					location.href = contextPath +"/board1/myBoard/"+ items.memberNo;
 				})
@@ -336,6 +337,7 @@ function revealPost(){
 				const divContent5 = document.createElement("div")
 				divContent5.className = "container-img";
 				const imgContent1 = document.createElement("img");
+				
 				if(items.checkUsePoster == 1){
 					imgContent1.setAttribute("src", items.poster)
 					divContent5.append(imgContent1);
@@ -343,6 +345,11 @@ function revealPost(){
 				}else if(items.listPostImage[0]){
 					imgContent1.setAttribute("src", contextPath + items.listPostImage[0].postImagePath + items.listPostImage[0].postImageName)
 					divContent5.append(imgContent1);
+					postContent.append(divContent5);
+				}else if(items.checkUsePoster == 0 && !items.listPostImage[0] && items.youtubePath != null){
+					divContent5.innerHTML = items.youtubePath;
+					divContent5.style.height = "500px";
+
 					postContent.append(divContent5);
 				}
 				
@@ -394,7 +401,7 @@ function revealPost(){
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
-				imgFooter2.addEventListener("click", function(){
+				imgFooter2.addEventListener("click", function(e){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
 						alert("로그인 해주세요!")
 						return;
@@ -412,6 +419,16 @@ function revealPost(){
 								element.style.display = "none";
 								element.previousElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)+1;
+								
+								
+								//console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
+								const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
+								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								alramSock.send(JSON.stringify(alramObj));
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}

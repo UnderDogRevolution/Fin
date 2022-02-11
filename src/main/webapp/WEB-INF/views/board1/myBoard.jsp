@@ -125,7 +125,7 @@
 						</div>
 						<div class="modal-body">
 							<div class="list-wrap">
-								<!-- <div class="list-item">
+								 <!-- <div class="list-item">
 									<div class="img"></div>
 									<div class="info">
 										<span>user01</span> <span>이상원</span>
@@ -214,7 +214,7 @@
 									<div class="del-button-wrap">
 										<a href="#self">삭제</a>
 									</div>
-								</div> -->
+								</div>  -->
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -331,8 +331,8 @@
 									<div class="del-button-wrap">
 										<a href="#self">팔로우 취소</a>
 									</div>
-								</div>
-							</div> -->
+								</div> -->
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -584,7 +584,7 @@
 		$('#followerList').on('shown.bs.modal', function () {
 			  var html = [];  
 			const follow = $(".list-wrap");
-			
+			follow.empty();
 			
 			$.ajax({
 
@@ -633,7 +633,7 @@
 		$('#followerList2').on('shown.bs.modal', function () {
 			var html = [];  
 			const follow = $(".list-wrap");
-			
+			follow.empty();
 			$.ajax({
 
 				url: contextPath + "/board1/myBoard/" + thisMemberNo + "/selectFriend",
@@ -665,7 +665,7 @@
 							
 						}
 					}  
-					
+						
 								follow.html(html.join(''));
 					
 				}

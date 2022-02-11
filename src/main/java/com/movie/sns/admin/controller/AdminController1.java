@@ -41,10 +41,11 @@ public class AdminController1 {
 		// member.setMemberNo(loginMember.getMemberNo()); loginMember.getMemberNo()
 
 		Pagination pagination = service.getPagination(cp, post);
-
+		// 게시글 전체 조회
 		List<AdminPost> List = service.adminPost(pagination, post);
 		List<PostStatus> cd = service.selectStatus();
 		model.addAttribute("pagination", pagination);
+		
 		model.addAttribute("post", List);
 		model.addAttribute("cd", cd);
 

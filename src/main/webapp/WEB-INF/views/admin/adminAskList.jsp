@@ -68,7 +68,7 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 											<th>내용</th>
 											<th>이름</th>
 											<th>작성일</th>
-											<th>삭제</th>
+											<th>삭제하기</th>
 										</tr>
 
 									</thead>
@@ -83,13 +83,13 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 											</c:when>
 											<c:otherwise>
 												<c:forEach items="${askList}" var="ask">
-													<tr style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">
-														<td>${ask.askNo}</td>
-														<td>${ask.askTitle}</td>
-														<td>${ask.askContent}</td>
-														<td>${ask.memberName}</td>
-														<td>${ask.askDate}</td>
-														<td><button>삭제하기</button></td>
+													<tr>
+														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askNo}</td>
+														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askTitle}</td>
+														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
+														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
+														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
+														<td><button type="button" class="deleteBtn btn-dark" id="deleteBtn" style="cursor: pointer; width:50%;" onclick="askDelete(event,${ask.askNo});">삭제</button></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -207,14 +207,67 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="		crossorigin="anonymous"></script>
-
-
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
+	
+	<!--  sweetalert2 -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		const contextPath = "${contextPath}";
 	</script>
 
 	<script src="${contextPath}/resources/js/admin/adminAskController.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
+	<script>
+		function askDelete(event, askNo){
+			
+			const deleteRow = $(event.target);
+			
+			Swal.fire({
+				  title: '정말 삭제하시겠습니까?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '삭제',
+				  cancelButtonText: '취소'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+				    
+					  $.ajax({
+							
+							url : "askDelete",
+							type : "get",
+							dataType : "JSON",
+							data: {"askNo" : askNo},
+							
+							success : function(result) {			
+				
+								if(result > 0){
+									
+									deleteRow.parent().parent().remove();
+									
+								}else{
+									console.log("삭제에 실패하였습니다.");
+								}
+								
+							},
+				
+							error : function(request, status, error) {
+				
+								if (request.status == 404) {
+									console.log("ajax 요청 주소가 올바르지 않습니다.");
+				
+								} else if (request.status == 500) {
+									console.log("서버 내부 에러 발생");
+									console.log(request.responseText);
+								}
+							}
+						});
+				    
+				  }
+				})
+		}
+	</script>
 </body>
 </html>

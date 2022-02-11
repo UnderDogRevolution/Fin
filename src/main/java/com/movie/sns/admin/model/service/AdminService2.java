@@ -28,5 +28,13 @@ public interface AdminService2 {
 	 * @return
 	 */
 	AdminAsk selectAskDetail(int askNo);
+
+
+
+	/** 문의글 삭제
+	 * @param askNo
+	 * @return
+	 */
+	int askDelete(int askNo);
 	
 }

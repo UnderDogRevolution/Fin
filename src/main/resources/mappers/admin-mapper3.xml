@@ -53,6 +53,12 @@
 		WHERE ASK_NO = #{ASK_NO}
 	</select>
 
+	<!-- 문의글 삭제 -->
+	<delete id="askDelete">
+		DELETE FROM ADMIN_ASK 
+		WHERE ASK_NO = #{askNo}
+	</delete>
+
 	
 	
 

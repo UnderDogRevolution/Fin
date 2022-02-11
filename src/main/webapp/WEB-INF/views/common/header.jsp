@@ -334,4 +334,23 @@
  <!-- follwerList 팔로워 목록:e -->
 
 	<jsp:include page="footer.jsp"></jsp:include>
+	
+	<!-- https://github.com/sockjs/sockjs-client -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script>
+		let alramSock;
+		const loginMemberNo = "${loginMember.memberNo}";
+		const loginMemberName = "${loginMember.memberName}";
+		if(loginMemberNo != ""){
+				
+			alramSock = new SockJS("<c:url value='/alram' />");
+			
+			
+		}
+	
+	
+	
+	</script>
+	
+	
 

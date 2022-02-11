@@ -65,15 +65,18 @@ public class AdminController2 {
 		}
 		
 		
-//		//바라는 점 삭제
-//		@RequestMapping(value="askDelete", method=RequestMethod.GET)
-//		@ResponseBody
-//		public String askDelete(int askNo, AdminAsk ask, Model model) {
-//			
-//			ask= service.selectAskDetail(askNo);
-//			model.addAttribute("ask", ask);
-//			
-//			return	"redirect:/admin/";
-//			return "redirect:/member/myPage";
-//		}
+		//바라는 점 삭제
+		@ResponseBody
+		@RequestMapping(value="askDelete", method=RequestMethod.GET)
+		public int askDelete(int askNo, AdminAsk ask, Model model) {
+			
+			int result = service.askDelete(askNo);
+			
+			if(result > 0) {
+				return result;
+			}else {
+				return 0;
+			}
+			
+		}
 	}

@@ -88,7 +88,7 @@ public class AdminDAO1 {
 	public AdminReply replyView(String replyNo) {
 		return sqlSession.selectOne("adminMapper1.replyView", replyNo);
 	}
-	
+
 	
 	
 	

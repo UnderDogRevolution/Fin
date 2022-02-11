@@ -29,6 +29,7 @@ public interface AdminService1 {
 	int changeStatus(AdminReply reply);
 
 	AdminReply replyView(String replyNo);
+
 	
 	
 	
