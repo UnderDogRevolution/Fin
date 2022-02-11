@@ -30,11 +30,11 @@
 	</select>
 	<!-- 팔로우  -->
 	<insert id="follow">
-		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo})
+		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo}) 
 	</insert>
 	<!-- 팔로우 취소  -->
 	<delete id="cancell">
 	DELETE FROM FOLLOW
-	WHERE TO_USER = #{friendNo} AND MEMBER_NO = #{memberNo}
+	WHERE TO_USER = #{friendNo} AND MEMBER_NO =  #{memberNo}
 	</delete>
 </mapper>

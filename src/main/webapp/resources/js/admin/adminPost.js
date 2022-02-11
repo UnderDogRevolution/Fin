@@ -1,3 +1,5 @@
+
+
 function getParam(key) {
 	return new URLSearchParams(location.search).get(key)
 }
@@ -6,6 +8,10 @@ function getParam(key) {
 let li;
 let blind;
 let path;
+
+
+
+
 
 
 
@@ -303,3 +309,10 @@ function changeStatus(event, postNo) {
 	});
 
 };
+
+
+
+
+
+
+

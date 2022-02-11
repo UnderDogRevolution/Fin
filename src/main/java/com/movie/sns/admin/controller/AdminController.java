@@ -1,6 +1,8 @@
 package com.movie.sns.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.movie.sns.admin.model.service.AdminService;
 import com.movie.sns.admin.model.service.AdminService1;
 import com.movie.sns.admin.model.vo.Admin;
@@ -47,9 +51,7 @@ public class AdminController {
 		String path = null;
 		
 		if (loginMember != null) {
-			int postCount = service.postCount();
 			model.addAttribute("loginMember", loginMember);
-			ra.addFlashAttribute("postCount" , postCount);
 			path = "redirect:/admin/main";
 
 		} else {
@@ -61,16 +63,6 @@ public class AdminController {
 		return path;
 	}
 	
-	@RequestMapping(value ="main", method = RequestMethod.GET)
-	public String adminMain(Model model) {
-		int postCount = service.postCount();
-		
-		model.addAttribute("postCount", postCount);
-		
-		return "admin/adminMain";
-	} 
-		
-	
 	
 	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
@@ -80,21 +72,44 @@ public class AdminController {
 		return "redirect:/admin/";
 	}
 
-	// 회원정보조회
-	@RequestMapping(value = "member", method = RequestMethod.GET)
-	public String memberBoard(@RequestParam(value="cp", required=false, defaultValue="1")
-	int cp,  Model model,Admin member) {
-
-		Pagination pagination = null;
-		List<Member> memberList = null;
+	
+	
+	@RequestMapping(value ="main", method = RequestMethod.GET)
+	public String adminMain(Model model , RedirectAttributes ra) {
+		int postCount = service.postCount();
+		int replyCount = service.replyCount();
+		int reportCount = service.reportCount();
+		int askCount = service.askCount();
+		int memberCount = service.memberCount();
+		model.addAttribute("replyCount" ,replyCount);
+		model.addAttribute("postCount", postCount);
+		model.addAttribute("reportCount", reportCount);
+		model.addAttribute("askCount", askCount);
+		model.addAttribute("memberCount", memberCount);
 		
-		pagination =service.getPagination(cp);
-		memberList=service.memberBoard(pagination);
+		
+		return "admin/adminMain";
+	} 
+		
+	@ResponseBody
+	@RequestMapping(value = "mainRefresh", method = RequestMethod.GET)
+	public Map<String, Object> mainRefresh() {
+		
+		System.out.println("값넘어옴");
+		int postCount = service.postCount();
+		int replyCount = service.replyCount();
+		int reportCount = service.reportCount();
+		int askCount = service.askCount();
+		int memberCount = service.memberCount();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("postCount", postCount);
+		map.put("replyCount", replyCount);
+		map.put("reportCount", reportCount);
+		map.put("askCount", askCount);
+		map.put("memberCount", memberCount);
 		
 		
-		model.addAttribute("memberList", memberList);
-		
-		return "admin/adminMember";
+		return map;
 	}
 	
 	
