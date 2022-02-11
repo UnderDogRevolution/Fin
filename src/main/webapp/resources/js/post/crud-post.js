@@ -85,7 +85,7 @@ const textareaBox = document.getElementsByClassName("insert-container-textarea")
 // const textCount = document.getElementsByClassName("text-count")[0];
 const postImg = document.getElementsByClassName("post-img")[0];
 const reviewTitle = document.getElementsByClassName("modal-review-title")[0];
-const starInput = document.getElementsByClassName("rating")[0];
+const starInput = document.getElementsByClassName("insert-rating")[0];
 const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
@@ -118,6 +118,7 @@ function Review(){
 	searchMovie.style.display = "none";
 	postSubmit.style.display = "none";
 	containerTextCount.style.display = "none";	
+    onPoster.style.display = "none";
 }
 
 

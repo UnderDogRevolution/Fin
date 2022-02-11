@@ -10,7 +10,7 @@
 <title>myboard</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/myboard.css">
-
+	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
 
@@ -738,6 +738,6 @@
 		
 		
 	</script>
-
+		<jsp:include page="../main/crud-post.jsp"></jsp:include>
 </body>
 </html>

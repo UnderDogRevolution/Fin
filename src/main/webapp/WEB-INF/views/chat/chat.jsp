@@ -4,8 +4,10 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <title>myChat</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/chat/chat.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
+    <jsp:include page="../main/crud-post.jsp"></jsp:include>
 
 
   <div class="mainContainer">
@@ -176,7 +178,9 @@
 	</script>
 	
 	<script src= "${contextPath}/resources/js/chat/chat.js"></script>
+   
 	
 
 </body>
+
 </html>
