@@ -85,6 +85,30 @@ public class AdminMemberDAO {
 
 		return sqlSession.update("adminMapper2.changeStatus", member);
 	}
+
+	/** 회원 상태 일괄 변경(정지)
+	 * @param checkedMemberNo
+	 * @return result 
+	 */
+	public int multiChangeStatus(int[] checkedMemberNo) {
+		return sqlSession.update("adminMapper2.multiChangeStatus", checkedMemberNo);
+	}
+
+	/** 회원 상태 일괄 변경 (일반)
+	 * @param checkedMemberNo
+	 * @return result
+	 */
+	public int multiChangeStatus2(int[] checkedMemberNo) {
+		return sqlSession.update("adminMapper2.multiChangeStatus2", checkedMemberNo);
+	}
+
+	/** 회원 상태 일괄 변경 (탈퇴)
+	 * @param checkedMemberNo
+	 * @return result
+	 */
+	public int multiChangeStatus3(int[] checkedMemberNo) {
+		return sqlSession.update("adminMapper2.multiChangeStatus3", checkedMemberNo);
+	}
 	
 	
 }
