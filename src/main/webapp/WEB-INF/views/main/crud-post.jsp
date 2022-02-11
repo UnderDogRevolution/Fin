@@ -13,7 +13,6 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
             </div>
             <div class="modal-post-content">
                 <div class="modal-review-title">
-                    WALL-E <span>(2021-12-31)  드라마</span>
                 </div>
                 <!-- 왜 flex를 주니까 margin auto가 먹는가? -->
                 <input class="moviedb-input" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 30px; margin-top: 10px;">
@@ -33,11 +32,10 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                         
                     </ul>
                 </div>
-                <span class="on-youtube">유튜브 링크 등록</span>
-                    <div class="insert-container-textarea">
-                        <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
-                        <div></div>
-                    </div>
+                <div class="insert-container-textarea">
+                    <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
+                    <div></div>
+                </div>
                 <div class="insert-rating" style="display: flex; align-items: center; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">
                         <input type="radio" name="html" value="5">
@@ -62,11 +60,15 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 
                 </div>
             </div>
-            <div class="post-img">
+            <div class="insert-media" >
+                <img src="${contextPath}/resources/images/temp/picture.png">
+                <img src="${contextPath}/resources/images/temp/youtube.png"onclick="onYoutube();">
+                <img  class="on-poster" src="${contextPath}/resources/images/temp/poster.png" style="margin-left: 70%;">
+            </div>
+            <div class="post-img" style="display: none;">
                 <img>
-                <span class="delete-img" style="display: none;">x</span>
-                <span class="on-poster" style="display: none;">Poster ON <span class="temp-url" style="display: none;"></span></span>
-                <span>사진을 올려주세요!</span>
+                <!-- <span class="delete-img" style="display: none;">x</span> -->
+                <img src="${contextPath}/resources/images/temp/delete.png" class="delete-img">
             </div>
             <!-- <div class="post-footer"> -->
                 <!-- <span class="before">이전</span> -->

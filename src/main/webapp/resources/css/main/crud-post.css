@@ -124,6 +124,7 @@
     padding-left: 10px;
     flex-basis: 50px;
     align-items: center;
+    padding-block: 3%;
 }
 
 .modal-review-title > span:nth-child(2){
@@ -145,6 +146,7 @@
 
 .container-content-count{
     margin-left: auto;
+    line-height: 40px;
 }
 
 /* 리뷰 페이지 별 */
@@ -191,26 +193,18 @@
 
 .delete-img{
     position: absolute;
-    right: 5px;
-    top: 3px;
-    color: red;
-    font-size: 20px;
+    right: 9px;
+    top: 9px;
+    width: 6%;
+    opacity: 0.3;
+    z-index: 1;
 }
 
 .delete-img:hover{
-    color: #E0BA79;
+    opacity: 1;
 }
 
-.on-poster{
-    position: absolute;
-    right: 28px;
-    top: 5px;
-    color: red;
-}
 
-.on-poster:hover{
-    color:#E0BA79;
-}
 
 .modal-side{
     display: none;
@@ -235,4 +229,20 @@
 iframe{
     width: 100%;
     height: 100%;
+}
+.insert-media{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-block: 1.5%;
+}
+.insert-media > img{
+    width: 7%;
+    margin-left: 3%;
+}
+.youtube-box{
+    width: 100%;
+    height : 100%;
+    position: absolute;  
+    top: 0;
 }

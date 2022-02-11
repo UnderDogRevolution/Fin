@@ -6,7 +6,7 @@ console.log("curd-post.js");
 let youtubePath = null;
 
 (function(){
-	document.getElementsByClassName("post-img")[0].addEventListener("click", function(){
+	document.querySelectorAll(".insert-media > img")[0].addEventListener("click", function(){
 		document.querySelectorAll("[type='file']")[0].click()
 	})
 })()
@@ -15,7 +15,6 @@ const crudImg = document.getElementsByClassName("post-img")[0].firstElementChild
 const deleteImg = document.getElementsByClassName("delete-img")[0]
 const inputFile = document.getElementsByClassName("files")[0]
 const onPoster = document.getElementsByClassName("on-poster")[0]
-const imgPhrase = document.querySelectorAll(".post-img > span:nth-of-type(3)")[0];
 // const tempURL = document.getElementsByClassName("temp-url")[0]
 function loadImg(input, num){
 	if(input.files && input.files[0]){
@@ -24,7 +23,7 @@ function loadImg(input, num){
 		// if(deleteImages.indexOf(num) != -1){
 		// 	deleteImages.splice(deleteImages.indexOf(num), 1)
 		// }A
-
+        postImg.style.display = "block";
 		const reader = new FileReader()
 
 		reader.readAsDataURL(input.files[0])
@@ -37,9 +36,11 @@ function loadImg(input, num){
 		}
         deleteImg.style.display = "inline";
         // onPoster.style.display = "inline";
-
+        const youtubeBox = document.getElementsByClassName("youtube-box")[0];
+        if(youtubeBox){
+            youtubeBox.remove()
+        }
         
-        imgPhrase.style.display = "none";
 
 
 	}else{
@@ -49,7 +50,7 @@ function loadImg(input, num){
 		crudImg.removeAttribute("style")
         deleteImg.style.display = "none";
         // onPoster.style.display = "none";
-        imgPhrase.style.display = "inline";
+        postImg.style.display = "none";
 	}
 
     
@@ -65,15 +66,16 @@ deleteImg.addEventListener("click", function(e){
         inputFile.value = "";
         deleteImg.style.display = "none";
         // onPoster.style.display = "inline";
+        postImg.style.display = "none";
     }
 
     const youtubeFrame = document.querySelectorAll(".post-img > div")[0]
     if(typeof youtubeFrame != "undefined"){
         youtubeFrame.remove();
         deleteImg.style.display = "none"
+        postImg.style.display = "none";
     }
     
-    imgPhrase.style.display = "inline";
 })
 let movie;
 
@@ -97,8 +99,8 @@ function Write(){
 	
 	textareaBox.style.display = "block";
 	// textCount.style.display = "block";
-	postImg.style.display = "block";
-
+	
+    postImg.style.display = "none";
 	postSubmit.style.display = "inline";
 	containerTextCount.style.display = "inline";
 
@@ -118,13 +120,6 @@ function Review(){
 	containerTextCount.style.display = "none";	
 }
 
-// document.getElementsByClassName("write")[0].addEventListener("click", function(){
-// 	Write()
-// })
-
-// document.getElementsByClassName("review")[0].addEventListener("click", function(){
-// 	Review()
-// })
 
 const inputContent = document.querySelectorAll(".insert-container-textarea > textarea")[0];
 
@@ -137,10 +132,11 @@ inputContent.addEventListener("input", function(){
     console.log(row)
     countBox.innerText = count
     if(row > 9){
-        inputContent.value = inputContent.value.slice(0, -1)
+        inputContent.value = inputContent.value.slice(0, -1);
+        inputContent.value = inputContent.value.substring(0, 350)
     }
     if(count >= 350){
-        inputContent.value = inputContent.value.substring(0, 350)
+        inputContent.value = inputContent.value.substring(0, 350);
         count = 350   
     }
     
@@ -233,13 +229,13 @@ async function fetchMovie(page){
         const resultImg = document.querySelectorAll(".search-result-img > img")
         for(const items of resultImg){
             items.addEventListener("click", async function(e){
-                imgPhrase.style.display = "none";
                 const img = document.querySelector(".post-img > img");
                 img.setAttribute("src", this.getAttribute("src"));
                
                 reviewTitle.innerHTML = ""
                 Write();
-                reviewTitle.style.display = "flex";	
+                postImg.style.display = "block";
+                reviewTitle.style.display = "block";	
             	starInput.style.display = "flex";
                 searchMovie.style.display = "inline";
                 postSubmit.style.display = "inline";
@@ -258,7 +254,7 @@ async function fetchMovie(page){
                         director = items.name;
                     }
                 }
-                reviewTitle.innerHTML = "<span style='font-size: 20px; '>"+title+ "  </span>" + "<span style='margin-left: 5px'> ("+date+")"+ genre + "<br>" + director + "</span>";
+                reviewTitle.innerHTML = "<span style='font-size: 20px; '>"+title+ "  </span> <br>" + "<span style='opacity: 0.5;'>"+director+" ("+date+")"+ genre + "</span>";
 
                 movie = {}
                 movie.poster = this.getAttribute("src");
@@ -274,9 +270,13 @@ async function fetchMovie(page){
                 onPoster.addEventListener("click", function(e){
                     e.stopPropagation();
                     crudImg.setAttribute("src", movie.poster); // this의 레벨은 영역을 좀만 벗어나도 달라진다.
+                    postImg.style.display = "block"
                     // tempURL.innerText = movie.poster;
                     deleteImg.style.display = "inline";
-                    imgPhrase.style.display = "none";
+                    const youtubeBox = document.getElementsByClassName("youtube-box")[0];
+                    if(youtubeBox){
+                        youtubeBox.remove()
+                    }
                 })
                 
             })
@@ -540,8 +540,11 @@ function onYoutube(){
    
 
     if(youtubePath.indexOf('title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;') > 0){
+        console.log(postImg)
+        postImg.style.display = "block";
+        crudImg.removeAttribute("src");
         const youtubeBox = document.createElement("div")
-        youtubeBox.setAttribute("style", "width: 100%; height : 100%;")
+        youtubeBox.className = "youtube-box"
         youtubeBox.innerHTML = youtubePath;
         postImg.append(youtubeBox); // innerHTML을 하면 그 안에 요소들이 재정의 된다 따라서 안에 요소들이 정의된 변수명들이 미스매칭되는 문제가 발생한다.
         deleteImg.style.display = "inline";
