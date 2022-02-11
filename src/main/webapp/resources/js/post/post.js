@@ -336,6 +336,7 @@ function revealPost(){
 				const divContent5 = document.createElement("div")
 				divContent5.className = "container-img";
 				const imgContent1 = document.createElement("img");
+				
 				if(items.checkUsePoster == 1){
 					imgContent1.setAttribute("src", items.poster)
 					divContent5.append(imgContent1);
@@ -343,6 +344,11 @@ function revealPost(){
 				}else if(items.listPostImage[0]){
 					imgContent1.setAttribute("src", contextPath + items.listPostImage[0].postImagePath + items.listPostImage[0].postImageName)
 					divContent5.append(imgContent1);
+					postContent.append(divContent5);
+				}else if(items.checkUsePoster == 0 && !items.listPostImage[0] && items.youtubePath != null){
+					divContent5.innerHTML = items.youtubePath;
+					divContent5.style.height = "500px";
+
 					postContent.append(divContent5);
 				}
 				
