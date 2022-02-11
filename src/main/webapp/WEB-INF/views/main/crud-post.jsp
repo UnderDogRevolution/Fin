@@ -6,7 +6,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
 <!-- Modal -->
 <div class="modal" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top: -35px;">
     <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 100%; height: 100%; background-color: inherit;">
          <div class="modal-post">
             <div class="modal-post-header">
                 <span>${loginMember.memberName}</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
@@ -17,15 +17,6 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 <!-- 왜 flex를 주니까 margin auto가 먹는가? -->
                 <input class="moviedb-input" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 30px; margin-top: 10px;">
                 <div class="search-result">
-                    <!-- <div>
-                        <div class="search-result-img">
-                            <img src="${contextPath}/resources/images/temp/walle.jpg" alt="">
-                        </div>
-                        <div class="search-result-content">
-                            Wall-e (2021-01-01) <br>
-                            드라마
-                        </div>
-                    </div> -->
                 </div>
                 <div class="modal-side" >
                     <ul>

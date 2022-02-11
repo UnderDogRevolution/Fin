@@ -10,7 +10,7 @@
 <title>myboard</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/myboard.css">
-
+	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
 
@@ -657,7 +657,7 @@
 										'<input type="hidden" name="friendNo" value="' +list[i].memberNo + '">' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
-									'<a class="follow-delete">팔로우 취소</a>'+
+									'<button class="follow-delete" onclick = "followDelete(event,'+list[i].toUser+')">팔로우 취소</button>'+
 									'</div>' +
 								'</div>'
 								);
@@ -683,17 +683,12 @@
 				alert('닫는다2');
 			});
 		
-		$(document).on("click", '.follow-delete', function() {
+		 function followDelete(event,friendNo) {
 			
 		
 			if(confirm("정말로 팔로우를 취소하시겠습니까?")) {
 
-				
 			
-				var _this = $(this);
-				var friendNo = $(this).parent().siblings('.info').children('input[name="friendNo"]').val();
-			
-				
 				
 					$.ajax({
 
@@ -704,7 +699,7 @@
 						success : function(result) {			
 							
 							
-							$(".follow-delete").parent().parent().remove();
+							$(event.target).parent().parent().remove();
 							
 							var follow_count =  parseInt($('.follow_count span').eq(1).text());
 							$('.follow_count span').eq(1).text(follow_count - 1);
@@ -729,7 +724,7 @@
 					});
 				}
 
-		});
+		};
 
 		
 		
@@ -738,6 +733,6 @@
 		
 		
 	</script>
-
+		<jsp:include page="../main/crud-post.jsp"></jsp:include>
 </body>
 </html>

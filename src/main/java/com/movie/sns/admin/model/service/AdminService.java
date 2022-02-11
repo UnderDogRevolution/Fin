@@ -14,4 +14,16 @@ public interface AdminService {
 
 	int postCount();
 
+
+	int replyCount();
+
+
+	int reportCount();
+
+
+	int askCount();
+
+
+	int memberCount();
+
 }

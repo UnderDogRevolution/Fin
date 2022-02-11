@@ -43,6 +43,26 @@ public class AdminDAO {
 	}
 
 
+	public int replyCount() {
+		return sqlSession.selectOne("adminMapper1.replyCount");
+	}
+
+
+	public int reportCount() {
+		return sqlSession.selectOne("adminMapper1.reportCount");
+	}
+
+
+	public int askCount() {
+		return sqlSession.selectOne("adminMapper1.askCount");
+	}
+
+
+	public int memberCount() {
+		return sqlSession.selectOne("adminMapper1.memberCount");
+	}
+
+
 	
 
 }
