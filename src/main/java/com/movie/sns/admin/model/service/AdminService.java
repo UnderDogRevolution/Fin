@@ -11,10 +11,7 @@ public interface AdminService {
 	// 관리자 로그인
 	Member adminLogin(Member member);
 
-	Pagination getPagination(int cp);
 
-	List<Member> memberBoard(Pagination pagination);
-
-	List<Member> selectAskList(Pagination pagination);
+	int postCount();
 
 }

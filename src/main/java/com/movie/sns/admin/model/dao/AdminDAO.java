@@ -36,4 +36,13 @@ public class AdminDAO {
 		return sqlSession.selectList("boardMapper.selectAskList", null, rowBounds);
 	}
 
+
+	public int postCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper1.postCount");
+	}
+
+
+	
+
 }

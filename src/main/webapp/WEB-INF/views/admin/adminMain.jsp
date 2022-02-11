@@ -33,7 +33,7 @@
                     </div>
                     <div></div>
                     <div onclick ="location.href='${contextPath}/admin/post'"  class="boardNum">
-                        총 게시글 수 100개
+                        총 게시글 수<p>${postCount}</p>개
                     </div>
                 </div>
                 <div>

@@ -62,6 +62,11 @@ body {
 
 body > * {
 }
+
+tr{
+	color: white;
+}
+
 .header{
     position: fixed;
     display: flex;
@@ -88,7 +93,6 @@ body > * {
 .mainController{
     width: 100%;
     height: 100%;
-    
 }
 
 main{
@@ -96,14 +100,20 @@ main{
     display: flex;
     justify-content: center;
     padding-top: 90px;
+    
 
+}
+thead{
+	color: white;
+	text-align: center;
 }
 .adminSide{
     position: absolute;
+    left: -160px;
+    top : 30%;
     width: 150px;
-    left: -190px;
-    top: 30px;
-    height: 426px;
+    height: 366px;
+    color: white;
 }
 .adminSide > div{
     display: flex;
@@ -125,82 +135,121 @@ main{
 .adminBoard{
     width: 1050px;
     height: 750px;
+    background-color: #3a3939;
+}
+.adminHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    width: 100%;
+    height: 100px;
+    color: white;
+
 }
 
-.adminBoard > div{
-    display: flex;
+.adminBoardMain{
     width: 100%;
-    height: 250px;
 }
-.adminBoard > div > div{
+.adminSearch{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 350px;
-    height: 100%;
-    font-size: 20px;
-   
-}
-.memberNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.boardNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.reportNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.enNum{
-    cursor: pointer;
-    background-color: #942d2d49;
-}
-.replyNum{
-    cursor: pointer;
-    background-color: #942d2d49;
+    width: 100%;
+    height: 50px;
 }
 
-.memberNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+.adminSearchForm{
+    padding-left: 40px; 
 }
-.boardNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+.select{
+    text-align: center;
+    width: 100px;
+    height: 30px;
 }
-.reportNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+
+.adminBoardtable{
+    display: flex;
+   justify-content: center;
+    width: 100%;
 }
-.enNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+.table{
+    width: 100%;
+    align-items: center;
+
 }
-.replyNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+tr{
+    border-bottom: 1px solid white;
+}
+th{
+    line-height: 50px;
+}
+td{
+    line-height: 46px;
+    align-items: center;
+    text-align: center;
+    font-size: 13px;
 }
 
 .member-side:hover{
-    color: red;
+    color: #942d2d;
 }
 .en-side:hover{
-    color: red;
+    color: #942d2d;
 }
 .board-side:hover{
-    color: red;
+    color: #942d2d;
 }
 .report-side:hover{
-    color: red;
+    color: #942d2d;
 }
 .statistics-side:hover{
-    color: red;
+    color: #942d2d;
 }
 .logout-side:hover{
-    color: red;
+    color: #942d2d;
 }
-.main-side:hover{
-    color: red;
+
+.table>:not(caption)>*>* {
+    padding: 0; 
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+.my-5 > div{
+	display: flex;
+	justify-content: center;
+}
+.my-5 {
+    margin-top: 0 !important; 
+    margin-bottom: 0 !important; 
+}
+
+
+.page-link{
+	border: none;
+	color: white;
+	background-color: #942d2d;
+	}
+.page-link:hover {
+    z-index: 2;
+    color: white;
+    background-color: gray;
+    border-color: #dee2e6;
+}
+tr{
+	border-bottom: 1px solid white;
+}
+.adminSearchForm > button{
+	width: 50px;
+	font-size: 15px;
+	height: 31px;
+	border: none;
+	border-radius: 5px;
+	margin-left: 5px;
+	
+}
+.adminSearchForm > input {
+	 outline: none;
+	 border-radius: 5px;
+	 
 }

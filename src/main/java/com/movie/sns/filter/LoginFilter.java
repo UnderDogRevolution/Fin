@@ -136,7 +136,6 @@ public class LoginFilter implements Filter{
 						
 						// 관리자인 경우
 						chain.doFilter(request, response);
-						
 					}
 					
 				}
