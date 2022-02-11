@@ -13,7 +13,7 @@ main {
 	color: #272727;
 	background-color: #272727;
 	padding-top: 70px;
-	min-width : 768px;
+	min-width: 768px;
 }
 
 .chatwrap { /* 채팅창 영역 */
@@ -274,7 +274,7 @@ main {
 .friendsListheader {
 	display: block;
 	width: 100%;
-	height: 20%;
+	height: 25%;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.507);
 	color: white;
 	text-align: center;
@@ -565,23 +565,53 @@ main {
 	}
 	.frMessage>p>img {
 		max-width: 150px;
-		max-height:150px;
+		max-height: 150px;
 		padding: 20px;
 	}
 	.myMessage>p>img {
 		max-width: 150px;
-		max-height:150px;
+		max-height: 150px;
 		padding: 20px;
 	}
 }
 
 @media screen and (max-width:768px) {
-	.logo > a{
-		padding-left : 110px;
+	.logo>a {
+		padding-left: 110px;
 	}
-	.header > div:nth-child(3) {
-	padding-right: 110px;
+	.header>div:nth-child(3) {
+		padding-right: 110px;
+	}
 }
+
+.modal {
+	top: 0 !important;
+}
+
+.searchVal1{
+	display: block;
+	background-color: #3a3939;
+	color: white;
+	margin-left: 27px;
+	font-size: 13px;
+	margin-top: 13px;
+	padding: 5px;
+	height: 30px;
+	width: 300px;
+	outline: none;
+	border-radius: 5px;
+}
+.searchVal { 
+	display: none;
+	background-color: #3a3939;
+	color: white;
+	margin-left: 27px;
+	font-size: 13px;
+	margin-top: 13px;
+	padding: 5px;
+	height: 30px;
+	width: 300px;
+	outline: none;
+	border-radius: 5px;
 	
-	
-	}
+}
