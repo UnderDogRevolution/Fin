@@ -10,6 +10,31 @@ selectChatRoom();
 // 조회성공시 for each 로 나타나게 해야되는데 for each 먼저 위에 써놓고 div 안에 append하게 해야되는거?
 // 일단 화면을 봐야되니까 그냥 만들어지는지 확인하자
 
+
+function searchMember(){
+	inputResult = $("#searchpr")
+	
+	if(inputResult.hasClass("searchVal")){
+		inputResult.removeClass("searchVal");
+		inputResult.addClass("searchVal1");
+	}else{
+		inputResult.removeClass("searchVal1");
+		inputResult.addClass("searchVal");
+		
+	}
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+
+
+
 function selectChatRoom() {
 
 	$.ajax({
@@ -50,6 +75,8 @@ function selectChatRoom() {
 	});
 
 }
+
+
 
 // 채팅방 업로드 되면 그 채팅방 요소만 추가하기
 function selectchatting(frNo, memberNo, chatRoomNo, path) {
