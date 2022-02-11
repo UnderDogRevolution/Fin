@@ -317,15 +317,11 @@ function changeContent(){
     const content = inputTextarea.value.replaceAll("\n","<br>").replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
-    const movieRegExp = /\*[ㄱ-힣a-zA-Z\d]{1,}/g;
     let change = content.replace(tagRegExp, function(target){
         return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
     })
     change = change.replace(userRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
-    })
-    change = change.replace(movieRegExp, function(target){
-        return "<a href='#' class='attach' style='color: #ffd700;'>" + target + "</a>";
     })
     inputDiv.innerHTML = change;
     // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
@@ -356,10 +352,18 @@ const observer = new MutationObserver(mutations => {
                                     type: "POST",
                                     dataType : "JSON",
                                     success: function (tagList) {
+                                       
+                                        const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
+                                        modalSide.style.top = Number(top) + 24 + "px"; 
+                                        
+                                        const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
+                                        modalSide.style.left = (Number(left) - 4) + "px"; 
+                                        console.log(left); 
                                         tagListUl.innerHTML ="";
                                        
                                         for(const items of tagList){
                                             tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
+                                            
                                             modalSide.style.display = "block";
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
@@ -564,3 +568,12 @@ document.addEventListener("click", function(e){
     }
 
 })
+
+function getAbsoluteTop(element) {
+    return window.pageYOffset + element.getBoundingClientRect().top;
+}
+
+function getAbsoluteLeft(element) {
+    return window.pageYOffset + element.getBoundingClientRect().left;
+}
+
