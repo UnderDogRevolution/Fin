@@ -251,9 +251,9 @@ public class MemberController {
 	
 	// 비밀번호 찾기 링크 만들기
 	@RequestMapping(value = "findPw", method=RequestMethod.POST)
-	@ResponseBody
-	public int findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
-		
+//	@ResponseBody
+	public String findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
+		/*int*/
 		// 가입 여부 체크하기
 		int result = service.emailDupCheck(memberEmail);
 		
@@ -286,7 +286,7 @@ public class MemberController {
 		
 		ra.addFlashAttribute("result", result);
 		
-		return result;
+		return /*result*/ "redirect:/member/login";
 		
 	}
 	
