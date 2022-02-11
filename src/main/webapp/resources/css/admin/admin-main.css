@@ -99,9 +99,10 @@ main{
 
 }
 .adminSide{
-    position: fixed;
+    position: absolute;
     width: 150px;
-    left: 250px;
+    left: -190px;
+    top: 30px;
     height: 426px;
 }
 .adminSide > div{

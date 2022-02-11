@@ -16,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.admin.model.service.AdminService;
+import com.movie.sns.admin.model.service.AdminService1;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.member.model.vo.Member;
@@ -32,7 +33,8 @@ public class AdminController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String adminLoginPage() {
-
+		
+		
 		return "admin/adminLogin";
 	}
 
@@ -43,12 +45,12 @@ public class AdminController {
 		Member loginMember = service.adminLogin(member);
 		System.out.println("loginMember" + loginMember);
 		String path = null;
-
+		
 		if (loginMember != null) {
-
+			int postCount = service.postCount();
 			model.addAttribute("loginMember", loginMember);
-
-			path = "admin/adminMain";
+			ra.addFlashAttribute("postCount" , postCount);
+			path = "redirect:/admin/main";
 
 		} else {
 
@@ -56,13 +58,14 @@ public class AdminController {
 			path = "redirect:/admin/";
 
 		}
-
 		return path;
 	}
 	
 	@RequestMapping(value ="main", method = RequestMethod.GET)
-	public String adminMain() {
+	public String adminMain(Model model) {
+		int postCount = service.postCount();
 		
+		model.addAttribute("postCount", postCount);
 		
 		return "admin/adminMain";
 	} 
