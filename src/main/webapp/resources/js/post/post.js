@@ -401,7 +401,7 @@ function revealPost(){
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
-				imgFooter2.addEventListener("click", function(){
+				imgFooter2.addEventListener("click", function(e){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
 						alert("로그인 해주세요!")
 						return;
@@ -419,6 +419,16 @@ function revealPost(){
 								element.style.display = "none";
 								element.previousElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)+1;
+								
+								
+								//console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
+								const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
+								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								alramSock.send(JSON.stringify(alramObj));
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
