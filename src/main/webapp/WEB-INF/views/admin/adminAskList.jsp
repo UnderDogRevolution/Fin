@@ -36,9 +36,13 @@ select:focus {
 	color: black !important;
 }
 
-.table{table-layout:fixed}
-.table td {text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }
+.table{
+table-layout:fixed
+}
 
+.table td {
+text-overflow:ellipsis; overflow:hidden; white-space:nowrap; 
+}
 
 </style>
 </head>
@@ -64,6 +68,7 @@ select:focus {
 											<th>내용</th>
 											<th>이름</th>
 											<th>작성일</th>
+											<th>삭제</th>
 										</tr>
 
 									</thead>
@@ -84,6 +89,7 @@ select:focus {
 														<td>${ask.askContent}</td>
 														<td>${ask.memberName}</td>
 														<td>${ask.askDate}</td>
+														<td><button>삭제하기</button></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -160,7 +166,7 @@ select:focus {
 							<table>
 
 								<tr>
-									<td>회원번호 :</td>
+									<td style="width:30%">회원번호 :</td>
 									<td class="askAskNo"></td>
 								</tr>
 
