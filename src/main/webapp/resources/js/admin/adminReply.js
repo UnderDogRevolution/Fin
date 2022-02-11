@@ -12,25 +12,28 @@ let path;
 $(".selectPostsend").on("change", function() {
 	const searchPost = $(".selectPostsend").val(); // select 값
 	$("#searchPost").val("");
+	
 	if (searchPost == "memberNo") {
 		$("#searchPost").attr('type', 'number');
 	} else if (searchPost == "postNo") {
 		$("#searchPost").attr('type', 'number');
 
-	} else if (searchPost == "memberNm") {
-		$("#searchPost").attr('type', 'text');
+	} else if (searchPost == "replyNo") {
+		$("#searchPost").attr('type', 'number');
 
 	} else if (searchPost == "status") {
 		$("#searchPost").attr('type', 'text');
 
-	}
+	}else if (searchPost == "memberNm") {
+		$("#searchPost").attr('type', 'text');
 
+	}
 
 })
 
 
 
-function selectPostList(cp) {//검색
+function selectReplyList(cp) {//검색
 
 	if (cp == undefined) {
 		cp = 1;
@@ -42,7 +45,7 @@ function selectPostList(cp) {//검색
 	console.log(inputResult)
 
 	$.ajax({
-		url: contextPath + "/admin/searchPost",
+		url: contextPath + "/admin/searchReply",
 		data: { "searchPost": searchPost, "inputResult": inputResult, "cp": cp },
 		dataType: "JSON",
 
@@ -53,67 +56,64 @@ function selectPostList(cp) {//검색
 
 			console.log(map.List);
 			if (map.List.length == 0) {
-				$(".tbody").html("<tr><td colspan='9'>등록된게시글이 존재하지 않습니다.</td></tr>")
+				$(".tbody").html("<tr><td colspan='8'>등록된게시글이 존재하지 않습니다.</td></tr>")
 
 			};
 
 
-			$.each(map.List, function(index, post) {
+			$.each(map.List, function(index, reply) {
 				const body = $(".tbody");
 				const tr = $("<tr>");
-				const td1 = $('<td class="postModalShow" onclick= "postModal(' + post.postNo + ')">');
+				const td1 = $('<td class="postModalShow" onclick= "postModal(' + reply.replyNo + ')">');
 				const td2 = $("<td>");
 				const td3 = $("<td>");
-				const td4 = $("<td class = 'postContent'>");
-				const td5 = $("<td>");
+				const td4 = $("<td>");
+				const td5 = $("<td class = 'replyContent'>");
 				const td6 = $("<td>");
 				const td7 = $("<td>");
 				const td8 = $("<td>");
-				const td9 = $("<td>");
-				const a2 = $('<a style="text-decoration: none; color: white;"'
-					+ 'href="' + contextPath + '/board1/myBoard/' + post.memberNo + '">' + post.memberNm + '</a>')
 				const a = $('<a style="text-decoration: none; color: white;"'
-					+ 'href="' + contextPath + '/post/view/' + post.postNo + '">' + post.postContent + '</a>')
+					+ 'href="' + contextPath + '/post/view/' + reply.postNo + '">' + reply.replyContent + '</a>')
+				
+				const a2 = $('<a style="text-decoration: none; color: white;"'
+					+ 'href="' + contextPath + '/board1/myBoard/' + reply.memberNo + '">' + reply.memberNm + '</a>')
+				
+				
+				
 				const select = $('<select  name="statusCd"  class="select"></select>');
-				select.attr("onchange", "changeStatus(event," + post.postNo + ")");
+				select.attr("onchange", "changeStatus(event," + reply.replyNo + ")");
 				console.log(select);
-				for (let i = 500; i < 505; i++) {
+				for (let i = 600; i < 603; i++) {
 					const option = $("<option>");
 					option.val(i);
 
-					if (i == post.status) {
+					if (i == reply.status) {
 						option.attr("selected", "selected")
 					}
-					if (i == 500) {
+					if (i == 600) {
 						option.text("일반")
-					} else if (i == 501) {
-						option.text("유저삭제")
-					} else if (i == 502) {
+					} else if (i == 601) {
+						option.text("삭제")
+					} else if (i == 602) {
 						option.text("블라인드")
-					} else if (i == 503) {
-						option.text("비공개")
-					} else if (i == 504) {
-						option.text("팔로워 공유")
-					}
+					} 
 
 					select.append(option)
 				}
 
 				$(select).on('focus', function() {
 					path = this.value;
-					console.log(path);
 				});
 
 
-				$(td1).text(post.postNo);
-				$(td2).text(post.memberNo);
-				$(td3).append(a2);
-				$(td4).append(a);
-				$(td5).text(post.readCount);
-				$(td6).text(post.likeCount);
-				$(td7).text(post.createDt);
-				$(td8).text(post.modifyDt);
-				$(td9).append(select);
+				$(td1).text(reply.replyNo);
+				$(td2).text(reply.postNo);
+				$(td3).text(reply.memberNo);
+				$(td4).append(a2);
+				$(td5).append(a);
+				$(td6).text(reply.likeCount);
+				$(td7).text(reply.createDt);
+				$(td8).append(select);
 
 				tr.append(td1)
 				tr.append(td2)
@@ -123,15 +123,14 @@ function selectPostList(cp) {//검색
 				tr.append(td6)
 				tr.append(td7)
 				tr.append(td8)
-				tr.append(td9)
 				body.append(tr);
 			});
 			const pagination = map.pagination;
 
 			if (pagination.startPage != 1) {
 
-				const li1 = $('<li class="page-link" onclick = "selectPostList()">&lt;&lt;</li>')
-				const li2 = $('<li class="page-link" onclick = "selectPostList()>&lt;</li>');
+				const li1 = $('<li class="page-link" onclick = "selectReplyList(cp)">&lt;&lt;</li>')
+				const li2 = $('<li class="page-link" onclick = "selectReplyList(cp)>&lt;</li>');
 
 				$(".pagination").append(li1);
 				$(".pagination").append(li2);
@@ -142,7 +141,7 @@ function selectPostList(cp) {//검색
 					li = $('<li class="page-link" style="color: black; font-weight: bold;"> ' + i + '</li>');
 					$(".pagination").append(li);
 				} else {
-					li = $('<li class="page-link" onclick = selectPostList(' + i + ')>' + i + '</li>');
+					li = $('<li class="page-link" onclick = selectReplyList(' + i + ')>' + i + '</li>');
 					$(".pagination").append(li);
 				}
 
@@ -172,45 +171,39 @@ function selectPostList(cp) {//검색
 
 }
 
-function postModal(postNo) {
+function postModal(replyNo) {
 	$("#postModal").modal("show");
 	$(".postListContent").html("");
 
 	$.ajax({
-		url: contextPath + "/admin/postView",
-		data: { "postNo": postNo },
+		url: contextPath + "/admin/replyView",
+		data: { "replyNo": replyNo },
 		dataType: "JSON",
 
 
-		success: function(post) {
+		success: function(reply) {
 			const a2 = $('<a style="text-decoration: none; color: white;"'
-				+ 'href="' + contextPath + '/board1/myBoard/' + post.memberNo + '">' + post.memberNm + '</a>')
+					+ 'href="' + contextPath + '/board1/myBoard/' + reply.memberNo + '">' + reply.memberNm + '</a>')
 			const a = $('<a style="text-decoration: none; color: white;"'
-				+ 'href="' + contextPath + '/post/view/' + post.postNo + '">' + post.postContent + '</a>')
+				+ 'href="' + contextPath + '/post/view/' + reply.postNo + '">' + reply.replyContent + '</a>')
 			const select = $('<select  name="statusCd"  class="select"></select>');
-			select.attr("onchange", "changeStatus(event," + post.postNo + ")");
-			for (let i = 500; i < 505; i++) {
+			select.attr("onchange", "changeStatus(event," + reply.replyNo + ")");
+			for (let i = 600; i < 603; i++) {
 				const option = $("<option>");
 				option.val(i);
-				if (i == post.status) {
+				if (i == reply.status) {
 					option.attr("selected", "selected")
 				}
-				if (i == 500) {
+				if (i == 600) {
 					option.text("일반")
-					option.val("500");
-				} else if (i == 501) {
-					option.text("유저삭제")
-					option.val("501");
-				} else if (i == 502) {
+					option.val("600");
+				} else if (i == 601) {
+					option.text("삭제")
+					option.val("601");
+				} else if (i == 602) {
 					option.text("블라인드")
-					option.val("502");
-				} else if (i == 503) {
-					option.text("비공개")
-					option.val("503");
-				} else if (i == 504) {
-					option.text("팔로워 공유")
-					option.val("504");
-				}
+					option.val("602");
+				} 
 				select.append(option);
 			}
 			select.on('focus', function() {
@@ -218,16 +211,15 @@ function postModal(postNo) {
 				console.log(path);
 			})
 
-			$($(".postListContent")[0]).html(post.postNo);
-			$($(".postListContent")[1]).html(post.memberNo);
-			$($(".postListContent")[2]).append(a2);
-			$($(".postListContent")[3]).append(a);
-			$($(".postListContent")[4]).html(post.readCount);
-			$($(".postListContent")[5]).html(post.likeCount);
-			$($(".postListContent")[6]).html(post.createDt);
-			$($(".postListContent")[7]).html(post.modifyDt);
-			$($(".postListContent")[8]).append(select);
-			$($(".postListContent")[9]).html(post.blind);
+			$($(".postListContent")[0]).html(reply.replyNo);
+			$($(".postListContent")[1]).html(reply.postNo);
+			$($(".postListContent")[2]).html(reply.memberNo);
+			$($(".postListContent")[3]).append(a2);
+			$($(".postListContent")[4]).append(a);
+			$($(".postListContent")[5]).html(reply.likeCount);
+			$($(".postListContent")[6]).html(reply.createDt);
+			$($(".postListContent")[7]).append(select);
+			$($(".postListContent")[8]).html(reply.blind);
 
 
 
@@ -262,13 +254,14 @@ $(".select").on('focus', function() {
 
 
 
-function changeStatus(event, postNo) {
+function changeStatus(event, replyNo) {
+	console.log(path);
 
 	const status = $(event.target).val();
 
-	console.log(postNo, status);
+	console.log(replyNo, status);
 	const e = $(event.target);
-	if (status == 502) {
+	if (status == 602) {
 		blind = prompt("사유를 입력해주세요");
 		if (blind == null) {
 			$(event.target).val(path).prop("selected", true);
@@ -285,19 +278,17 @@ function changeStatus(event, postNo) {
 
 	$.ajax({
 
-		url: contextPath + "/admin/changeStatus",
-		data: { "postNo": postNo, "status": status, "blind": blind },
+		url: contextPath + "/admin/changeStatusReply",
+		data: { "replyNo": replyNo, "status": status, "blind": blind },
 
 		success: function() {
-			alert("변경되었습니다.")
-			$($(".postListContent")[9]).html("");
-			if (blind != null) {
-				$($(".postListContent")[9]).html(blind);
-
-
-
+			alert("변경되었습니다.");
+			$($(".postListContent")[8]).html("");
+			if(blind != null){
+			$($(".postListContent")[8]).html(blind);
+				
 			}
-
+		
 		},
 
 

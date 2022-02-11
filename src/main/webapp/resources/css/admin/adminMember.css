@@ -111,12 +111,10 @@ thead{
 	text-align: center;
 }
 .adminSide{
-    position: absolute;
-    left: -160px;
-    top : 30%;
+    position: fixed;
     width: 150px;
-    height: 366px;
-    color: white;
+    left: 250px;
+    height: 426px;
 }
 .adminSide > div{
     display: flex;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -41,7 +42,7 @@ public class Board1Controller {
 		System.out.println("loginMember:" + loginMember);
 		System.out.println(member);
 	
-
+		
 		model.addAttribute("member", member);
 
 		if (loginMember != null) {
@@ -135,7 +136,12 @@ public class Board1Controller {
 
 		map.put("memberNo", memberNo);
 		map.put("friendNo", friendNo);
-
+		
+		
+		System.out.println("=======================================================================");
+		System.out.println(map);
+		System.out.println(map);
+		
 		int result = service.deleteFollow(map);
 
 		return result;
@@ -266,7 +272,34 @@ public class Board1Controller {
 	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "myBoard/{memberNo}/deleteFollow2", method = RequestMethod.GET)
+	public int deleteFollow(@PathVariable("memberNo") int deleteMemberNo ,@RequestParam("friendNo") int friendNo, String mode, Model model, HttpSession session,
+			Member member) {
+
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		
+		System.out.println("========================================================== " + friendNo);
+		System.out.println("friendNo : " + friendNo);
+		System.out.println("friendNo : " + friendNo);
+		
+		
+		int memberNo = loginMember.getMemberNo();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("memberNo", memberNo);
+		map.put("friendNo", friendNo);
+		
+		
+		System.out.println("=======================================================================");
+		System.out.println(map);
+		System.out.println(map);
+		
+		int result = service.deleteFollow(map);
+
+		return result;
+
+	}
 	
 	
 	
