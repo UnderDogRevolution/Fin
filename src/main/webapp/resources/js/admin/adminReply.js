@@ -129,8 +129,8 @@ function selectReplyList(cp) {//검색
 
 			if (pagination.startPage != 1) {
 
-				const li1 = $('<li class="page-link" onclick = "selectReplyList(cp)">&lt;&lt;</li>')
-				const li2 = $('<li class="page-link" onclick = "selectReplyList(cp)>&lt;</li>');
+				const li1 = $('<li class="page-link" onclick = "selectReplyList(1)">&lt;&lt;</li>')
+				const li2 = $('<li class="page-link" onclick = "selectReplyList('+pagination.prevPage+')">&lt;</li>');
 
 				$(".pagination").append(li1);
 				$(".pagination").append(li2);
@@ -149,14 +149,13 @@ function selectReplyList(cp) {//검색
 
 			if (pagination.endPage != pagination.maxPage) {
 
-				const li1 = $('	<li class="page-link"> &gt;/li>');
-				const li2 = $('<li class="page-link">&gt;&gt;</li>');
-
+				const li1 = $('<li  onclick = "selectReplyList('+pagination.nextPage+')" class="page-link" >&gt;</li>');
+				const li2 = $('<li onclick = "selectReplyList('+pagination.maxPage+')" class="page-link">&gt;&gt;</li>');
+				//li1.addClass("page-link");
+				//li2.addClass("page-link");
 				$(".pagination").append(li1);
 				$(".pagination").append(li2);
-			}
-
-
+			};
 		},
 		error: function() {
 

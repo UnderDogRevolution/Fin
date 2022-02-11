@@ -80,6 +80,22 @@
 		<websocket:sockjs/>
 	</websocket:handlers>
 	
+	
+	
+	<beans:bean id ="alramHandler" class = "com.movie.sns.alram.websocket.AlramWebsocketHandler"/>
+	
+	<websocket:handlers>
+	
+		<websocket:mapping handler="chatHandler" path="/alram"/>
+	
+		<websocket:handshake-interceptors>
+		<beans:bean class = "org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		
+		</websocket:handshake-interceptors>
+	
+		<websocket:sockjs/>
+	</websocket:handlers>
+	
 	<!-- AOP 관련 어노테이션 활성화 + proxy 활성화 -->
 	<aop:aspectj-autoproxy/>
 	

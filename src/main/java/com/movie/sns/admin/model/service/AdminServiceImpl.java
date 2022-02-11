@@ -14,7 +14,6 @@ import com.movie.sns.member.model.vo.Member;
 
 
 
-
 /**
  * @author home
  *
@@ -35,26 +34,11 @@ public class AdminServiceImpl implements AdminService{
 		return dao.adminLogin(member);
 	}
 
-	public AdminServiceImpl(AdminDAO dao) {
-		super();
-		this.dao = dao;
-	}
+
 
 	@Override
-	public Pagination getPagination(int cp) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Member> memberBoard(Pagination pagination) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Member> selectAskList(Pagination pagination) {
-		return dao.selectAskList(pagination);
+	public int postCount() {
+		return dao.postCount();
 	}
 	
 	

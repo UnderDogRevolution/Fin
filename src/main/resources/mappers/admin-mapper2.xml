@@ -55,6 +55,12 @@
 		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
+	
+	
+	<resultMap type="com.movie.sns.admin.model.vo.MemberStatus" id="Status_rm">
+		<result property="statusCode" column="MEMBER_STATUS_CD"/>
+		<result property="statusName" column="MEMBER_STATUS_NM"/>
+	</resultMap>
 
 	<!-- 전체 회원 수 조회 -->
 	<select id="getListCount" resultType="_int">
@@ -72,58 +78,151 @@
 	
 	<!-- 회원 정보 조회 -->
 	<select id="selectMember" resultMap="member_rm">
-	SELECT 
-    MEMBER.MEMBER_NO MEMBER_NO,
-    MEMBER_NM,
-    MEMBER_NICKNM,
-    MEMBER_EMAIL,
-    ENROLL_DT,
-    MODIFY_DT,
-    STATUS_CD,
-    GRADE_CD,
-    MEMBER_BIRTH,
-    MEMBER_STATUS_NM,
-    GRADE_NM,
-    
-    (SELECT COUNT(*)
-    FROM VIOLATION
-    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
-    
-	FROM MEMBER
-	JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
-	JOIN GRADE USING(GRADE_CD)
-	
-	WHERE GRADE_CD = 100
-	ORDER BY MEMBER_NO 
+		SELECT 
+	    MEMBER.MEMBER_NO MEMBER_NO,
+	    MEMBER_NM,
+	    MEMBER_NICKNM,
+	    MEMBER_EMAIL,
+	    ENROLL_DT,
+	    MODIFY_DT,
+	    STATUS_CD,
+	    GRADE_CD,
+	    MEMBER_BIRTH,
+	    MEMBER_STATUS_NM,
+	    GRADE_NM,
+	    
+	    (SELECT COUNT(*)
+	    FROM VIOLATION
+	    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
+	    
+		FROM MEMBER
+		JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
+		JOIN GRADE USING(GRADE_CD)
+		
+		WHERE GRADE_CD = 100
+		ORDER BY MEMBER_NO 
 	</select>
 	
-	
+	<!-- 회원 상세 조회 -->
 	<select id="selectMemberDetail" resultMap="member_rm">
-	SELECT 
-    MEMBER.MEMBER_NO MEMBER_NO,
-    MEMBER_NM,
-    MEMBER_NICKNM,
-    MEMBER_EMAIL,
-    ENROLL_DT,
-    MODIFY_DT,
-    STATUS_CD,
-    GRADE_CD,
-    MEMBER_BIRTH,
-    MEMBER_STATUS_NM,
-    GRADE_NM,
-    
-    (SELECT COUNT(*)
-    FROM VIOLATION
-    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
-    
-	FROM MEMBER
-	JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
-	JOIN GRADE USING(GRADE_CD)
-	
-	WHERE GRADE_CD = 100
-	AND MEMBER_NO = #{memberNo}
+		SELECT 
+	    MEMBER.MEMBER_NO MEMBER_NO,
+	    MEMBER_NM,
+	    MEMBER_NICKNM,
+	    MEMBER_EMAIL,
+	    ENROLL_DT,
+	    MODIFY_DT,
+	    STATUS_CD,
+	    GRADE_CD,
+	    MEMBER_BIRTH,
+	    MEMBER_STATUS_NM,
+	    GRADE_NM,
+	    
+	    (SELECT COUNT(*)
+	    FROM VIOLATION
+	    WHERE MEMBER.MEMBER_NO = VIOLATION.MEMBER_NO)VIOLATION_CNT
+	    
+		FROM MEMBER
+		JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
+		JOIN GRADE USING(GRADE_CD)
+		
+		WHERE GRADE_CD = 100
+		AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 회원상태 -->
+	<select id="selectStatus" resultMap="Status_rm">
+		SELECT MEMBER_STATUS_CD, MEMBER_STATUS_NM
+		FROM MEMBER_STATUS
+	</select>
 	
+	<!-- 검색 조건 만족하는 회원 수 -->
+	<!-- 회원 번호는 일치하는 회원만 조회되도록 혹은 (번호 + %)  -->
+	<select id="getSearchListCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE GRADE_CD = 100
+		
+		<if test="sv != null">
+			<bind name="val" value="'%' + sv + '%'"/>
+			<bind name="val2" value="sv"/>
+			<choose>
+				<when test="sk == 'number'">
+				AND	MEMBER_NO = #{val2}
+				</when>
+				<when test="sk == 'name'">
+				AND	MEMBER_NM LIKE #{val}
+				</when>
+				<when test="sk == 'nickName'">
+				AND	MEMBER_NICKNM LIKE #{val}
+				</when>
+				<when test="sk == 'eMail'">
+				AND	MEMBER_EMAIL LIKE #{val}
+				</when>
+			</choose>
+			
+		</if>
+		
+			
+	</select>
+	
+	<!-- 상태코드로 찾을 때 -->
+	<!-- <if test="stc != null">
+		AND STATUS_CD = #{statusCode}
+	</if> -->
+	
+	
+	<!-- 검색 조건에 맞는 회원 리스트 -->
+	<select id="selectSearchMemberList" resultMap="member_rm">
+		SELECT 
+	    MEMBER_NO,
+	    MEMBER_NM,
+	    MEMBER_NICKNM,
+	    MEMBER_EMAIL,
+	    ENROLL_DT,
+	    MODIFY_DT,
+	    STATUS_CD,
+	    GRADE_CD,
+	    MEMBER_STATUS_NM,
+	    GRADE_NM
+	    
+		FROM MEMBER
+		JOIN MEMBER_STATUS ON(STATUS_CD = MEMBER_STATUS_CD)
+		JOIN GRADE USING(GRADE_CD)
+		
+		WHERE GRADE_CD = 100
+		
+		<if test="sv != null">
+			<bind name="val" value="'%' + sv + '%'"/>
+			<bind name="val2" value="sv"/>
+			<choose>
+				<when test="sk == 'number'">
+				AND	MEMBER_NO = #{val2}
+				</when>
+				<when test="sk == 'name'">
+				AND	MEMBER_NM LIKE #{val}
+				</when>
+				<when test="sk == 'nickName'">
+				AND	MEMBER_NICKNM LIKE #{val}
+				</when>
+				<when test="sk == 'eMail'">
+				AND	MEMBER_EMAIL LIKE #{val}
+				</when>
+			</choose>
+			
+		</if>
+		
+		ORDER BY MEMBER_NO 
+		
+	</select>
+	
+	<!-- 정렬은 정렬할 컬럼값을 받아오고, orderby를 조건에 맞게 바꾸도록 -->
+	
+	
+	<!-- 회원 상태 변경 -->
+	<update id="changeStatus">
+		UPDATE MEMBER SET
+		STATUS_CD = #{memberStatusCode}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

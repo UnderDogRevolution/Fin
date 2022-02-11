@@ -168,7 +168,6 @@ select:focus {
 											<th>회원번호</th>
 											<th>작성자</th>
 											<th>내용</th>
-											<th>조회수</th>
 											<th>좋아요</th>
 											<th>작성일</th>
 											<th>수정일</th>
@@ -181,7 +180,7 @@ select:focus {
 
 											<c:when test="${empty post}">
 												<tr>
-													<td colspan="9">등록된게시글이 존재하지 않습니다.</td>
+													<td colspan="8">등록된게시글이 존재하지 않습니다.</td>
 												</tr>
 
 
@@ -199,7 +198,7 @@ select:focus {
 															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
 
 
-														<td>${post.readCount}</td>
+											
 														<td>${post.likeCount}</td>
 														<td>${post.createDt}</td>
 														<td>${post.modifyDt}</td>
@@ -315,16 +314,12 @@ select:focus {
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
-						<div class="postListTitle">게시글 조회수</div>
-						<div class="postListContent"></div>
-					</div>
-					<div class="modalContentwrap">
 						<div class="postListTitle">좋아요 수</div>
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">게시글 작성일</div>
-						<div class="postListContent">2022-02-09</div>
+						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">게시글 수정일</div>
@@ -363,7 +358,10 @@ select:focus {
 		</div>
 	</div>
 
-
+	<script type="text/javascript">
+	
+	const gt = '&gt;';
+	</script>
 	<script src="${contextPath}/resources/js/admin/adminPost.js"></script>
 
 
