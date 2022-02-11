@@ -1,3 +1,143 @@
+
+findMember();
+
+// checkbox 전체선택 시
+$("#all").on("change", function () {
+  const all = $("#all").prop("checked"); // t/f
+
+  if (all == true) { // 전체가 체크가된 경우
+      $(".chk").prop("checked", true);
+  }
+  
+  else {// 전체가 체크 해제된 경우
+      $(".chk").prop("checked", false);
+  }
+});
+
+// 아랫 부분 체크박스의 값이 변했을 때
+$(".chk").on("change", function(){
+
+  // 현재 클릭한 체크박스의 체크가 해제된 경우
+  if( !$(this).prop("chceked") ){
+
+      $("#all").prop("checked", false); // 전체 체크 해제
+  }
+
+  // .chk이 모두 체크된 경우
+  if( $(".chk:checked").length == $(".chk").length ){
+      $("#all").prop("checked", true);
+  }
+
+});
+
+
+// 체크된 회원의 상태를 특정 값으로 변경하기
+// + 변경 후 조회 수행
+function changeCheckbox(statusCode){
+
+  // 체크된 박스 요소 찾기
+  const checkedMember = $("input:checkbox[name='selectOne']:checked");
+
+  // 체크된 박스에 있는 memberNo 얻어오기(배열)
+  let checkedMemberNo = [];
+
+  checkedMember.each(function(i){
+    checkedMemberNo.push(checkedMember[i].parentElement.nextElementSibling.innerText);
+  })
+
+  // console.log(checkedMemberNo);
+
+  // ajax 수행하기
+  $.ajax({
+
+    url : "multiChangeStatus",
+    traditional: true,
+    type : "get",
+    data : {"checkedMemberNo" : checkedMemberNo ,"statusValue" : statusCode},
+
+    success : function(result){
+
+      console.log(result);
+      
+
+      if(result > 0){
+        // 변경 성공
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: true,
+          confirmButtonText: '확인',
+          confirmButtonColor: '#F05454',
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'success',
+          title: '상태 변경 성공'
+        })
+
+
+        
+
+      }else{
+        
+        // 변경 실패
+        console.log("변경 실패");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: true,
+          confirmButtonText: '확인',
+          confirmButtonColor: '#F05454',
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: '상태 변경 실패'
+        })
+
+      }
+      
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+      }
+   
+    },
+
+    complete : function(){
+
+    }
+
+  });
+  
+
+}
+
+
+
+
+
+
+
 // 회원 정보 상세 조회 함수
 function showMemberDetail(memberNo){
   
@@ -70,7 +210,7 @@ function showMemberDetail(memberNo){
 
 
 
-// 회원 리스트 조회하기
+// 회원 리스트 검색하기
 function findMember(){
 
   const sk = $("#sk").val();

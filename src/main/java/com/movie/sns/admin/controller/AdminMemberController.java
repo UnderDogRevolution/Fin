@@ -1,5 +1,6 @@
 package com.movie.sns.admin.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -140,6 +141,25 @@ public class AdminMemberController {
 		System.out.println("변경할 회원 상태:"+member.getMemberStatusCode());
 		
 		int result = service.changeStatus(member);
+		
+		if(result > 0) {
+			return result;
+		}else {
+			return 0;
+		}
+		
+	}
+	
+	
+	// 회원 상태 일괄 변경
+	@RequestMapping(value="multiChangeStatus", method=RequestMethod.GET)
+	@ResponseBody
+	public int multiChangeStatus(	@RequestParam(value="checkedMemberNo", required=false) int[] checkedMemberNo , 
+									@RequestParam(value="statusValue", required=false) int statusValue) {
+		
+		
+//		System.out.println(Arrays.toString(checkedMemberNo));
+		int result = service.multiChangeStatus(checkedMemberNo, statusValue);
 		
 		if(result > 0) {
 			return result;

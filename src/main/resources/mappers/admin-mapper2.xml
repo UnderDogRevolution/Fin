@@ -224,5 +224,48 @@
 		STATUS_CD = #{memberStatusCode}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 회원 상태 일괄 변경 (정지)-->
+	<update id="multiChangeStatus">
+		UPDATE MEMBER SET
+		STATUS_CD = 202
+		WHERE MEMBER_NO IN (
+		
+		<foreach collection="array" item="memberNo" separator="," >
+			#{memberNo}
+		</foreach>
+		
+		)
+	</update>
+	
+	<!-- 회원 상태 일괄 변경 (일반)-->
+	<update id="multiChangeStatus2">
+		UPDATE MEMBER SET
+		STATUS_CD = 200
+		WHERE MEMBER_NO IN (
+		
+		<foreach collection="array" item="memberNo" separator="," >
+			#{memberNo}
+		</foreach>
+		
+		)
+	</update>
+	
+	<!-- 회원 상태 일괄 변경 (탈퇴)-->
+	<update id="multiChangeStatus3">
+		UPDATE MEMBER SET
+		STATUS_CD = 201
+		WHERE MEMBER_NO IN (
+		
+		<foreach collection="array" item="memberNo" separator="," >
+			#{memberNo}
+		</foreach>
+		
+		)
+	</update>
+	
+	
+	
+	
 
 </mapper>
