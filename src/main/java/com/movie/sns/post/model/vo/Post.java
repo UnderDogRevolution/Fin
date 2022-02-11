@@ -36,99 +36,9 @@ public class Post {
 	
 	private int replyCount;
 	
-	
-	public List<Image> getListProfile() {
-		return listProfile;
-	}
-	public void setListProfile(List<Image> listProfile) {
-		this.listProfile = listProfile;
-	}
-	public int getCheckLike() {
-		return checkLike;
-	}
-	public void setCheckLike(int checkLike) {
-		this.checkLike = checkLike;
-	}
-	public int getReplyCount() {
-		return replyCount;
-	}
-	public void setReplyCount(int replyCount) {
-		this.replyCount = replyCount;
-	}
-	public int getCheckUsePoster() {
-		return checkUsePoster;
-	}
-	public void setCheckUsePoster(int checkUsePoster) {
-		this.checkUsePoster = checkUsePoster;
-	}
-	public String getMemberName() {
-		return memberName;
-	}
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-	public String getMemberNickName() {
-		return memberNickName;
-	}
-	public void setMemberNickName(String memberNickName) {
-		this.memberNickName = memberNickName;
-	}
-	public List<PostImage> getListPostImage() {
-		return listPostImage;
-	}
-	public void setListPostImage(List<PostImage> listPostImage) {
-		this.listPostImage = listPostImage;
-	}
-	public String getMovieNo() {
-		return movieNo;
-	}
-	public void setMovieNo(String movieNo) {
-		this.movieNo = movieNo;
-	}
-	public String getMovieTitle() {
-		return movieTitle;
-	}
-	public void setMovieTitle(String movieTitle) {
-		this.movieTitle = movieTitle;
-	}
-	public String getMovieDate() {
-		return movieDate;
-	}
-	public void setMovieDate(String movieDate) {
-		this.movieDate = movieDate;
-	}
-	public String getDirector() {
-		return director;
-	}
-	public void setDirector(String director) {
-		this.director = director;
-	}
-	public String getPoster() {
-		return poster;
-	}
-	public void setPoster(String poster) {
-		this.poster = poster;
-	}
-	public String getMovieGenre() {
-		return movieGenre;
-	}
-	public void setMovieGenre(String movieGenre) {
-		this.movieGenre = movieGenre;
-	}
-	public String getRating() {
-		return rating;
-	}
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-	private List<String> tagArr;
-	
-	public List<String> getTagArr() {
-		return tagArr;
-	}
-	public void setTagArr(List<String> tagArr) {
-		this.tagArr = tagArr;
-	}
+	// Youtube
+	private String youtubePath;
+	private String thumbnail;
 	public int getPostNo() {
 		return postNo;
 	}
@@ -177,6 +87,102 @@ public class Post {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	public int getCheckUsePoster() {
+		return checkUsePoster;
+	}
+	public void setCheckUsePoster(int checkUsePoster) {
+		this.checkUsePoster = checkUsePoster;
+	}
+	public int getCheckLike() {
+		return checkLike;
+	}
+	public void setCheckLike(int checkLike) {
+		this.checkLike = checkLike;
+	}
+	public String getMovieNo() {
+		return movieNo;
+	}
+	public void setMovieNo(String movieNo) {
+		this.movieNo = movieNo;
+	}
+	public String getMovieTitle() {
+		return movieTitle;
+	}
+	public void setMovieTitle(String movieTitle) {
+		this.movieTitle = movieTitle;
+	}
+	public String getMovieDate() {
+		return movieDate;
+	}
+	public void setMovieDate(String movieDate) {
+		this.movieDate = movieDate;
+	}
+	public String getDirector() {
+		return director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public String getPoster() {
+		return poster;
+	}
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+	public String getMovieGenre() {
+		return movieGenre;
+	}
+	public void setMovieGenre(String movieGenre) {
+		this.movieGenre = movieGenre;
+	}
+	public String getRating() {
+		return rating;
+	}
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
+	public List<PostImage> getListPostImage() {
+		return listPostImage;
+	}
+	public void setListPostImage(List<PostImage> listPostImage) {
+		this.listPostImage = listPostImage;
+	}
+	public List<Image> getListProfile() {
+		return listProfile;
+	}
+	public void setListProfile(List<Image> listProfile) {
+		this.listProfile = listProfile;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+	public String getYoutubePath() {
+		return youtubePath;
+	}
+	public void setYoutubePath(String youtubePath) {
+		this.youtubePath = youtubePath;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", postContent=" + postContent + ", readCount=" + readCount + ", likeCount="
@@ -185,20 +191,9 @@ public class Post {
 				+ checkLike + ", movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDate=" + movieDate
 				+ ", director=" + director + ", poster=" + poster + ", movieGenre=" + movieGenre + ", rating=" + rating
 				+ ", memberName=" + memberName + ", memberNickName=" + memberNickName + ", listPostImage="
-				+ listPostImage + ", listProfile=" + listProfile + ", replyCount=" + replyCount + ", tagArr=" + tagArr
-				+ ", getListProfile()=" + getListProfile() + ", getCheckLike()=" + getCheckLike() + ", getReplyCount()="
-				+ getReplyCount() + ", getCheckUsePoster()=" + getCheckUsePoster() + ", getMemberName()="
-				+ getMemberName() + ", getMemberNickName()=" + getMemberNickName() + ", getListPostImage()="
-				+ getListPostImage() + ", getMovieNo()=" + getMovieNo() + ", getMovieTitle()=" + getMovieTitle()
-				+ ", getMovieDate()=" + getMovieDate() + ", getDirector()=" + getDirector() + ", getPoster()="
-				+ getPoster() + ", getMovieGenre()=" + getMovieGenre() + ", getRating()=" + getRating()
-				+ ", getTagArr()=" + getTagArr() + ", getPostNo()=" + getPostNo() + ", getPostContent()="
-				+ getPostContent() + ", getReadCount()=" + getReadCount() + ", getLikeCount()=" + getLikeCount()
-				+ ", getCreateDate()=" + getCreateDate() + ", getModifyDate()=" + getModifyDate()
-				+ ", getPostStatusCode()=" + getPostStatusCode() + ", getMemberNo()=" + getMemberNo() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ listPostImage + ", listProfile=" + listProfile + ", replyCount=" + replyCount + ", youtubePath="
+				+ youtubePath + ", thumbnail=" + thumbnail + "]";
 	}
-	
 	
 	
 }

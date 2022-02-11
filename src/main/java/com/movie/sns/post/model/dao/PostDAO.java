@@ -16,6 +16,7 @@ import com.movie.sns.post.model.vo.Post;
 import com.movie.sns.post.model.vo.PostImage;
 import com.movie.sns.post.model.vo.Report;
 import com.movie.sns.post.model.vo.Tag;
+import com.movie.sns.post.model.vo.Youtube;
 
 @Repository
 public class PostDAO {
@@ -154,6 +155,10 @@ public class PostDAO {
 
 	public int updateRating(Movie movie) {
 		return sqlSession.update("postMapper.updateRating", movie);
+	}
+
+	public int insertYoutube(Youtube youtube) {
+		return sqlSession.insert("postMapper.insertYoutube", youtube);
 	}
 
 

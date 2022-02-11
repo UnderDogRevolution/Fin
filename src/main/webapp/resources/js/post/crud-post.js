@@ -3,6 +3,7 @@ console.log("curd-post.js");
 // 즉시 실행 함수 (function(){})()
 
 // 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+let youtubePath = null;
 
 (function(){
 	document.getElementsByClassName("post-img")[0].addEventListener("click", function(){
@@ -65,6 +66,13 @@ deleteImg.addEventListener("click", function(e){
         deleteImg.style.display = "none";
         // onPoster.style.display = "inline";
     }
+
+    const youtubeFrame = document.querySelectorAll(".post-img > div")[0]
+    if(typeof youtubeFrame != "undefined"){
+        youtubeFrame.remove();
+        deleteImg.style.display = "none"
+    }
+    
     imgPhrase.style.display = "inline";
 })
 let movie;
@@ -457,8 +465,16 @@ function postValidate(){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
         }
-        
-        
+        if(youtubePath != null){
+            const youtube = {}
+            const youtubeUrl =  (youtubePath.match(/(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i))[0];
+            const youtubeId = youtubeUrl.substring(30)
+            youtube.path = youtubePath;
+            youtube.id = youtubeId;
+            youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
+            console.log(youtube)
+            postVO.youtube = youtube;
+        }
 
         if(crudImg.getAttribute("src") != null && !inputFile.files[0]){
             postVO.checkUsePoster = 1;
@@ -516,10 +532,29 @@ for(const items of starRadio){
     })
 }
 
+
+
+function onYoutube(){
+    youtubePath = prompt("유튜브 경로를 넣어주세요")
+    // const youtubeId =  youtubePath.substring(youtubePath.indexOf("src=", youtubePath.indexOf('" title')));
+   
+
+    if(youtubePath.indexOf('title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;') > 0){
+        const youtubeBox = document.createElement("div")
+        youtubeBox.setAttribute("style", "width: 100%; height : 100%;")
+        youtubeBox.innerHTML = youtubePath;
+        postImg.append(youtubeBox); // innerHTML을 하면 그 안에 요소들이 재정의 된다 따라서 안에 요소들이 정의된 변수명들이 미스매칭되는 문제가 발생한다.
+        deleteImg.style.display = "inline";
+    }else{
+        alert("유튜브 경로가 잘못되었습니다.")
+        youtubePath = null;
+        
+    }
+}
+
 document.addEventListener("click", function(e){
     
     if(e.target == modalSide){
-        console.log("a")
     }else{
         modalSide.style.display = "none";
     }
