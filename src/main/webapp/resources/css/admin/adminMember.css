@@ -85,14 +85,17 @@ td{
     justify-content: center;
     background-color: #272727;
 }
-.header > div{
+.header > div:nth-child(1){
     display: flex;
     justify-content: left;
-    width: 1050px;
+    width: 1000px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
+.header > div:nth-child(2){
+	color: white;
+	font-size: 20px;
+}
 .mainController{
     width: 100%;
     height: 100%;

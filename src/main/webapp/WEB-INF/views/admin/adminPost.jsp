@@ -9,8 +9,6 @@
 <title>게시글관리</title>
 <script type="text/javascript">
 	const contextPath = "${contextPath}";
-	const c = "${c}";
-	const s = "${s}";
 	
 	
 	</script>
@@ -125,10 +123,10 @@ select:focus {
 
 </head>
 
-<jsp:include page="adminHeader.jsp" />
 
 
 <body>
+<jsp:include page="adminHeader.jsp" />
 
 	<%-- <c:if test="${!empty post.searchPost}">
 		<c:set var="s" value="&sk=${param.searchPost}&sv=${param.inputResult}" />

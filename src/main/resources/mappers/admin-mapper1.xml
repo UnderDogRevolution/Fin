@@ -42,6 +42,22 @@
 		<result property="statusNm" column="REPLY_STATUS_NM" />
 	</resultMap>
 	
+	<select id="memberCount" resultType = "_int">
+	SELECT COUNT(*) FROM MEMBER
+	
+	</select>
+	<select id="askCount" resultType = "_int">
+	SELECT COUNT(*) FROM ADMIN_ASK
+	
+	</select>
+	
+	<!--신고 카운트  -->
+	<select id="reportCount" resultType = "_int">
+	SELECT COUNT(*)FROM REPORT
+	
+	</select>
+	
+	
 	
 	<select id="replyView" resultMap = "adminReply_rm">
 	 	 SELECT REPLY_NO ,
