@@ -25,7 +25,7 @@
 					</div>
 					<div class="introduce">
 						<div class="nickname">
-
+							${follow}
 							<c:choose>
 								<c:when test="${loginMember.memberNo == memberNo}">
 
@@ -34,9 +34,12 @@
 									<img src="${contextPath}/resources/images/myBoard/png"
 										data-bs-toggle="modal" data-bs-target="#followerList3">
 								</c:when>
+								<%-- <c:when test="${!loginMember.memberNo">
+									<span>${member.memberName}</span>
+								</c:when> --%>
 								<c:otherwise>
-									<span>${memberName}</span>
-
+									<span>${member.memberName}</span>
+										
 									<c:choose>
 										<c:when test="${follow eq 0}">
 											<a class="follow">팔로우</a>
@@ -66,7 +69,7 @@
 							</div>
 							<div class="Count follow_count" data-bs-toggle="modal"
 								data-bs-target="#followerList2">
-								<span>팔로우</span> <span>${followCount}</span>
+								<span>팔로잉</span> <span>${followCount}</span>
 							</div>
 
 
@@ -239,7 +242,7 @@
 						</div>
 						<div class="modal-body">
 							<div class="list-wrap">
-								<div class="list-item">
+								<!-- <div class="list-item">
 									<div class="img"></div>
 									<div class="info">
 										<span>user01</span> <span>이상원</span>
@@ -329,7 +332,7 @@
 										<a href="#self">팔로우 취소</a>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
@@ -577,10 +580,12 @@
 
 				});
 		
-		
+		// 해당 페이지 멤버 팔로우 조회
 		$('#followerList').on('shown.bs.modal', function () {
 			  var html = [];  
 			const follow = $(".list-wrap");
+			
+			
 			$.ajax({
 
 				url: contextPath + "/board1/myBoard/" + thisMemberNo + "/followFriend",
@@ -600,7 +605,7 @@
 										'<span>'+ list[i].memberNm +'</span>' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
-									'<a href="#self">삭제</a>'+
+									'<a class="">삭제</a>'+
 									'</div>' +
 								'</div>'
 								);
@@ -624,7 +629,7 @@
 				alert('닫는다');
 			});
 		
-		
+		// 해당 페이지 멤버 팔로워 조회
 		$('#followerList2').on('shown.bs.modal', function () {
 			var html = [];  
 			const follow = $(".list-wrap");
@@ -636,18 +641,23 @@
 				type: "GET",
 				success: function(list) {
 					console.log(list)
+					
+					
+					
+					
 					if(list.length > 0){
 						for(var i = 0; i < list.length; i++){
 							
 						html.push(
-								'<div class="list-item">' +
+								'<div class="list-item list-item-'+ i +'">' +
 									'<div class="img"></div>' +
 									'<div class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
 										'<span>'+ list[i].memberNm +'</span>' +
+										'<input type="hidden" name="friendNo" value="' +list[i].memberNo + '">' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
-									'<a href="#self">팔로우 취소</a>'+
+									'<a class="follow-delete">팔로우 취소</a>'+
 									'</div>' +
 								'</div>'
 								);
@@ -672,6 +682,61 @@
 			}).on('hide.bs.modal', function() {
 				alert('닫는다2');
 			});
+		
+		$(document).on("click", '.follow-delete', function() {
+			
+		
+			if(confirm("정말로 팔로우를 취소하시겠습니까?")) {
+
+				
+			
+				var _this = $(this);
+				var friendNo = $(this).parent().siblings('.info').children('input[name="friendNo"]').val();
+			
+				
+				
+					$.ajax({
+
+						url : contextPath + "/board1/myBoard/" + thisMemberNo + "/deleteFollow2",
+						type : "get",
+						dataType : "JSON",
+						data: {"friendNo" : friendNo},
+						success : function(result) {			
+							
+							
+							$(".follow-delete").parent().parent().remove();
+							
+							var follow_count =  parseInt($('.follow_count span').eq(1).text());
+							$('.follow_count span').eq(1).text(follow_count - 1);
+ 
+						
+							
+						},
+
+						error : function(request, status, error) {
+
+							// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+							if (request.status == 404) {
+								console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+							} else if (request.status == 500) {
+								console.log("서버 내부 에러 발생");
+								console.log(request.responseText);
+							}
+
+						}
+
+					});
+				}
+
+		});
+
+		
+		
+		
+		
+		
+		
 	</script>
 
 </body>

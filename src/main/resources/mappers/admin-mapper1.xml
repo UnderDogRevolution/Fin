@@ -14,6 +14,22 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="statusNm" column="POST_STATUS_NM" />
 		<result property="status" column="POST_STATUS_CD" />
+		<result property="blind" column="BLIND_REPLY_CONTENT" />
+	</resultMap>
+
+
+	<resultMap type="AdminReply" id="adminReply_rm">
+
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="postNo" column="POST_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="createDt" column="REPLY_CREATE_DT" />
+		<result property="status" column="REPLY_STATUS_CD" />
+		<result property="statusNm" column="REPLY_STATUS_NM" />
+		<result property="blind" column="BLIND_REPLY_CONTENT" />
 	</resultMap>
 
 
@@ -21,6 +37,159 @@
 		<id property="statusCd" column="POST_STATUS_CD" />
 		<result property="statusNm" column="POST_STATUS_NM" />
 	</resultMap>
+	<resultMap type="ReplyStatus" id="reply_Status_rm">
+		<id property="statusCd" column="REPLY_STATUS_CD" />
+		<result property="statusNm" column="REPLY_STATUS_NM" />
+	</resultMap>
+	
+	
+	<select id="replyView" resultMap = "adminReply_rm">
+	 	 SELECT REPLY_NO ,
+		REPLY_CONTENT ,TO_CHAR(REPLY_CREATE_DT ,'YYYY-MM-DD') REPLY_CREATE_DT , LIKE_COUNT ,
+		POST_NO , MEMBER_NO ,
+		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM,BLIND_POST_CONTENT
+		FROM REPLY
+		JOIN MEMBER
+		USING(MEMBER_NO)
+		JOIN REPLY_STATUS
+		USING(REPLY_STATUS_CD)
+		LEFT JOIN BLIND_POST USING(POST_NO)
+        WHERE REPLY_NO = #{replyNo}
+	</select>
+	
+	
+	
+	<!--댓글 블라인드 내용 삽입  -->
+	
+	<update id="changeReplyStatus">
+		UPDATE REPLY SET REPLY_STATUS_CD = #{status}
+		WHERE
+		REPLY_NO = #{replyNo}
+	
+	</update>
+	
+	
+	
+	<insert id="insertReplyBlind">
+		INSERT INTO BLIND_REPLY VALUES(SEQ_BLIND_REPLY_NO.NEXTVAL
+		,#{blind}, DEFAULT
+		,#{replyNo})
+
+	</insert>
+	
+	
+	<!-- 댓글 블라인드 내용 지우기 -->
+	<delete id="deleteReplyBlind">
+		DELETE FROM BLIND_REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</delete>
+
+
+	<!--댓글 상태조회  -->
+	<select id="searchStatusReply" resultMap="reply_Status_rm">
+		SELECT REPLY_STATUS_CD
+		FROM REPLY
+		WHERE REPLY_NO = #{replyNo}
+	</select>
+
+
+	<!-- 댓글 카운트 -->
+	<select id="replyCount" resultType="_int">
+		SELECT COUNT(*) FROM REPLY
+
+		<if test="inputResult != ''">
+			<if test="searchPost != null">
+				<choose>
+					<when test="searchPost == 'replyNo'">
+						WHERE REPLY_NO = #{inputResult}
+
+					</when>
+					<when test="searchPost == 'postNo'">
+						WHERE POST_NO = #{inputResult}
+
+					</when>
+					<when test="searchPost == 'memberNm'">
+						JOIN MEMBER USING(MEMBER_NO)
+						WHERE MEMBER_NM LIKE
+						#{inputResult}||'%'
+						OR MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+
+					</when>
+					<when test="searchPost == 'memberNo'">
+
+						WHERE MEMBER_NO = #{inputResult}
+					</when>
+					<when test="searchPost == 'status'">
+
+						JOIN REPLY_STATUS USING(REPLY_STATUS_CD)
+						WHERE
+						REPLY_STATUS_NM LIKE '%'|| 'inputResult'||'%'
+					</when>
+				</choose>
+
+			</if>
+
+
+
+		</if>
+
+	</select>
+	<!-- 댓글 상태 조회 -->
+	<select id="selectReplyStatus" resultMap="reply_Status_rm">
+		SELECT REPLY_STATUS_NM
+		, REPLY_STATUS_CD
+		FROM REPLY_STATUS
+		
+
+	</select>
+	<!-- 댓글 조회 -->
+	<select id="adminReply" resultMap="adminReply_rm">
+		SELECT REPLY_NO ,
+		REPLY_CONTENT ,TO_CHAR(REPLY_CREATE_DT ,'YYYY-MM-DD') REPLY_CREATE_DT , LIKE_COUNT ,
+		POST_NO , MEMBER_NO ,
+		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM
+		FROM REPLY
+		JOIN MEMBER
+		USING(MEMBER_NO)
+		JOIN REPLY_STATUS
+		USING(REPLY_STATUS_CD)
+
+		<if test="inputResult != ''">
+			<if test="searchPost != null">
+				<choose>
+					<when test="searchPost == 'replyNo'">
+						WHERE REPLY_NO = #{inputResult}
+
+					</when>
+					<when test="searchPost == 'postNo'">
+						WHERE POST_NO = #{inputResult}
+
+					</when>
+					<when test="searchPost == 'memberNm'">
+						WHERE MEMBER_NM LIKE
+						#{inputResult}||'%'
+						OR MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+
+					</when>
+					<when test="searchPost == 'memberNo'">
+						WHERE MEMBER_NO = #{inputResult}
+					</when>
+					<when test="searchPost == 'status'">
+						WHERE REPLY_STATUS_NM LIKE '%'||
+						'inputResult'||'%'
+					</when>
+				</choose>
+			</if>
+		</if>
+
+
+		ORDER BY
+		REPLY_NO DESC
+	</select>
+
+
 
 	<select id="postCount" resultType="_int">
 		SELECT COUNT(*) FROM POST
@@ -49,7 +218,8 @@
 						JOIN
 						POST_STATUS
 						USING(POST_STATUS_CD)
-						WHERE POST_STATUS_NM LIKE  '%'||#{inputResult}||'%'
+						WHERE
+						POST_STATUS_NM LIKE '%'||#{inputResult}||'%'
 					</when>
 				</choose>
 
@@ -97,7 +267,7 @@
 						WHERE POST_NO = #{inputResult}
 					</when>
 					<when test="searchPost == 'status'">
-						WHERE POST_STATUS_NM LIKE  '%'||#{inputResult}||'%'
+						WHERE POST_STATUS_NM LIKE '%'||#{inputResult}||'%'
 					</when>
 				</choose>
 			</if>
@@ -122,4 +292,35 @@
 	<select id="selectStatus" resultMap="status_rm">
 		SELECT * FROM POST_STATUS
 	</select>
+	<select id="postView" resultMap="adminPost_rm">
+		SELECT POST_NO , POST_CONTENT ,
+		READ_COUNT , LIKE_COUNT ,
+		TO_CHAR(POST.CREATE_DT ,'YYYY-MM-DD')
+		CREATE_DT,
+		TO_CHAR(POST.MODIFY_DT , 'YYYY-MM-DD')MODIFY_DT,
+		POST_STATUS_CD,POST_STATUS_NM , BLIND_POST_CONTENT,MEMBER_NO,
+		MEMBER_NM
+		FROM POST
+		JOIN POST_STATUS USING(POST_STATUS_CD)
+		JOIN MEMBER
+		USING (MEMBER_NO)
+		LEFT JOIN BLIND_POST USING(POST_NO)
+		WHERE POST_NO =
+		#{postNo}
+	</select>
+
+	<select id="searchStatus" resultMap="status_rm">
+
+		SELECT POST_STATUS_CD
+		FROM
+		POST_STATUS
+		JOIN POST USING(POST_STATUS_CD)
+		WHERE POST_NO = #{postNo}
+	</select>
+
+	<delete id="deleteBlind">
+		DELETE FROM BLIND_POST
+		WHERE POST_NO = #{postNo}
+
+	</delete>
 </mapper>

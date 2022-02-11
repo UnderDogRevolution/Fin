@@ -56,30 +56,11 @@ public class AdminController2 {
 		// 바라는 점 상세 조회 modal
 		@RequestMapping(value="selectAskDetail", method=RequestMethod.GET)
 		@ResponseBody
-		public AdminAsk selectAskDetail(int askNo, AdminAsk ask,  @ModelAttribute("loginMember") Member loginMember, Model model) {
+		public AdminAsk selectAskDetail(int askNo, AdminAsk ask, Model model) {
 			
 			ask= service.selectAskDetail(askNo);
 			model.addAttribute("ask", ask);
 			
 			return	ask;
 		}
-		
-		/*
-		 * // 바라는 점 상세 조회 modal
-		 * 
-		 * @RequestMapping(value="selectAskDetail", method=RequestMethod.GET)
-		 * 
-		 * @ResponseBody public String selectAskDetail(Model model, AdminAsk ask,
-		 * 
-		 * @ModelAttribute("loginMember") Member loginMember) {
-		 * 
-		 * 
-		 * ask.setMemberNo(loginMember.getMemberNo()); int askNo =
-		 * service.selectAskDetail(ask);
-		 * 
-		 * System.out.println("--"); System.out.println(askNo);
-		 * System.out.println("--");
-		 * 
-		 * return "admin/selectAskDetail"; }
-		 */
-}
+	}
