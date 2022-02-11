@@ -45,4 +45,13 @@ public class AdminDAO2 {
 		return sqlSession.selectOne("adminMapper3.selectAskDetail", askNo);
 	}
 
+
+	/** 문의글 삭제
+	 * @param askNo
+	 * @return
+	 */
+	public int askDelete(int askNo) {
+		return sqlSession.delete("adminMapper3.askDelete", askNo);
+	}
+
 }

@@ -156,10 +156,10 @@ public class MemberController2 {
 		int askNo = service.insertAsk(ask);
 		
 		if(askNo > 0) { // 삽입 성공
-			Util.swalSetMessage("게시글 삽입 성공", null, "success", ra);
+			Util.swalSetMessage("바라는 글 제출 성공", null, "success", ra);
 
 		}else { // 실패
-			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
+			Util.swalSetMessage("바라는 글 제출 실패", null, "error", ra);
 		}
 		
 		return "redirect:/member/ask";
