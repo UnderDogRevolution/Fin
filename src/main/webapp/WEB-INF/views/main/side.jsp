@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  	
     <div class="side-menu">
-        
+        <div style="text-align: center; font-weight: bold; font-size: 22px;">Movie of the Week</div>
         <ul class="side-ul">
             <li>
                 <a href="">
