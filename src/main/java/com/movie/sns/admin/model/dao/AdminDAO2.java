@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.sns.admin.model.vo.AdminAsk;
+import com.movie.sns.admin.model.vo.AdminMemberSearch;
 import com.movie.sns.admin.model.vo.Pagination;
 @Repository
 public class AdminDAO2 {
@@ -52,6 +53,30 @@ public class AdminDAO2 {
 	 */
 	public int askDelete(int askNo) {
 		return sqlSession.delete("adminMapper3.askDelete", askNo);
+	}
+
+
+	/** 검색조건 만족하는 문의글 수
+	 * @param search
+	 * @return
+	 */
+	public int getSearchListCount(AdminMemberSearch search) {
+		return sqlSession.selectOne("adminMapper3.getSearchListCount", search);
+	}
+
+
+	/** 검색조건 만족하는 문의글 리스트
+	 * @param pagination
+	 * @param search
+	 * @return
+	 */
+	public List<AdminAsk> selectAskList(Pagination pagination, AdminMemberSearch search) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("adminMapper3.selectSearchAskList", search, rowBounds);
 	}
 
 }
