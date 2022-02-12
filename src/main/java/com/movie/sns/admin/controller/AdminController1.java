@@ -162,9 +162,10 @@ public class AdminController1 {
 		@RequestMapping(value = "report", method = RequestMethod.GET)
 		public String reportBoard(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
 							AdminReport  report	) {
-
+			Pagination pagination = service.getReportPagination(cp, report);	
 			List<AdminReport> list = service.reportBoard(report);
-			
+			model.addAttribute("pagination",pagination);
+			model.addAttribute("report", list);
 			return "admin/adminReport";
 		}
 		

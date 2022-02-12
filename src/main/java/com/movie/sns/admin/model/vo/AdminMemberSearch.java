@@ -30,6 +30,11 @@ public class AdminMemberSearch {
 	public void setCt(String ct) {
 		this.ct = ct;
 	}
+
+	@Override
+	public String toString() {
+		return "AdminMemberSearch [sk=" + sk + ", sv=" + sv + ", ct=" + ct + "]";
+	}
 	
 	
 	

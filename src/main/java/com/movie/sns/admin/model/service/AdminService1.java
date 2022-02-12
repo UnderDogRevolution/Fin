@@ -33,6 +33,8 @@ public interface AdminService1 {
 
 	List<AdminReport> reportBoard(AdminReport report);
 
+	Pagination getReportPagination(int cp, AdminReport report);
+
 	
 	
 	

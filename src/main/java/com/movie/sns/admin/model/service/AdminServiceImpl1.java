@@ -139,5 +139,11 @@ public class AdminServiceImpl1 implements AdminService1 {
 		return dao.reportBoard(report);
 	}
 
+	@Override
+	public Pagination getReportPagination(int cp, AdminReport report) {
+		int reportCount = dao.reportCount(cp, report);
+		return new Pagination(reportCount, cp);
+	}
+
 
 }

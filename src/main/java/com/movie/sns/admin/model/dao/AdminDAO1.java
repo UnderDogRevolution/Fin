@@ -94,6 +94,15 @@ public class AdminDAO1 {
 		return sqlSession.selectList("adminMapper1.reportBoard", report);
 	}
 
+	public Pagination getReportPagination(AdminReport report) {
+		return sqlSession.selectOne("adminMapper1.reportBoard", report);
+	}
+
+	public int reportCount(int cp, AdminReport report) {
+		
+		return sqlSession.selectOne("adminMapper1.reportCount", report);
+	}
+
 	
 	
 	

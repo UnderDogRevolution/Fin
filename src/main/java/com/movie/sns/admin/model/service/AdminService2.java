@@ -3,6 +3,7 @@ package com.movie.sns.admin.model.service;
 import java.util.List;
 
 import com.movie.sns.admin.model.vo.AdminAsk;
+import com.movie.sns.admin.model.vo.AdminMemberSearch;
 import com.movie.sns.admin.model.vo.Pagination;
 
 public interface AdminService2 {
@@ -36,5 +37,18 @@ public interface AdminService2 {
 	 * @return
 	 */
 	int askDelete(int askNo);
+
+
+
+	/** 검색 조건 회원리스트
+	 * @param cp
+	 * @param search
+	 * @return
+	 */
+	Pagination getPagination(int cp, AdminMemberSearch search);
+
+
+
+	List<AdminAsk> selectAskList(Pagination pagination, AdminMemberSearch search);
 	
 }

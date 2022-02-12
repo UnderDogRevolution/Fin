@@ -17,7 +17,7 @@
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style type="text/css">
-.MemberView{
+.MemberView {
 	cursor: pointer;
 }
 
@@ -36,7 +36,8 @@ h5 {
 .xbtn {
 	color: white !important;
 }
-.replyModalShow{
+
+.replyModalShow {
 	cursor: pointer;
 }
 
@@ -193,7 +194,7 @@ select:focus {
 									<tbody class="tbody">
 										<c:choose>
 
-											<c:when test="${empty reply}">
+											<c:when test="${empty report}">
 												<tr>
 													<td colspan="8">등록된댓글이 존재하지 않습니다.</td>
 												</tr>
@@ -201,22 +202,30 @@ select:focus {
 
 											</c:when>
 											<c:otherwise>
-												<c:forEach items="${reply}" var="reply">
+												<c:forEach items="${report}" var="report">
 													<tr>
 														<td class="replyModalShow"
-															onclick="postModal(${reply.replyNo})">${reply.replyNo}</td>
+															onclick="postModal(${report.reportNo})">${report.reportNo}</td>
 														<td>${reply.postNo}</td>
-														<td  class= "MemberView" onclick = "showMemberDetail(${reply.memberNo})">${reply.memberNo}</td>
+														<td class="MemberView"
+															onclick="showMemberDetail(${report.memberNo})">${report.memberNo}</td>
 														<td><a style="text-decoration: none; color: white;"
-															href="${contextPath}/board1/myBoard/${reply.memberNo}">${reply.memberNm}</a></td>
+															href="${contextPath}/board1/myBoard/${report.memberNo}">${report.memberNm}</a></td>
 
 														<td class='replyContent'><a
 															style="text-decoration: none; color: white;"
-															href="${contextPath}/post/view/${reply.postNo}">${reply.replyContent}<a></td>
+															href="${contextPath}/post/view/${report.postNo}">${report.reportContent}<a></td>
 
-														<td>${reply.likeCount}</td>
-														<td>${reply.createDt}</td>
-														<td><select name="statusCd" id="" class="select"
+														<td>${report.createDt}</td>
+														<c:if test="${report.typeNo} == 0">
+															<td>게시판</td>
+														</c:if>
+														<c:if test="${report.typeNo} == 1">
+															<td>댓글</td>
+														</c:if>
+
+
+												<%-- 		<td><select name="statusCd" id="" class="select"
 															onchange="changeStatus(event,${reply.replyNo})">
 																<c:forEach items="${cd}" var="c">
 																	<c:if test="${reply.statusNm == c.statusNm}">
@@ -231,7 +240,7 @@ select:focus {
 
 
 
-														</select></td>
+														</select></td> --%>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -358,9 +367,9 @@ select:focus {
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 회원 정보 상세 조회 모달 -->
-<!-- 회원 정보 상세 조회 모달 -->
+	<!-- 회원 정보 상세 조회 모달 -->
 	<div class="modal fade" id="memberDetail" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div
@@ -435,12 +444,10 @@ select:focus {
 				</div>
 
 
-	
-	
 
 
-	<script src="${contextPath}/resources/js/admin/adminReply.js"></script>
 
 
+				<script src="${contextPath}/resources/js/admin/adminReply.js"></script>
 </body>
 </html>

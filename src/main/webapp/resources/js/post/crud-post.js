@@ -85,7 +85,8 @@ const textareaBox = document.getElementsByClassName("insert-container-textarea")
 // const textCount = document.getElementsByClassName("text-count")[0];
 const postImg = document.getElementsByClassName("post-img")[0];
 const reviewTitle = document.getElementsByClassName("modal-review-title")[0];
-const starInput = document.getElementsByClassName("insert-rating")[0];
+const starInput = document.getElementsByClassName("rating")[0];
+const starValueInput = document.getElementsByClassName("rating-value")[0];
 const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
@@ -95,6 +96,7 @@ function Write(){
 	searchResult2.style.display = "none";	
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
+	starValueInput.style.display = "none";	
 	searchMovie.style.display = "none";	
 	
 	textareaBox.style.display = "block";
@@ -115,6 +117,7 @@ function Review(){
 	postImg.style.display = "none";
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
+	starValueInput.style.display = "none";	
 	searchMovie.style.display = "none";
 	postSubmit.style.display = "none";
 	containerTextCount.style.display = "none";	
@@ -238,6 +241,7 @@ async function fetchMovie(page){
                 postImg.style.display = "block";
                 reviewTitle.style.display = "block";	
             	starInput.style.display = "flex";
+            	starValueInput.style.display = "block";
                 searchMovie.style.display = "inline";
                 postSubmit.style.display = "inline";
                 const content = this.parentElement.nextElementSibling.innerHTML;
@@ -302,6 +306,10 @@ inputTextarea.addEventListener("blur", function(){
 
 inputTextarea.addEventListener("input",function(){
     changeContent();
+    inputDiv.height = "auto"
+    let scHeight = inputDiv.scrollHeight; 
+    inputDiv.style.height = `${scHeight}px`
+    inputTextarea.style.height = inputDiv.style.height;
 })
 
 function autoComplete(arr){ // 배열 매개변수
@@ -318,13 +326,13 @@ function changeContent(){
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
     let change = content.replace(tagRegExp, function(target){
-        return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
-    })
-    change = change.replace(userRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
+    change = change.replace(userRegExp, function(target){
+        return "<a href='#' class='attach' style='color: #ffd700;'>" + target + "</a>";
+    })
     inputDiv.innerHTML = change;
-    // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
+    // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 위의 경우는 태그를 쓰기때문에 안된다 ㅠ
 }
 // const bef = []
 let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
@@ -352,7 +360,7 @@ const observer = new MutationObserver(mutations => {
                                     type: "POST",
                                     dataType : "JSON",
                                     success: function (tagList) {
-                                       
+                                       // 태그의 위치 변경은 변화된 노드의 상대 좌표를 계산한 값을 이용했다. 
                                         const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
                                         modalSide.style.top = Number(top) + 24 + "px"; 
                                         
@@ -577,3 +585,12 @@ function getAbsoluteLeft(element) {
     return window.pageYOffset + element.getBoundingClientRect().left;
 }
 
+function XSSCheck(str, level) {
+    if (level == undefined || level == 0) {
+        str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g,"");
+    } else if (level != undefined && level == 1) {
+        str = str.replace(/\</g, "&lt;");
+        str = str.replace(/\>/g, "&gt;");
+    }
+    return str;
+}

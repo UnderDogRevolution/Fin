@@ -65,10 +65,6 @@
 	</select>
 	
 	<!--신고 카운트  -->
-	<select id="reportCount" resultType = "_int">
-	SELECT COUNT(*)FROM REPORT
-	
-	</select>
 	
 	<select id="replyView" resultMap = "adminReply_rm">
 	 	 SELECT REPLY_NO ,
@@ -369,25 +365,17 @@
 	</delete>
 	
 	
-	
-	
-	<select id="reportCount" resultMap = "_int">
+	<select id="reportCount" resultType = "_int">
 	
 	SELECT COUNT(*) FROM REPORT
-	
 	</select>
 	
-	
-	
-	<select id="adminReport">
-	
+	<select id="reportBoard" resultMap = "AdminReport_rm">
 	SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
     FROM REPORT
     LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
     JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
     LEFT JOIN REPLY ON(REPORT.TARGET_PK = REPLY.REPLY_NO)
-	
-	
 	</select>
 	
 </mapper>
