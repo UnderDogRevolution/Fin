@@ -66,7 +66,7 @@ function selectReplyList(cp) {//검색
 				const tr = $("<tr>");
 				const td1 = $('<td class="postModalShow" onclick= "postModal(' + reply.replyNo + ')">');
 				const td2 = $("<td>");
-				const td3 = $("<td>");
+				const td3 = $("<td class ='MemberView' onclick = 'showMemberDetail("+reply.memberNo+")' >");
 				const td4 = $("<td>");
 				const td5 = $("<td class = 'replyContent'>");
 				const td6 = $("<td>");
@@ -295,3 +295,79 @@ function changeStatus(event, replyNo) {
 	});
 
 };
+
+
+
+// 회원 정보 상세 조회 함수
+function showMemberDetail(memberNo){
+  
+  // 모달 내용 지우기
+  $(".inputMemberProfileImage").removeAttr("src");
+  $(".inputMemberEmail").text("");
+  $(".inputMemberName").text("");
+  $(".inputMemberNickName").text("");
+  $(".inputMemberNo").text("");
+  $(".inputMemberBirth").text("");
+  $(".inputMemberEnrollDate").text("");
+  $(".inputMemberStatusName").text("");
+  $(".inputViolationCount").text("");
+
+  $.ajax({
+
+    url : contextPath +"/admin/member/selectMemberDetail",
+    type : "get",
+    data : {"memberNo" : memberNo},
+    dataType : "JSON",
+
+    success : function(member){
+
+      if(member != null){
+        
+        console.log("정보 조회 성공");
+
+        // 요소에 값 추가하기
+        $(".inputMemberProfileImage").attr("src", contextPath + member.profileImage.imgPath + member.profileImage.imgName);
+        $(".inputMemberEmail").text(member.memberEmail);
+        $(".inputMemberName").text(member.memberName);
+        $(".inputMemberNickName").text(member.memberNickName);
+        $(".inputMemberNo").text(member.memberNo);
+        $(".inputMemberBirth").text(member.memberBirth);
+        $(".inputMemberEnrollDate").text(member.enrollDate);
+        $(".inputMemberStatusName").text(member.memberStatusName);
+        $(".inputViolationCount").text(member.violationCount);
+
+        console.log(member);
+        console.log(contextPath);
+
+        $("#memberDetail").modal('show');
+
+      }else{
+        console.log("정보 조회 실패");
+      }
+
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+      }
+   
+    },
+
+    complete : function(){
+
+    }
+
+  });
+  
+  
+};
+
+
+
+

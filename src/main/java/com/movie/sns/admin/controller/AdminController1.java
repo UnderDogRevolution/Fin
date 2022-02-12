@@ -19,6 +19,7 @@ import com.movie.sns.admin.model.service.AdminService1;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.AdminReply;
+import com.movie.sns.admin.model.vo.AdminReport;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.admin.model.vo.ReplyStatus;
@@ -155,6 +156,21 @@ public class AdminController1 {
 			
 			return result;
 		}
+		
+		
+		
+		@RequestMapping(value = "report", method = RequestMethod.GET)
+		public String reportBoard(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
+							AdminReport  report	) {
+			Pagination pagination = service.getReportPagination(cp, report);	
+			List<AdminReport> list = service.reportBoard(report);
+			model.addAttribute("pagination",pagination);
+			model.addAttribute("report", list);
+			return "admin/adminReport";
+		}
+		
+		
+		
 		
 		
 }
