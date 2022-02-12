@@ -6,7 +6,7 @@
 		
 		
 		
-		<div class="main-side" onclick ="location.href='${contextPath}/admin/main'">메인페이지</div>
+		<div class="main-side" onclick ="location.href='${contextPath}/admin/'">메인페이지</div>
 		<div class="member-side" onclick ="location.href='${contextPath}/admin/member/list'">회원관리</div>
 		<div class="en-side" onclick ="location.href='${contextPath}/admin/ask'">바라는 점</div>
 		<div class="board-side" onclick ="location.href='${contextPath}/admin/post'">게시판관리</div>

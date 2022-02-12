@@ -427,7 +427,7 @@ function findMember(cp){
           const td3 = $('<td><span style="cursor:pointer;" onclick="showMemberDetail('+ member.memberNo +');">'+ member.memberName +'</span></td>');
           
           // 닉네임
-          const td4 = $('<td>'+ member.memberNickName +'</td>');
+          const td4 = $('<td><a style="text-decoration: none; color: white;"	href="' + contextPath + '/board1/myBoard/'+ member.memberNo +'">'+ member.memberNickName +'</a></td>');
           
           // 이메일
           const td5 = $('<td>'+ member.memberEmail +'</td>');
