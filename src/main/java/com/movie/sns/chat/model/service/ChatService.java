@@ -34,10 +34,12 @@ public interface ChatService {
 	int deleteChat(ChatRoomJoin join);
 	
 	// 팔로워조회
-	List<ChatFriend> searchFollower(int memberNo);
+	List<ChatFriend> searchFollower(ChatFriend chat);
 	
 	// 메세지 보내기
 	Map<String, Object> goChatting(ChatRoom room);
+	// 채팅 인물검색
+	List<ChatFriend> searchPersion(ChatFriend chat);
 	
 	
 

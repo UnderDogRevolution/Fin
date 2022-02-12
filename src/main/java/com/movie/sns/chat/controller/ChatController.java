@@ -139,14 +139,27 @@ public class ChatController {
 		}
 		@ResponseBody
 		@RequestMapping(value = "searchFollower", method = RequestMethod.POST)
-		public String searchFollower(@ModelAttribute("loginMember") Member loginMember) {
-			int memberNo = loginMember.getMemberNo();
-			// 참여 미참여 // 미참여 두명일시 채팅방 삭제 아닐시 상태변경
-			List<ChatFriend> rList = service.searchFollower(memberNo);
+		public String searchFollower(@ModelAttribute("loginMember") Member loginMember ,ChatFriend chat) {
+			chat.setMemberNo(loginMember.getMemberNo());
+			List<ChatFriend> rList = service.searchFollower(chat);
 			
 			System.out.println("친구놈들 가져오기"+rList);
 			return new Gson().toJson(rList);
 		}
+		
+		// 사람 검색
+		@ResponseBody
+		@RequestMapping(value = "searchPersion", method = RequestMethod.GET)
+		public String searchPersion(@ModelAttribute("loginMember") Member loginMember,ChatFriend chat) {
+			chat.setMemberNo(loginMember.getMemberNo());
+			System.out.println("값 확인");
+			List<ChatFriend> rList = service.searchPersion(chat);
+			
+			System.out.println("검색결과"+rList);
+			return new Gson().toJson(rList);
+		}
+		
+		
 		@ResponseBody
 		@RequestMapping(value = "goChatting", method = RequestMethod.POST)
 		public String goChatting(ChatRoom room) {
@@ -159,4 +172,8 @@ public class ChatController {
 			return new Gson().toJson(map);
 		}
 
+		
+
+		
+		
 }

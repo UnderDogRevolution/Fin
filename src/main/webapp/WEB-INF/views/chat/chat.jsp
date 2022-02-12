@@ -151,14 +151,14 @@
 			style="max-width: inherit">
 			<div class="modal-content">
 				<div class="modal-header friendsListheader" style="position: relative;">
-					친구 목록
+					<p class = "modal-title">친구 목록</p>
 					<div class="x-box">
 						<i class="fas fa-times" data-bs-dismiss="modal" aria-label="Close"></i>
 						<!-- x아이콘 -->
 					
 					</div>
 					<div>
-						<input id="searchpr" class="searchVal" type="text" name = "inputResult">
+						<input oninput="searchPersion()" id="searchpr" class="searchVal" type="text" name = "inputResult">
 					</div>
 					<svg onclick = "searchMember()" aria-label="새로운 게시물" class="_8-yf5 " color="white"
 						fill="#262626" height="24" role="img" viewBox="0 0 24 24"

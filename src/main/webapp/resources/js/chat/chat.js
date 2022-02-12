@@ -11,27 +11,131 @@ selectChatRoom();
 // 일단 화면을 봐야되니까 그냥 만들어지는지 확인하자
 
 
-function searchMember(){
+function searchMember() {
 	inputResult = $("#searchpr")
-	
-	if(inputResult.hasClass("searchVal")){
+
+	if (inputResult.hasClass("searchVal")) {
+		$(".modal-title").text("")
+		$(".modal-title").text("인물검색")
+		$(".modal-body").html("");
 		inputResult.removeClass("searchVal");
 		inputResult.addClass("searchVal1");
-	}else{
+
+	} else {
 		inputResult.removeClass("searchVal1");
 		inputResult.addClass("searchVal");
-		
+		$(".modal-title").text("")
+		$(".modal-title").text("친구목록")
+
+		$.ajax({
+
+			url: contextPath + "/chat/searchFollower",
+			dataType: "JSON",
+			type: "POST",
+			success: function(rList) {
+
+				$.each(rList, function(index, fr) {
+
+					const body = $(".modal-body");
+					$(".modal-body").html("");
+
+					const frMain = $("<div class = 'friendsListMain'>");
+					const imgwrap = $("<div class = 'friendsImg-wrap'>");
+					const img = $("<img>");
+					const namewrap = $("<div class = 'friendsName-wrap'>");
+					const msgwrap = $("<div class = 'messagebtn-wrap'>");
+					const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.toUser + ")'>");
+					btn.text("보내기");
+					img.attr("src", contextPath + fr.imgPath + fr.imgNm);
+					namewrap.text(fr.memberNm);
+					msgwrap.append(btn);
+					imgwrap.append(img);
+					frMain.append(imgwrap);
+					frMain.append(namewrap);
+					frMain.append(msgwrap);
+					body.append(frMain);
+				});
+			},
+			error: function() {
+
+			}
+
+
+
+		});
+
+
+
 	}
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
+
+
+
+
+
+}
+
+function searchPersion() { //인물조회
+	inputResult = $("#searchpr").val();
+	console.log("메롱");
+	$.ajax({
+
+		url: contextPath + "/chat/searchPersion",
+		data: { "inputResult": inputResult },
+		dataType: "JSON",
+
+		success: function(rList) {
+			$(".modal-body").html("");
+
+			console.log("메롱");
+
+
+			console.log(rList);
+			$.each(rList, function(index, fr) {
+
+
+				const body = $(".modal-body");
+				const frMain = $("<div class = 'friendsListMain'>");
+				const imgwrap = $("<div class = 'friendsImg-wrap'>");
+				const img = $("<img>");
+				const namewrap = $("<div class = 'friendsName-wrap'>");
+				const msgwrap = $("<div class = 'messagebtn-wrap'>");
+				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.memberNo + ")'>");
+				btn.text("보내기");
+				img.attr("src", contextPath + fr.imgPath + fr.imgNm);
+				namewrap.text(fr.memberNm);
+				msgwrap.append(btn);
+				imgwrap.append(img);
+				frMain.append(imgwrap);
+				frMain.append(namewrap);
+				frMain.append(msgwrap);
+				body.append(frMain);
+
+
+
+
+
+
+
+			});
+
+
+
+
+
+
+
+
+		}
+
+
+
+	});
+
+
+}
+
+
+
 
 
 
@@ -164,7 +268,11 @@ $('#MessageModal').on('show.bs.modal', function(event) {
 
 }).on('hide.bs.modal', function() {
 	// 모달 닫히면서 실행 초기화 시키기
+	inputResult = $("#searchpr");
+	inputResult.removeClass("searchVal1");
+	inputResult.addClass("searchVal")
 	$(".modal-body").remove();
+
 });
 
 // 채팅방 생성
@@ -372,22 +480,6 @@ function searchChatting(chatNo, frNo, path) { // 친구 클릭시 동작
 					ul.append(divt);
 
 				} else {
-					/*const divImg = $("<div class = 'chatImg'>")
-					const li = $("<li>")
-					const ul = $("#chattingwrap")
-					const frName = $("<span class = 'frName'>");
-					const frMessage = $("<span class = 'frMessage'>");
-					const msgCreate = $("<span class = 'msgCreate'>");
-					frName.html(data.memberName);
-					msgCreate.html(data.message[i].createDate);
-					li.addClass("frChatting");
-					frMessage.append(divImg);
-					frMessage.html(data.message[i].message);
-					li.append(frName);
-					li.append(frMessage);
-					li.append(msgCreate);
-					ul.append(frName);
-					ul.append(li);*/
 
 
 					const path = contextPath + data.message[i].imgPath + data.message[i].imgName

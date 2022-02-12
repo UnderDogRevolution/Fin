@@ -66,9 +66,32 @@
 		<result property="imgNm" column="MEMBER_IMG_NM" />
 		<result property="memberNm" column="MEMBER_NM" />
 		<result property="memberNickNm" column="MEMBER_NICKNM" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
 	</resultMap>
-
-
+	
+	<!--채팅 인물검색  -->
+	<select id="searchPerson" resultMap = "chatFriend_rm">
+	
+        SELECT MEMBER_NO,MEMBER_NM , MEMBER_NICKNM , MEMBER_IMG_PATH , MEMBER_IMG_NM , MEMBER_BIRTH
+        FROM MEMBER
+        LEFT JOIN MEMBER_IMG USING(MEMBER_NO)
+        
+       <if test="inputResult != ''">
+        
+        WHERE MEMBER_NM LIKE #{inputResult}|| '%' OR MEMBER_NM LIKE '%'  || #{inputResult}|| '%' 
+        AND MEMBER_NO != #{memberNo}
+        AND GRADE_CD != 101
+        </if>
+        <if test="inputResult == ''">
+         WHERE MEMBER_NO != #{memberNo}
+         AND GRADE_CD != 101
+        </if>
+        ORDER BY MEMBER_NM
+        
+	
+	
+	
+	</select>
 
 
 
@@ -201,6 +224,8 @@
 		FOLLOW.MEMBER_NO = #{memberNo}
 
 	</select>
+	
+	
 
 	<!-- 두사람이 포함된 채팅방 존재 여부조회 -->
 	<select id="searchChatRoomJoin" resultType="_int">
