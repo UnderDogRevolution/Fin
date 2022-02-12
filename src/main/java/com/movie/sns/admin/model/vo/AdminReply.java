@@ -5,6 +5,7 @@ public class AdminReply {
 	private int postNo;
 	private int memberNo;
 	private String memberNm;
+	private String memberNick;
 	private String replyContent;
 	private int likeCount;
 	private String createDt;
@@ -15,13 +16,17 @@ public class AdminReply {
 	private String inputResult; 
 	public AdminReply() {
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "AdminReply [replyNo=" + replyNo + ", postNo=" + postNo + ", memberNo=" + memberNo + ", memberNm="
-				+ memberNm + ", replyContent=" + replyContent + ", likeCount=" + likeCount + ", createDt=" + createDt
-				+ ", statusNm=" + statusNm + ", blind=" + blind + ", status=" + status + ", searchPost=" + searchPost
-				+ ", inputResult=" + inputResult + "]";
+				+ memberNm + ", memberNick=" + memberNick + ", replyContent=" + replyContent + ", likeCount="
+				+ likeCount + ", createDt=" + createDt + ", status=" + status + ", statusNm=" + statusNm + ", blind="
+				+ blind + ", searchPost=" + searchPost + ", inputResult=" + inputResult + "]";
 	}
+
+
 	public int getReplyNo() {
 		return replyNo;
 	}
@@ -94,19 +99,12 @@ public class AdminReply {
 	public void setInputResult(String inputResult) {
 		this.inputResult = inputResult;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
 
 
 	

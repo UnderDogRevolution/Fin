@@ -101,20 +101,19 @@ main {
 
 .chatList-wrap {
 	width: 100%;
-	height: 80%;
-	overflow-y: auto;
-	display: flex;
+	height: 500px;
+	overflow : scroll;
 	flex-direction: column;
 }
 
-.chatList-wrap::-webkit-scrollbar {
+ .chatList-wrap::-webkit-scrollbar {
 	display: none;
-}
+} 
 
 .chat {
 	display: flex;
 	width: 100%;
-	height: 20%;
+	height: 15%;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.507);
 	position: relative;
 	cursor: pointer;
@@ -588,30 +587,77 @@ main {
 	top: 0 !important;
 }
 
-.searchVal1{
+.searchVal1 {
 	display: block;
 	background-color: #3a3939;
 	color: white;
 	margin-left: 27px;
 	font-size: 13px;
-	margin-top: 13px;
+	margin-top: 1px;
 	padding: 5px;
 	height: 30px;
 	width: 300px;
 	outline: none;
 	border-radius: 5px;
 }
-.searchVal { 
+
+.searchVal {
 	display: none;
 	background-color: #3a3939;
 	color: white;
 	margin-left: 27px;
 	font-size: 13px;
-	margin-top: 13px;
+	margin-top: 1px;
 	padding: 5px;
 	height: 30px;
 	width: 300px;
 	outline: none;
 	border-radius: 5px;
+}
+
+.messagebtn2-2 {
+	float: right;
+	color: white;
+	background-color: #3a3939;
+	border: none;
+	border-radius: 5px;
+	margin-top: 4px;
+	font-size: 13px;
+	width: 100px;
+	height: 20px;
+}
+
+.messagebtn2-1 {
+	float: right;
+	color: white;
+	background-color: #3a3939;
+	border: none;
+	border-radius: 5px;
+	margin-top: 9px;
+	font-size: 13px;
+	width: 100px;
+	height: 20px;
+}
+.messagebtn2-3{ /*팔로우 중이면  */
+	float: right;
+	color: white;
+	background-color: #942d2d;
+	border: none;
+	border-radius: 5px;
+	margin-top: 9px;
+	font-size: 13px;
+	width: 100px;
+	height: 20px;
 	
+	
+	
+}
+.messagebtn2-1:hover,.messagebtn2-2:hover {
+	background-color: black;
+}
+.messagebtn2-3:hover{
+	background-color: black;
+}
+.friendsName-wrap > a:hover {
+	color:#942d2d;
 }

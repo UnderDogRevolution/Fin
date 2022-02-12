@@ -6,6 +6,7 @@
 
 		<id property="postNo" column="POST_NO" />
 		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberNick" column="MEMBER_NICKNM" />
 		<result property="postContent" column="POST_CONTENT" />
 		<result property="readCount" column="READ_COUNT" />
 		<result property="likeCount" column="LIKE_COUNT" />
@@ -23,6 +24,7 @@
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="postNo" column="POST_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberNick" column="MEMBER_NICKNM" />
 		<result property="memberNm" column="MEMBER_NM" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="likeCount" column="LIKE_COUNT" />
@@ -61,8 +63,8 @@
 	
 	<select id="replyView" resultMap = "adminReply_rm">
 	 	 SELECT REPLY_NO ,
-		REPLY_CONTENT ,TO_CHAR(REPLY_CREATE_DT ,'YYYY-MM-DD') REPLY_CREATE_DT , LIKE_COUNT ,
-		POST_NO , MEMBER_NO ,
+		REPLY_CONTENT ,REPLY_CREATE_DT , LIKE_COUNT ,
+		POST_NO , MEMBER_NO ,MEMBER_NICKNM,
 		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM,BLIND_REPLY_CONTENT
 		FROM REPLY
 		JOIN MEMBER
@@ -165,7 +167,7 @@
 		SELECT REPLY_NO ,
 		REPLY_CONTENT ,TO_CHAR(REPLY_CREATE_DT ,'YYYY-MM-DD') REPLY_CREATE_DT , LIKE_COUNT ,
 		POST_NO , MEMBER_NO ,
-		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM
+		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM , MEMBER_NICKNM
 		FROM REPLY
 		JOIN MEMBER
 		USING(MEMBER_NO)
@@ -220,10 +222,16 @@
 
 					</when>
 					<when test="searchPost == 'memberNm'">
-						JOIN MEMBER USING(MEMBER_NO)
-						WHERE MEMBER_NM LIKE
-						#{inputResult}||'%'
-						OR MEMBER_NM
+						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						OR
+						MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+
+					</when>
+					<when test="searchPost == 'memberNick'">
+						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						OR
+						MEMBER_NICKNM
 						LIKE '%'||#{inputResult}||'%'
 
 					</when>
@@ -250,13 +258,11 @@
 
 
 	<select id="adminPost" resultMap="adminPost_rm">
-		SELECT POST_NO , MEMBER_NM,
+		SELECT POST_NO , MEMBER_NM,MEMBER_NICKNM,
 		POST_CONTENT  ,
 		LIKE_COUNT,
-		TO_CHAR(POST.CREATE_DT ,
-		'YYYY-MM-DD') CREATE_DT,
-		TO_CHAR(POST.MODIFY_DT , 'YYYY-MM-DD')
-		MODIFY_DT,
+		POST.CREATE_DT,
+		POST.MODIFY_DT,
 		MEMBER_NO ,
 		POST_STATUS_NM,
 		POST_STATUS_CD
@@ -278,6 +284,13 @@
 						WHERE MEMBER_NM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+
+					</when>
+					<when test="searchPost == 'memberNick'">
+						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						OR
+						MEMBER_NICKNM
 						LIKE '%'||#{inputResult}||'%'
 
 					</when>
@@ -313,11 +326,8 @@
 		SELECT * FROM POST_STATUS
 	</select>
 	<select id="postView" resultMap="adminPost_rm">
-		SELECT POST_NO , POST_CONTENT ,
-		 LIKE_COUNT ,
-		TO_CHAR(POST.CREATE_DT ,'YYYY-MM-DD')
-		CREATE_DT,
-		TO_CHAR(POST.MODIFY_DT , 'YYYY-MM-DD')MODIFY_DT,
+		SELECT POST_NO , POST_CONTENT , MEMBER_NICKNM,
+		 LIKE_COUNT ,POST.CREATE_DT,POST.MODIFY_DT,
 		POST_STATUS_CD,POST_STATUS_NM , BLIND_POST_CONTENT,MEMBER_NO,
 		MEMBER_NM
 		FROM POST
