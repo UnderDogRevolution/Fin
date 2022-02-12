@@ -52,7 +52,7 @@
     z-index:1056;
 }
 
-.insert-container-textarea > div{
+.insert-container-textarea > div:nth-of-type(1){
     background-color: #404142;
     position: absolute;
     width: 95%;
@@ -214,9 +214,7 @@
     color: black;
     position: absolute;
     z-index: 2000;
-    right: 61%;
     border-radius: 5px;
-    top: 41%;
     overflow-y: scroll;
 }
 
