@@ -2,7 +2,8 @@ package com.movie.sns.admin.model.vo;
 
 public class Admin {
 	
-	private int memberNo;			
+	private int memberNo;
+	private String memberNick;
 	private String name;		
 	private String nickName;	
 	private String password;		
@@ -15,6 +16,18 @@ public class Admin {
 	private String birth;
 	
 	public Admin() {
+	}
+
+
+
+	public String getMemberNick() {
+		return memberNick;
+	}
+
+
+
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
 	}
 
 
@@ -153,10 +166,14 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [memberNo=" + memberNo + ", name=" + name + ", nickName=" + nickName + ", password=" + password
-				+ ", email=" + email + ", imgPath=" + imgPath + ", imgName=" + imgName + ", enrollDt=" + enrollDt
-				+ ", statusCd=" + statusCd + ", gradeCd=" + gradeCd + ", birth=" + birth + "]";
+		return "Admin [memberNo=" + memberNo + ", memberNick=" + memberNick + ", name=" + name + ", nickName="
+				+ nickName + ", password=" + password + ", email=" + email + ", imgPath=" + imgPath + ", imgName="
+				+ imgName + ", enrollDt=" + enrollDt + ", statusCd=" + statusCd + ", gradeCd=" + gradeCd + ", birth="
+				+ birth + "]";
 	}
+
+
+
 
 
 
