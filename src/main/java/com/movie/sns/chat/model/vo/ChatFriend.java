@@ -8,8 +8,40 @@ public class ChatFriend {
 	private String imgNm; // 이미지 번호
 	private String memberNm; // 상대방 이름
 	private String memberNickNm; // 상대방 이름
-	
+	private String memberBirth;
+	private String inputResult;
+	private int CNT;
 	public ChatFriend() {
+	}
+	
+	
+	
+	public int getCNT() {
+		return CNT;
+	}
+
+
+
+	public void setCNT(int cNT) {
+		CNT = cNT;
+	}
+
+
+
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
+	}
+
+	public String getInputResult() {
+		return inputResult;
+	}
+
+	public void setInputResult(String inputResult) {
+		this.inputResult = inputResult;
 	}
 
 	public int getToUser() {
@@ -60,13 +92,15 @@ public class ChatFriend {
 		this.memberNickNm = memberNickNm;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ChatFriend [toUser=" + toUser + ", memberNo=" + memberNo + ", imgPath=" + imgPath + ", imgNm=" + imgNm
-				+ ", memberNm=" + memberNm + ", memberNickNm=" + memberNickNm + "]";
+				+ ", memberNm=" + memberNm + ", memberNickNm=" + memberNickNm + ", memberBirth=" + memberBirth
+				+ ", inputResult=" + inputResult + ", CNT=" + CNT + "]";
 	}
 
-	
 
 
 

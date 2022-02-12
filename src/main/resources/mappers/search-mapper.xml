@@ -25,6 +25,7 @@
 		JOIN MEMBER_IMG ON(A.MEMBER_NO = MEMBER_IMG.MEMBER_NO )
 		WHERE MEMBER_NM LIKE '%'||#{search}||'%'
 		AND A.MEMBER_NO != #{memberNo}
+		AND GRADE_CD != 101
 		ORDER BY CNT DESC
 
 	</select>
