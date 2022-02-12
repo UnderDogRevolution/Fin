@@ -1,6 +1,7 @@
 package com.movie.sns.admin.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,21 +66,12 @@ public class AdminMemberController {
 	// 회원정보조회(ajax를 이용한 조회 페이지)
 		@RequestMapping(value = "selectMemberList2", method = RequestMethod.GET)
 		@ResponseBody
-		public String memberInfoList( @RequestParam(value="cp", required=false, defaultValue="1") int cp,
-									 Model model, AdminMemberSearch search /*, 
-									 @RequestParam(value="sk", required=false) String sk, 
-									 @RequestParam(value="sv", required=false) String sv */ ) 
-		{
+		public String memberInfoList( 	@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										Model model, AdminMemberSearch search ){
 			// search 추가 예정
 			
 			Pagination pagination = null;
 			List<Member> memberList = null;
-			
-//			search.setSk(sk);
-//			search.setSv(sv);
-//			
-//			System.out.println(sk + " + " + sv);
-			System.out.println(search + "검색 결과");
 			
 			// 검색 값이 있는 경우
 			if(search.getSv() != null && !search.getSv().trim().equals("")) {
@@ -95,20 +87,11 @@ public class AdminMemberController {
 				
 			}
 			
-			// 회원 상태 얻어오기
-			List<MemberStatus> statusList = service.selectStatus();
+			Map<String, Object> memberMap = new HashMap<String, Object>();
+			memberMap.put("memberList", memberList);
+			memberMap.put("pagination", pagination);
 			
-			System.out.println(statusList);
-			
-			model.addAttribute("statusList", statusList);
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("memberList", memberList);
-			
-//			System.out.println("==================================");
-//			System.out.println("회원 정보 : " + memberList);
-//			System.out.println("==================================");
-			
-			return new Gson().toJson(memberList);
+			return new Gson().toJson(memberMap);
 		}
 	
 	
@@ -136,9 +119,6 @@ public class AdminMemberController {
 	@RequestMapping(value="changeStatus", method=RequestMethod.GET)
 	@ResponseBody
 	public int changeStatus(Member member) {
-		
-		System.out.println("변경할 회원 번호:"+member.getMemberNo());
-		System.out.println("변경할 회원 상태:"+member.getMemberStatusCode());
 		
 		int result = service.changeStatus(member);
 		

@@ -31,14 +31,14 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String adminLoginPage() {
 		
 		
 		return "admin/adminLogin";
 	}
 
-	@RequestMapping(value = "main", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(Member member, Model model, RedirectAttributes ra, HttpServletRequest req,
 			HttpServletResponse resp) {
 

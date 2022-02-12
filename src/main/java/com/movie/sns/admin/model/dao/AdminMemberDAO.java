@@ -60,7 +60,7 @@ public class AdminMemberDAO {
 	 * @return
 	 */
 	public int getSearchListCount(AdminMemberSearch search) {
-		return sqlSession.selectOne("adminMapper2.getSearchListCount");
+		return sqlSession.selectOne("adminMapper2.getSearchListCount", search);
 	}
 
 	/** 검색 조건 만족하는 회원 리스트
