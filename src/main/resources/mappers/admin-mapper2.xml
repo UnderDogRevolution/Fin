@@ -147,16 +147,16 @@
 			<bind name="val2" value="sv"/>
 			<choose>
 				<when test="sk == 'number'">
-				AND	MEMBER_NO = #{val2}
+					AND	MEMBER_NO = #{val2}
 				</when>
 				<when test="sk == 'name'">
-				AND	MEMBER_NM LIKE #{val}
+					AND	MEMBER_NM LIKE #{val}
 				</when>
 				<when test="sk == 'nickName'">
-				AND	MEMBER_NICKNM LIKE #{val}
+					AND	MEMBER_NICKNM LIKE #{val}
 				</when>
 				<when test="sk == 'eMail'">
-				AND	MEMBER_EMAIL LIKE #{val}
+					AND	MEMBER_EMAIL LIKE #{val}
 				</when>
 			</choose>
 			
@@ -198,13 +198,13 @@
 				<when test="sk == 'number'">
 				AND	MEMBER_NO = #{val2}
 				</when>
-				<when test="sk == 'name'">
+				<when test="sk == 'name2'">
 				AND	MEMBER_NM LIKE #{val}
 				</when>
 				<when test="sk == 'nickName'">
 				AND	MEMBER_NICKNM LIKE #{val}
 				</when>
-				<when test="sk == 'eMail'">
+				<when test="sk == 'email'">
 				AND	MEMBER_EMAIL LIKE #{val}
 				</when>
 			</choose>
