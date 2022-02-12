@@ -1,38 +1,17 @@
 package com.movie.sns.alram.websocket;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.List;
 
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.springframework.stereotype.Component;
-
-
-
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.movie.sns.alram.model.service.AlertService;
-import com.movie.sns.chat.model.service.ChatService;
-import com.movie.sns.chat.model.vo.ChatMessage;
+import com.movie.sns.alram.model.vo.Alram;
 import com.movie.sns.member.model.vo.Member;
 
 public class AlramWebsocketHandler extends TextWebSocketHandler {
@@ -110,10 +89,18 @@ public class AlramWebsocketHandler extends TextWebSocketHandler {
 		// - JSON 문자열의 모든 key 값이 특정 클래스의 필드와 모두 일치하면
 		// 클래스를 이용해 새 객체를 만들고 ,
 		// JSON 문자열을 읽어 같은 필드에 값을 대입함
-//		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 //
-//		ChatMessage cm = objectMapper.readValue(message.getPayload(), ChatMessage.class);
-		int result = 1 ;
+		Alram alram = objectMapper.readValue(message.getPayload(),  Alram.class);
+		
+		System.out.println("변경된 alram : "+  alram);
+		// takeNo
+		// url
+		// content
+		// 시퀀스
+		
+		int result = 1 ; // insret 후 알람을 받아야되는 회원의 알람 목록 조회
+						//-> 기존 알람 내용 화면에서 지우고 다시 만들기
 
 		if (result >0) {
 
@@ -129,15 +116,13 @@ public class AlramWebsocketHandler extends TextWebSocketHandler {
 				// sessions에 저장된 모든 클라이언트 세션 정보에서
 				// chatRoomNo 속성을 얻어오는 구문
 				int memberNo = ((Member)wss.getAttributes().get("loginMember")).getMemberNo();
+				
+				if(memberNo == alram.getAlramTakeMemberNo()) {
+					wss.sendMessage(new TextMessage(message.getPayload()));
+					wss.sendMessage(new TextMessage(new Gson().toJson(alram)));
+					
+				}
 
-				// 메세지에 있는 방 번호와
-				// 채팅방에 있으면서(웹소켓 연결 중) 같은 방 번호를 가지고 있는 클라이언트인 경우
-
-//				if (memberNo == cm.getTargetNo() || memberNo == cm.getMemberNo()) {
-//
-//					//wss.sendMessage(new TextMessage(message.getPayload()));
-//					wss.sendMessage(new TextMessage(new Gson().toJson(cm)));
-//				}
 
 			}
 		}
