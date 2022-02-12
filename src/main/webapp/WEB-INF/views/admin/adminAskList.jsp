@@ -23,7 +23,7 @@ select {
 	color: white;
 }
 
-.xbtn{
+.xbtn {
 	color: white !important;
 }
 
@@ -39,14 +39,17 @@ select:focus {
 	font-size: 15px;
 }
 
-.table{
-table-layout:fixed;
+.table {
+	table-layout: fixed;
 }
 
 .table td {
-text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; border-color: #323232;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	outline: none;
+	border-color: #323232;
 }
-
 </style>
 </head>
 <jsp:include page="adminHeader.jsp" />
@@ -57,8 +60,25 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; bord
 				<jsp:include page="adminSide.jsp" />
 
 				<div class="adminBoard">
+
+					<%-- 파라미터 중 sv가 있다면 변수 생성 --%>
+					<c:if test="${!empty param.sv}">
+						<c:set var="s" value="&sk=${param.sk}&sv=${param.sv}" />
+					</c:if>
+
+
 					<div class="adminHeader">문의글 리스트</div>
 					<div class="adminBoardMain">
+
+						<div class="adminSearch">
+							<select name="sk" class="select" id="sk">
+								<option value="askTitle">제목</option>
+								<option value="askContent">내용</option>
+								<option value="memberName">이름</option>
+
+							</select> <input name="sv" type="text" id="sv">
+							<button onclick="findAsk();">검색</button>
+						</div>
 
 						<div class="adminBoardtable">
 							<div class="table">
@@ -87,12 +107,19 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; bord
 											<c:otherwise>
 												<c:forEach items="${askList}" var="ask">
 													<tr>
-														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askNo}</td>
-														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askTitle}</td>
-														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
-														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
-														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
-														<td><p class="deleteBtn" id="deleteBtn" style="cursor: pointer;" onclick="askDelete(event,${ask.askNo});">삭제</p></td>
+														<td style="cursor: pointer;"
+															onclick="showAskDetail(${ask.askNo});">${ask.askNo}</td>
+														<td style="cursor: pointer;"
+															onclick="showAskDetail(${ask.askNo});">${ask.askTitle}</td>
+														<td style="cursor: pointer;"
+															onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
+														<td style="cursor: pointer;"
+															onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
+														<td style="cursor: pointer;"
+															onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
+														<td><p class="deleteBtn" id="deleteBtn"
+																style="cursor: pointer;"
+																onclick="askDelete(event,${ask.askNo});">삭제</p></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -150,21 +177,28 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; bord
 
 
 	<!-- 문의 글 상세조회 모달 -->
-	<div class="modal fade" id="askDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-			<div class="modal-content askModal-content" style="color: #ffffff; background-color:  #323232;">
-				<div class="modal-header" >
-					<h5 class="modal-title" id="exampleModalLabel" style="text-align: center; width:100%; font-size: 1.5rem; font-weight: bold;" >문의 글 상세 조회</h5>
-					<button type="button" class="btn-close xbtn" data-bs-dismiss="modal" aria-label="Close"></button>
+	<div class="modal fade" id="askDetail" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content askModal-content"
+				style="color: #ffffff; background-color: #323232;">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="text-align: center; width: 100%; font-size: 1.5rem; font-weight: bold;">문의
+						글 상세 조회</h5>
+					<button type="button" class="btn-close xbtn"
+						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body" id="askDetailContent">
 					<div class="askDetail-header">
 						<div class="askDetail-body">
-							<table style="text-align:center; width:100%; border-color: #323232">
+							<table
+								style="text-align: center; width: 100%; border-color: #323232">
 
 								<tr>
-									<td style="width:30%">회원번호 :</td>
+									<td style="width: 30%">회원번호 :</td>
 									<td class="askAskNo"></td>
 								</tr>
 
@@ -172,12 +206,12 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; bord
 									<td>이름 :</td>
 									<td class="askMemberName"></td>
 								</tr>
-								
+
 								<tr>
 									<td>작성일 :</td>
 									<td class="askDate"></td>
 								</tr>
-								
+
 								<tr>
 									<td>제목 :</td>
 									<td class="askTitle"></td>
@@ -205,17 +239,50 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; bord
 
 	<!-- JQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
-	
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
+
 	<!--  sweetalert2 -->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		const contextPath = "${contextPath}";
 	</script>
 
+<!-- 전역 변수 -->
+	<script>
+		const contextPath = "${contextPath}";
+		
+		// 쿼리스트링에서 파라미터를 얻어와 반환하는 함수
+		function getParam(key){
+			return new URLSearchParams(location.search).get(key)
+		}
+		
+		// 1) name 속성값이 sk인 select의 자식 option 태그 모두 얻어오기
+		const skOptions = document.querySelectorAll("select[name='sk'] > option")
+
+		// 2) 향상된 for문을 이용해서 option 하나씩 접근
+		for(let option of skOptions){
+
+			// 3) 현재 접근한 option의 value와 쿼리스트링 sk값이 같다면
+			if( option.value == getParam("sk")){
+				
+				// 4) 일치하는 option 태그에 selected 속성 추가
+				option.setAttribute("selected", true)
+			}
+
+		}
+		
+		// 검색 input 세팅하기
+		document.querySelector("input[name='sv']").value = getParam("sv")
+	</script>
+
+
 	<script src="${contextPath}/resources/js/admin/adminAskController.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+
 	<script>
 		function askDelete(event, askNo){
 			

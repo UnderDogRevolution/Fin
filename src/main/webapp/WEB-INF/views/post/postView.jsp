@@ -33,7 +33,7 @@
 		
 		<div id="container-post" style="height: 1000px;">
 			<c:choose>
-				<c:when test="${post.postStatusCode == 500 && post.postStatusCode == 502}">
+				<c:when test="${post.postStatusCode == 500 || post.postStatusCode == 502}">
 						<div class="post">
 							<div class="post-header">
 								<div>
@@ -115,7 +115,9 @@
 							</div>
 							<div class="input-content-reply">
 								<div onclick="reformReply()">댓글</div>
-								<div><input type="text" placeholder="댓글을 달아주세요!"></div>
+								<div>
+									<textarea placeholder="댓글을 달아주세요!"></textarea>
+								</div>
 								<div><img src="${contextPath}/resources/images/temp//comment.png" onclick="insertReply(this)"></div>
 							</div>
 				</c:when>

@@ -85,7 +85,8 @@ const textareaBox = document.getElementsByClassName("insert-container-textarea")
 // const textCount = document.getElementsByClassName("text-count")[0];
 const postImg = document.getElementsByClassName("post-img")[0];
 const reviewTitle = document.getElementsByClassName("modal-review-title")[0];
-const starInput = document.getElementsByClassName("insert-rating")[0];
+const starInput = document.getElementsByClassName("rating")[0];
+const starValueInput = document.getElementsByClassName("rating-value")[0];
 const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
@@ -95,6 +96,7 @@ function Write(){
 	searchResult2.style.display = "none";	
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
+	starValueInput.style.display = "none";	
 	searchMovie.style.display = "none";	
 	
 	textareaBox.style.display = "block";
@@ -115,6 +117,7 @@ function Review(){
 	postImg.style.display = "none";
 	reviewTitle.style.display = "none";	
 	starInput.style.display = "none";	
+	starValueInput.style.display = "none";	
 	searchMovie.style.display = "none";
 	postSubmit.style.display = "none";
 	containerTextCount.style.display = "none";	
@@ -130,7 +133,6 @@ inputContent.addEventListener("input", function(){
     let count = inputContent.value.length
 
     const row = inputContent.value.split("\n").length; // 여기서는 \n이 몇개인지 세준다.
-    console.log(row)
     countBox.innerText = count
     if(row > 9){
         inputContent.value = inputContent.value.slice(0, -1);
@@ -238,6 +240,7 @@ async function fetchMovie(page){
                 postImg.style.display = "block";
                 reviewTitle.style.display = "block";	
             	starInput.style.display = "flex";
+            	starValueInput.style.display = "block";
                 searchMovie.style.display = "inline";
                 postSubmit.style.display = "inline";
                 const content = this.parentElement.nextElementSibling.innerHTML;
@@ -302,6 +305,11 @@ inputTextarea.addEventListener("blur", function(){
 
 inputTextarea.addEventListener("input",function(){
     changeContent();
+    modalSide.style.display = "none";
+    inputDiv.height = "auto"
+    let scHeight = inputDiv.scrollHeight; 
+    inputDiv.style.height = `${scHeight}px`
+    inputTextarea.style.height = inputDiv.style.height;
 })
 
 function autoComplete(arr){ // 배열 매개변수
@@ -318,13 +326,13 @@ function changeContent(){
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
     let change = content.replace(tagRegExp, function(target){
-        return "<a href='#' class='attach' style='color: blue;'>" + target + "</a>";
-    })
-    change = change.replace(userRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
+    change = change.replace(userRegExp, function(target){
+        return "<a href='#' class='attach' style='color: #ffd700;'>" + target + "</a>";
+    })
     inputDiv.innerHTML = change;
-    // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 내일해야지
+    // innerText로 주고받으면 자동으로 xss처리 및 개행문자 처리가 된다! 위의 경우는 태그를 쓰기때문에 안된다 ㅠ
 }
 // const bef = []
 let tagListUl = document.querySelectorAll(".modal-side > ul")[0]
@@ -357,14 +365,17 @@ const observer = new MutationObserver(mutations => {
                                         modalSide.style.top = Number(top) + 24 + "px"; 
                                         
                                         const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
+                                        console.log(getAbsoluteTop(mutation.addedNodes[i]))
                                         modalSide.style.left = (Number(left) - 4) + "px"; 
-                                        console.log(left); 
                                         tagListUl.innerHTML ="";
                                        
                                         for(const items of tagList){
                                             tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
-                                            
-                                            modalSide.style.display = "block";
+                                            if(getAbsoluteTop(mutation.addedNodes[i]) != 0){
+                                                modalSide.style.display = "block";
+                                            }else{
+                                                modalSide.style.display = "none";
+                                            }
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
                                                 items2.addEventListener("click", function(){
@@ -391,9 +402,19 @@ const observer = new MutationObserver(mutations => {
                                         type: "POST",
                                         dataType : "JSON",
                                         success: function (tagList) {
+                                            const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
+                                            modalSide.style.top = Number(top) + 24 + "px"; 
+                                            
+                                            const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
+                                            modalSide.style.left = (Number(left) - 4) + "px"; 
+                                            tagListUl.innerHTML ="";
                                             for(const items of tagList){
                                                 tagListUl.innerHTML += '<li>@'+ items.memberName +'</li>';
-                                                modalSide.style.display = "block";
+                                                if(getAbsoluteTop(mutation.addedNodes[i]) != 0){
+                                                    modalSide.style.display = "block";
+                                                }else{
+                                                    modalSide.style.display = "none";
+                                                }
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){
@@ -577,3 +598,12 @@ function getAbsoluteLeft(element) {
     return window.pageYOffset + element.getBoundingClientRect().left;
 }
 
+function XSSCheck(str, level) {
+    if (level == undefined || level == 0) {
+        str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g,"");
+    } else if (level != undefined && level == 1) {
+        str = str.replace(/\</g, "&lt;");
+        str = str.replace(/\>/g, "&gt;");
+    }
+    return str;
+}
