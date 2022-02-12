@@ -160,7 +160,7 @@ select:focus {
 
 
 				<div class="adminBoard">
-					<div class="adminHeader">댓글관리</div>
+					<div class="adminHeader">신고관리</div>
 					<div class="adminBoardMain">
 						<div class="adminSearch">
 							<select name="searchPost" id="" class="selectPostsend">
@@ -181,13 +181,11 @@ select:focus {
 
 									<thead>
 										<tr>
-											<th>댓글번호</th>
-											<th>게시글 번호</th>
-											<th>회원번호</th>
+											<th>신고번호</th>
+											<th>회원 번호</th>
 											<th>작성자</th>
 											<th>내용</th>
-											<th>좋아요</th>
-											<th>작성일</th>
+											<th>신고 유형</th>
 											<th>상태</th>
 										</tr>
 
@@ -197,7 +195,7 @@ select:focus {
 
 											<c:when test="${empty reply}">
 												<tr>
-													<td colspan="8">등록된게시글이 존재하지 않습니다.</td>
+													<td colspan="8">등록된댓글이 존재하지 않습니다.</td>
 												</tr>
 
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.movie.sns.admin.model.vo.Admin;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.AdminReply;
+import com.movie.sns.admin.model.vo.AdminReport;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.admin.model.vo.ReplyStatus;
@@ -87,6 +88,10 @@ public class AdminDAO1 {
 
 	public AdminReply replyView(String replyNo) {
 		return sqlSession.selectOne("adminMapper1.replyView", replyNo);
+	}
+
+	public List<AdminReport> reportBoard(AdminReport report) {
+		return sqlSession.selectList("adminMapper1.reportBoard", report);
 	}
 
 	
