@@ -124,18 +124,19 @@ public class LoginFilter implements Filter{
 								arr[1].equals("ask") || 
 								arr[1].equals("post") || 
 								arr[1].equals("report") || 
-								arr[1].equals("statistics") 
+								arr[1].equals("statistics")||
+								arr[1].equals("main")
 								) {
 							System.out.println("[필터] : 잘못된 접근입니다. 관리자 로그인페이지로 이동합니다.");
-							resp.sendRedirect(req.getContextPath() + "/admin/");
+							resp.sendRedirect(req.getContextPath() + "/admin/login");
 						}else {
 							chain.doFilter(request, response);
 						}
 						
 					}else if(loginMember.getMemberGradeCode() == 101) {
 						
-						// 관리자인 경우
 						chain.doFilter(request, response);
+						
 					}
 					
 				}

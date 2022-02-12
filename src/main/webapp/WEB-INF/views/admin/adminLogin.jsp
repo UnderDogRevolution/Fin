@@ -16,7 +16,7 @@
 	<main class="admin-container">
 		<div class="container1">
 			<div class="adminLogin-header">montage</div>
-			<form action="${contextPath}/admin/main" class="adminLogin-main" method = "POST">
+			<form action="${contextPath}/admin/login" class="adminLogin-main" method = "POST">
 
 				<div class="login-input">
 					<div class="input-wrap">

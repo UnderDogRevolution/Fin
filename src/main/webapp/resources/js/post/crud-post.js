@@ -352,7 +352,7 @@ const observer = new MutationObserver(mutations => {
                                     type: "POST",
                                     dataType : "JSON",
                                     success: function (tagList) {
-                                       
+                                       // 태그의 위치 변경은 변화된 노드의 상대 좌표를 계산한 값을 이용했다. 
                                         const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
                                         modalSide.style.top = Number(top) + 24 + "px"; 
                                         
