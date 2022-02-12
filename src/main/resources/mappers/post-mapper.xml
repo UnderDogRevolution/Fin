@@ -260,7 +260,7 @@
 	</select>
 
 	<select id="searchMemberNo" resultType="_int">
-		SELECT MEMBER_NO
+		SELECT COUNT(MEMBER_NM)
 		FROM MEMBER
 		WHERE MEMBER_NM = #{memberName}
 	</select>

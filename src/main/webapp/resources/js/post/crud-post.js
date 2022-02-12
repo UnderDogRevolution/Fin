@@ -133,7 +133,6 @@ inputContent.addEventListener("input", function(){
     let count = inputContent.value.length
 
     const row = inputContent.value.split("\n").length; // 여기서는 \n이 몇개인지 세준다.
-    console.log(row)
     countBox.innerText = count
     if(row > 9){
         inputContent.value = inputContent.value.slice(0, -1);
@@ -306,6 +305,7 @@ inputTextarea.addEventListener("blur", function(){
 
 inputTextarea.addEventListener("input",function(){
     changeContent();
+    modalSide.style.display = "none";
     inputDiv.height = "auto"
     let scHeight = inputDiv.scrollHeight; 
     inputDiv.style.height = `${scHeight}px`
@@ -365,14 +365,17 @@ const observer = new MutationObserver(mutations => {
                                         modalSide.style.top = Number(top) + 24 + "px"; 
                                         
                                         const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
+                                        console.log(getAbsoluteTop(mutation.addedNodes[i]))
                                         modalSide.style.left = (Number(left) - 4) + "px"; 
-                                        console.log(left); 
                                         tagListUl.innerHTML ="";
                                        
                                         for(const items of tagList){
                                             tagListUl.innerHTML += '<li>#'+ items.tagName +'</li>';
-                                            
-                                            modalSide.style.display = "block";
+                                            if(getAbsoluteTop(mutation.addedNodes[i]) != 0){
+                                                modalSide.style.display = "block";
+                                            }else{
+                                                modalSide.style.display = "none";
+                                            }
                                             const li = document.querySelectorAll(".modal-side > ul > li")
                                             for(const items2 of li){
                                                 items2.addEventListener("click", function(){
@@ -399,9 +402,19 @@ const observer = new MutationObserver(mutations => {
                                         type: "POST",
                                         dataType : "JSON",
                                         success: function (tagList) {
+                                            const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
+                                            modalSide.style.top = Number(top) + 24 + "px"; 
+                                            
+                                            const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
+                                            modalSide.style.left = (Number(left) - 4) + "px"; 
+                                            tagListUl.innerHTML ="";
                                             for(const items of tagList){
                                                 tagListUl.innerHTML += '<li>@'+ items.memberName +'</li>';
-                                                modalSide.style.display = "block";
+                                                if(getAbsoluteTop(mutation.addedNodes[i]) != 0){
+                                                    modalSide.style.display = "block";
+                                                }else{
+                                                    modalSide.style.display = "none";
+                                                }
                                                 const li = document.querySelectorAll(".modal-side > ul > li")
                                                 for(const items2 of li){
                                                     items2.addEventListener("click", function(){
