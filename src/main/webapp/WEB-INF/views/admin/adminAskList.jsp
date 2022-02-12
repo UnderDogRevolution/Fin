@@ -23,6 +23,10 @@ select {
 	color: white;
 }
 
+.xbtn{
+	color: white !important;
+}
+
 select:focus {
 	outline: none;
 }
@@ -33,15 +37,14 @@ select:focus {
 
 .askDetail-body * {
 	font-size: 15px;
-	color: black !important;
 }
 
 .table{
-table-layout:fixed
+table-layout:fixed;
 }
 
 .table td {
-text-overflow:ellipsis; overflow:hidden; white-space:nowrap; 
+text-overflow:ellipsis; overflow:hidden; white-space:nowrap; outline: none; border-color: #323232;
 }
 
 </style>
@@ -89,7 +92,7 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
-														<td><button type="button" class="deleteBtn btn-dark" id="deleteBtn" style="cursor: pointer; width:50%;" onclick="askDelete(event,${ask.askNo});">삭제</button></td>
+														<td><p class="deleteBtn" id="deleteBtn" style="cursor: pointer;" onclick="askDelete(event,${ask.askNo});">삭제</p></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
@@ -149,7 +152,7 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 	<!-- 문의 글 상세조회 모달 -->
 	<div class="modal fade" id="askDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-			<div class="modal-content askModal-content" style="color: #323232;">
+			<div class="modal-content askModal-content" style="color: #ffffff; background-color:  #323232;">
 				<div class="modal-header" >
 					<h5 class="modal-title" id="exampleModalLabel" style="text-align: center; width:100%; font-size: 1.5rem; font-weight: bold;" >문의 글 상세 조회</h5>
 					<button type="button" class="btn-close xbtn" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -158,7 +161,7 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 				<div class="modal-body" id="askDetailContent">
 					<div class="askDetail-header">
 						<div class="askDetail-body">
-							<table style="text-align: center; width:100%;">
+							<table style="text-align:center; width:100%; border-color: #323232">
 
 								<tr>
 									<td style="width:30%">회원번호 :</td>
