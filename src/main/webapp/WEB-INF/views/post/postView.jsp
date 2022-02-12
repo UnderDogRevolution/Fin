@@ -23,7 +23,7 @@
 <body>
 	<div id="main-container">
 
-	
+		
 		<c:if test="${post.postStatusCode == 501}">
 			<script>
 				alert("삭제된 게시글 입니다.")
@@ -33,7 +33,7 @@
 		
 		<div id="container-post" style="height: 1000px;">
 			<c:choose>
-				<c:when test="${post.postStatusCode == 500}">
+				<c:when test="${post.postStatusCode == 500 && post.postStatusCode == 502}">
 						<div class="post">
 							<div class="post-header">
 								<div>
@@ -132,10 +132,8 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
 		const contextPath = "${contextPath}"
-		<c:if test="${loginMember.memberNo != null}">
-				if(typeof memberNo == "undefined"){
-					const memberNo = ${loginMember.memberNo };
-				}
+		<c:if test="${loginMember != null}">
+                const memberNo = ${loginMember.memberNo};
 		</c:if>
 		const postContent = "${post.postContent}";
 		const postNo = ${post.postNo};
