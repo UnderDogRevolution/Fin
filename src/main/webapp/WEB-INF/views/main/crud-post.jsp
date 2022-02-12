@@ -18,14 +18,15 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 <input class="moviedb-input" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 30px; margin-top: 10px;">
                 <div class="search-result">
                 </div>
-                <div class="modal-side" >
-                    <ul>
-                        
-                    </ul>
-                </div>
                 <div class="insert-container-textarea">
                     <textarea name="postContent" id="" cols="60" rows="5" ></textarea>
-                    <div></div>
+                    <div>                       
+                    </div>
+                    <div class="modal-side" style="display: none; position: absolute;">
+                        <ul>
+                            
+                        </ul>
+                    </div>
                 </div>
                 <div class="insert-rating" style="display: flex; align-items: center; padding-right: 10px; padding-left: 10px;">
                     <div class="rating">

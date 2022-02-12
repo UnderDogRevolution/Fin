@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,13 +37,44 @@ public class AdminController {
 	private AdminService service;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String adminLoginPage() {
+	public String adminLoginPage(HttpSession session, Model model , RedirectAttributes ra) {
+		
+		int postCount = service.postCount();
+		int replyCount = service.replyCount();
+		int reportCount = service.reportCount();
+		int askCount = service.askCount();
+		int memberCount = service.memberCount();
+		model.addAttribute("replyCount" ,replyCount);
+		model.addAttribute("postCount", postCount);
+		model.addAttribute("reportCount", reportCount);
+		model.addAttribute("askCount", askCount);
+		model.addAttribute("memberCount", memberCount);
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if(loginMember != null) {
+			
+			if(loginMember.getMemberGradeCode() == 101) {
+				
+				return "admin/adminMain";
+				
+			}else {
+				
+				return "admin/adminLogin";
+				
+			}
+			
+		}else {
+			
+			return "admin/adminLogin";
+			
+		}
 		
 		
-		return "admin/adminLogin";
+		
 	}
 
-	@RequestMapping(value = "main", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(Member member, Model model, RedirectAttributes ra, HttpServletRequest req,
 			HttpServletResponse resp) {
 
@@ -52,7 +84,7 @@ public class AdminController {
 		
 		if (loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
-			path = "redirect:/admin/main";
+			path = "redirect:/admin/";
 
 		} else {
 

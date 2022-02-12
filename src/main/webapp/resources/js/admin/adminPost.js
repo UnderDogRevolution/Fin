@@ -30,6 +30,10 @@ $(".selectPostsend").on("change", function() {
 		$("#searchPost").attr('type', 'text');
 
 	}
+	 else if (searchPost == "memberNick") {
+		$("#searchPost").attr('type', 'text');
+
+	}
 
 
 })
@@ -68,10 +72,10 @@ function selectPostList(cp) {//검색
 				const body = $(".tbody");
 				const tr = $("<tr>");
 				const td1 = $('<td class="postModalShow" onclick= "postModal(' + post.postNo + ')">');
-				const td2 = $("<td>");
+				const td2 = $('<td class ="MemberView" onclick = "showMemberDetail('+post.memberNo+')">');
 				const td3 = $("<td>");
-				const td4 = $("<td class = 'postContent'>");
-				const td5 = $("<td>");
+				const td4 = $("<td>");
+				const td5 = $("<td class = 'postContent'>");
 				const td6 = $("<td>");
 				const td7 = $("<td>");
 				const td8 = $("<td>");
@@ -114,11 +118,13 @@ function selectPostList(cp) {//검색
 				$(td1).text(post.postNo);
 				$(td2).text(post.memberNo);
 				$(td3).append(a2);
-				$(td4).append(a);
-				$(td5).append(post.likeCount)
-				$(td6).text(post.createDt);
-				$(td7).text(post.modifyDt);
-				$(td8).append(select);
+				$(td4).text(post.memberNick);
+				$(td5).append(a);
+				$(td6).append(post.likeCount)
+				$(td7).text(post.createDt);
+				$(td8).text(post.modifyDt);
+				
+				$(td9).append(select);
 
 				tr.append(td1)
 				tr.append(td2)
@@ -229,12 +235,13 @@ function postModal(postNo) {
 			$($(".postListContent")[0]).html(post.postNo);
 			$($(".postListContent")[1]).html(post.memberNo);
 			$($(".postListContent")[2]).append(a2);
-			$($(".postListContent")[3]).append(a);
-			$($(".postListContent")[4]).html(post.likeCount);
-			$($(".postListContent")[5]).html(post.createDt);
-			$($(".postListContent")[6]).html(post.modifyDt);
-			$($(".postListContent")[7]).append(select);
-			$($(".postListContent")[8]).html(post.blind);
+			$($(".postListContent")[3]).html(post.memberNick);
+			$($(".postListContent")[4]).append(a);
+			$($(".postListContent")[5]).html(post.likeCount);
+			$($(".postListContent")[6]).html(post.createDt);
+			$($(".postListContent")[7]).html(post.modifyDt);
+			$($(".postListContent")[8]).append(select);
+			$($(".postListContent")[9]).html(post.blind);
 
 
 
@@ -294,13 +301,14 @@ function changeStatus(event, postNo) {
 
 		success: function() {
 			alert("변경되었습니다.")
+			$($(".postListContent")[9]).html("");
 			if (blind != null) {
-				$($(".postListContent")[8]).html(blind);
+				console.log(blind);
+				$($(".postListContent")[9]).html(blind);
 
 
 
 			}
-			$($(".postListContent")[8]).html("");
 
 		},
 
@@ -310,9 +318,75 @@ function changeStatus(event, postNo) {
 
 };
 
+// 회원 정보 상세 조회 함수
+function showMemberDetail(memberNo){
+  
+  // 모달 내용 지우기
+  $(".inputMemberProfileImage").removeAttr("src");
+  $(".inputMemberEmail").text("");
+  $(".inputMemberName").text("");
+  $(".inputMemberNickName").text("");
+  $(".inputMemberNo").text("");
+  $(".inputMemberBirth").text("");
+  $(".inputMemberEnrollDate").text("");
+  $(".inputMemberStatusName").text("");
+  $(".inputViolationCount").text("");
 
+  $.ajax({
 
+    url : contextPath +"/admin/member/selectMemberDetail",
+    type : "get",
+    data : {"memberNo" : memberNo},
+    dataType : "JSON",
 
+    success : function(member){
+
+      if(member != null){
+        
+        console.log("정보 조회 성공");
+
+        // 요소에 값 추가하기
+        $(".inputMemberProfileImage").attr("src", contextPath + member.profileImage.imgPath + member.profileImage.imgName);
+        $(".inputMemberEmail").text(member.memberEmail);
+        $(".inputMemberName").text(member.memberName);
+        $(".inputMemberNickName").text(member.memberNickName);
+        $(".inputMemberNo").text(member.memberNo);
+        $(".inputMemberBirth").text(member.memberBirth);
+        $(".inputMemberEnrollDate").text(member.enrollDate);
+        $(".inputMemberStatusName").text(member.memberStatusName);
+        $(".inputViolationCount").text(member.violationCount);
+
+        console.log(member);
+        console.log(contextPath);
+
+        $("#memberDetail").modal('show');
+
+      }else{
+        console.log("정보 조회 실패");
+      }
+
+    },
+
+    error : function(request, status, error){
+          
+      // 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+      if( request.status == 404 ){
+        console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+      } else if( request.status == 500){
+          console.log("서버 내부 에러 발생");
+      }
+   
+    },
+
+    complete : function(){
+
+    }
+
+  });
+  
+  
+};
 
 
 

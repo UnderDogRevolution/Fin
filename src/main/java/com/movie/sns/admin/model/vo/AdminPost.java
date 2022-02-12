@@ -3,6 +3,7 @@ package com.movie.sns.admin.model.vo;
 public class AdminPost {
 	private int postNo;
 	private String memberNm;
+	private String memberNick;
 	private String postContent;
 	private int readCount;
 	private int likeCount;
@@ -18,6 +19,16 @@ public class AdminPost {
 	}
 
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+
+
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+
+
 	public String getModifyDt() {
 		return modifyDt;
 	}
@@ -152,12 +163,12 @@ public class AdminPost {
 
 	@Override
 	public String toString() {
-		return "AdminPost [postNo=" + postNo + ", memberNm=" + memberNm + ", postContent=" + postContent
-				+ ", readCount=" + readCount + ", likeCount=" + likeCount + ", createDt=" + createDt + ", memberNo="
-				+ memberNo + ", statusNm=" + statusNm + ", modifyDt=" + modifyDt + ", blind=" + blind + ", status="
-				+ status + ", searchPost=" + searchPost + ", inputResult=" + inputResult + "]";
+		return "AdminPost [postNo=" + postNo + ", memberNm=" + memberNm + ", memberNick=" + memberNick
+				+ ", postContent=" + postContent + ", readCount=" + readCount + ", likeCount=" + likeCount
+				+ ", createDt=" + createDt + ", memberNo=" + memberNo + ", statusNm=" + statusNm + ", modifyDt="
+				+ modifyDt + ", blind=" + blind + ", status=" + status + ", searchPost=" + searchPost + ", inputResult="
+				+ inputResult + "]";
 	}
-
 
 
 

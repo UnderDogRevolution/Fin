@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.movie.sns.common.Util;
 import com.movie.sns.post.model.dao.ReplyDAO;
 import com.movie.sns.post.model.vo.Reply;
 
@@ -16,6 +17,8 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public int insertReply(Reply reply) {
+//		reply.setReplyContent(Util.XSS(reply.getReplyContent()));
+//		reply.setReplyContent(Util.changeNewLine(reply.getReplyContent()));
 		return dao.insertReply(reply);
 	}
 
@@ -42,6 +45,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public int deleteReplyLike(Reply reply) {
+		
 		
 		int result = dao.checkDupReplyLike(reply);
 		if(result == 1) {

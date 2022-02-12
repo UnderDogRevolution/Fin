@@ -483,7 +483,7 @@ function revealPost(){
 					inputReplyDivIn1.addEventListener("click", function(){
 						const arr = document.querySelectorAll(".input-content-reply > div")
 						const img = document.querySelectorAll(".input-content-reply img")[0]
-						const input = document.querySelectorAll(".input-content-reply input")[0]
+						const input = document.querySelectorAll(".input-content-reply textarea")[0]
 						if(arr[0].innerText.trim() == "답글"){
 							arr[0].innerText = "댓글";
 							img.setAttribute("onclick", "insertReply(this)")
@@ -492,9 +492,21 @@ function revealPost(){
 					})
 
 					const inputReplyDivIn2 = document.createElement("div");
-					const input = document.createElement("input")
+					const input = document.createElement("textarea")
 					input.setAttribute("type", "text");
 					input.setAttribute("placeholder", "댓글을 달아주세요!");
+					input.addEventListener("keyup", e =>{
+						const replyImg = e.target.parentNode.parentNode.getElementsByTagName("img")[0];
+						e.target.style.height = "auto"
+						let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
+						e.target.style.height = `${scHeight}px`
+						console.log(scHeight)
+						if(e.key == "Enter"){
+							console.log(e.target.value)
+							e.target.value = e.target.value.replaceAll("\n", "");
+							replyImg.click();
+						}
+					})
 					inputReplyDivIn2.append(input);
 					const inputReplyDivIn3 = document.createElement("div");
 					const inputReplyImg = document.createElement("img")
@@ -590,7 +602,11 @@ function insertReply(e){
     }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
+	if(replyContent.length > 250){
+		alert(`댓글이 너무 깁니다!(${replyContent.length}/250)`)
+		return;
+	}
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/insert",
@@ -600,7 +616,7 @@ function insertReply(e){
 			success: function (result) {
 				if(result>0){
 					alert("댓글이 등록되었습니다.")
-					e.parentNode.parentNode.getElementsByTagName("input")[0].value = "";
+					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
@@ -697,7 +713,7 @@ function selectReply(postNo){
 				const userInfo = document.createElement("div")
 				userInfo.className ="user-reply";
 				const userInfoDiv1 = document.createElement("div")
-				userInfoDiv1.innerText = items.memberName + items.memberNo ;
+				userInfoDiv1.innerText = items.memberName;
 				userInfo.append(userInfoDiv1)
 				const userInfoDiv2 = document.createElement("div")
 				userInfoDiv2.innerText = items.replyCreateDate;
@@ -710,7 +726,7 @@ function selectReply(postNo){
 				textReply.className = "text-reply";
 
 				const contentDiv = document.createElement("div");
-				contentReply.innerText = items.replyContent;
+				contentReply.innerText = items.replyContent
 
 				const dots = document.createElement("img");
 				dots.setAttribute("src", contextPath + "/resources/images/temp/dots.png")
@@ -905,7 +921,7 @@ function comment(e, replyNo){
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
 	const img = post.querySelectorAll(".input-content-reply img")[0]
-	const input = post.querySelectorAll(".input-content-reply input")[0]
+	const input = post.querySelectorAll(".input-content-reply textarea")[0]
 	if(arr[0].innerText.trim() == "댓글"){
 		arr[0].innerText = "답글";
 		input.setAttribute("placeholder", "답글을 달아주세요!");
@@ -922,7 +938,7 @@ function insertComment(e, replyNo){
     }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/comment",
@@ -932,7 +948,7 @@ function insertComment(e, replyNo){
 			success: function (result) {
 				if(result>0){
 					alert("답글이 등록되었습니다.")
-					e.parentNode.parentNode.getElementsByTagName("input")[0].value = "";
+					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
