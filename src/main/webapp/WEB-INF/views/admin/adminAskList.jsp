@@ -147,23 +147,18 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 
 
 	<!-- 문의 글 상세조회 모달 -->
-	<div class="modal fade" id="askDetail" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-			<div class="modal-content" style="color: #323232;">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">문의 글 상세 조회</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+	<div class="modal fade" id="askDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+			<div class="modal-content askModal-content" style="color: #323232;">
+				<div class="modal-header" >
+					<h5 class="modal-title" id="exampleModalLabel" style="text-align: center; width:100%; font-size: 1.5rem; font-weight: bold;" >문의 글 상세 조회</h5>
+					<button type="button" class="btn-close xbtn" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body" id="askDetailContent">
-
 					<div class="askDetail-header">
-
 						<div class="askDetail-body">
-							<table>
+							<table style="text-align: center; width:100%;">
 
 								<tr>
 									<td style="width:30%">회원번호 :</td>

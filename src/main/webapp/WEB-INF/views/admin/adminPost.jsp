@@ -9,8 +9,6 @@
 <title>게시글관리</title>
 <script type="text/javascript">
 	const contextPath = "${contextPath}";
-	const c = "${c}";
-	const s = "${s}";
 	
 	
 	</script>
@@ -18,9 +16,26 @@
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style type="text/css">
-.xbtn{
+.MemberView{
+	cursor: pointer;
+}
+
+h5 {
+	color: white;
+}
+
+.inputMemberEmail {
+	color: white;
+}
+
+.memberModal {
+	background-color: #3a3939 !important;
+}
+
+.xbtn {
 	color: white !important;
 }
+
 .modalContentwrap {
 	display: flex;
 	width: 100%;
@@ -28,7 +43,7 @@
 }
 
 .postListContent {
-    font-size: 20px;
+	font-size: 15px;
 	display: flex;
 	width: 220px;
 	padding-left: 10px;
@@ -39,9 +54,11 @@
 	white-space: nowrap;
 	margin-left: 10px;
 }
-.postModalShow{
+
+.postModalShow {
 	cursor: pointer;
 }
+
 .postListTitle {
 	display: flex;
 	justify-content: flex-end;
@@ -125,10 +142,10 @@ select:focus {
 
 </head>
 
-<jsp:include page="adminHeader.jsp" />
 
 
 <body>
+	<jsp:include page="adminHeader.jsp" />
 
 	<%-- <c:if test="${!empty post.searchPost}">
 		<c:set var="s" value="&sk=${param.searchPost}&sv=${param.inputResult}" />
@@ -150,6 +167,7 @@ select:focus {
 							<select name="searchPost" id="" class="selectPostsend">
 								<option value="memberNo">회원번호</option>
 								<option value="memberNm">회원이름</option>
+								<option value="memberNick">회원닉네임</option>
 								<option value="postNo">게시글번호</option>
 								<option value="status">게시글상태</option>
 							</select> <input type="number" name="inputResult" id="searchPost"
@@ -167,6 +185,7 @@ select:focus {
 											<th>게시글번호</th>
 											<th>회원번호</th>
 											<th>작성자</th>
+											<th>닉네임</th>
 											<th>내용</th>
 											<th>좋아요</th>
 											<th>작성일</th>
@@ -180,7 +199,7 @@ select:focus {
 
 											<c:when test="${empty post}">
 												<tr>
-													<td colspan="8">등록된게시글이 존재하지 않습니다.</td>
+													<td colspan="9">등록된게시글이 존재하지 않습니다.</td>
 												</tr>
 
 
@@ -188,22 +207,23 @@ select:focus {
 											<c:otherwise>
 												<c:forEach items="${post}" var="post">
 													<tr>
-														<td class="postModalShow" onclick= "postModal(${post.postNo})">${post.postNo}</td>
-														<td>${post.memberNo}</td>
-														<td><a style = "text-decoration : none; color: white;"
-																href = "${contextPath}/board1/myBoard/${post.memberNo}">${post.memberNm}</a></td>
-
+														<td class="postModalShow"
+															onclick="postModal(${post.postNo})">${post.postNo}</td>
+														<td class="MemberView"
+															onclick=" showMemberDetail(${post.memberNo})">${post.memberNo}</td>
+														<td><a style="text-decoration: none; color: white;"
+															href="${contextPath}/board1/myBoard/${post.memberNo}">${post.memberNm}</a></td>
+														<td>${post.memberNick}</td>
 														<td class='postContent'><a
 															style="text-decoration: none; color: white;"
 															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
 
 
-											
+
 														<td>${post.likeCount}</td>
 														<td>${post.createDt}</td>
 														<td>${post.modifyDt}</td>
-														<td>
-														<select name="statusCd" id="" class="select"
+														<td><select name="statusCd" id="" class="select"
 															onchange="changeStatus(event,${post.postNo})">
 																<c:forEach items="${cd}" var="c">
 																	<c:if test="${post.statusNm == c.statusNm}">
@@ -290,8 +310,8 @@ select:focus {
 			<div class="modal-content postModal-content">
 				<div class="modal-header postModal-header">
 					<h2 class="modal-title" id="exampleModalLabel">게시글 상세정보</h2>
-					<button type="button" class="btn-close xbtn" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+					<button type="button" class="btn-close xbtn"
+						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body">
@@ -306,7 +326,11 @@ select:focus {
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
-						<div class="postListTitle">글 작성자</div>
+						<div class="postListTitle">작성자</div>
+						<div class="postListContent"></div>
+					</div>
+					<div class="modalContentwrap">
+						<div class="postListTitle">닉네임</div>
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
@@ -327,24 +351,12 @@ select:focus {
 					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">게시글 상태</div>
-						<div class="postListContent">
-						
-						
-						
-						
-						
-						
-						</div>
+						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">블라인드사유</div>
-						<div class="postListContent">
-						
-						
-						
-						
-						</div>
-					</div> 
+						<div class="postListContent"></div>
+					</div>
 
 
 				</div>
@@ -358,12 +370,91 @@ select:focus {
 		</div>
 	</div>
 
-	<script type="text/javascript">
+
+
+	<!-- 회원 정보 상세 조회 모달 -->
+	<div class="modal fade" id="memberDetail" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content memberModal">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"
+						style="font-size: 25px; font-weight: bold;">회원 상세 정보</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body" id="memberDetailContent">
+
+					<div class="memberDetail-header">
+
+						<div class="memberProfile"
+							style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: auto; margin-bottom: 10px;">
+							<img class="inputMemberProfileImage"
+								src="${contextPath}/resources/images/common/defaultProfileImage.png"
+								style="width: 150px; height: 150px; object-fit: cover;">
+						</div>
+						<div class="inputMemberEmail"
+							style="text-align: center; font-size: 25px; font-weight: bold; margin: 20px;">
+
+						</div>
+
+					</div>
+
+					<div class="memberDetail-body">
+						<table style="margin: auto;" style="color: #323232 !important;">
+
+							<tr>
+								<td>이름 :</td>
+								<td class="inputMemberName"></td>
+							</tr>
+
+							<tr>
+								<td>닉네임 :</td>
+								<td class="inputMemberNickName"></td>
+							</tr>
+
+							<tr>
+								<td>회원번호 :</td>
+								<td class="inputMemberNo"></td>
+							</tr>
+
+							<tr>
+								<td>생일 :</td>
+								<td class="inputMemberBirth"></td>
+							</tr>
+
+							<tr>
+								<td>가입일 :</td>
+								<td class="inputMemberEnrollDate"></td>
+							</tr>
+
+							<tr>
+								<td>회원 상태 :</td>
+								<td class="inputMemberStatusName"></td>
+							</tr>
+
+							<tr>
+								<td>경고 횟수 :</td>
+								<td class="inputViolationCount"></td>
+							</tr>
+
+						</table>
+
+					</div>
+
+				</div>
+
+
+
+
+
+
+				<script type="text/javascript">
 	
 	const gt = '&gt;';
 	</script>
-	<script src="${contextPath}/resources/js/admin/adminPost.js"></script>
-
-
+				<script src="${contextPath}/resources/js/admin/adminPost.js"></script>
 </body>
 </html>

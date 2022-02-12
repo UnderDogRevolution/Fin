@@ -126,8 +126,7 @@
 		FROM MEMBER
 		LEFT OUTER JOIN FOLLOW ON (MEMBER.MEMBER_NO =
 		FOLLOW.MEMBER_NO)
-		WHERE MEMBER.MEMBER_NO = #{toUser} AND TO_USER =
-		#{memberNo}
+		WHERE MEMBER.MEMBER_NO = #{memberNo} AND TO_USER = 	#{toUser}
 
 	</select>
 
@@ -183,23 +182,23 @@
 
 	<insert id="insertFollow">
 		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL,
-		#{friendNo}, #{memberNo} )
+		#{memberNo} , #{friendNo})
+
 	</insert>
 
 	<delete id="deleteFollow">
 		DELETE FROM FOLLOW
-		WHERE TO_USER = #{memberNo} AND
-		MEMBER_NO = #{friendNo}
+		WHERE TO_USER = #{friendNo} AND MEMBER_NO = #{memberNo}
 	</delete>
 
 	<select id="followCount" resultType="_int">
 		SELECT COUNT(*) FROM FOLLOW
-		WHERE TO_USER = #{memberNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
 	<select id="followerCount" resultType="_int">
 		SELECT COUNT(*) FROM
-		FOLLOW WHERE MEMBER_NO = #{memberNo}
+		FOLLOW WHERE TO_USER = #{memberNo}
 	</select>
 
 	<select id="postCount" resultType="_int">
@@ -207,7 +206,10 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
-	<select id="followFriend" resultMap="chatFriend_rm">
+
+
+
+	<select id="selectFollower" resultMap="chatFriend_rm">
 		SELECT TO_USER,
 		MEMBER.MEMBER_NICKNM,
 		MEMBER.MEMBER_NM, MEMBER_IMG_PATH,
@@ -218,29 +220,39 @@
 		LEFT JOIN MEMBER ON
 		(FOLLOW.TO_USER = MEMBER.MEMBER_NO)
 		LEFT JOIN
-		MEMBER_IMG ON (FOLLOW.TO_USER =
+		MEMBER_IMG ON
+		(FOLLOW.TO_USER =
 		MEMBER_IMG.MEMBER_NO)
 		WHERE
-		FOLLOW.MEMBER_NO = #{memberNo}
+		FOLLOW.MEMBER_NO =
+		#{memberNo}
 
 	</select>
 
-	<select id="selectFollower" resultMap="chatFriend_rm">
 
-		SELECT FOLLOW.MEMBER_NO, MEMBER.MEMBER_NICKNM,
+
+
+
+	<select id="followFriend" resultMap="chatFriend_rm">
+
+		SELECT FOLLOW.MEMBER_NO,
+		MEMBER.MEMBER_NICKNM,
 		MEMBER.MEMBER_NM,
-		MEMBER_IMG_PATH, MEMBER_IMG_NM, TO_USER
+		MEMBER_IMG_PATH, MEMBER_IMG_NM,
+		TO_USER
 		FROM
 		FOLLOW
 		LEFT JOIN MEMBER ON
-		(FOLLOW.MEMBER_NO = MEMBER.MEMBER_NO)
+		(FOLLOW.MEMBER_NO =
+		MEMBER.MEMBER_NO)
 		LEFT JOIN
 		MEMBER_IMG ON
-		(FOLLOW.MEMBER_NO = MEMBER_IMG.MEMBER_NO)
+		(FOLLOW.MEMBER_NO =
+		MEMBER_IMG.MEMBER_NO)
 		WHERE
 		FOLLOW.TO_USER = #{memberNo}
 
-		
+
 
 
 	</select>

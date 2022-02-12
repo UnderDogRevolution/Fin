@@ -1,257 +1,286 @@
-input{ font-family:"Noto Sans KR";}
+input {
+	font-family: "Noto Sans KR";
+}
 /* css초기화 */
 /* http://meyerweb.com/eric/tools/css/reset/ 
 v2.0 | 20110126
 License: none (public domain)
 */
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
 }
+
 body {
-    line-height: 1;
+	line-height: 1;
 }
+
 ol, ul {
-    list-style: none;
+	list-style: none;
 }
+
 blockquote, q {
-    quotes: none;
+	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
 }
+
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-html,
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: #272727;
-    color: #FDFDFD;
-    height: 100%;
-    padding: 0px;
-    font-family:"Noto Sans KR";
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-body > * {
+html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background: #272727;
+	color: #FDFDFD;
+	height: 100%;
+	padding: 0px;
+	font-family: "Noto Sans KR";
 }
 
-tr{
+body>* {
+	
+}
+
+tr {
 	color: white !important;
 }
 
-td{
+td {
 	color: white !important;
 }
-.header{
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    font-size: 30px;
-    width: 100%;
-    z-index: 1000;
-    align-items: center;
-    border-bottom: 3px solid #942d2d;
-    color: #942d2d;
-    font-weight: 700;
-    justify-content: center;
-    background-color: #272727;
-}
-.header > div{
-    display: flex;
-    justify-content: left;
-    width: 1050px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+
+.header {
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	font-size: 30px;
+	width: 100%;
+	z-index: 1000;
+	align-items: center;
+	border-bottom: 3px solid #942d2d;
+	color: #942d2d;
+	font-weight: 700;
+	justify-content: center;
+	background-color: #272727;
 }
 
-.mainController{
-    width: 100%;
-    height: 100%;
+.header>div:nth-child(1) {
+	display: flex;
+	justify-content: left;
+	width: 1000px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
-main{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 90px;
-    
-
+.header>div:nth-child(2) {
+	color: white;
+	font-size: 20px;
 }
-thead{
+
+.mainController {
+	width: 100%;
+	height: 100%;
+}
+
+main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-top: 90px;
+}
+
+thead {
 	color: white;
 	text-align: center;
 }
-.adminSide{
-    position: absolute;
-    width: 150px;
-    left: -190px;
-    top: 30px;
-    height: 426px;
-}
-.adminSide > div{
-    display: flex;
-    justify-content: center;
-    font-size: 20px;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    border-bottom: 1px solid #272727;
-    background-color: #3a3939;
-    cursor: pointer;
-}
-.adminBoardwraper{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height:100%;
-}
-.adminBoard{
-    width: 1050px;
-    height: 750px;
-    background-color: #3a3939;
-}
-.adminHeader{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    width: 100%;
-    height: 100px;
-    color: white;
 
+.adminSide {
+	position: absolute;
+	width: 150px;
+	left: -190px;
+	top: 30px;
+	height: 426px;
 }
 
-.adminBoardMain{
-    width: 100%;
-}
-.adminSearch{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-}
-
-.adminSearchForm{
-    padding-left: 40px; 
-}
-.select{
-    text-align: center;
-    width: 100px;
-    height: 30px;
+.adminSide>div {
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	align-items: center;
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #272727;
+	background-color: #3a3939;
+	cursor: pointer;
 }
 
-.adminBoardtable{
-    display: flex;
-   justify-content: center;
-    width: 100%;
-}
-.table{
-    width: 100%;
-    align-items: center;
-
-}
-tr{
-    border-bottom: 1px solid white;
-}
-th{
-    line-height: 50px;
-}
-td{
-    line-height: 46px;
-    align-items: center;
-    text-align: center;
-    font-size: 13px;
+.adminBoardwraper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	height: 100%;
 }
 
-.member-side:hover{
-    color: #942d2d;
+.adminBoard {
+	width: 1050px;
+	height: 750px;
+	background-color: #3a3939;
 }
-.en-side:hover{
-    color: #942d2d;
+
+.adminHeader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	width: 100%;
+	height: 100px;
+	color: white;
 }
-.board-side:hover{
-    color: #942d2d;
+
+.adminBoardMain {
+	width: 100%;
 }
-.report-side:hover{
-    color: #942d2d;
+
+.adminSearch {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 50px;
 }
-.statistics-side:hover{
-    color: #942d2d;
+
+.adminSearchForm {
+	padding-left: 40px;
 }
-.logout-side:hover{
-    color: #942d2d;
+
+.select {
+	text-align: center;
+	width: 100px;
+	height: 30px;
+}
+
+.adminBoardtable {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.table {
+	width: 100%;
+	align-items: center;
+}
+
+
+th {
+	line-height: 50px;
+}
+
+td {
+	line-height: 46px;
+	align-items: center;
+	text-align: center;
+	font-size: 13px;
+}
+
+.member-side:hover {
+	color: #942d2d;
+}
+
+.en-side:hover {
+	color: #942d2d;
+}
+
+.board-side:hover {
+	color: #942d2d;
+}
+
+.report-side:hover {
+	color: #942d2d;
+}
+
+.statistics-side:hover {
+	color: #942d2d;
+}
+
+.logout-side:hover {
+	color: #942d2d;
 }
 
 .table>:not(caption)>*>* {
-    padding: 0; 
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+	padding: 0;
+	background-color: var(- -bs-table-bg);
+	border-bottom-width: 1px;
+	box-shadow: inset 0 0 0 9999px var(- -bs-table-accent-bg);
 }
-.my-5 > div{
+
+.my-5>div {
 	display: flex;
 	justify-content: center;
 }
+
 .my-5 {
-    margin-top: 0 !important; 
-    margin-bottom: 0 !important; 
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
 }
 
-
-.page-link{
+.page-link {
 	border: none;
 	color: white;
 	background-color: #942d2d;
-	}
+}
+
 .page-link:hover {
-    z-index: 2;
-    color: white;
-    background-color: gray;
-    border-color: #dee2e6;
+	z-index: 2;
+	color: white;
+	background-color: gray;
+	border-color: #dee2e6;
 }
-tr{
-	border-bottom: 1px solid white;
-}
-.adminSearchForm > button{
+
+
+.adminSearchForm>button {
 	width: 50px;
 	font-size: 15px;
 	height: 31px;
 	border: none;
 	border-radius: 5px;
 	margin-left: 5px;
-	
 }
-.adminSearchForm > input {
-	 outline: none;
-	 border-radius: 5px;
-	 
+
+.adminSearchForm>input {
+	outline: none;
+	border-radius: 5px;
+}
+
+.postListContent>a {
+	text-decoration: none;
+	color: white;
+	overflow: scroll;
+	height: 100%;
+	padding-top: 10px;
+}
+
+.postListContent>a::-webkit-scrollbar {
+	display: none;
 }

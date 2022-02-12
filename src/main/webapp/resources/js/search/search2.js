@@ -322,7 +322,7 @@ function searchPostList(){
 				const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
   				const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
 				let text = items.postContent.replace(tagRegExp, function(target){
-					return "<a href='"+contextPath+"/search/?searchResult=%23"+target.replace("#","")+"' style='color: blue;'>" + target + "</a>";
+					return "<a href='"+contextPath+"/search/?searchResult=%23"+target.replace("#","")+"' style='color: #0075de;'>" + target + "</a>";
 				})
 				text = text.replace(userRegExp, function(target){
 					let memberNo;
@@ -344,7 +344,7 @@ function searchPostList(){
 						}
 					})
 					if(memberNo>0){
-						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: purple;'>" + target + "</a>";
+						return "<a href='"+contextPath+"/board1/myBoard/"+memberNo+"' style='color: #ffd700;'>" + target + "</a>";
 					}else{
 						return target;
 					}

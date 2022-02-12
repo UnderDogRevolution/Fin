@@ -25,16 +25,17 @@
 		JOIN MEMBER_IMG ON(A.MEMBER_NO = MEMBER_IMG.MEMBER_NO )
 		WHERE MEMBER_NM LIKE '%'||#{search}||'%'
 		AND A.MEMBER_NO != #{memberNo}
+		AND GRADE_CD != 101
 		ORDER BY CNT DESC
 
 	</select>
 	<!-- 팔로우  -->
 	<insert id="follow">
-		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo})
+		INSERT INTO FOLLOW VALUES(SEQ_FOLLOW_NO.NEXTVAL, #{memberNo} , #{friendNo}) 
 	</insert>
 	<!-- 팔로우 취소  -->
 	<delete id="cancell">
 	DELETE FROM FOLLOW
-	WHERE TO_USER = #{friendNo} AND MEMBER_NO = #{memberNo}
+	WHERE TO_USER = #{friendNo} AND MEMBER_NO =  #{memberNo}
 	</delete>
 </mapper>

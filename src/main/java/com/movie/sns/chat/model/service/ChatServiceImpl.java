@@ -117,9 +117,9 @@ public class ChatServiceImpl implements ChatService {
 	 * 팔로우 인원 조회 return List
 	 */
 	@Override
-	public List<ChatFriend> searchFollower(int memberNo) {
+	public List<ChatFriend> searchFollower(ChatFriend chat) {
 
-		return dao.searchFollower(memberNo);
+		return dao.searchFollower(chat);
 	}
 
 	/**채팅방 존재여부 확인 있으면 1 아니면 0
@@ -177,6 +177,12 @@ public class ChatServiceImpl implements ChatService {
 		map.put("chatRoom", chatRoom);
 		return map;
 	}
+
+	@Override
+	public List<ChatFriend> searchPersion(ChatFriend chat) {
+		return dao.searchPersion(chat);
+	}
+
 
 	
 

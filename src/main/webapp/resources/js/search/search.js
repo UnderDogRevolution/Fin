@@ -60,7 +60,7 @@ $("#peple_").on("click", function() { // ajax
 					profdiv.append(profdiv2);
 					profdiv.append(profdiv3);
 					profdiv.append(profdiv4);
-					button_.text("친구");
+					button_.text("팔로잉");
 					button.append(button_);
 					peplewrap.append(imgdiv);
 					peplewrap.append(profdiv);
@@ -149,7 +149,7 @@ function flInsert(event,friendNo) {
 			success: function(result) {
 				console.log("성공")
 
-				btn.text("친구");
+				btn.text("팔로잉");
 				btn.css('color', 'white');
 				btn.css('background-color', 'black');
 

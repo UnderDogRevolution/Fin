@@ -99,13 +99,12 @@ public class ChatDAO {
 	}
 
 
-	/** 팔로워한 사람 정보가져오기
+	/** 팔로워한 사람 정보가져오기 // 검색 인원 조회하기
 	 * @param memberNo
 	 * @return rList
 	 */
-	public List<ChatFriend> searchFollower(int memberNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("chatMapper.searchFollower", memberNo);
+	public List<ChatFriend> searchFollower(ChatFriend chat) {
+		return sqlSession.selectList("chatMapper.searchFollower", chat);
 	}
 
 
@@ -185,6 +184,11 @@ public class ChatDAO {
 	 */
 	public ChatRoom selectFriend(ChatRoom room) {
 		return sqlSession.selectOne("chatMapper.selectFriend",room);
+	}
+
+
+	public List<ChatFriend> searchPersion(ChatFriend chat) {
+		return sqlSession.selectList("chatMapper.searchPerson",chat);
 	}
 
 
