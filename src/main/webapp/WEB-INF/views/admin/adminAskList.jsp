@@ -89,7 +89,7 @@ text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
 														<td style="cursor: pointer;" onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
-														<td><button type="button" class="deleteBtn btn-dark" id="deleteBtn" style="cursor: pointer; width:50%;" onclick="askDelete(event,${ask.askNo});">삭제</button></td>
+														<td><p class="deleteBtn" id="deleteBtn" style="cursor: pointer;" onclick="askDelete(event,${ask.askNo});">삭제</p></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
