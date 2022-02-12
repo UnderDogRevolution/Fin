@@ -18,6 +18,26 @@
 	.memberDetail-body td{
 		font-size: 15px;
 	}
+	.memberStatusSelect{
+		width: 80px; text-align: center;
+		background-color: #3a3939; border: none;
+		color: white; outline: none;
+	}
+	.page-link{
+		cursor:pointer;
+	}
+	
+	/* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+	
+	/* Firefox */
+	input[type=number] {
+	  -moz-appearance: textfield;
+	}
 
 </style>
 
@@ -48,12 +68,11 @@
 						<div class="adminSearch">
 								<select name="sk" class="select" id="sk">
 									<option value="number">회원번호</option>
-									<option value="name">이름</option>
+									<option value="name2">이름</option>
 									<option value="nickName">닉네임</option>
 									<option value="email">이메일</option>
 
-								</select> <input name="sv" type="text" id="sv">
-								<button onclick="findMember();">검색</button>
+								</select> <input autocomplete="off" oninput="findMember();" name="sv" type="number" id="sv">
 						</div>
 						
 
@@ -95,48 +114,9 @@
 
 									</thead>
 									
-									<tbody>
-										<c:choose>
-											<c:when test="${empty memberList}"> 
-												<%-- 조회한 회원 목록이 없을 때 --%>
-												<tr>
-													<td colspan="7">조회 결과가 존재하지 않습니다.</td>
-												</tr>
-											</c:when>
-											
-											<c:otherwise>
-												<c:forEach items="${memberList}" var="member">
-										
-													<tr>
-														<td style="line-height: 22px;"><input class="form-check-input chk" type="checkbox" name="selectOne"></td>
-														<td>${member.memberNo}</td>
-
-														<td><span style="cursor:pointer;" onclick="showMemberDetail(${member.memberNo});">${member.memberName}</span></td>
-														<td>${member.memberNickName}</td>
-														<td>${member.memberEmail}</td>
-
-														<td>${member.enrollDate}</td>
-														<td>
-														
-															<select onchange="changeStatus(this.value, ${member.memberNo}, event);" style="width: 80px; text-align: center;
-																	background-color: #3a3939; border: none;
-																	color: white; outline: none;">
-																<c:forEach items="${statusList}" var="s">
-																	<option <c:if test="${s.statusCode == member.memberStatusCode}">selected</c:if> value="${s.statusCode}">${s.statusName}</option>
-																</c:forEach>
-															</select>
-															
-														</td>
-													</tr>
-													
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
+									<tbody class="tbody">
 									
 									</tbody>
-
-									<tfoot>
-									</tfoot>
 
 								</table>
 
@@ -146,11 +126,11 @@
 					</div>
 					
 					
-					<%---------------------- Pagination ----------------------%>
-					<button onclick="changeCheckbox(202);">정지</button>
-					<button onclick="changeCheckbox(200);">일반</button>
-					<button onclick="changeCheckbox(201);">탈퇴</button>
+					<button class="setBtn" disabled onclick="changeCheckbox(202);">정지</button>
+					<button class="setBtn" disabled onclick="changeCheckbox(200);">일반</button>
+					<button class="setBtn" disabled onclick="changeCheckbox(201);">탈퇴</button>
 					
+					<%---------------------- Pagination ----------------------%>
 					<div class="my-5">
 						<div>
 							<ul class="pagination">
@@ -169,7 +149,7 @@
 										</c:when>
 										
 										<c:otherwise>
-											<li><a class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
+											<li><a onclick="findMember(this.innerText);" class="page-link" href="list?cp=${i}${c}${s}">${i}</a></li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -273,29 +253,6 @@
 	<!-- 전역 변수 -->
 	<script>
 		const contextPath = "${contextPath}";
-		
-		// 쿼리스트링에서 파라미터를 얻어와 반환하는 함수
-		function getParam(key){
-			return new URLSearchParams(location.search).get(key)
-		}
-		
-		// 1) name 속성값이 sk인 select의 자식 option 태그 모두 얻어오기
-		const skOptions = document.querySelectorAll("select[name='sk'] > option")
-
-		// 2) 향상된 for문을 이용해서 option 하나씩 접근
-		for(let option of skOptions){
-
-			// 3) 현재 접근한 option의 value와 쿼리스트링 sk값이 같다면
-			if( option.value == getParam("sk")){
-				
-				// 4) 일치하는 option 태그에 selected 속성 추가
-				option.setAttribute("selected", true)
-			}
-
-		}
-		
-		// 검색 input 세팅하기
-		document.querySelector("input[name='sv']").value = getParam("sv")
 	</script>
 
 	<script src="${contextPath}/resources/js/admin/adminMemberController.js"></script>
