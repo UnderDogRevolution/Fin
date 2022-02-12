@@ -149,13 +149,13 @@
 				<when test="sk == 'number'">
 					AND	MEMBER_NO = #{val2}
 				</when>
-				<when test="sk == 'name'">
+				<when test="sk == 'name2'">
 					AND	MEMBER_NM LIKE #{val}
 				</when>
 				<when test="sk == 'nickName'">
 					AND	MEMBER_NICKNM LIKE #{val}
 				</when>
-				<when test="sk == 'eMail'">
+				<when test="sk == 'email'">
 					AND	MEMBER_EMAIL LIKE #{val}
 				</when>
 			</choose>
@@ -208,10 +208,49 @@
 				AND	MEMBER_EMAIL LIKE #{val}
 				</when>
 			</choose>
-			
 		</if>
 		
-		ORDER BY MEMBER_NO 
+		<if test="statusValue != null">
+			<choose>
+				<when test="statusValue == 200">
+					AND STATUS_CD = 200
+				</when>
+				<when test="statusValue == 201">
+					AND STATUS_CD = 201
+				</when>
+				<when test="statusValue == 202">
+					AND STATUS_CD = 202
+				</when>
+			</choose>
+		</if>
+		
+		<choose>
+			<when test="sortColumn == null">
+				ORDER BY MEMBER_NO
+			</when>
+			
+			<otherwise>
+				<choose>
+					<when test="sortColumn == 'memberNumber'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY MEMBER_NO DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY MEMBER_NO
+						</if>
+					</when>
+					
+					<when test="sortColumn == 'enrollDate'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY ENROLL_DT DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY ENROLL_DT ASC
+						</if>
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
 		
 	</select>
 	
