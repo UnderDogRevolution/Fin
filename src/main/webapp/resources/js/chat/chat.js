@@ -10,35 +10,78 @@ selectChatRoom();
 // 조회성공시 for each 로 나타나게 해야되는데 for each 먼저 위에 써놓고 div 안에 append하게 해야되는거?
 // 일단 화면을 봐야되니까 그냥 만들어지는지 확인하자
 
+function flInsert(event, friendNo) {
+	console.log($(event.target).text());
+	const btn = $(event.target);
+	if (btn.text() == "팔로우") {
 
+		$.ajax({
+			url: contextPath + "/search/follow",
+			data: { "memberNo": memberNo, "friendNo": friendNo },
+
+			success: function(result) {
+				console.log("성공")
+
+				btn.text("팔로잉");
+				btn.removeClass("messagebtn2-1");
+				btn.addClass("messagebtn2-3");
+
+			},
+			error: function() {
+
+			}
+
+
+		});
+
+	} else {
+
+		$.ajax({
+			url: contextPath + "/search/cancell",
+			data: { "memberNo": memberNo, "friendNo": friendNo },
+
+			success: function(result) {
+				console.log("성공")
+				btn.text("");
+				btn.text("팔로우");
+				btn.removeClass("messagebtn2-3");
+				btn.addClass("messagebtn2-1");
+
+			},
+			error: function() {
+
+			}
+
+
+		});
+
+
+	}
+
+};
 function searchMember() {
 	inputResult = $("#searchpr")
-
 	if (inputResult.hasClass("searchVal")) {
 		$(".modal-title").text("")
 		$(".modal-title").text("인물검색")
-		$(".modal-body").html("");
 		inputResult.removeClass("searchVal");
 		inputResult.addClass("searchVal1");
 
 	} else {
+		$(".modal-body").html("");
 		inputResult.removeClass("searchVal1");
 		inputResult.addClass("searchVal");
 		$(".modal-title").text("")
 		$(".modal-title").text("친구목록")
-
 		$.ajax({
 
 			url: contextPath + "/chat/searchFollower",
 			dataType: "JSON",
 			type: "POST",
 			success: function(rList) {
-
+				console.log(rList);
 				$.each(rList, function(index, fr) {
-
 					const body = $(".modal-body");
-					$(".modal-body").html("");
-
 					const frMain = $("<div class = 'friendsListMain'>");
 					const imgwrap = $("<div class = 'friendsImg-wrap'>");
 					const img = $("<img>");
@@ -47,7 +90,10 @@ function searchMember() {
 					const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.toUser + ")'>");
 					btn.text("보내기");
 					img.attr("src", contextPath + fr.imgPath + fr.imgNm);
-					namewrap.text(fr.memberNm);
+					const a = $("<a>");
+					a.text(fr.memberNm)
+					a.attr("href", contextPath + "/board1/myBoard/" + fr.memberNo);
+					namewrap.append(a);
 					msgwrap.append(btn);
 					imgwrap.append(img);
 					frMain.append(imgwrap);
@@ -64,19 +110,12 @@ function searchMember() {
 
 		});
 
-
-
 	}
-
-
-
-
 
 }
 
 function searchPersion() { //인물조회
 	inputResult = $("#searchpr").val();
-	console.log("메롱");
 	$.ajax({
 
 		url: contextPath + "/chat/searchPersion",
@@ -86,30 +125,65 @@ function searchPersion() { //인물조회
 		success: function(rList) {
 			$(".modal-body").html("");
 
-			console.log("메롱");
 
 
 			console.log(rList);
 			$.each(rList, function(index, fr) {
 
+				if (fr.CNT != 0) {
 
-				const body = $(".modal-body");
-				const frMain = $("<div class = 'friendsListMain'>");
-				const imgwrap = $("<div class = 'friendsImg-wrap'>");
-				const img = $("<img>");
-				const namewrap = $("<div class = 'friendsName-wrap'>");
-				const msgwrap = $("<div class = 'messagebtn-wrap'>");
-				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.memberNo + ")'>");
-				btn.text("보내기");
-				img.attr("src", contextPath + fr.imgPath + fr.imgNm);
-				namewrap.text(fr.memberNm);
-				msgwrap.append(btn);
-				imgwrap.append(img);
-				frMain.append(imgwrap);
-				frMain.append(namewrap);
-				frMain.append(msgwrap);
-				body.append(frMain);
 
+					const body = $(".modal-body");
+					const frMain = $("<div class = 'friendsListMain'>");
+					const imgwrap = $("<div class = 'friendsImg-wrap'>");
+					const img = $("<img>");
+					const namewrap = $("<div class = 'friendsName-wrap'>");
+					const msgwrap = $("<div class = 'messagebtn-wrap'>");
+					const btn1 = $("<button onclick = 'flInsert(event," + fr.memberNo + ")' class = 'messagebtn2-3'>팔로잉</button>")
+					const btn = $("<button class = 'messagebtn2-2' onclick = 'goChatting(" + fr.memberNo + ")'>");
+					btn.text("보내기");
+					img.attr("src", contextPath + fr.imgPath + fr.imgNm);
+					const a = $("<a>");
+					a.text(fr.memberNm)
+					a.attr("href", contextPath + "/board1/myBoard/" + fr.memberNo);
+					namewrap.append(a);
+
+					msgwrap.append(btn1);
+					msgwrap.append(btn);
+					imgwrap.append(img);
+					frMain.append(imgwrap);
+					frMain.append(namewrap);
+					frMain.append(msgwrap);
+					body.append(frMain);
+
+				} else {
+
+					const body = $(".modal-body");
+					const frMain = $("<div class = 'friendsListMain'>");
+					const imgwrap = $("<div class = 'friendsImg-wrap'>");
+					const img = $("<img>");
+					const namewrap = $("<div class = 'friendsName-wrap'>");
+					const msgwrap = $("<div class = 'messagebtn-wrap'>");
+					const btn1 = $("<button onclick = 'flInsert(event," + fr.memberNo + ")' class = 'messagebtn2-1'>팔로우</button>")
+					const btn = $("<button class = 'messagebtn2-2' onclick = 'goChatting(" + fr.memberNo + ")'>");
+					btn.text("보내기");
+					img.attr("src", contextPath + fr.imgPath + fr.imgNm);
+					const a = $("<a>");
+					a.text(fr.memberNm)
+					a.attr("href", contextPath + "/board1/myBoard/" + fr.memberNo);
+					namewrap.append(a);
+
+					msgwrap.append(btn1);
+					msgwrap.append(btn);
+					imgwrap.append(img);
+					frMain.append(imgwrap);
+					frMain.append(namewrap);
+					frMain.append(msgwrap);
+					body.append(frMain);
+
+
+
+				}
 
 
 
@@ -147,13 +221,13 @@ function selectChatRoom() {
 		dataType: "JSON",
 		success: function(chatList) {
 			$.each(chatList, function(index, room) {
-
-				const path = "'" + contextPath + room.img[0].imgPath + room.img[0].imgName + "'";
+				console.log(room.imgPath);
+				const path = "'" + contextPath + room.imgPath + room.imgNm + "'";
 
 				const chatListWrap = $(".chatList-wrap");
 				const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ',' + path + ');">');
 				const img = $('<img class="MemberImg">');
-				img.attr("src", contextPath + room.img[0].imgPath + room.img[0].imgName);
+				img.attr("src", contextPath + room.imgPath + room.imgNm);
 				const imgdiv = $('<div class="chatMemberImg">');
 				const nmdiv = $('<div class="chatMemberName">');
 				const nm = $('<div>');
@@ -228,6 +302,7 @@ function selectchatting(frNo, memberNo, chatRoomNo, path) {
 
 $('#MessageModal').on('show.bs.modal', function(event) {
 	// 모달 열렸을 때 실행
+	$(".modal-title").text("친구목록")
 	const content = $(".modal-content");
 	const body = $("<div class = 'modal-body'>");
 	content.append(body);
@@ -248,7 +323,10 @@ $('#MessageModal').on('show.bs.modal', function(event) {
 				const btn = $("<button class = 'messagebtn2' onclick = 'goChatting(" + fr.toUser + ")'>");
 				btn.text("보내기");
 				img.attr("src", contextPath + fr.imgPath + fr.imgNm);
-				namewrap.text(fr.memberNm);
+				const a = $("<a>");
+				a.text(fr.memberNm)
+				a.attr("href", contextPath + "/board1/myBoard/" + fr.memberNo);
+				namewrap.append(a);
 				msgwrap.append(btn);
 				imgwrap.append(img);
 				frMain.append(imgwrap);
@@ -269,8 +347,12 @@ $('#MessageModal').on('show.bs.modal', function(event) {
 }).on('hide.bs.modal', function() {
 	// 모달 닫히면서 실행 초기화 시키기
 	inputResult = $("#searchpr");
+	inputResult.val("")
 	inputResult.removeClass("searchVal1");
 	inputResult.addClass("searchVal")
+	$(".modal-title").text("")
+
+
 	$(".modal-body").remove();
 
 });
@@ -313,7 +395,7 @@ function goChatting(friendNo) {
 				$("#MessageModal").modal('hide');
 				searchChatting(result.chatRoom.chatRoomNo, friendNo, path)
 			} else {
-				const path1 = "'" + contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm + "'";
+				const path1 = contextPath + result.chatRoom.imgPath + result.chatRoom.imgNm;
 				$("#MessageModal").modal('hide');
 				searchChatting(result.chatRoom.chatRoomNo, friendNo, path1)
 

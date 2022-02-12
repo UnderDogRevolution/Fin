@@ -67,26 +67,27 @@
 		<result property="memberNm" column="MEMBER_NM" />
 		<result property="memberNickNm" column="MEMBER_NICKNM" />
 		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="CNT" column="CNT" />
 	</resultMap>
 	
 	<!--채팅 인물검색  -->
 	<select id="searchPerson" resultMap = "chatFriend_rm">
 	
-        SELECT MEMBER_NO,MEMBER_NM , MEMBER_NICKNM , MEMBER_IMG_PATH , MEMBER_IMG_NM , MEMBER_BIRTH
-        FROM MEMBER
-        LEFT JOIN MEMBER_IMG USING(MEMBER_NO)
+        SELECT A.MEMBER_NO, MEMBER_NM , MEMBER_NICKNM , MEMBER_IMG_PATH , MEMBER_IMG_NM , MEMBER_BIRTH,
+        (SELECT COUNT(*) FROM FOLLOW WHERE MEMBER_NO = #{memberNo} AND TO_USER = A.MEMBER_NO) CNT 
+        FROM MEMBER A
+        LEFT JOIN MEMBER_IMG B ON(A.MEMBER_NO = B.MEMBER_NO)
         
        <if test="inputResult != ''">
-        
-        WHERE MEMBER_NM LIKE #{inputResult}|| '%' OR MEMBER_NM LIKE '%'  || #{inputResult}|| '%' 
-        AND MEMBER_NO != #{memberNo}
+        WHERE A.MEMBER_NO != #{memberNo}
+        AND MEMBER_NM LIKE #{inputResult}|| '%' OR MEMBER_NM LIKE '%'  || #{inputResult}|| '%' 
         AND GRADE_CD != 101
         </if>
         <if test="inputResult == ''">
-         WHERE MEMBER_NO != #{memberNo}
+         WHERE A.MEMBER_NO != #{memberNo}
          AND GRADE_CD != 101
         </if>
-        ORDER BY MEMBER_NM
+        ORDER BY CNT DESC
         
 	
 	
@@ -114,38 +115,18 @@
 
 	<!-- 채팅방 목록 조회 (상관커리) -->
 	<select id="chatRoomList" resultMap="chatRoom_rm">
-
-	SELECT CHAT_ROOM_NO,
-	MEMBER_NM, MEMBER_NO,
-	(SELECT MEMBER_NO
-	FROM
-	CHAT_ROOM_JOIN J WHERE
-	J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
-	AND
-	MEMBER_NO !=
-	#{memberNo})
-	CHAT_FR_NO,
-	(SELECT MEMBER_NM FROM MEMBER A
-	WHERE A.MEMBER_NO
-	=
-	(SELECT
-	MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE
-	J.CHAT_ROOM_NO =
-	R.CHAT_ROOM_NO
-	AND MEMBER_NO != #{memberNo})
-	)
-	CHAT_FR_NM
-
-	FROM
-	CHAT_ROOM_JOIN R
-	JOIN
-	MEMBER B USING(MEMBER_NO)
-	WHERE MEMBER_NO =
-	#{memberNo}
-	AND
-	R.STATUS_CD
-	= 1
+	 SELECT CHAT_ROOM_NO,
+	MEMBER_NM, MEMBER_NO,(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO
+	AND MEMBER_NO != #{memberNo}) CHAT_FR_NO, (SELECT MEMBER_NM FROM MEMBER A WHERE A.MEMBER_NO
+	=(SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO AND MEMBER_NO != #{memberNo})
+	)CHAT_FR_NM , (SELECT MEMBER_IMG_PATH FROM MEMBER_IMG WHERE MEMBER_NO = (SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO AND MEMBER_NO != #{memberNo})) MEMBER_IMG_PATH
+	,(SELECT MEMBER_IMG_NM FROM MEMBER_IMG WHERE MEMBER_NO = (SELECT MEMBER_NO FROM CHAT_ROOM_JOIN J WHERE J.CHAT_ROOM_NO = R.CHAT_ROOM_NO AND MEMBER_NO != #{memberNo})) MEMBER_IMG_NM
+    FROM CHAT_ROOM_JOIN R
+	JOIN MEMBER B USING(MEMBER_NO)
+	WHERE MEMBER_NO = #{memberNo} 
+    AND R.STATUS_CD = 1
 	ORDER BY 1 DESC
+	
 	</select>
 
 

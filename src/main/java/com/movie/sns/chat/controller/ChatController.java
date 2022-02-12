@@ -67,8 +67,15 @@ public class ChatController {
 	@RequestMapping(value = "selectChatRoom" ,method = RequestMethod.GET)
 	public String selectChatRoom(@ModelAttribute("loginMember") Member loginMember) {
 		int memberNo = loginMember.getMemberNo();
-		List <ChatRoom> chatList = service.chatRoomList(memberNo);
+		List<ChatRoom> chatList = null;
 		
+		try {
+		 chatList = service.chatRoomList(memberNo);
+			
+		}catch(NullPointerException e) {
+			System.out.println("오류" + e);
+			
+		}
 		System.out.println("얻어오는거 조회" +chatList);
 		return  new Gson().toJson(chatList);
 	}
@@ -152,8 +159,15 @@ public class ChatController {
 		@RequestMapping(value = "searchPersion", method = RequestMethod.GET)
 		public String searchPersion(@ModelAttribute("loginMember") Member loginMember,ChatFriend chat) {
 			chat.setMemberNo(loginMember.getMemberNo());
-			System.out.println("값 확인");
-			List<ChatFriend> rList = service.searchPersion(chat);
+			
+			List<ChatFriend> rList = null;
+			try {
+				 rList = service.searchPersion(chat);
+				
+			}catch(NullPointerException e) {
+				System.out.println("사람검색오류" + e);
+				
+			}
 			
 			System.out.println("검색결과"+rList);
 			return new Gson().toJson(rList);
