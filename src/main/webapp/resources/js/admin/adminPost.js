@@ -30,6 +30,10 @@ $(".selectPostsend").on("change", function() {
 		$("#searchPost").attr('type', 'text');
 
 	}
+	 else if (searchPost == "memberNick") {
+		$("#searchPost").attr('type', 'text');
+
+	}
 
 
 })

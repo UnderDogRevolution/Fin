@@ -222,6 +222,7 @@
 
 					</when>
 					<when test="searchPost == 'memberNm'">
+						JOIN MEMBER USING(MEMBER_NO)
 						WHERE MEMBER_NM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NM
@@ -229,7 +230,9 @@
 
 					</when>
 					<when test="searchPost == 'memberNick'">
-						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						
+						JOIN MEMBER USING(MEMBER_NO)
+						WHERE MEMBER_NICKNM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NICKNM
 						LIKE '%'||#{inputResult}||'%'
@@ -281,6 +284,7 @@
 
 					</when>
 					<when test="searchPost == 'memberNm'">
+						
 						WHERE MEMBER_NM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NM
@@ -288,7 +292,8 @@
 
 					</when>
 					<when test="searchPost == 'memberNick'">
-						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						
+						WHERE MEMBER_NICKNM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NICKNM
 						LIKE '%'||#{inputResult}||'%'
