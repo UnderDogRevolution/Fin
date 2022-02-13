@@ -387,7 +387,7 @@ function searchPostList(){
 				// 게시글 좋아요
 				const imgFooter1 = document.createElement("img")
 				imgFooter1.className = "vivid-popcorn"
-				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				imgFooter1.setAttribute("src", contextPath + "/resources/images/temp/yellow_popcorn.png")
 				imgFooter1.setAttribute("style", "width: 100%;");
 				imgFooter1.addEventListener("click", function(){
 					const postNo = this.nextElementSibling.nextElementSibling.innerText;
@@ -418,9 +418,13 @@ function searchPostList(){
 				})
 				const imgFooter2 = document.createElement("img")
 				imgFooter2.className = "white-popcorn"
-				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 				imgFooter2.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;
@@ -693,6 +697,7 @@ function selectReply(postNo){
 				const profileDiv = document.createElement("div");
 				profileDiv.className = "profile-reply"
 				const profile = document.createElement("img");
+				profile.setAttribute("id", items.memberNo);
 				if(items.listProfile[0]){
 					profile.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
 				}else{
@@ -703,27 +708,18 @@ function selectReply(postNo){
 				const userInfo = document.createElement("div")
 				userInfo.className ="user-reply";
 				const userInfoDiv1 = document.createElement("div")
-				userInfoDiv1.innerText = items.memberName;
-				userInfo.append(userInfoDiv1)
+				userInfoDiv1.innerHTML = "<span>"+items.memberNickName+"</span>" + "<span>"+items.replyCreateDate+"</span>";
+				
 				const userInfoDiv2 = document.createElement("div")
-				userInfoDiv2.innerText = items.replyCreateDate;
-				userInfo.append(userInfoDiv2);
-
-				const contentReply = document.createElement("div");
-				contentReply.className = "content-reply"
-
-				const textReply = document.createElement("div");
-				textReply.className = "text-reply";
-
-				const contentDiv = document.createElement("div");
-				contentReply.innerText = items.replyContent;
+				userInfoDiv2.innerHTML = "<div>"+items.replyContent+"</div>";
+				
 
 				const dots = document.createElement("img");
 				dots.setAttribute("src", contextPath + "/resources/images/temp/dots.png")
 				dots.setAttribute("id", "dropdownMenuOffset")
 				dots.setAttribute("data-bs-toggle", "dropdown")
 				dots.setAttribute("aria-expanded", "false")
-				dots.setAttribute("data-bs-offset", "0, 0")
+				dots.setAttribute("data-bs-offset", "10,-10")
 
 				const dropUl = document.createElement("ul");
 				dropUl.setAttribute("class", "dropdown-menu")
@@ -738,9 +734,6 @@ function selectReply(postNo){
 				a1.className = "dropdown-item"
 				a2.className = "dropdown-item"
 				a3.className = "dropdown-item"
-				// a1.setAttribute("href", "#")
-				// a2.setAttribute("href", "#")
-				// a3.setAttribute("href", "#")
 				a1.innerText = "삭제";
 				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
 				a2.innerText = "신고하기";
@@ -749,26 +742,34 @@ function selectReply(postNo){
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
+				// console.log(items.memberNo == memberNo)
 				if(typeof memberNo != "undefined"){
-					if(items.memberNo = memberNo){
+					if(items.memberNo == memberNo){ //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
 						dropUl.append(dropLi2);
+					}else{
+						dropUl.append(dropLi2);
+
 					}
 				}else{
 					dropUl.append(dropLi3);
-
 				}
-				contentDiv.append(dots)
-				contentDiv.append(dropUl)
+				// contentDiv.append(dots)
+				// contentDiv.append(dropUl)
+				userInfoDiv1.append(dots)
+				userInfoDiv1.append(dropUl)
+				userInfo.append(userInfoDiv1)
+				
 
-				textReply.append(contentDiv);
+
+				// textReply.append(contentDiv);
 
 
 				
 				const constDiv2 = document.createElement("div")
 				// 댓글 좋아요
 				const vividPopcorn = document.createElement("img");
-				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/new vivid popcorn2.png")
+				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/like2.png")
 				vividPopcorn.className = "reply-vivid";
 				vividPopcorn.addEventListener("click", function(){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
@@ -788,6 +789,9 @@ function selectReply(postNo){
 								element.style.display = "none";
 								element.nextElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)-1;
+								
+								
+								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
@@ -803,7 +807,7 @@ function selectReply(postNo){
 					})
 				})
 				const whitePopcorn = document.createElement("img");
-				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/new white popcorn.png")
+				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/like.png")
 				whitePopcorn.className = "reply-white";
 				whitePopcorn.addEventListener("click", function(){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
@@ -824,6 +828,23 @@ function selectReply(postNo){
 								element.style.display = "none";
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)+1;
+								
+								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+								console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+								
+								
+								const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								
+								
+								alramSock.send(JSON.stringify(alramObj));
+								
+								
+								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
@@ -880,12 +901,14 @@ function selectReply(postNo){
 				tempDiv.append(constDiv2)
 				tempDiv.append(constDiv3)
 
-				contentReply.append(textReply);
-				contentReply.append(tempDiv);
+				// contentReply.append(textReply);
+				// contentReply.append(tempDiv);
+				userInfoDiv2.append(tempDiv)
+				userInfo.append(userInfoDiv2);
 
 				replyDiv1.append(profileDiv)
 				replyDiv1.append(userInfo)
-				replyDiv1.append(contentReply)
+				// replyDiv1.append(contentReply)
 				
 				replyDiv.append(replyDiv1)
 				
@@ -904,7 +927,7 @@ function selectReply(postNo){
 
 function comment(e, replyNo){
 	
-	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
 	const img = post.querySelectorAll(".input-content-reply img")[0]
 	const input = post.querySelectorAll(".input-content-reply textarea")[0]

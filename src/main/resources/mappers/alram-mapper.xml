@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="alramMapper">
 
+	<resultMap type="com.movie.sns.alram.model.vo.Alram"
+		id="alram_rm">
+
+		<id property="alramNo" column="SEQ_ALRAM_NO" />
+
+		<result property="alramTakeMemberNo" column="ALRAM_NO" />
+		<result property="alramContent" column="ALRAM_CONTENT" />
+		<result property="alramUrl" column="ALRAM_URL" />
+		<result property="alramStatus" column="ALRAM_STATUS" />
+		
+
+	</resultMap>
+
+
+
+
+
 
 	<insert id="insertAlram">
 	
@@ -10,5 +27,14 @@
 	
 	
 	</insert>
+	
+	
+	<select id="selectAlram" resultMap="alram_rm">
+	
+	SELECT ALRAM_CONTENT, ALRAM_URL, ALRAM_STATUS
+	FROM ALRAM
+	WHERE ALRAM_NO = #{memberNo}
+	
+	</select>
 
 </mapper>

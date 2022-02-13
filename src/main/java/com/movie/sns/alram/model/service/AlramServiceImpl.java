@@ -1,5 +1,7 @@
 package com.movie.sns.alram.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,13 @@ public class AlramServiceImpl implements AlramService{
 	public int insertAlram(Alram alram) {
 		
 		return dao.insertAlram(alram);
+	}
+
+
+	@Override
+	public List<Alram> selectAlram(int memberNo) {
+		
+		return dao.selectAlram(memberNo);
 	}
 
 	

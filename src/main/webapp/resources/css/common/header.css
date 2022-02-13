@@ -160,7 +160,7 @@ a {
 .menu li {
 	/* 헤더 메뉴 */
 	color: white;
-	padding: 16px 5px 12px 12px;
+	padding: 16px 5px 4px 12px;
 }
 
 .menu>li>a:hover {
