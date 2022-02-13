@@ -10,4 +10,6 @@ public interface AlramService {
 
 	List<Alram> selectAlram(int memberNo);
 
+	int deleteAlram(int deleteAlramNo);
+
 }
