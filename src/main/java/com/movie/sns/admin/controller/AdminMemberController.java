@@ -63,6 +63,9 @@ public class AdminMemberController {
 		return "admin/adminMember";
 	}
 	
+	
+	
+	
 	// 회원정보조회(ajax를 이용한 조회 페이지)
 		@RequestMapping(value = "selectMemberList2", method = RequestMethod.GET)
 		@ResponseBody
@@ -74,18 +77,36 @@ public class AdminMemberController {
 			List<Member> memberList = null;
 			
 			// 검색 값이 있는 경우
-			if(search.getSv() != null && !search.getSv().trim().equals("")) {
+//			if(search.getSv() != null && !search.getSv().trim().equals("")) {
+//				
+//				pagination = service.getPagination(cp, search);
+//				memberList = service.selectMemberList(pagination, search);
+//				
+//			}else {
+//				
+//				// 검색 조건이 따로 없는 경우
+//					
+//				if(search.getSortColumn() != null || search.getStatusValue() != null) {
+//					
+//					// 정렬 기준이 있거나, 상태값 분류 있는 경우
+//					pagination = service.getPagination(cp, search);
+//					memberList = service.selectMemberList(pagination, search);
+//					
+//				}else {
+//					
+//					// 정렬기준 X, 상태값 분류 X
+//					pagination = service.getPagination(cp);
+//					memberList = service.selectMemberList(pagination);
+//					
+//				}
+//			
+//			}
 				
+				System.out.println("상태 값 : " + search.getStatusValue());
+			
 				pagination = service.getPagination(cp, search);
 				memberList = service.selectMemberList(pagination, search);
 				
-			}else {
-				
-				// 검색 조건이 따로 없는 경우
-				pagination = service.getPagination(cp);
-				memberList = service.selectMemberList(pagination);
-				
-			}
 			
 			Map<String, Object> memberMap = new HashMap<String, Object>();
 			memberMap.put("memberList", memberList);

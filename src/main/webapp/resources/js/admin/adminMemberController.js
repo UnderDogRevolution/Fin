@@ -76,6 +76,8 @@ function changeCheckbox(statusCode){
 
   // 현재 페이지
   const currentPage = $(".currentPage").text();
+  // 변경 처리 후에도 화면을 유지하기 위한 변수
+  const statusValue = $("#statusValue option:selected").val();
 
   Swal.fire({
     title: '회원 상태를 변경하시겠습니까?',
@@ -110,7 +112,7 @@ function changeCheckbox(statusCode){
 
             // 변경 성공
             // 리스트 다시 조회
-            findMember(currentPage);
+            findMember(currentPage, statusValue);
 
             // 체크박스 체크 해제하기
             $('.chk').removeAttr("checked");
@@ -195,6 +197,8 @@ function changeCheckbox(statusCode){
 function changeStatus(statusCode, memberNo, e){
 
   const currentPage = $(".currentPage").text();
+  // 변경 처리 후에도 화면을 유지하기 위한 변수
+  const statusValue = $("#statusValue option:selected").val();
 
   Swal.fire({
     title: '회원 상태를 변경하시겠습니까?',
@@ -216,8 +220,8 @@ function changeStatus(statusCode, memberNo, e){
           if(result > 0){
 
             // 변경 성공
-            // 리스트 조회
-            findMember(currentPage);
+            // 리스트 다시 조회
+            findMember(currentPage, statusValue);
             
             const Toast = Swal.mixin({
               toast: true,
@@ -367,11 +371,12 @@ function showMemberDetail(memberNo){
 // 회원 리스트 검색하기
 // 매개변수로 pagination , 정렬 조건 담기
 
+// cp : 현재 페이지
+// statusValue : 회원 상태 값
 // sortColumn : 정렬할 컬럼
 // sortMethod : 오름차순/내림차순
-// statusValue : 회원 상태 값
 
-function findMember(cp, sortColumn, sortMethod, statusValue){
+function findMember(cp, statusValue, sortColumn, sortMethod){
 
   // 전체선택 버튼 지우기
   $("#all").prop("checked", false);
@@ -417,10 +422,10 @@ function findMember(cp, sortColumn, sortMethod, statusValue){
           const td2 = $('<td>'+ member.memberNo +'</td>');
 
           // 이름
-          const td3 = $('<td><span style="cursor:pointer;" onclick="showMemberDetail('+ member.memberNo +');">'+ member.memberName +'</span></td>');
+          const td3 = $('<td><span class="shortText" style="cursor:pointer;" onclick="showMemberDetail('+ member.memberNo +');">'+ member.memberName +'</span></td>');
           
           // 닉네임
-          const td4 = $('<td><a style="text-decoration: none; color: white;"	href="' + contextPath + '/board1/myBoard/'+ member.memberNo +'">'+ member.memberNickName +'</a></td>');
+          const td4 = $('<td><a class="shortText" style="text-decoration: none; color: white;"	href="' + contextPath + '/board1/myBoard/'+ member.memberNo +'">'+ member.memberNickName +'</a></td>');
           
           // 이메일
           const td5 = $('<td>'+ member.memberEmail +'</td>');
@@ -494,8 +499,35 @@ function findMember(cp, sortColumn, sortMethod, statusValue){
           li = $('<li class="page-link currentPage" style="color: black; font-weight: bold;"> ' + i + '</li>');
           $(".pagination").append(li);
         } else {
-          li = $('<li class="page-link" onclick = findMember(' + i + ')>' + i + '</li>');
+
+          // 정렬 컬럼과 방식을 정하는 변수 및 로직 
+          let sort1 = 'all';
+          let sort2 = 'all';
+
+          if($("#enrollDtSort").hasClass("enrollDate")){
+    
+            sort1 = 'enrollDate';
+        
+            if($("#enrollDtSort").hasClass("asc")){
+              sort2 = 'asc';
+            }else{
+              sort2 = 'desc';
+            }
+            
+          }else{
+        
+            sort1 = 'memberNumber';
+        
+            if($("#memberNoSort").hasClass("asc")){
+              sort2 = 'asc';
+            }else{
+              sort2 = 'desc';
+            }
+          }
+
+          li = $('<li class="page-link" onclick = findMember(' + i + ',' + $("#statusValue option:selected").val() + ',"' + sort1 + '","' + sort2 + '")>' + i + '</li>');
           $(".pagination").append(li);
+
         }
 
       };
@@ -532,20 +564,43 @@ function findMember(cp, sortColumn, sortMethod, statusValue){
 // 회원번호로 정렬하기
 $("#memberNoSort").on("click",function(){
 
+  const statusValue = $("#statusValue option:selected").val();
+
   // 오름차순인 경우
   if($(this).hasClass("asc")){
+
+    $(this).removeClass("memberNumber");
+    $(this).removeClass("enrollDate");
+    $(this).addClass("memberNumber");
 
     $(this).removeClass("asc");
     $(this).addClass("desc");
     $("#memberNoSort > span").text("회원번호 ▼");
-    sortList('memberNumber', 'desc');
+
+    // 가입일 정렬 해제시키기
+    $("#enrollDtSort").removeClass("desc");
+    $("#enrollDtSort").addClass("asc");
+    $("#enrollDtSort > span").text("가입일 ▲")
+    
+    sortList(statusValue, 'memberNumber', 'desc');
+
     
   }else{
+
+    $("#enrollDtSort").removeClass("enrollDate");
+    $(this).removeClass("memberNumber");
+    $(this).addClass("memberNumber");
     
     $(this).removeClass("desc");
     $(this).addClass("asc");
     $("#memberNoSort > span").text("회원번호 ▲");
-    sortList('memberNumber', 'asc');
+
+    // 가입일 정렬 해제시키기
+    $("#enrollDtSort").removeClass("desc");
+    $("#enrollDtSort").addClass("asc");
+    $("#enrollDtSort > span").text("가입일 ▲")
+    
+    sortList(statusValue, 'memberNumber', 'asc');
 
   }
 
@@ -553,35 +608,95 @@ $("#memberNoSort").on("click",function(){
 
 $("#enrollDtSort").on("click", function(){
 
+  const statusValue = $("#statusValue option:selected").val();
+
   // 오름차순인 경우
   if($(this).hasClass("asc")){
+
+    $("#memberNoSort").removeClass("memberNumber");
+    $(this).removeClass("enrollDate");
+    $(this).addClass("enrollDate");
 
     $(this).removeClass("asc");
     $(this).addClass("desc");
     $("#enrollDtSort > span").text("가입일 ▼");
-    sortList('enrollDate', 'desc');
+
+    // 회원번호 정렬 해제시키기
+    $("#memberNoSort").removeClass("desc");
+    $("#memberNoSort").addClass("asc");
+    $("#memberNoSort > span").text("회원번호 ▲")
     
+    sortList(statusValue, 'enrollDate', 'desc');
+
   }else{
     
+    $(this).removeClass("memberNumber");
+    $(this).removeClass("enrollDate");
+    $(this).addClass("enrollDate");
+
     $(this).removeClass("desc");
     $(this).addClass("asc");
     $("#enrollDtSort > span").text("가입일 ▲");
-    sortList('enrollDate', 'asc');
+
+    // 회원번호 정렬 해제시키기
+    $("#memberNoSort").removeClass("desc");
+    $("#memberNoSort").addClass("asc");
+    $("#memberNoSort > span").text("회원번호 ▲")
+
+    sortList(statusValue, 'enrollDate', 'asc');
+
+
   }
 
 });
 
 
-
-function sortList(sortColumn, sortMethod){
+function sortList(statusValue, sortColumn, sortMethod){
 
   // 현재 페이지
   const currentPage = $(".currentPage").text();
 
-  findMember(currentPage, sortColumn, sortMethod);
+  findMember(currentPage, statusValue, sortColumn, sortMethod);
 
 
-}
+};
+
+
+// 상태값으로 찾을 때 
+$("#statusValue").on("change", function(){
+
+  // 현재 페이지
+  // const currentPage = $(".currentPage").text();
+  const statusValue = $("#statusValue option:selected").val();
+  let sortColumn = 'all';
+  let sortMethod = 'all';
+  
+  if($("#enrollDtSort").hasClass("enrollDate")){
+    
+    sortColumn = 'enrollDate';
+
+    if($("#enrollDtSort").hasClass("asc")){
+      sortMethod = 'asc';
+    }else{
+      sortMethod = 'desc';
+    }
+    
+  }else{
+
+    sortColumn = 'memberNumber';
+
+    if($("#memberNoSort").hasClass("asc")){
+      sortMethod = 'asc';
+    }else{
+      sortMethod = 'desc';
+    }
+  }
+
+  findMember(1, statusValue, sortColumn, sortMethod);
+
+});
+
+
 
 
 
