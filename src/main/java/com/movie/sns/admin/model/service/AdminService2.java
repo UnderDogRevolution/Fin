@@ -40,7 +40,7 @@ public interface AdminService2 {
 
 
 
-	/** 검색 조건 회원리스트
+	/** 검색 조건 문의리스트 + 페이지
 	 * @param cp
 	 * @param search
 	 * @return
@@ -49,6 +49,11 @@ public interface AdminService2 {
 
 
 
+	/** 검색 조건 만족하는 문의리스트
+	 * @param pagination
+	 * @param search
+	 * @return
+	 */
 	List<AdminAsk> selectAskList(Pagination pagination, AdminMemberSearch search);
 	
 }

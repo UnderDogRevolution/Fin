@@ -29,13 +29,13 @@
       text-align: center;
     }
 
-    .side {
-      float: left;
-      width: 22%;
-      height: 94%;
-      line-height: 100%;
-      background-color: #0D0D0D;
-    }
+   .side {
+	float: left;
+	width: 15%;
+	height: 94%;
+	line-height: 100%;
+	background-color: #0D0D0D;
+}
 
     .form-label {
       margin-bottom: 0.5rem;
@@ -69,7 +69,7 @@
     }
 
     .btn {
-      margin: 15% 0 10% 0;
+      margin: 15% 0 0 0;
     }
 
     .img-thumbnail {

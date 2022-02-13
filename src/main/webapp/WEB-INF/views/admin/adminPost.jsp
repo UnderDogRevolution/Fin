@@ -16,6 +16,7 @@
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style type="text/css">
+td{cursor: default;}
 .MemberView{
 	cursor: pointer;
 }
@@ -310,7 +311,7 @@ select:focus {
 			<div class="modal-content postModal-content">
 				<div class="modal-header postModal-header">
 					<h2 class="modal-title" id="exampleModalLabel">게시글 상세정보</h2>
-					<button type="button" class="btn-close xbtn"
+					<button type="button" class="btn-close btn-close-white xbtn"
 						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
@@ -381,7 +382,7 @@ select:focus {
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel"
 						style="font-size: 25px; font-weight: bold;">회원 상세 정보</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 

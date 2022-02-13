@@ -389,4 +389,47 @@ function showMemberDetail(memberNo){
 };
 
 
+// ----------------------------------- 연준 작업 시작점 -------------------------------
+
+
+// ----------------------------------- 체크박스 관련 -------------------------------
+// checkbox 전체선택 시
+$("#all").on("change", function () {
+  const all = $("#all").prop("checked"); // t/f
+
+  if (all == true) { // 전체가 체크가된 경우
+      $(".chk").prop("checked", true);
+      $(".setBtn").removeAttr("disabled");
+  }
+  
+  else {// 전체가 체크 해제된 경우
+      $(".chk").prop("checked", false);
+      $(".setBtn").attr("disabled", true);
+  }
+  
+});
+
+function chkChange(){
+  if( !$(this).prop("chceked") ){
+
+    $("#all").prop("checked", false); // 전체 체크 해제
+  }
+
+  // .chk이 모두 체크된 경우
+  if( $(".chk:checked").length == $(".chk").length ){
+      $("#all").prop("checked", true);
+  }
+
+  if( $(".chk:checked").length == 0 ){
+    $(".setBtn").attr("disabled", true);
+  }
+
+  if( $(".chk:checked").length > 0 ){
+    $(".setBtn").removeAttr("disabled");
+  }
+};
+
+
+
+
 

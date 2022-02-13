@@ -61,24 +61,108 @@ function showAskDetail(askNo){
 
 
 // 문의 리스트 검색하기
-function findAsk(){
+function findAsk(cp){
 
+if (cp == undefined) {
+		cp = 1;
+	}
+	
   const sk = $("#sk").val();
   const sv = $("#sv").val();
 
-  console.log("검색 분류:" +sk);
-  console.log("검색 값: "+sv);
+  console.log(sk);
 
   $.ajax({
 
     url : "askList",
     type : "get",
-    data : {"sk" : sk , "sv" : sv},
+    data : {"sk" : sk , "sv" : sv, "cp" : cp},
     dataType : "JSON",
 
-    success : function(askList){
+    success : function(askMap){
 
-      console.log(askList);
+      const body = $(".tbody");
+      body.html("");
+      $(".pagination").html("");
+      
+       // 조회 성공 시
+      if(askMap.askList.length != 0){
+
+        // 화면 만들기
+        $.each(askMap.askList, function(index, ask){
+
+          // 행
+          const tr = $("<tr>");
+          
+          // 글 번호
+          const td1 = $('<td>'+ ask.askNo +'</td>');
+          
+          //제목
+          const td2 = $('<td><span style="cursor:pointer;" onclick="showAskDetail('+ ask.askNo +');">'+ ask.askTitle +'</span></td>');
+
+          //내용
+          const td3 = $('<td><span style="cursor:pointer;" onclick="showAskDetail('+ ask.askNo +');">'+ ask.askContent +'</span></td>');
+
+          //이름
+          const td4 = $('<td>'+ ask.memberName +'</td>');
+
+          //작성일
+          const td5 = $('<td>'+ ask.askDate +'</td>');
+          
+          //삭제하기
+          const td6 = $('<td><p class="deleteBtn" id="deleteBtn" style="cursor: pointer;" onclick="askDelete(event,'+ask.askNo+');">'+'삭제'+'</p></td>');
+          
+          tr.append(td1)
+          tr.append(td2)
+          tr.append(td3)
+          tr.append(td4)
+          tr.append(td5)
+          tr.append(td6)
+
+		  body.append(tr);
+        });
+
+
+      }else{
+
+        // 검색 결과가 없는 경우
+        $(".tbody").html("<tr><td colspan='6'>검색 결과가 존재하지 않습니다.</td></tr>");
+
+      }
+
+      // 페이지내이션
+      const pagination = askMap.pagination;
+
+      if (askMap.pagination.startPage != 1) {
+
+        const li1 = $('<li class="page-link" onclick = "findAsk(1)">&lt;&lt;</li>')
+        const li2 = $('<li class="page-link" onclick = "findAsk('+askMap.pagination.prevPage+')">&lt;</li>');
+
+        $(".pagination").append(li1);
+        $(".pagination").append(li2);
+      }
+
+      for (let i = askMap.pagination.startPage; i <= askMap.pagination.endPage; i++) {
+
+        if (i == askMap.pagination.currentPage) {
+          li = $('<li class="page-link currentPage" style="color: black; font-weight: bold;"> ' + i + '</li>');
+          $(".pagination").append(li);
+        } else {
+          li = $('<li class="page-link" onclick = findAsk(' + i + ')>' + i + '</li>');
+          $(".pagination").append(li);
+        }
+
+      };
+
+      if (askMap.pagination.endPage != askMap.pagination.maxPage) {
+
+        const li1 = $('<li  onclick = "findAsk('+askMap.pagination.nextPage+')" class="page-link" >&gt;</li>');
+        const li2 = $('<li onclick = "findAsk('+askMap.pagination.maxPage+')" class="page-link">&gt;&gt;</li>');
+        $(".pagination").append(li1);
+        $(".pagination").append(li2);
+      }
+      
+      
       
     },
 

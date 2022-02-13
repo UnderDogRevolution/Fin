@@ -142,7 +142,7 @@
 		SELECT COUNT(*) FROM MEMBER
 		WHERE GRADE_CD = 100
 		
-		<if test="sv != null">
+		<if test="sv != ''">
 			<bind name="val" value="'%' + sv + '%'"/>
 			<bind name="val2" value="sv"/>
 			<choose>
@@ -162,7 +162,20 @@
 			
 		</if>
 		
-			
+		<if test="statusValue != 'all'">
+			<choose>
+				<when test="statusValue == '200'">
+					AND STATUS_CD = 200
+				</when>
+				<when test="statusValue == '201'">
+					AND STATUS_CD = 201
+				</when>
+				<when test="statusValue == '202'">
+					AND STATUS_CD = 202
+				</when>
+			</choose>
+		</if>
+		
 	</select>
 	
 	<!-- 상태코드로 찾을 때 -->
@@ -191,7 +204,7 @@
 		
 		WHERE GRADE_CD = 100
 		
-		<if test="sv != null">
+		<if test="sv != ''">
 			<bind name="val" value="'%' + sv + '%'"/>
 			<bind name="val2" value="sv"/>
 			<choose>
@@ -210,15 +223,15 @@
 			</choose>
 		</if>
 		
-		<if test="statusValue != null">
+		<if test="statusValue != 'all'">
 			<choose>
-				<when test="statusValue == 200">
+				<when test="statusValue == '200'">
 					AND STATUS_CD = 200
 				</when>
-				<when test="statusValue == 201">
+				<when test="statusValue == '201'">
 					AND STATUS_CD = 201
 				</when>
-				<when test="statusValue == 202">
+				<when test="statusValue == '202'">
 					AND STATUS_CD = 202
 				</when>
 			</choose>

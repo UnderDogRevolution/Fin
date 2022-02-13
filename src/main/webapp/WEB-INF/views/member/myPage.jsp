@@ -30,7 +30,7 @@ input {
 
 .side {
 	float: left;
-	width: 22%;
+	width: 15%;
 	height: 94%;
 	line-height: 100%;
 	background-color: #0D0D0D;
@@ -44,7 +44,7 @@ input {
 
 .contents {
 	float: left;
-	width: 78%;
+	width: 75%;
 	height: 94%;
 	line-height: 50%;
 	background-color: #ffffff;
@@ -67,7 +67,7 @@ input {
 }
 
 .btn {
-	margin: 15% 0 10% 0;
+	margin: 15% 0 0 0;
 }
 
 .img-thumbnail {
