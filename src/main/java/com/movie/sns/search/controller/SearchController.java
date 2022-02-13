@@ -34,7 +34,7 @@ public class SearchController {
 		String search  = searchResult;
 		System.out.println(search);
 		model.addAttribute("search" , search);
-		return "search/search2";
+		return "search/search";
 	}
 	
 	// 멤버 찾기

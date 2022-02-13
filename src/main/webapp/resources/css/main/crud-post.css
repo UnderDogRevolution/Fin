@@ -47,7 +47,9 @@
     top: 10px;
     left: 10px;
 }
-
+.insert-container-textarea > textarea::-webkit-scrollbar{
+    width: 0px;
+}
 .top{
     z-index:1056;
 }
@@ -61,6 +63,10 @@
     left: 10px;
     /* border: 1px solid red; */
     word-break: break-all;
+}
+
+.insert-container-textarea > div:nth-of-type(1)::-webkit-scrollbar{
+    width: 0px;
 }
 .text-count{
     /* padding-right: 10px; */

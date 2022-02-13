@@ -939,6 +939,10 @@ function insertComment(e, replyNo){
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
+	if(replyContent.length > 250){
+		alert(`답글이 너무 깁니다!(${replyContent.length}/250)`)
+		return;
+	}
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/comment",

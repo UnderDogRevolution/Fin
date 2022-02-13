@@ -18,7 +18,7 @@
 	.memberDetail-body td{
 		font-size: 15px;
 	}
-	.memberStatusSelect{
+	.memberStatusSelect , .selectStatusMenu{
 		width: 80px; text-align: center;
 		background-color: #3a3939; border: none;
 		color: white; outline: none;
@@ -37,6 +37,20 @@
 	/* Firefox */
 	input[type=number] {
 	  -moz-appearance: textfield;
+	}
+	
+	#sv {
+		margin-left: 10px;
+		margin-right: 10px;
+		outline: none;
+		width: 200px;
+		height: 30px;
+		border-radius: 5px;
+		padding: 10px;
+	}
+	.asc, .desc {
+		user-select: none;
+		cursor : pointer;'
 	}
 
 </style>
@@ -66,13 +80,13 @@
 					<div class="adminBoardMain">
 					
 						<div class="adminSearch">
-								<select name="sk" class="select" id="sk">
+								<select name="sk" class="select selectStatusMenu" id="sk">
 									<option value="number">회원번호</option>
 									<option value="name2">이름</option>
 									<option value="nickName">닉네임</option>
 									<option value="email">이메일</option>
 
-								</select> <input autocomplete="off" oninput="findMember();" name="sv" type="number" id="sv">
+								</select> <input style="margin-left: 10px;" autocomplete="off" oninput="findMember();" name="sv" type="number" id="sv">
 						</div>
 						
 
@@ -88,21 +102,14 @@
 											<th style="width: 50px; line-height: 22px;">
 												<input class="form-check-input" type="checkbox" id="all">
 											</th>
-											<th style="width: 100px;"><span>회원번호 ▼</span></th>
+											<th style="width: 100px;" id="memberNoSort" class="asc"><span>회원번호 ▲</span></th>
 											<th style="width: 140px;">이름</th>
 											<th style="width: 200px;">닉네임</th>
 											<th>이메일</th>
-											<th><span>가입일 ▼</span></th>
+											<th id="enrollDtSort" class="asc"><span>가입일 ▲</span></th>
 											<th>
 												회원상태
-												<select name="" id="" class="" 
-												style="
-												width: 80px;
-												text-align: center;
-												background-color: #3a3939;
-												border: none;
-												color: white;
-												outline: none;">
+												<select class="selectStatusMenu">
 													<option value="">전체</option>
 													
 													<c:forEach items="${statusList}" var="s">

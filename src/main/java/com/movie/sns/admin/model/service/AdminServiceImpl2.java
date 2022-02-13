@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.movie.sns.admin.model.dao.AdminDAO2;
 import com.movie.sns.admin.model.vo.AdminAsk;
+import com.movie.sns.admin.model.vo.AdminMemberSearch;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.common.Util;
 
@@ -47,10 +48,34 @@ public class AdminServiceImpl2 implements AdminService2 {
 		return dao.selectAskDetail(askNo);
 	}
 
+	/**문의글 삭제
+	 *
+	 */
 	@Override
 	public int askDelete(int askNo) {
 		return dao.askDelete(askNo);
 	}
+
+	/** 검색 조건 문의글 리스트
+	 *
+	 */
+	@Override
+	public Pagination getPagination(int cp, AdminMemberSearch search) {
+		int searchListCount = dao.getSearchListCount(search);
+		
+		return new Pagination(searchListCount, cp);
+	}
+
+	
+	/**검색 조건 만족하는 문의글 리스트
+	 *
+	 */
+	@Override
+	public List<AdminAsk> selectAskList(Pagination pagination, AdminMemberSearch search) {
+		return dao.selectAskList(pagination,search);
+	}
+	
+	
 
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.AdminReply;
+import com.movie.sns.admin.model.vo.AdminReport;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.admin.model.vo.ReplyStatus;
@@ -29,6 +30,10 @@ public interface AdminService1 {
 	int changeStatus(AdminReply reply);
 
 	AdminReply replyView(String replyNo);
+
+	List<AdminReport> reportBoard(AdminReport report);
+
+	Pagination getReportPagination(int cp, AdminReport report);
 
 	
 	

@@ -40,7 +40,11 @@
 		<typeAlias type="com.movie.sns.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.AdminPost" alias="AdminPost"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.AdminReply" alias="AdminReply"/>
+		<typeAlias type="com.movie.sns.admin.model.vo.AdminReport" alias="AdminReport"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.AdminAsk" alias="AdminAsk"/>
+		
+		
+		
 		<typeAlias type="com.movie.sns.admin.model.vo.PostStatus" alias="PostStatus"/>
 		<typeAlias type="com.movie.sns.admin.model.vo.ReplyStatus" alias="ReplyStatus"/>
 		<typeAlias type="com.movie.sns.search.model.vo.Search" alias="Search"/>

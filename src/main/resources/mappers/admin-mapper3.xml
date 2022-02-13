@@ -10,7 +10,7 @@
 		<result property="askContent" column="ASK_CONTENT" />
 		<result property="askDate" column="ASK_DATE" />
 		<result property="memberName" column="MEMBER_NM" />
-		<result property="askNo" column="ASK_NO" /> <!-- 얘가 Id? -->
+		<result property="askNo" column="ASK_NO" />
 		
 	</resultMap>
 	
@@ -28,8 +28,6 @@
 		<result property="modifyDate" column="MODIFY_DT" />
 		<result property="memberStatusCode" column="STATUS_CD" />
 		<result property="memberGradeCode" column="GRADE_CD" />
-		
-
 	</resultMap>
 
 	<!-- 전체 게시글 수 count -->
@@ -37,6 +35,29 @@
 		SELECT COUNT(*) FROM ADMIN_ASK
 	</select>
 
+	<!-- 검색 조건 만족하는 문의글 수 -->
+	<!-- 회원 번호는 일치하는 회원만 조회되도록 혹은 (번호 + %)  -->
+	<select id="getSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		 FROM ADMIN_ASK
+		 JOIN MEMBER USING(MEMBER_NO)
+		<if test="sv != null">
+			<bind name="val" value="'%' + sv + '%'"/>
+			<bind name="val2" value="sv"/>
+			<choose>
+				<when test="sk == 'askTitle'">
+				WHERE ASK_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'askContent'">
+				WHERE	ASK_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'memberName'">
+				WHERE	MEMBER_NM LIKE #{val}
+				</when>
+			</choose>
+			
+		</if>
+		</select>
 
 	<!-- 문의글 목록 조회 -->
 	<select id="selectAskList" resultMap="adminAsk_rm">
@@ -59,7 +80,27 @@
 		WHERE ASK_NO = #{askNo}
 	</delete>
 
-	
+	<!-- 검색 조건에 맞는 문의글 리스트 -->
+	<select id="selectSearchAskList" resultMap="adminAsk_rm">
+		SELECT ASK_NO, ASK_TITLE, ASK_CONTENT, ASK_DATE, MEMBER_NO, MEMBER_NM
+	    FROM ADMIN_ASK
+		JOIN MEMBER USING(MEMBER_NO)
+		<if test="sv != null">
+			<bind name="val" value="'%' + sv + '%'"/>
+			<bind name="val2" value="sv"/>
+			<choose>
+				<when test="sk == 'askTitle'">
+				WHERE	ASK_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'askContent'">
+				WHERE	ASK_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'memberName'">
+				WHERE	MEMBER_NM LIKE #{val}
+				</when>
+			</choose>
+		</if>
+	</select>
 	
 
 </mapper>

@@ -1,3 +1,5 @@
+// 현재 페이지
+// const currentPage = $(".currentPage").text();
 
 // 페이지 로드 시 회원 리스트를 조회하는 함수 실행
 findMember();
@@ -6,8 +8,6 @@ findMember();
 $("#sk").on("change", function() {
 	
   const sk = $("#sk").val(); // 검색분류 값
-
-  console.log(sk);
 
 	$("#sv").val(""); // 검색값 초기화
 
@@ -27,7 +27,6 @@ let memberPrevStatus;
 // 이전 상태값을 저장하는 함수
 function getPrevStatus(status){
   memberPrevStatus = status;
-  console.log(memberPrevStatus);
 }
 
 // ========================================= 회원 상태 변경 ===================================================
@@ -77,7 +76,6 @@ function changeCheckbox(statusCode){
 
   // 현재 페이지
   const currentPage = $(".currentPage").text();
-  console.log(currentPage);
 
   Swal.fire({
     title: '회원 상태를 변경하시겠습니까?',
@@ -98,8 +96,6 @@ function changeCheckbox(statusCode){
         checkedMemberNo.push(checkedMember[i].parentElement.nextElementSibling.innerText);
       })
     
-      // console.log(checkedMemberNo);
-    
       // ajax 수행하기
       $.ajax({
     
@@ -118,6 +114,9 @@ function changeCheckbox(statusCode){
 
             // 체크박스 체크 해제하기
             $('.chk').removeAttr("checked");
+
+            // 버튼 비활성화
+            $(".setBtn").attr("disabled", true);
 
             const Toast = Swal.mixin({
               toast: true,
@@ -214,8 +213,6 @@ function changeStatus(statusCode, memberNo, e){
     
         success : function(result){
     
-          console.log(result);
-    
           if(result > 0){
 
             // 변경 성공
@@ -288,11 +285,7 @@ function changeStatus(statusCode, memberNo, e){
 
     }else{
       // 취소를 누른 경우
-
       e.target.value = memberPrevStatus;
-      console.log(e.target.value);
-      console.log(memberPrevStatus);
-
     }
 
   });
@@ -329,8 +322,6 @@ function showMemberDetail(memberNo){
 
       if(member != null){
         
-        console.log("정보 조회 성공");
-
         // 요소에 값 추가하기
         $(".inputMemberProfileImage").attr("src", contextPath + member.profileImage.imgPath + member.profileImage.imgName);
         $(".inputMemberEmail").text(member.memberEmail);
@@ -341,9 +332,6 @@ function showMemberDetail(memberNo){
         $(".inputMemberEnrollDate").text(member.enrollDate);
         $(".inputMemberStatusName").text(member.memberStatusName);
         $(".inputViolationCount").text(member.violationCount);
-
-        console.log(member);
-        console.log(contextPath);
 
         $("#memberDetail").modal('show');
 
@@ -374,13 +362,18 @@ function showMemberDetail(memberNo){
   
 };
 
-
+// =============================================== 회원 리스트 조회 ===============================================================
 
 // 회원 리스트 검색하기
 // 매개변수로 pagination , 정렬 조건 담기
 
-function findMember(cp){
+// sortColumn : 정렬할 컬럼
+// sortMethod : 오름차순/내림차순
+// statusValue : 회원 상태 값
 
+function findMember(cp, sortColumn, sortMethod, statusValue){
+
+  // 전체선택 버튼 지우기
   $("#all").prop("checked", false);
 
   if (cp == undefined) {
@@ -396,7 +389,7 @@ function findMember(cp){
 
     url : "selectMemberList2",
     type : "get",
-    data : {"sk" : sk , "sv" : sv , "cp" : cp},
+    data : {"sk" : sk , "sv" : sv , "cp" : cp , "sortColumn": sortColumn, "sortMethod": sortMethod , "statusValue" : statusValue },
     dataType : "JSON",
 
     success : function(memberMap){
@@ -534,7 +527,61 @@ function findMember(cp){
 }
 
 
+// ===================================== 정렬 하기 ========================================================
 
+// 회원번호로 정렬하기
+$("#memberNoSort").on("click",function(){
+
+  // 오름차순인 경우
+  if($(this).hasClass("asc")){
+
+    $(this).removeClass("asc");
+    $(this).addClass("desc");
+    $("#memberNoSort > span").text("회원번호 ▼");
+    sortList('memberNumber', 'desc');
+    
+  }else{
+    
+    $(this).removeClass("desc");
+    $(this).addClass("asc");
+    $("#memberNoSort > span").text("회원번호 ▲");
+    sortList('memberNumber', 'asc');
+
+  }
+
+});
+
+$("#enrollDtSort").on("click", function(){
+
+  // 오름차순인 경우
+  if($(this).hasClass("asc")){
+
+    $(this).removeClass("asc");
+    $(this).addClass("desc");
+    $("#enrollDtSort > span").text("가입일 ▼");
+    sortList('enrollDate', 'desc');
+    
+  }else{
+    
+    $(this).removeClass("desc");
+    $(this).addClass("asc");
+    $("#enrollDtSort > span").text("가입일 ▲");
+    sortList('enrollDate', 'asc');
+  }
+
+});
+
+
+
+function sortList(sortColumn, sortMethod){
+
+  // 현재 페이지
+  const currentPage = $(".currentPage").text();
+
+  findMember(currentPage, sortColumn, sortMethod);
+
+
+}
 
 
 
