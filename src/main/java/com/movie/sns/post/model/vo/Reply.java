@@ -16,6 +16,7 @@ public class Reply {
 	private String replyStatusName;
 	
 	private String memberName;
+	private String memberNickName;
 	
 	private int checkLike;
 	
@@ -23,6 +24,12 @@ public class Reply {
 	
 	
 	
+	public String getMemberNickName() {
+		return memberNickName;
+	}
+	public void setMemberNickName(String memberNickName) {
+		this.memberNickName = memberNickName;
+	}
 	public List<Image> getListProfile() {
 		return listProfile;
 	}

@@ -14,6 +14,7 @@
 		<result property="postNo" column="POST_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberName" column="MEMBER_NM"/>
+		<result property="memberNickName" column="MEMBER_NICKNM"/>
 		<result property="replyStatusCode" column="REPLY_STATUS_CD"/>
 		<result property="replyStatusName" column="REPLY_STATUS_NM"/>
 
@@ -40,7 +41,7 @@
 	<select id="selectReply" resultMap="reply_rm">
 	SELECT LEVEL, R.* FROM 
 			(
-			SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM
+			SELECT REPLY_NO, REPLY_CONTENT, TO_CHAR(REPLY_CREATE_DT, 'YYYY-MM-DD') REPLY_CREATE_DT, PARENT_REPLY, LIKE_COUNT, POST_NO, MEMBER_NO, REPLY_STATUS_CD, MEMBER_NM, MEMBER_NICKNM
 			<if test="memberNo > 0">
 		       		, (SELECT COUNT(*) FROM REPLY_LIKE WHERE REPLY_NO = A.REPLY_NO AND MEMBER_NO = #{memberNo} ) CHECK_LIKE 
 	       </if>
