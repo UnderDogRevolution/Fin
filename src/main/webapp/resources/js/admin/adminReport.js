@@ -143,17 +143,17 @@ function reportModal(reportNo) {
 		dataType: "JSON",
 
 
-		success: function(report) {
-			console.log(report);
+		success: function(result) {
+			console.log(result);
 			const a2 = $('<a style="text-decoration: none; color: white;"'
-				+ 'href="' + contextPath + '/board1/myBoard/' + report.memberNo + '">' + report.memberNo + '</a>')
+				+ 'href="' + contextPath + '/board1/myBoard/' + result.memberNo + '">' + result.memberNo + '</a>')
 
-			$($(".postListContent")[0]).html(report.reportNo);
+			$($(".postListContent")[0]).html(result.reportNo);
 			$($(".postListContent")[1]).append(a2);
-			$($(".postListContent")[2]).html(report.memberNm);
-			$($(".postListContent")[3]).append(report.reportContent);
-			$($(".postListContent")[4]).append(report.createDt);
-			$($(".postListContent")[5]).html(report.typeNm);
+			$($(".postListContent")[2]).html(result.memberNm);
+			$($(".postListContent")[3]).append(result.reportContent);
+			$($(".postListContent")[4]).append(result.createDt);
+			$($(".postListContent")[5]).html(result.typeNm);
 
 
 
