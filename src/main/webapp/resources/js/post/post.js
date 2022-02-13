@@ -719,6 +719,9 @@ function selectReply(postNo){
 				profileDiv.className = "profile-reply"
 				const profile = document.createElement("img");
 				profile.setAttribute("id", items.memberNo);
+				profile.addEventListener("click", function(){
+					location.href =  contextPath +"/board1/myBoard/"+ items.memberNo;
+				})
 				if(items.listProfile[0]){
 					profile.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
 				}else{
