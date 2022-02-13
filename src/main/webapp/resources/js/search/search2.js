@@ -421,6 +421,10 @@ function searchPostList(){
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
 				imgFooter2.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
 					const postNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;

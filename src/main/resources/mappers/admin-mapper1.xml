@@ -261,8 +261,53 @@
 				</choose>
 
 			</if>
+			
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						AND POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						AND POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						AND POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						AND POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						AND POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
 
 		</if>
+		
+		<if test="inputResult == ''">
+		
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						WHERE POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						WHERE POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						WHERE POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						WHERE POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						WHERE POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
+		</if>
+		
 
 	</select>
 
@@ -316,8 +361,81 @@
 					</when>
 				</choose>
 			</if>
+			
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						AND POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						AND POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						AND POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						AND POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						AND POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
 		</if>
-		ORDER BY POST_NO DESC
+		
+		<if test="inputResult == ''">
+		
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						WHERE POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						WHERE POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						WHERE POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						WHERE POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						WHERE POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
+		</if>
+		
+		<choose>
+			<when test="sortColumn == null">
+				ORDER BY POST_NO DESC
+			</when>
+			
+			<otherwise>
+				<choose>
+					<when test="sortColumn == 'createDate'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY POST.CREATE_DT DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY POST.CREATE_DT
+						</if>
+					</when>
+					
+					<when test="sortColumn == 'modifyDate'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY POST.MODIFY_DT DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY POST.MODIFY_DT ASC
+						</if>
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+		
 	</select>
 
 	<update id="changeStatus">
@@ -456,4 +574,21 @@
     WHERE REPORT_NO = #{reportNo}
 	
 	</select>
+	
+	
+	<!-- 게시글 상태 일괄 변경(일반) -->
+	<update id="multiChangePostStatus">
+		UPDATE POST SET
+		POST_STATUS_CD = 500
+		WHERE POST_NO IN (
+		
+		<foreach collection="array" item="postNo" separator="," >
+			#{postNo}
+		</foreach>
+		
+		)
+	</update>
+	
+	
+	
 </mapper>

@@ -146,7 +146,9 @@ thead {
 
 .adminBoard {
 	width: 1050px;
-	height: 750px;
+	/* height: 750px; */
+	margin-bottom: 100px;
+	
 	background-color: #3a3939;
 }
 

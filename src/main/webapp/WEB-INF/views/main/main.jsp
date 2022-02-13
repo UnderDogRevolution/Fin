@@ -27,20 +27,13 @@
 		<div style="flex-basis: 18%; flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 23%;">
 			<jsp:include page="side.jsp"></jsp:include>
 			<div style="font-weight: bold; margin-left: 9%; margin-top: 5%;">
-				<span onclick="recentPost();">최신</span><span> / </span ><span onclick="onlyFollowPost()">팔로우</span>
+				<span onclick="recentPost();" style="cursor: pointer;">최신</span><span> / </span ><span onclick="onlyFollowPost()" style="cursor: pointer;">팔로우</span>
 			</div>
 		</div>
 	</div>
 	
 	<jsp:include page="crud-post.jsp"></jsp:include>
 	
-	<script>
-		document.getElementById("main-container").addEventListener("mousedown", function(e){
-			console.log(e)
-			console.log("e")
-			
-		})
-	</script>
 	<script src= "${contextPath}/resources/js/post/rankMovie.js"></script>
 </body>
 </html>
