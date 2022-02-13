@@ -12,6 +12,10 @@
 	href="${contextPath}/resources/css/board/myboard.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 	<style type="text/css">
+	.sexyboy{
+	
+	background-color: #404142 !important;
+	}
 	.postBox{
 		cursor: pointer;
 	}
@@ -71,7 +75,6 @@ color:white !important;
 					</div>
 					<div class="introduce">
 						<div class="nickname">
-							${follow}
 							<c:choose>
 								<c:when test="${loginMember.memberNo == memberNo}">
 
@@ -450,7 +453,7 @@ color:white !important;
 	
 	}
 	
- 	function postSubmit(postNo){
+ 	function postSubmit1(postNo){
 		 location.href = contextPath + "/post/view/"+postNo
 	} 
 	
@@ -500,28 +503,28 @@ color:white !important;
 
 									if (list[i].poster !== undefined
 											& list[i].postContent !== undefined) {
-										html.push('<div  onclick = "postSubmit('+list[i].postNo+');" class="show postBox" style="background: url('
+										html.push('<div  onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url('
 														+ list[i].poster
 														+ ') no-repeat center center; background-size: cover;"></div>');
 									} else if (list[i].poster === undefined
 											&& list[i].postContent !== undefined) {
 
 										if (list[i].listPostImage[0] === undefined) {
-											html.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox"><span>'
+											html.push('<div onclick = "postSubmit1('+list[i].postNo+');" class="show postBox"><span>'
 															+ list[i].postContent
 															+ '</span></div>');
 										} else {
 											console
 													.log(list[i].listPostImage[0].postImagePath);
 											html
-													.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox" style="background: url(/fin'
+													.push('<div onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url(/fin'
 															+ list[i].listPostImage[0].postImagePath
 															+ list[i].listPostImage[0].postImageName
 															+ ') no-repeat center center; background-size: cover;"></div>');
 										}
 
 									} else {
-										html.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox"></div>');
+										html.push('<div onclick = "postSubmit1('+list[i].postNo+');" class="show postBox"></div>');
 									}
 
 								}
