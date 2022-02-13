@@ -150,7 +150,7 @@
 						JOIN REPLY_STATUS USING(REPLY_STATUS_CD)
 						WHERE
 						REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
-						OR REPLY_STATUS_NM #{inputResult}||'%'
+						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 
@@ -203,8 +203,8 @@
 						WHERE MEMBER_NO = #{inputResult}
 					</when>
 					<when test="searchPost == 'status'">
-						WHERE REPLY_STATUS_NM LIKE '%'||
-						#{inputResult}||'%'
+						WHERE REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
+						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 			</if>
