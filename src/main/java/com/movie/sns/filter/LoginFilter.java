@@ -18,7 +18,7 @@ import com.movie.sns.member.model.vo.Member;
 
 
 @WebFilter(	filterName = "loginFilter" ,
-			urlPatterns = { "/member/*", "/chat/*", "/admin/*" } )
+			urlPatterns = { "/member/*", "/chat/*", "/admin/*" , "/board1/*" } )
 // member/* , 글쓰기,수정,삭제,북마크 등등   chat/* 
 // main/* , admin/* 추가 예정 
 public class LoginFilter implements Filter{
@@ -67,8 +67,6 @@ public class LoginFilter implements Filter{
 						chain.doFilter(request, response);
 					}
 					
-					
-					
 				}
 				// 비회원 + /chat/* 인 경우
 				else if(arr[0].equals("chat")) {
@@ -92,6 +90,11 @@ public class LoginFilter implements Filter{
 					}else {
 						chain.doFilter(request, response);
 					}
+					
+				}else if(arr[0].equals("board1")) {
+					System.out.println("[필터] : 잘못된 접근입니다. 로그인페이지로 이동합니다.");
+					resp.sendRedirect(req.getContextPath() + "/member/login");
+					
 					
 				}
 				// 비회원 + 나머지 페이지

@@ -533,6 +533,16 @@ function searchChatting(chatNo, frNo, path) { // 친구 클릭시 동작
 			chatContent.append(chatFooter);
 			$(".chatwrap").append(chatContent);
 
+			$("#inputChatting").on("keyup", function(e) {
+				if (e.key == "Enter") {
+					if (!e.shiftKey) {
+
+						e.preventDefault();
+						msgUp();
+
+					}
+				}
+			});
 
 
 

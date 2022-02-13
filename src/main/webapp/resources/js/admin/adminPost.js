@@ -288,8 +288,7 @@ function changeStatus(event, postNo) {
 			alert("블라인드 사유를 입력해주세요")
 			$(event.target).val(path).prop("selected", true);
 			return false;
-		}
-		;
+		};
 	} else if (status == path) {
 		return false;
 	}
