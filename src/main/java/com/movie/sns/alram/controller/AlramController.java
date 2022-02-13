@@ -53,4 +53,25 @@ public class AlramController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/deleteAlram", method=RequestMethod.POST)
+	public int deleteAlram(Model model, HttpSession session, @ModelAttribute("loginMember") Member loginMember
+							, int deleteAlramNo) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		
+		
+		int result = service.deleteAlram(deleteAlramNo);
+		
+		
+		
+		System.out.println(result);
+		
+		return result;
+		
+		
+		
+	}
+	
 }

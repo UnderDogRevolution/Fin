@@ -28,6 +28,13 @@ public class AlramServiceImpl implements AlramService{
 		return dao.selectAlram(memberNo);
 	}
 
+
+	@Override
+	public int deleteAlram(int deleteAlramNo) {
+		
+		return dao.deleteAlram(deleteAlramNo);
+	}
+
 	
 	
 	

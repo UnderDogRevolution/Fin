@@ -31,10 +31,19 @@
 	
 	<select id="selectAlram" resultMap="alram_rm">
 	
-	SELECT ALRAM_CONTENT, ALRAM_URL, ALRAM_STATUS
+	SELECT SEQ_ALRAM_NO, ALRAM_CONTENT, ALRAM_URL, ALRAM_STATUS
 	FROM ALRAM
 	WHERE ALRAM_NO = #{memberNo}
-	
+	AND ALRAM_STATUS = 0
 	</select>
+	
+	<update id="deleteAlram">
+	UPDATE ALRAM SET ALRAM_STATUS = 1
+	WHERE
+	SEQ_ALRAM_NO = #{deleteAlramNo}
+	
+	
+	
+	</update>
 
 </mapper>

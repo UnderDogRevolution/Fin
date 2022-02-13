@@ -30,4 +30,11 @@ public class AlramDAO {
 		return sqlSession.selectList("alramMapper.selectAlram", memberNo);
 	}
 
+
+
+	public int deleteAlram(int deleteAlramNo) {
+		
+		return sqlSession.update("alramMapper.deleteAlram", deleteAlramNo);
+	}
+
 }

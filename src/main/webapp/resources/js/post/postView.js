@@ -473,6 +473,7 @@ function selectReply(postNo){
 					const replyNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;
+					const _this = $(this);
 					$.ajax({
 						url: contextPath + "/reply/insertReplyLike",
 						data: { "replyNo": replyNo },
@@ -486,12 +487,12 @@ function selectReply(postNo){
 								count.innerText = Number(count.innerText)+1;
 								
 								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+								console.log(_this.parents('.parent-reply').children('.profile-reply').children().attr('id'));
 								
 								
 								const alramObj = {};
 								
-								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramTakeMemberNo = _this.parents('.parent-reply').children('.profile-reply').children().attr('id');
 								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
