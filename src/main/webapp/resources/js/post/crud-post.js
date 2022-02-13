@@ -90,6 +90,7 @@ const starValueInput = document.getElementsByClassName("rating-value")[0];
 const postSubmit = document.getElementsByClassName("header-tag")[0]
 const searchMovie = document.getElementsByClassName("header-tag")[1]
 const containerTextCount = document.getElementsByClassName("container-content-count")[0]
+const insertMedia = document.getElementsByClassName("insert-media")[0]
 function Write(){
     movie = null;
 	moviedbInput.style.display = "none";	
@@ -107,6 +108,8 @@ function Write(){
 	containerTextCount.style.display = "inline";
 
     onPoster.style.display = "none";
+
+    insertMedia.style.display = "block"
 }
 
 function Review(){
@@ -122,6 +125,7 @@ function Review(){
 	postSubmit.style.display = "none";
 	containerTextCount.style.display = "none";	
     onPoster.style.display = "none";
+    insertMedia.style.display = "none"
 }
 
 
@@ -232,6 +236,8 @@ async function fetchMovie(page){
         const resultImg = document.querySelectorAll(".search-result-img > img")
         for(const items of resultImg){
             items.addEventListener("click", async function(e){
+                inputFile.value = ""
+
                 const img = document.querySelector(".post-img > img");
                 img.setAttribute("src", this.getAttribute("src"));
                
@@ -243,6 +249,7 @@ async function fetchMovie(page){
             	starValueInput.style.display = "block";
                 searchMovie.style.display = "inline";
                 postSubmit.style.display = "inline";
+                insertMedia.style.display = "block"
                 const content = this.parentElement.nextElementSibling.innerHTML;
                 let title = content.substring(content.indexOf('<br'), -1);
                 // const date =  content.substring(content.indexOf('('), content.indexOf(')')+1);
