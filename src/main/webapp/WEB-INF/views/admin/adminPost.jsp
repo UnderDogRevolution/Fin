@@ -16,6 +16,18 @@
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style type="text/css">
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+	
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
 td{cursor: default;}
 .MemberView{
 	cursor: pointer;
@@ -172,35 +184,52 @@ select:focus {
 								<option value="postNo">게시글번호</option>
 								<option value="status">게시글상태</option>
 							</select> <input type="number" name="inputResult" id="searchPost"
-								oninput="selectPostList();">
+								oninput="findPost();">
 
 
 						</div>
 
 						<div class="adminBoardtable">
 							<div class="table">
-								<table class="table" id="list-table">
+								<table class="table" id="list-table" style="table-layout:fixed;">
 
 									<thead>
 										<tr>
-											<th>게시글번호</th>
-											<th>회원번호</th>
-											<th>작성자</th>
-											<th>닉네임</th>
-											<th>내용</th>
-											<th>좋아요</th>
-											<th>작성일</th>
-											<th>수정일</th>
-											<th>상태</th>
+											<!-- 체크박스 -->
+											<th style="width: 30px; line-height: 22px;">
+												<input class="form-check-input" type="checkbox" id="all">
+											</th>
+
+											<!-- 정렬  -->
+											<th width="100">게시글번호</th>
+											<th width="80">회원번호</th>
+											<th width="80">작성자</th>
+											<th width="100">닉네임</th>
+											<th width="150">내용</th>
+											<th width="80">좋아요</th>
+											<th width="150" id="createDtSort" class="desc">작성일 ▽</th>
+											<th width="150" id="modifyDtSort" class="desc">수정일 ▽</th>
+											<th>
+												<select style="text-align: center;" id="statusValue" class="selectStatusMenu">
+													<option value="all">전체</option>
+													
+													<c:forEach items="${cd}" var="s">
+														<option value="${s.statusCd}">${s.statusNm}</option>
+													</c:forEach>
+												</select>
+											</th>
 										</tr>
 
 									</thead>
+
+									<!-- 리스트 영역 -->
 									<tbody class="tbody">
-										<c:choose>
+										
+										<!-- <c:choose>
 
 											<c:when test="${empty post}">
 												<tr>
-													<td colspan="9">등록된게시글이 존재하지 않습니다.</td>
+													<td colspan="10">등록된게시글이 존재하지 않습니다.</td>
 												</tr>
 
 
@@ -208,14 +237,21 @@ select:focus {
 											<c:otherwise>
 												<c:forEach items="${post}" var="post">
 													<tr>
+
+														<td style="line-height: 22px;"><input onchange="chkChange();" class="form-check-input chk" type="checkbox" name="selectOne"></td>
+
 														<td class="postModalShow"
 															onclick="postModal(${post.postNo})">${post.postNo}</td>
+
 														<td class="MemberView"
 															onclick=" showMemberDetail(${post.memberNo})">${post.memberNo}</td>
-														<td><a style="text-decoration: none; color: white;"
+
+														<td class="shortText"><a style="text-decoration: none; color: white;"
 															href="${contextPath}/board1/myBoard/${post.memberNo}">${post.memberNm}</a></td>
-														<td>${post.memberNick}</td>
-														<td class='postContent'><a
+
+														<td class="shortText">${post.memberNick}</td>
+
+														<td style="padding-left:20px;" class='postContent'><a
 															style="text-decoration: none; color: white;"
 															href="${contextPath}/post/view/${post.postNo}">${post.postContent}<a></td>
 
@@ -240,22 +276,21 @@ select:focus {
 													</tr>
 												</c:forEach>
 											</c:otherwise>
-										</c:choose>
+										</c:choose> -->
+
 									</tbody>
-									<tfoot>
 
-
-									</tfoot>
 								</table>
 							</div>
 
 						</div>
 
-
-
+						<button class="setBtn" disabled onclick="changeCheckbox(500);">일반</button>
 
 					</div>
 
+
+					<!-- pagination -->
 					<div class="my-5">
 						<div>
 							<ul class="pagination">

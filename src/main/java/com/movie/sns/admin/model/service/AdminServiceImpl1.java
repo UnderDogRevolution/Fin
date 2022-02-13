@@ -151,5 +151,12 @@ public class AdminServiceImpl1 implements AdminService1 {
 		return dao.reportView(reportNo);
 	}
 
+	// 게시글 상태 일괄 변경(일반)
+	@Override
+	public int multiChangePostStatus(int[] checkedPostNo, int statusValue) {
+		return dao.multiChangePostStatus(checkedPostNo);
+	}
+
+	
 
 }
