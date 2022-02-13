@@ -345,9 +345,13 @@
 				
 			alramSock = new SockJS("<c:url value='/alram' />");
 			
-			
 		}
 	
+		
+		alramSock.onmessage = function(e){
+			const alram = JSON.parse(e.data);
+			console.log(alram);
+		}
 	
 	
 	</script>

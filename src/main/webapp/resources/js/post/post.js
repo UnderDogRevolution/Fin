@@ -428,6 +428,8 @@ function revealPost(){
 								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
+								
+								
 								alramSock.send(JSON.stringify(alramObj));
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
