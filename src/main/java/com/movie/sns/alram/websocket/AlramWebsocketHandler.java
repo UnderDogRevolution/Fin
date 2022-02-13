@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -11,11 +12,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.movie.sns.alram.model.service.AlramService;
 import com.movie.sns.alram.model.vo.Alram;
 import com.movie.sns.member.model.vo.Member;
 
 public class AlramWebsocketHandler extends TextWebSocketHandler {
-
+	@Autowired
+	private AlramService service;
+	
+	
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<WebSocketSession>());
 
 	// synchronizedSet : 동기화된 Set (HashSet)은 비동기
@@ -58,6 +63,9 @@ public class AlramWebsocketHandler extends TextWebSocketHandler {
 	 * 
 	 */
 	// 클라이언트 연결이 완료되고 , 통신 준비가 되면 실행
+	
+
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// Established확립된
@@ -99,8 +107,12 @@ public class AlramWebsocketHandler extends TextWebSocketHandler {
 		// content
 		// 시퀀스
 		
-		int result = 1 ; // insret 후 알람을 받아야되는 회원의 알람 목록 조회
+		int result = service.insertAlram(alram); ; // insret 후 알람을 받아야되는 회원의 알람 목록 조회
 						//-> 기존 알람 내용 화면에서 지우고 다시 만들기
+		
+		
+		
+		
 
 		if (result >0) {
 

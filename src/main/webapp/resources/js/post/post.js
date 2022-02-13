@@ -427,7 +427,7 @@ function revealPost(){
 								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
 								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
-								alramObj.alramType = 1;
+								
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
