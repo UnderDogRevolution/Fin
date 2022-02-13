@@ -17,6 +17,17 @@
 		<result property="status" column="POST_STATUS_CD" />
 		<result property="blind" column="BLIND_POST_CONTENT" />
 	</resultMap>
+	
+	<resultMap type="AdminReport" id="AdminReport_rm">
+		<id property="reportNo" column="REPORT_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberNick" column="MEMBER_NICKNM" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="postNo" column="POST_NO" />
+		<result property="reportContent" column="REPORT_CONTENT" />
+		<result property="typeNo" column="REPORT_TYPE_NO" />
+		<result property="createDt" column="CREATE_DT" />
+	</resultMap>
 
 
 	<resultMap type="AdminReply" id="adminReply_rm">
@@ -54,12 +65,6 @@
 	</select>
 	
 	<!--신고 카운트  -->
-	<select id="reportCount" resultType = "_int">
-	SELECT COUNT(*)FROM REPORT
-	
-	</select>
-	
-	
 	
 	<select id="replyView" resultMap = "adminReply_rm">
 	 	 SELECT REPLY_NO ,
@@ -165,7 +170,7 @@
 	<!-- 댓글 조회 -->
 	<select id="adminReply" resultMap="adminReply_rm">
 		SELECT REPLY_NO ,
-		REPLY_CONTENT ,TO_CHAR(REPLY_CREATE_DT ,'YYYY-MM-DD') REPLY_CREATE_DT , LIKE_COUNT ,
+		REPLY_CONTENT , REPLY_CREATE_DT , LIKE_COUNT ,
 		POST_NO , MEMBER_NO ,
 		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM , MEMBER_NICKNM
 		FROM REPLY
@@ -358,4 +363,19 @@
 		WHERE POST_NO = #{postNo}
 
 	</delete>
+	
+	
+	<select id="reportCount" resultType = "_int">
+	
+	SELECT COUNT(*) FROM REPORT
+	</select>
+	
+	<select id="reportBoard" resultMap = "AdminReport_rm">
+	SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
+    FROM REPORT
+    LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
+    JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
+    LEFT JOIN REPLY ON(REPORT.TARGET_PK = REPLY.REPLY_NO)
+	</select>
+	
 </mapper>

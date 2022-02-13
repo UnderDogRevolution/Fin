@@ -98,44 +98,19 @@ function deletePost(e){
 	}
 }
 
-function deletePost(e){
-	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode;
-	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	if(confirm("정말로 삭제 하시겠습니까?")){
-		$.ajax({
-			url: contextPath + "/post/deletePost",
-			data: { "postNo": postNo},
-			type: "POST",
-			async: false,
-			success: function (result) {
-				if(result>0){
-					alert("게시글이 삭제 되었습니다.")
-                    location.href = contextPath +"/main";
-
-				}else{
-					alert("게시글 삭제 중 문제가 발생했습니다.")
-				}
-			},
-			error: function (req, status, error) {
-				console.log("ajax 실패");
-				console.log(req.responseText);
-				console.log(status);
-				console.log(error);
-			}
-	
-		})
-	}
-}
 
 function insertReply(e){
-	console
 	if(typeof memberNo == "undefined" || memberNo == ""){
         alert("로그인 해주세요!")
         return;
     }
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
+	if(replyContent.length > 250){
+		alert(`댓글이 너무 깁니다!(${replyContent.length}/250)`)
+		return;
+	}
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/insert",
@@ -145,12 +120,17 @@ function insertReply(e){
 			success: function (result) {
 				if(result>0){
 					alert("댓글이 등록되었습니다.")
-					const reply = document.getElementsByClassName("reply")[0];
-					reply.remove()
-                    post.append(selectReply(postNo));
-					const replyVividImg = document.getElementsByClassName("reply-vivid");
-					const replywhiteImg = document.getElementsByClassName("reply-white");
-					replyLike(replyVividImg, replywhiteImg);
+					textarea.value = "";
+
+					if(document.getElementsByClassName("reply")[0]){
+						const reply = document.getElementsByClassName("reply")[0];
+						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}else if(!document.getElementsByClassName("reply")[0]){
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}
 
 				}else{
 					alert("댓글 등록 중 문제가 발생했습니다.")
@@ -170,11 +150,14 @@ function insertReply(e){
 
 
 function comment(e, replyNo){
-	
+	if(typeof memberNo == "undefined"  || memberNo == ""){
+        alert("로그인 해주세요!")
+        return;
+    }
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
 	const img = post.querySelectorAll(".input-content-reply img")[0]
-	const input = post.querySelectorAll(".input-content-reply input")[0]
+	const input = post.querySelectorAll(".input-content-reply textarea")[0]
 	if(arr[0].innerText.trim() == "댓글"){
 		arr[0].innerText = "답글";
 		input.setAttribute("placeholder", "답글을 달아주세요!");
@@ -186,7 +169,7 @@ function comment(e, replyNo){
 function insertComment(e, replyNo){
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	const replyContent = e.parentNode.parentNode.getElementsByTagName("input")[0].value
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/comment",
@@ -196,12 +179,17 @@ function insertComment(e, replyNo){
 			success: function (result) {
 				if(result>0){
 					alert("답글이 등록되었습니다.")
-					const reply = document.getElementsByClassName("reply")[0];
-					reply.remove()
-                    post.append(selectReply(postNo));
-					const replyVividImg = document.getElementsByClassName("reply-vivid");
-					const replywhiteImg = document.getElementsByClassName("reply-white");
-					replyLike(replyVividImg, replywhiteImg);
+					textarea.value = "";
+
+					if(document.getElementsByClassName("reply")[0]){
+						const reply = document.getElementsByClassName("reply")[0];
+						reply.remove();
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}else if(!document.getElementsByClassName("reply")[0]){
+						const replyDiv = selectReply(postNo);
+						post.append(replyDiv);
+					}
 				}else{
 					alert("답글 등록 중 문제가 발생했습니다.")
 				}
@@ -438,14 +426,80 @@ function selectReply(postNo){
 
 				textReply.append(contentDiv);
 
-				
+				// 댓글 좋아요
 				const constDiv2 = document.createElement("div")
 				const vividPopcorn = document.createElement("img");
 				vividPopcorn.setAttribute("src", contextPath + "/resources/images/temp/like2.png")
 				vividPopcorn.className = "reply-vivid";
+				vividPopcorn.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
+					const replyNo = this.nextElementSibling.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({
+						url: contextPath + "/reply/deleteReplyLike",
+						data: { "replyNo": replyNo },
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								element.style.display = "none";
+								element.nextElementSibling.style.display = "inline";
+								count.innerText = Number(count.innerText)-1;
+							}else{
+								alert("좋아요 기능에 오류가 발생했습니다.")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+				})
 				const whitePopcorn = document.createElement("img");
 				whitePopcorn.setAttribute("src", contextPath + "/resources/images/temp/like.png")
 				whitePopcorn.className = "reply-white";
+				whitePopcorn.addEventListener("click", function(){
+					if(typeof memberNo == "undefined"  || memberNo == ""){
+						alert("로그인 해주세요!")
+						return;
+					}
+					const replyNo = this.nextElementSibling.innerText;
+					let count = this.nextElementSibling.nextElementSibling;
+					const element = this;
+					$.ajax({
+						url: contextPath + "/reply/insertReplyLike",
+						data: { "replyNo": replyNo },
+						type: "POST",
+						async: false,
+						success: function (result) {
+							if(result >0){
+								//ajax안에 this는 또 안먹는다. 밖에서 정의해야한다.
+								element.style.display = "none";
+								element.previousElementSibling.style.display = "inline";
+								count.innerText = Number(count.innerText)+1;
+							}else{
+								alert("좋아요 기능에 오류가 발생했습니다.")
+							}
+
+						},
+						error: function (req, status, error) {
+							console.log("ajax 실패");
+							console.log(req.responseText);
+							console.log(status);
+							console.log(error);
+						}
+
+					})
+					
+				})
 
 				if(items.checkLike == 1){
 					vividPopcorn.setAttribute("style", "width: 20px; height: 20px;")
@@ -528,69 +582,69 @@ const post = document.getElementsByClassName("post")[0]
 
 post.append(selectReply(postNo));
 // 댓글 좋아요
-const replyVividImg = document.getElementsByClassName("reply-vivid");
-const replywhiteImg = document.getElementsByClassName("reply-white");
-replyLike(replyVividImg, replywhiteImg);
-function replyLike(replyVividImg, replywhiteImg){
-	for(const items of replywhiteImg){
-		items.addEventListener("click", function () {
-			const replyNo = this.nextElementSibling.innerText;
-			let count = this.nextElementSibling.nextElementSibling;
-			$.ajax({
-				url: contextPath + "/reply/insertReplyLike",
-				data: { "replyNo": replyNo },
-				type: "POST",
-				async: false,
-				success: function (result) {
-					if(result >0){
-						items.style.display = "none";
-						items.previousElementSibling.style.display = "inline";
-						count.innerText = Number(count.innerText)+1;
-					}else{
-						alert("좋아요 기능에 오류가 발생했습니다.")
-					}
+// const replyVividImg = document.getElementsByClassName("reply-vivid");
+// const replywhiteImg = document.getElementsByClassName("reply-white");
+// replyLike(replyVividImg, replywhiteImg);
+// function replyLike(replyVividImg, replywhiteImg){
+// 	for(const items of replywhiteImg){
+// 		items.addEventListener("click", function () {
+// 			const replyNo = this.nextElementSibling.innerText;
+// 			let count = this.nextElementSibling.nextElementSibling;
+// 			$.ajax({
+// 				url: contextPath + "/reply/insertReplyLike",
+// 				data: { "replyNo": replyNo },
+// 				type: "POST",
+// 				async: false,
+// 				success: function (result) {
+// 					if(result >0){
+// 						items.style.display = "none";
+// 						items.previousElementSibling.style.display = "inline";
+// 						count.innerText = Number(count.innerText)+1;
+// 					}else{
+// 						alert("좋아요 기능에 오류가 발생했습니다.")
+// 					}
 
-				},
-				error: function (req, status, error) {
-					console.log("ajax 실패");
-					console.log(req.responseText);
-					console.log(status);
-					console.log(error);
-				}
+// 				},
+// 				error: function (req, status, error) {
+// 					console.log("ajax 실패");
+// 					console.log(req.responseText);
+// 					console.log(status);
+// 					console.log(error);
+// 				}
 
-			})
-		})
-	}
-	for(const items of replyVividImg){
-		items.addEventListener("click", function () {
-			const replyNo = this.nextElementSibling.nextElementSibling.innerText;
-			let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
-			$.ajax({
-				url: contextPath + "/reply/deleteReplyLike",
-				data: { "replyNo": replyNo },
-				type: "POST",
-				async: false,
-				success: function (result) {
-					if(result >0){
-						items.style.display = "none";
-						items.nextElementSibling.style.display = "inline";
-						count.innerText = Number(count.innerText)-1;
-					}else{
-						alert("좋아요 기능에 오류가 발생했습니다.")
-					}
+// 			})
+// 		})
+// 	}
+// 	for(const items of replyVividImg){
+// 		items.addEventListener("click", function () {
+// 			const replyNo = this.nextElementSibling.nextElementSibling.innerText;
+// 			let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
+// 			$.ajax({
+// 				url: contextPath + "/reply/deleteReplyLike",
+// 				data: { "replyNo": replyNo },
+// 				type: "POST",
+// 				async: false,
+// 				success: function (result) {
+// 					if(result >0){
+// 						items.style.display = "none";
+// 						items.nextElementSibling.style.display = "inline";
+// 						count.innerText = Number(count.innerText)-1;
+// 					}else{
+// 						alert("좋아요 기능에 오류가 발생했습니다.")
+// 					}
 
-				},
-				error: function (req, status, error) {
-					console.log("ajax 실패");
-					console.log(req.responseText);
-					console.log(status);
-					console.log(error);
-				}
+// 				},
+// 				error: function (req, status, error) {
+// 					console.log("ajax 실패");
+// 					console.log(req.responseText);
+// 					console.log(status);
+// 					console.log(error);
+// 				}
 
-			})
-		})
-	}
-}
+// 			})
+// 		})
+// 	}
+// }
 
 function copyURL(postNo){
 
@@ -606,4 +660,18 @@ function copyURL(postNo){
 
 document.getElementsByClassName("profile-img")[0].addEventListener("click",function(){
 	location.href = contextPath +"/board1/myBoard/"+ postMemberNo;
+})
+
+const textarea = document.getElementsByTagName("textarea")[0]
+textarea.addEventListener("keyup", e =>{
+	const replyImg = e.target.parentNode.parentNode.getElementsByTagName("img")[0];
+	e.target.style.height = "auto"
+	let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
+	e.target.style.height = `${scHeight}px`
+	console.log(scHeight)
+	if(e.key == "Enter"){
+		console.log(e.target.value)
+		e.target.value = e.target.value.replaceAll("\n", "");
+		replyImg.click();
+	}
 })

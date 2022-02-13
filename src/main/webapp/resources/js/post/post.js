@@ -428,6 +428,8 @@ function revealPost(){
 								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
+								
+								
 								alramSock.send(JSON.stringify(alramObj));
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
@@ -615,6 +617,18 @@ function insertReply(e){
 				if(result>0){
 					alert("댓글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
+					
+					console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
+					console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+					const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramContent = loginMemberName + "님이 댓글을 남겼습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								
+								
+								alramSock.send(JSON.stringify(alramObj));
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
@@ -625,6 +639,7 @@ function insertReply(e){
 						const replyDiv = selectReply(postNo);
 						post.append(replyDiv);
 					}
+					
 
 				}else{
 					alert("댓글 등록 중 문제가 발생했습니다.")
@@ -800,6 +815,9 @@ function selectReply(postNo){
 								element.style.display = "none";
 								element.nextElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)-1;
+								
+								
+								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
@@ -836,6 +854,23 @@ function selectReply(postNo){
 								element.style.display = "none";
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)+1;
+								
+								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+								console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+								
+								
+								const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								
+								
+								alramSock.send(JSON.stringify(alramObj));
+								
+								
+								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
@@ -937,6 +972,10 @@ function insertComment(e, replyNo){
 	const post = e.parentNode.parentNode.parentNode
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
+	if(replyContent.length > 250){
+		alert(`답글이 너무 깁니다!(${replyContent.length}/250)`)
+		return;
+	}
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/comment",
@@ -947,6 +986,16 @@ function insertComment(e, replyNo){
 				if(result>0){
 					alert("답글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
+					
+					const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								
+								
+								
+								alramSock.send(JSON.stringify(alramObj));
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
@@ -954,6 +1003,8 @@ function insertComment(e, replyNo){
 						const replyDiv = selectReply(postNo);
 						post.append(replyDiv);
 					}
+					
+					
 
 				}else{
 					alert("답글 등록 중 문제가 발생했습니다.")

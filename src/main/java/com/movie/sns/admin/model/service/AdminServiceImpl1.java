@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.movie.sns.admin.model.dao.AdminDAO1;
 import com.movie.sns.admin.model.vo.AdminPost;
 import com.movie.sns.admin.model.vo.AdminReply;
+import com.movie.sns.admin.model.vo.AdminReport;
 import com.movie.sns.admin.model.vo.Pagination;
 import com.movie.sns.admin.model.vo.PostStatus;
 import com.movie.sns.admin.model.vo.ReplyStatus;
@@ -130,6 +131,18 @@ public class AdminServiceImpl1 implements AdminService1 {
 	@Override
 	public AdminReply replyView(String replyNo) {
 		return dao.replyView(replyNo);
+	}
+
+	@Override
+	public List<AdminReport> reportBoard(AdminReport report) {
+		
+		return dao.reportBoard(report);
+	}
+
+	@Override
+	public Pagination getReportPagination(int cp, AdminReport report) {
+		int reportCount = dao.reportCount(cp, report);
+		return new Pagination(reportCount, cp);
 	}
 
 
