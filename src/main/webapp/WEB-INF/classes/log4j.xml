@@ -80,7 +80,7 @@
         <level value="INFO"/> 
         <appender-ref ref="console-infolog"/> 
     </logger> 
-    -->
+    --> 
      
      
     <!-- 쿼리 결과를 테이블 모양으로 출력해주는 로그 -->

@@ -6,7 +6,7 @@ public class AdminMemberSearch {
 	
 	private String sk; //search key
 	private String sv; //search value
-	private int statusValue; // 상태값
+	private String statusValue; // 상태값
 	private String sortColumn;	// 정렬할 컬럼
 	private String sortMethod;	// 정렬 방식
 	
@@ -30,11 +30,11 @@ public class AdminMemberSearch {
 		this.sv = sv;
 	}
 
-	public int getStatusValue() {
+	public String getStatusValue() {
 		return statusValue;
 	}
 
-	public void setStatusValue(int statusValue) {
+	public void setStatusValue(String statusValue) {
 		this.statusValue = statusValue;
 	}
 
