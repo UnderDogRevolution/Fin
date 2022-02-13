@@ -6,6 +6,8 @@
 #container-post{
     height: 90%;
     overflow: scroll;
+    flex-grow: 58;
+    padding-left: 20%;
 }
 
 #container-post::-webkit-scrollbar{
