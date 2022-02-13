@@ -26,6 +26,7 @@
 		<result property="postNo" column="POST_NO" />
 		<result property="reportContent" column="REPORT_CONTENT" />
 		<result property="typeNo" column="REPORT_TYPE_NO" />
+		<result property="typeNm" column="REPORT_TYPE_NM" />
 		<result property="createDt" column="CREATE_DT" />
 	</resultMap>
 
@@ -59,12 +60,13 @@
 	SELECT COUNT(*) FROM MEMBER
 	
 	</select>
+	
+	
 	<select id="askCount" resultType = "_int">
 	SELECT COUNT(*) FROM ADMIN_ASK
 	
 	</select>
 	
-	<!--신고 카운트  -->
 	
 	<select id="replyView" resultMap = "adminReply_rm">
 	 	 SELECT REPLY_NO ,
@@ -148,7 +150,7 @@
 						JOIN REPLY_STATUS USING(REPLY_STATUS_CD)
 						WHERE
 						REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
-						OR REPLY_STATUS_NM #{inputResult}||'%'
+						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 
@@ -201,8 +203,8 @@
 						WHERE MEMBER_NO = #{inputResult}
 					</when>
 					<when test="searchPost == 'status'">
-						WHERE REPLY_STATUS_NM LIKE '%'||
-						#{inputResult}||'%'
+						WHERE REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
+						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 			</if>
@@ -259,8 +261,53 @@
 				</choose>
 
 			</if>
+			
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						AND POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						AND POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						AND POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						AND POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						AND POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
 
 		</if>
+		
+		<if test="inputResult == ''">
+		
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						WHERE POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						WHERE POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						WHERE POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						WHERE POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						WHERE POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
+		</if>
+		
 
 	</select>
 
@@ -314,8 +361,81 @@
 					</when>
 				</choose>
 			</if>
+			
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						AND POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						AND POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						AND POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						AND POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						AND POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
 		</if>
-		ORDER BY POST_NO DESC
+		
+		<if test="inputResult == ''">
+		
+			<if test="statusValue != 'all'">
+				<choose>
+					<when test="statusValue == '500'">
+						WHERE POST_STATUS_CD = 500
+					</when>
+					<when test="statusValue == '501'">
+						WHERE POST_STATUS_CD = 501
+					</when>
+					<when test="statusValue == '502'">
+						WHERE POST_STATUS_CD = 502
+					</when>
+					<when test="statusValue == '503'">
+						WHERE POST_STATUS_CD = 503
+					</when>
+					<when test="statusValue == '504'">
+						WHERE POST_STATUS_CD = 504
+					</when>
+				</choose>
+			</if>
+			
+		</if>
+		
+		<choose>
+			<when test="sortColumn == null">
+				ORDER BY POST_NO DESC
+			</when>
+			
+			<otherwise>
+				<choose>
+					<when test="sortColumn == 'createDate'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY POST.CREATE_DT DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY POST.CREATE_DT
+						</if>
+					</when>
+					
+					<when test="sortColumn == 'modifyDate'">
+						<if test="sortMethod == 'desc'">
+							ORDER BY POST.MODIFY_DT DESC
+						</if>
+						<if test="sortMethod == 'asc'">
+							ORDER BY POST.MODIFY_DT ASC
+						</if>
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+		
 	</select>
 
 	<update id="changeStatus">
@@ -368,14 +488,107 @@
 	<select id="reportCount" resultType = "_int">
 	
 	SELECT COUNT(*) FROM REPORT
+	
+	
+	
+	<if test="inputResult != ''">
+
+			<if test="searchPost != null">
+				<choose>
+					<when test="searchPost == 'memberNo'">
+						WHERE MEMBER_NO = #{inputResult}
+					</when>
+					<when test="searchPost == 'memberNm'">
+						JOIN MEMBER USING(MEMBER_NO)
+						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						OR
+						MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+					</when>
+					<when test="searchPost == 'status'">
+						JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
+						WHERE REPORT_TYPE_NM LIKE #{inputResult}||'%'
+					</when>
+					<when test="searchPost == 'reportNo'">
+						WHERE REPORT_NO = #{inputResult}
+					</when>
+				</choose>
+
+			</if>
+
+		</if>
+	
+	
+	
+	
+	
+	
 	</select>
 	
 	<select id="reportBoard" resultMap = "AdminReport_rm">
-	SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
+	
+        SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
+    ,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM
     FROM REPORT
+    JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
     LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
     JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
-    LEFT JOIN REPLY ON(REPORT.TARGET_PK = REPLY.REPLY_NO)
+   
+		<if test="inputResult != ''">
+
+			<if test="searchPost != null">
+				<choose>
+					<when test="searchPost == 'memberNo'">
+						WHERE REPORT.MEMBER_NO = #{inputResult}
+					</when>
+					<when test="searchPost == 'memberNm'">
+						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						OR
+						MEMBER_NM
+						LIKE '%'||#{inputResult}||'%'
+					</when>
+					<when test="searchPost == 'status'">
+						WHERE REPORT_TYPE_NM LIKE #{inputResult}||'%'
+					</when>
+					<when test="searchPost == 'reportNo'">
+						WHERE REPORT_NO = #{inputResult}
+					</when>
+				</choose>
+
+			</if>
+
+		</if>
+	ORDER BY REPORT_NO DESC
+	
 	</select>
+	
+	
+	
+	<select id="reportView" resultMap = "AdminReport_rm">
+	 SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
+    ,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM , REPORT.MEMBER_NO
+    FROM REPORT
+    JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
+    LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
+    JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
+    WHERE REPORT_NO = #{reportNo}
+	
+	</select>
+	
+	
+	<!-- 게시글 상태 일괄 변경(일반) -->
+	<update id="multiChangePostStatus">
+		UPDATE POST SET
+		POST_STATUS_CD = 500
+		WHERE POST_NO IN (
+		
+		<foreach collection="array" item="postNo" separator="," >
+			#{postNo}
+		</foreach>
+		
+		)
+	</update>
+	
+	
 	
 </mapper>

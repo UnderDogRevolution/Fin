@@ -15,10 +15,45 @@ public class AdminPost {
 	private String status;
 	private String searchPost;
 	private String inputResult; 
+	
+	private String statusValue; // 상태값
+	private String sortColumn;	// 정렬할 컬럼
+	private String sortMethod;	// 정렬 방식
+	
 	public AdminPost() {
 	}
 
 	
+	public String getStatusValue() {
+		return statusValue;
+	}
+
+
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
+	}
+
+
+	public String getSortColumn() {
+		return sortColumn;
+	}
+
+
+	public void setSortColumn(String sortColumn) {
+		this.sortColumn = sortColumn;
+	}
+
+
+	public String getSortMethod() {
+		return sortMethod;
+	}
+
+
+	public void setSortMethod(String sortMethod) {
+		this.sortMethod = sortMethod;
+	}
+
+
 	public String getMemberNick() {
 		return memberNick;
 	}
@@ -167,8 +202,11 @@ public class AdminPost {
 				+ ", postContent=" + postContent + ", readCount=" + readCount + ", likeCount=" + likeCount
 				+ ", createDt=" + createDt + ", memberNo=" + memberNo + ", statusNm=" + statusNm + ", modifyDt="
 				+ modifyDt + ", blind=" + blind + ", status=" + status + ", searchPost=" + searchPost + ", inputResult="
-				+ inputResult + "]";
+				+ inputResult + ", statusValue=" + statusValue + ", sortColumn=" + sortColumn + ", sortMethod="
+				+ sortMethod + "]";
 	}
+
+
 
 
 

@@ -60,9 +60,10 @@ function revealPost(){
 				}
 				divHeader1.append(imgHeader1);
 				const spanHeader1 = document.createElement("span")
-				spanHeader1.innerText = items.memberName;
+				spanHeader1.innerText = items.memberNickName;
 				const spanHeader2 = document.createElement("span")
 				spanHeader2.innerText = items.createDate;
+				spanHeader1.append(spanHeader2)
 				const divHeader2 = document.createElement("div")
 				divHeader2.className = "dropdown me-1 header-dropdown"
 				const imgHeader2 = document.createElement("img")
@@ -103,7 +104,7 @@ function revealPost(){
 				divHeader2.append(ulHeader);
 				postHeader.append(divHeader1);
 				postHeader.append(spanHeader1);
-				postHeader.append(spanHeader2);
+				// postHeader.append(spanHeader2);
 				postHeader.append(divHeader2);
 				// post-content
 				const divContent1 = document.createElement("div")
@@ -620,6 +621,7 @@ function insertReply(e){
 					
 					console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
 					console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+					
 					const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
@@ -716,6 +718,7 @@ function selectReply(postNo){
 				const profileDiv = document.createElement("div");
 				profileDiv.className = "profile-reply"
 				const profile = document.createElement("img");
+				profile.setAttribute("id", items.memberNo);
 				if(items.listProfile[0]){
 					profile.setAttribute("src", contextPath + items.listProfile[0].imgPath + items.listProfile[0].imgName);
 				}else{
@@ -726,20 +729,19 @@ function selectReply(postNo){
 				const userInfo = document.createElement("div")
 				userInfo.className ="user-reply";
 				const userInfoDiv1 = document.createElement("div")
-				userInfoDiv1.innerText = items.memberName;
-				userInfo.append(userInfoDiv1)
+				userInfoDiv1.innerHTML = "<span>"+items.memberNickName+"</span>" + "<span>"+items.replyCreateDate+"</span>";
+				
 				const userInfoDiv2 = document.createElement("div")
-				userInfoDiv2.innerText = items.replyCreateDate;
-				userInfo.append(userInfoDiv2);
+				userInfoDiv2.innerHTML = "<div>"+items.replyContent+"</div>";
+				
+				// const contentReply = document.createElement("div");
+				// contentReply.className = "content-reply"
 
-				const contentReply = document.createElement("div");
-				contentReply.className = "content-reply"
+				// const textReply = document.createElement("div");
+				// textReply.className = "text-reply";
 
-				const textReply = document.createElement("div");
-				textReply.className = "text-reply";
-
-				const contentDiv = document.createElement("div");
-				contentReply.innerText = items.replyContent
+				// const contentDiv = document.createElement("div");
+				// contentReply.innerText = items.replyContent
 
 				const dots = document.createElement("img");
 				dots.setAttribute("src", contextPath + "/resources/images/temp/dots.png")
@@ -761,9 +763,6 @@ function selectReply(postNo){
 				a1.className = "dropdown-item"
 				a2.className = "dropdown-item"
 				a3.className = "dropdown-item"
-				// a1.setAttribute("href", "#")
-				// a2.setAttribute("href", "#")
-				// a3.setAttribute("href", "#")
 				a1.innerText = "삭제";
 				a1.setAttribute("onclick", "deleteReply(this, "+items.replyNo+")")
 				a2.innerText = "신고하기";
@@ -785,10 +784,15 @@ function selectReply(postNo){
 					dropUl.append(dropLi3);
 
 				}
-				contentDiv.append(dots)
-				contentDiv.append(dropUl)
+				// contentDiv.append(dots)
+				// contentDiv.append(dropUl)
+				userInfoDiv1.append(dots)
+				userInfoDiv1.append(dropUl)
+				userInfo.append(userInfoDiv1)
+				
 
-				textReply.append(contentDiv);
+
+				// textReply.append(contentDiv);
 
 
 				
@@ -843,6 +847,7 @@ function selectReply(postNo){
 					const replyNo = this.nextElementSibling.innerText;
 					let count = this.nextElementSibling.nextElementSibling;
 					const element = this;
+					const _this = $(this);
 					$.ajax({
 						url: contextPath + "/reply/insertReplyLike",
 						data: { "replyNo": replyNo },
@@ -856,12 +861,12 @@ function selectReply(postNo){
 								count.innerText = Number(count.innerText)+1;
 								
 								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
+								console.log(_this.parents('.parent-reply').children('.profile-reply').children().attr('id'));
 								
 								
 								const alramObj = {};
 								
-								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramTakeMemberNo = _this.parents('.parent-reply').children('.profile-reply').children().attr('id');
 								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
@@ -927,12 +932,14 @@ function selectReply(postNo){
 				tempDiv.append(constDiv2)
 				tempDiv.append(constDiv3)
 
-				contentReply.append(textReply);
-				contentReply.append(tempDiv);
+				// contentReply.append(textReply);
+				// contentReply.append(tempDiv);
+				userInfoDiv2.append(tempDiv)
+				userInfo.append(userInfoDiv2);
 
 				replyDiv1.append(profileDiv)
 				replyDiv1.append(userInfo)
-				replyDiv1.append(contentReply)
+				// replyDiv1.append(contentReply)
 				
 				replyDiv.append(replyDiv1)
 				
@@ -951,7 +958,7 @@ function selectReply(postNo){
 
 function comment(e, replyNo){
 	
-	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
 	const img = post.querySelectorAll(".input-content-reply img")[0]
 	const input = post.querySelectorAll(".input-content-reply textarea")[0]
@@ -1052,7 +1059,8 @@ function deletePost(e){
 
 function deleteReply(e, replyNo){ // 똑같은 이름의 함수가 있으면 다른 함수들도 문제가 생기는 구나! 근데 에러가 안뜨내;; 불친절 하다.
 						 // 심지어 매개변수도 잘못 기입(e.g this)되어있으면 함수가 발동하지 않는다.
-	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+	console.log(post)
 	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
 	if(confirm("정말로 삭제 하시겠습니까?")){
 		$.ajax({
@@ -1088,6 +1096,10 @@ function deleteReply(e, replyNo){ // 똑같은 이름의 함수가 있으면 다
 
 function report(reportTypeNo, targetPK){
 	const reportContent = prompt("신고 사유를 입력해 주세요!")
+	if(reportContent.trim().length == 0){
+		alert("신고 내용을 적어주세요!")
+		return;
+	}
 	$.ajax({
 		url: contextPath + "/post/report",
 			data: {"reportTypeNo":reportTypeNo, "targetPK": targetPK, "reportContent":reportContent },

@@ -12,8 +12,20 @@
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style>
-	#memberDetailContent *{
-		color: #323232 !important;
+	td{cursor: default;}
+	.shortText{
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	h5 {
+		color: white;
+	}
+	#memberDetailContent, .modal-header {
+		background-color: #3a3939 !important;
+	}
+	.inputMemberEmail {
+		color: white;
 	}
 	.memberDetail-body td{
 		font-size: 15px;
@@ -23,10 +35,6 @@
 		background-color: #3a3939; border: none;
 		color: white; outline: none;
 	}
-	.page-link{
-		cursor:pointer;
-	}
-	
 	/* Chrome, Safari, Edge, Opera */
 	input::-webkit-outer-spin-button,
 	input::-webkit-inner-spin-button {
@@ -47,10 +55,6 @@
 		height: 30px;
 		border-radius: 5px;
 		padding: 10px;
-	}
-	.asc, .desc {
-		user-select: none;
-		cursor : pointer;'
 	}
 
 </style>
@@ -77,7 +81,7 @@
 				</c:if>
 				
 					<div class="adminHeader">회원관리</div>
-					<div class="adminBoardMain">
+					<div class="adminBoardMain" style="min-height: 650px;">
 					
 						<div class="adminSearch">
 								<select name="sk" class="select selectStatusMenu" id="sk">
@@ -86,7 +90,7 @@
 									<option value="nickName">닉네임</option>
 									<option value="email">이메일</option>
 
-								</select> <input style="margin-left: 10px;" autocomplete="off" oninput="findMember();" name="sv" type="number" id="sv">
+								</select> <input autofocus style="margin-left: 10px;" autocomplete="off" oninput="findMember();" name="sv" type="number" id="sv">
 						</div>
 						
 
@@ -109,8 +113,8 @@
 											<th id="enrollDtSort" class="asc"><span>가입일 ▲</span></th>
 											<th>
 												회원상태
-												<select class="selectStatusMenu">
-													<option value="">전체</option>
+												<select id="statusValue" class="selectStatusMenu">
+													<option value="all">전체</option>
 													
 													<c:forEach items="${statusList}" var="s">
 														<option value="${s.statusCode}">${s.statusName}</option>
@@ -130,12 +134,14 @@
 							</div>
 
 						</div>
+
+						<button class="setBtn" disabled onclick="changeCheckbox(202);">정지</button>
+						<button class="setBtn" disabled onclick="changeCheckbox(200);">일반</button>
+						<button class="setBtn" disabled onclick="changeCheckbox(201);">탈퇴</button>
+
 					</div>
 					
 					
-					<button class="setBtn" disabled onclick="changeCheckbox(202);">정지</button>
-					<button class="setBtn" disabled onclick="changeCheckbox(200);">일반</button>
-					<button class="setBtn" disabled onclick="changeCheckbox(201);">탈퇴</button>
 					
 					<%---------------------- Pagination ----------------------%>
 					<div class="my-5">
@@ -182,7 +188,7 @@
 			<div class="modal-content" style="color: #323232;">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px; font-weight: bold;">회원 상세 정보</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
 				<div class="modal-body" id="memberDetailContent">

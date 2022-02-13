@@ -146,7 +146,9 @@ thead {
 
 .adminBoard {
 	width: 1050px;
-	height: 750px;
+	/* height: 750px; */
+	margin-bottom: 100px;
+	
 	background-color: #3a3939;
 }
 
@@ -283,4 +285,28 @@ td {
 
 .postListContent>a::-webkit-scrollbar {
 	display: none;
+}
+
+.setBtn{
+	border: none;
+	width: 50px;
+	height: 30px;
+	border-radius: 5px;
+	background-color: rgb(240, 84, 84);
+	color: white;
+	margin: 5px;
+}
+.setBtn:disabled{background-color: gray; color: #272727;}
+
+.asc, .desc {
+	user-select: none;
+	cursor : pointer;
+}
+.page-link{
+	cursor:pointer;
+}
+.shortText{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }

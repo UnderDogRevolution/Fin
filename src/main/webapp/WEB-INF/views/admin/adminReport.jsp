@@ -6,17 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글관리</title>
+<title>신고 관리</title>
 <script type="text/javascript">
 	const contextPath = "${contextPath}";
-	const c = "${c}";
-	const s = "${s}";
 	
 	</script>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/admin/adminMember.css">
 
 <style type="text/css">
+tr > td:nth-child(2){
+cursor: pointer;
+}
+
 .MemberView {
 	cursor: pointer;
 }
@@ -165,11 +167,10 @@ select:focus {
 					<div class="adminBoardMain">
 						<div class="adminSearch">
 							<select name="searchPost" id="" class="selectPostsend">
-								<option value="replyNo">댓글번호</option>
-								<option value="postNo">게시글 번호</option>
+								<option value="reportNo">신고 번호</option>
 								<option value="memberNo">회원번호</option>
 								<option value="memberNm">회원이름</option>
-								<option value="status">댓글상태</option>
+								<option value="status">신고유형</option>
 							</select> <input type="number" name="inputResult" id="searchPost"
 								oninput="selectReplyList();">
 
@@ -186,17 +187,17 @@ select:focus {
 											<th>회원 번호</th>
 											<th>작성자</th>
 											<th>내용</th>
+											<th>작성일</th>
 											<th>신고 유형</th>
-											<th>상태</th>
 										</tr>
 
 									</thead>
 									<tbody class="tbody">
 										<c:choose>
-
+											
 											<c:when test="${empty report}">
 												<tr>
-													<td colspan="8">등록된댓글이 존재하지 않습니다.</td>
+													<td colspan="6">등록된댓글이 존재하지 않습니다.</td>
 												</tr>
 
 
@@ -205,25 +206,24 @@ select:focus {
 												<c:forEach items="${report}" var="report">
 													<tr>
 														<td class="replyModalShow"
-															onclick="postModal(${report.reportNo})">${report.reportNo}</td>
-														<td>${reply.postNo}</td>
-														<td class="MemberView"
-															onclick="showMemberDetail(${report.memberNo})">${report.memberNo}</td>
+															onclick="reportModal(${report.reportNo})">${report.reportNo}</td>
+														<td onclick="showMemberDetail(${report.memberNo})">${report.memberNo}</td>
+														
 														<td><a style="text-decoration: none; color: white;"
 															href="${contextPath}/board1/myBoard/${report.memberNo}">${report.memberNm}</a></td>
+														<td class='replyContent'>${report.reportContent}</td>
 
-														<td class='replyContent'><a
-															style="text-decoration: none; color: white;"
-															href="${contextPath}/post/view/${report.postNo}">${report.reportContent}<a></td>
 
 														<td>${report.createDt}</td>
-														<c:if test="${report.typeNo} == 0">
+														<c:if test="${report.typeNo == 0}">
 															<td>게시판</td>
 														</c:if>
-														<c:if test="${report.typeNo} == 1">
+														<c:if test="${report.typeNo == 1}">
 															<td>댓글</td>
 														</c:if>
-
+															
+															<%-- <td class="MemberView"
+															onclick="showMemberDetail(${report.memberNo})">${report.memberNm}</td> --%>
 
 												<%-- 		<td><select name="statusCd" id="" class="select"
 															onchange="changeStatus(event,${reply.replyNo})">
@@ -305,13 +305,13 @@ select:focus {
 	</div>
 
 
-	<div class="modal fade" id="postModal" tabindex="-1"
+	<div class="modal fade" id="reportModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div style="width: 400px;"
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content postModal-content">
 				<div class="modal-header postModal-header">
-					<h2 class="modal-title" id="exampleModalLabel">댓글 상세정보</h2>
+					<h2 class="modal-title" id="exampleModalLabel">신고 상세정보</h2>
 					<button type="button" class="btn-close xbtn"
 						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
@@ -320,11 +320,7 @@ select:focus {
 
 
 					<div class="modalContentwrap">
-						<div class="postListTitle">댓글 번호</div>
-						<div class="postListContent"></div>
-					</div>
-					<div class="modalContentwrap">
-						<div class="postListTitle">게시글 번호</div>
+						<div class="postListTitle">신고 번호</div>
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
@@ -340,19 +336,11 @@ select:focus {
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
-						<div class="postListTitle">좋아요</div>
-						<div class="postListContent"></div>
-					</div>
-					<div class="modalContentwrap">
 						<div class="postListTitle">작성일</div>
 						<div class="postListContent"></div>
 					</div>
 					<div class="modalContentwrap">
-						<div class="postListTitle">상태</div>
-						<div class="postListContent"></div>
-					</div>
-					<div class="modalContentwrap">
-						<div class="postListTitle">블라인드사유</div>
+						<div class="postListTitle">신고유형</div>
 						<div class="postListContent"></div>
 					</div>
 
@@ -448,6 +436,6 @@ select:focus {
 
 
 
-				<script src="${contextPath}/resources/js/admin/adminReply.js"></script>
+				<script src="${contextPath}/resources/js/admin/adminReport.js"></script>
 </body>
 </html>

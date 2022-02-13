@@ -31,9 +31,19 @@ public interface AdminService1 {
 
 	AdminReply replyView(String replyNo);
 
-	List<AdminReport> reportBoard(AdminReport report);
+	List<AdminReport> reportBoard(Pagination pagination ,AdminReport report);
 
 	Pagination getReportPagination(int cp, AdminReport report);
+
+	AdminReport reportView(String reportNo);
+
+	
+	/** 게시글 상태 일괄 변경(일반)
+	 * @param checkedPostNo
+	 * @param statusValue
+	 * @return result
+	 */
+	int multiChangePostStatus(int[] checkedPostNo, int statusValue);
 
 	
 	

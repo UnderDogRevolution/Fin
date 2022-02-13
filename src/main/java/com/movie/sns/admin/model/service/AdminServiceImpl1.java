@@ -134,9 +134,9 @@ public class AdminServiceImpl1 implements AdminService1 {
 	}
 
 	@Override
-	public List<AdminReport> reportBoard(AdminReport report) {
+	public List<AdminReport> reportBoard(Pagination pagination ,AdminReport report) {
 		
-		return dao.reportBoard(report);
+		return dao.reportBoard(pagination ,report);
 	}
 
 	@Override
@@ -145,5 +145,18 @@ public class AdminServiceImpl1 implements AdminService1 {
 		return new Pagination(reportCount, cp);
 	}
 
+
+	@Override
+	public AdminReport reportView(String reportNo) {
+		return dao.reportView(reportNo);
+	}
+
+	// 게시글 상태 일괄 변경(일반)
+	@Override
+	public int multiChangePostStatus(int[] checkedPostNo, int statusValue) {
+		return dao.multiChangePostStatus(checkedPostNo);
+	}
+
+	
 
 }

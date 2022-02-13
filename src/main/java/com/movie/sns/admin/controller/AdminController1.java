@@ -62,9 +62,11 @@ public class AdminController1 {
 	}
 	
 
+	// 게시글 리스트 조회
 	@ResponseBody
 	@RequestMapping(value = "searchPost", method = RequestMethod.GET)
 	public String searchPost(AdminPost post, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		
 		Pagination pagination = service.getPagination(cp, post);
 		List<AdminPost> List = service.adminPost(pagination, post);
 		
@@ -92,6 +94,7 @@ public class AdminController1 {
 		 * 
 		 * }
 		 */
+		
 
 		return new Gson().toJson(map);
 	}
@@ -163,11 +166,68 @@ public class AdminController1 {
 		public String reportBoard(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
 							AdminReport  report	) {
 			Pagination pagination = service.getReportPagination(cp, report);	
-			List<AdminReport> list = service.reportBoard(report);
+			List<AdminReport> list = service.reportBoard(pagination,report);
 			model.addAttribute("pagination",pagination);
 			model.addAttribute("report", list);
+			
+			System.out.println(list);
 			return "admin/adminReport";
 		}
+		
+		@ResponseBody
+		@RequestMapping(value = "searchReport", method = RequestMethod.GET)
+		public String searchReport(AdminReport report , @RequestParam(value = "cp", required = false, defaultValue = "1")int cp) {
+			Pagination pagination = service.getReportPagination(cp, report);
+				
+				
+				
+			List<AdminReport> list = service.reportBoard(pagination, report);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("List", list);
+			map.put("pagination", pagination);
+
+			
+			return new Gson().toJson(map);
+			
+		}
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value = "reportView", method = RequestMethod.GET)
+		public String reportView(String reportNo) {
+				
+			AdminReport result = service.reportView(reportNo);
+			System.out.println("result 값" + result);
+			return new Gson().toJson(result);
+			
+		}
+		
+		
+		
+		// 게시글 상태 일괄 변경(일반)
+		@RequestMapping(value="multiChangePostStatus", method=RequestMethod.GET)
+		@ResponseBody
+		public int multiChangePostStatus( 	@RequestParam(value="", required=false) int[] checkedPostNo,
+											@RequestParam(value="", required=false) int statusValue) {
+			
+			// service
+			int result = service.multiChangePostStatus(checkedPostNo, statusValue);	
+			
+			if(result>0) {
+				return result;
+			}else {
+				return 0;
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
 		
 		
 		

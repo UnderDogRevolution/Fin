@@ -402,6 +402,7 @@ const observer = new MutationObserver(mutations => {
                                         type: "POST",
                                         dataType : "JSON",
                                         success: function (tagList) {
+                                            console.log(tagList)
                                             const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
                                             modalSide.style.top = Number(top) + 24 + "px"; 
                                             
@@ -409,7 +410,7 @@ const observer = new MutationObserver(mutations => {
                                             modalSide.style.left = (Number(left) - 4) + "px"; 
                                             tagListUl.innerHTML ="";
                                             for(const items of tagList){
-                                                tagListUl.innerHTML += '<li>@'+ items.memberName +'</li>';
+                                                tagListUl.innerHTML += '<li>@'+ items.memberNickName +'</li>';
                                                 if(getAbsoluteTop(mutation.addedNodes[i]) != 0){
                                                     modalSide.style.display = "block";
                                                 }else{

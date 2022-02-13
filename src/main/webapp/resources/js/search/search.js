@@ -11,9 +11,10 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 
 
 //인물 클릭시
-$("#peple_").on("click", function() { // ajax 
+ function searchMember(){ // ajax 
 	// 검색 val()를 가져온다
 	const search = searchParam("searchResult");
+	console.log(search);
 	$.ajax({
 		url: contextPath + "/search/member",
 		data: { "search": search },
@@ -132,7 +133,7 @@ $("#peple_").on("click", function() { // ajax
 
 
 
-});
+};
 
 
 
