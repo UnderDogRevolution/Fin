@@ -86,7 +86,7 @@
 	
 	<websocket:handlers>
 	
-		<websocket:mapping handler="chatHandler" path="/alram"/>
+		<websocket:mapping handler="alramHandler" path="/alram"/>
 	
 		<websocket:handshake-interceptors>
 		<beans:bean class = "org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>

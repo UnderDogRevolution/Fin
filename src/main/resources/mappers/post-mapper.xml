@@ -93,9 +93,9 @@
 	
 	 
 	 <select id="selectUser" resultMap="member_rm">
-		SELECT MEMBER_NM
+		SELECT MEMBER_NICKNM
 		FROM MEMBER
-		WHERE MEMBER_NM LIKE '%'||#{tagName}||'%'
+		WHERE MEMBER_NICKNM LIKE '%'||#{tagName}||'%'
  	 </select>
  	 
  	 <insert id="insertPost" useGeneratedKeys="true">
@@ -254,15 +254,15 @@
 	</insert>
 	
 	<select id="checkMemberNo" resultType="_int">
-		SELECT COUNT(*)
+		SELECT COUNT(MEMBER_NICKNM)
 		FROM MEMBER
-		WHERE MEMBER_NM = #{memberName}
+		WHERE MEMBER_NICKNM = #{memberName}
 	</select>
 
 	<select id="searchMemberNo" resultType="_int">
-		SELECT COUNT(MEMBER_NM)
+		SELECT MEMBER_NO
 		FROM MEMBER
-		WHERE MEMBER_NM = #{memberName}
+		WHERE MEMBER_NICKNM = #{memberName}
 	</select>
 	
 	<select id="searchPostList" resultMap="post_rm">

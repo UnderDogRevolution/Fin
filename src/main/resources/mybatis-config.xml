@@ -49,6 +49,8 @@
 		<typeAlias type="com.movie.sns.admin.model.vo.ReplyStatus" alias="ReplyStatus"/>
 		<typeAlias type="com.movie.sns.search.model.vo.Search" alias="Search"/>
 		
+		<typeAlias type="com.movie.sns.alram.model.vo.Alram" alias="Alram"/>
+		
 	</typeAliases>
 
 
@@ -65,6 +67,7 @@
 		<mapper resource="/mappers/admin-mapper1.xml"/>
 		<mapper resource="/mappers/admin-mapper2.xml"/>
 		<mapper resource="/mappers/admin-mapper3.xml"/>
+		<mapper resource="/mappers/alram-mapper.xml"/>
 	</mappers>
 
 

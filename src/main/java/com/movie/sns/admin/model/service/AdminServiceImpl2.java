@@ -56,7 +56,7 @@ public class AdminServiceImpl2 implements AdminService2 {
 		return dao.askDelete(askNo);
 	}
 
-	/** 검색 조건 문의글 리스트
+	/** 검색 조건 만족하는 페이지네이션
 	 *
 	 */
 	@Override
