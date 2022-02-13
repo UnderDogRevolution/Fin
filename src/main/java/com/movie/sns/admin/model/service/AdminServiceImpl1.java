@@ -134,15 +134,21 @@ public class AdminServiceImpl1 implements AdminService1 {
 	}
 
 	@Override
-	public List<AdminReport> reportBoard(AdminReport report) {
+	public List<AdminReport> reportBoard(Pagination pagination ,AdminReport report) {
 		
-		return dao.reportBoard(report);
+		return dao.reportBoard(pagination ,report);
 	}
 
 	@Override
 	public Pagination getReportPagination(int cp, AdminReport report) {
 		int reportCount = dao.reportCount(cp, report);
 		return new Pagination(reportCount, cp);
+	}
+
+
+	@Override
+	public AdminReport reportView(String reportNo) {
+		return dao.reportView(reportNo);
 	}
 
 

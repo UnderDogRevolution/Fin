@@ -163,12 +163,43 @@ public class AdminController1 {
 		public String reportBoard(@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model,
 							AdminReport  report	) {
 			Pagination pagination = service.getReportPagination(cp, report);	
-			List<AdminReport> list = service.reportBoard(report);
+			List<AdminReport> list = service.reportBoard(pagination,report);
 			model.addAttribute("pagination",pagination);
 			model.addAttribute("report", list);
+			
+			System.out.println(list);
 			return "admin/adminReport";
 		}
 		
+		@ResponseBody
+		@RequestMapping(value = "searchReport", method = RequestMethod.GET)
+		public String searchReport(AdminReport report , @RequestParam(value = "cp", required = false, defaultValue = "1")int cp) {
+			Pagination pagination = service.getReportPagination(cp, report);
+				
+				
+				
+			List<AdminReport> list = service.reportBoard(pagination, report);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("List", list);
+			map.put("pagination", pagination);
+
+			
+			return new Gson().toJson(map);
+			
+		}
+		
+		
+		
+		@ResponseBody
+		@RequestMapping(value = "reportView", method = RequestMethod.GET)
+		public String reportView(String reportNo) {
+				
+			AdminReport result = service.reportView(reportNo);
+			System.out.println("result 값" + result);
+			return new Gson().toJson(result);
+			
+		}
 		
 		
 		

@@ -90,8 +90,13 @@ public class AdminDAO1 {
 		return sqlSession.selectOne("adminMapper1.replyView", replyNo);
 	}
 
-	public List<AdminReport> reportBoard(AdminReport report) {
-		return sqlSession.selectList("adminMapper1.reportBoard", report);
+	public List<AdminReport> reportBoard(Pagination pagination ,AdminReport report) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit(); 
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		return sqlSession.selectList("adminMapper1.reportBoard", report,rowBounds);
 	}
 
 	public Pagination getReportPagination(AdminReport report) {
@@ -101,6 +106,10 @@ public class AdminDAO1 {
 	public int reportCount(int cp, AdminReport report) {
 		
 		return sqlSession.selectOne("adminMapper1.reportCount", report);
+	}
+
+	public AdminReport reportView(String reportNo) {
+		return sqlSession.selectOne("adminMapper1.reportView", reportNo);
 	}
 
 	
