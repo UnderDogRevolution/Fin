@@ -58,6 +58,15 @@ color:white !important;
 .modal-body::-webkit-scrollbar {
 	display: none;
 }
+
+.setting-update:hover{
+background-color: #942d2d;
+
+}
+.setting-update > a:hover{
+	color: white;
+}
+
 	</style>
 	
 	
@@ -416,7 +425,7 @@ color:white !important;
 										data-bs-target="#followerList2">팔로우</div>
 
 
-									<div class="setting-update">로그 아웃</div>
+									<div class="setting-update"><a href = "${contextPath}/member/logout">로그 아웃</a></div>
 
 
 

@@ -15,7 +15,7 @@
                 <div id="recent_" onclick="searchKey('searchPost')">최신</div>
                 <div id="popular_" onclick="searchKey('popularPost')">인기</div>
                 <div id="mv_" onclick="searchKey('searchMovie')">영화</div>
-                <div id="peple_">인물</div>
+                <div id="peple_" onclick = "searchMember()">인물</div>
             </nav>
             <div class="main-search">
                 <!-- <div class="search-result">
