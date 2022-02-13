@@ -31,9 +31,11 @@ public interface AdminService1 {
 
 	AdminReply replyView(String replyNo);
 
-	List<AdminReport> reportBoard(AdminReport report);
+	List<AdminReport> reportBoard(Pagination pagination ,AdminReport report);
 
 	Pagination getReportPagination(int cp, AdminReport report);
+
+	AdminReport reportView(String reportNo);
 
 	
 	

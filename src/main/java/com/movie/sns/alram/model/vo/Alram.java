@@ -3,13 +3,13 @@ package com.movie.sns.alram.model.vo;
 public class Alram {
 	
 	// 댓글 대댓글 쓴 , 댓글 대댓글 게시글 좋아요 누른, 날 친구한, 날 태그한 사람 넘버
-	int alramtNo;
+	int alramNo;
 	
 	int alramTakeMemberNo; // 알람을 받을 회원번호
-	int alramContent; // 알람을 받을 내용
-	int alramUrl;
+	String alramContent; // 알람을 받을 내용
+	String alramUrl;
 	
-	int postNo;
+	int alramStatus;
 	
 //	
 //	int postMemberNo; 					// 게시글을 작성한 회원 넘버
@@ -33,12 +33,12 @@ public class Alram {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getAlramtNo() {
-		return alramtNo;
+	public int getAlramNo() {
+		return alramNo;
 	}
 
-	public void setAlramtNo(int alramtNo) {
-		this.alramtNo = alramtNo;
+	public void setAlramNo(int alramNo) {
+		this.alramNo = alramNo;
 	}
 
 	public int getAlramTakeMemberNo() {
@@ -49,35 +49,37 @@ public class Alram {
 		this.alramTakeMemberNo = alramTakeMemberNo;
 	}
 
-	public int getAlramContent() {
+	public String getAlramContent() {
 		return alramContent;
 	}
 
-	public void setAlramContent(int alramContent) {
+	public void setAlramContent(String alramContent) {
 		this.alramContent = alramContent;
 	}
 
-	public int getAlramUrl() {
+	public String getAlramUrl() {
 		return alramUrl;
 	}
 
-	public void setAlramUrl(int alramUrl) {
+	public void setAlramUrl(String alramUrl) {
 		this.alramUrl = alramUrl;
 	}
 
-	public int getPostNo() {
-		return postNo;
+	public int getAlramStatus() {
+		return alramStatus;
 	}
 
-	public void setPostNo(int postNo) {
-		this.postNo = postNo;
+	public void setAlramStatus(int alramStatus) {
+		this.alramStatus = alramStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "Alram [alramtNo=" + alramtNo + ", alramTakeMemberNo=" + alramTakeMemberNo + ", alramContent="
-				+ alramContent + ", alramUrl=" + alramUrl + ", postNo=" + postNo + "]";
+		return "Alram [alramNo=" + alramNo + ", alramTakeMemberNo=" + alramTakeMemberNo + ", alramContent="
+				+ alramContent + ", alramUrl=" + alramUrl + ", alramStatus=" + alramStatus + "]";
 	}
+
+
 
 	
 	
