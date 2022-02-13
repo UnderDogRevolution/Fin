@@ -283,9 +283,7 @@ select:focus {
 							success : function(result) {			
 				
 								if(result > 0){
-									
-									deleteRow.parent().parent().remove();
-									location.reload();	//안될시 방법
+									findAsk(1);				
 								}else{
 									console.log("삭제에 실패하였습니다.");
 								}
