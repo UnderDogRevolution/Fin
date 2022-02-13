@@ -3,12 +3,13 @@ package com.movie.sns.admin.model.vo;
 public class AdminReport {
 	private int reportNo;
 	private int memberNo;
-	private String postNo;
+	private int postNo;
 	private String memberNm;
 	private String memberNick;
 	private String reportContent;
 	private String createDt;
-	private String typeNo; // 0 게시글 1 댓글
+	private int typeNo; // 0 게시글 1 댓글
+	private String typeNm; // 0 게시글 1 댓글
 	private String searchPost;
 	private String inputResult; 
 	public AdminReport() {
@@ -17,12 +18,35 @@ public class AdminReport {
 	}
 	
 	 
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "AdminReport [reportNo=" + reportNo + ", memberNo=" + memberNo + ", postNo=" + postNo + ", memberNm="
 				+ memberNm + ", memberNick=" + memberNick + ", reportContent=" + reportContent + ", createDt="
-				+ createDt + ", typeNo=" + typeNo + ", searchPost=" + searchPost + ", inputResult=" + inputResult + "]";
+				+ createDt + ", typeNo=" + typeNo + ", typeNm=" + typeNm + ", searchPost=" + searchPost
+				+ ", inputResult=" + inputResult + "]";
 	}
+
+
+
+
+
+
+
+
+	public void setTypeNm(String typeNm) {
+		this.typeNm = typeNm;
+	}
+
+
+
+
+
 
 
 
@@ -31,11 +55,9 @@ public class AdminReport {
 	}
 
 
-
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
 	}
-
 
 
 	public int getMemberNo() {
@@ -43,23 +65,19 @@ public class AdminReport {
 	}
 
 
-
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
 
-
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
 
-
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
-
 
 
 	public String getMemberNm() {
@@ -67,11 +85,9 @@ public class AdminReport {
 	}
 
 
-
 	public void setMemberNm(String memberNm) {
 		this.memberNm = memberNm;
 	}
-
 
 
 	public String getMemberNick() {
@@ -79,11 +95,9 @@ public class AdminReport {
 	}
 
 
-
 	public void setMemberNick(String memberNick) {
 		this.memberNick = memberNick;
 	}
-
 
 
 	public String getReportContent() {
@@ -91,11 +105,9 @@ public class AdminReport {
 	}
 
 
-
 	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
 	}
-
 
 
 	public String getCreateDt() {
@@ -103,23 +115,19 @@ public class AdminReport {
 	}
 
 
-
 	public void setCreateDt(String createDt) {
 		this.createDt = createDt;
 	}
 
 
-
-	public String getTypeNo() {
+	public int getTypeNo() {
 		return typeNo;
 	}
 
 
-
-	public void setTypeNo(String typeNo) {
+	public void setTypeNo(int typeNo) {
 		this.typeNo = typeNo;
 	}
-
 
 
 	public String getSearchPost() {
@@ -127,17 +135,14 @@ public class AdminReport {
 	}
 
 
-
 	public void setSearchPost(String searchPost) {
 		this.searchPost = searchPost;
 	}
 
 
-
 	public String getInputResult() {
 		return inputResult;
 	}
-
 
 
 	public void setInputResult(String inputResult) {
@@ -146,7 +151,6 @@ public class AdminReport {
 
 
 
-	
 	
 
 	
