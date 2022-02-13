@@ -11,6 +11,52 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/myboard.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
+	<style type="text/css">
+	.postBox{
+		cursor: pointer;
+	}
+	.postBox:hover{
+    transform: scale( 1.1 );
+    transition-duration: 1s;
+}
+.img > img{
+	width: 100%;
+    height: 100%;
+    border-radius: 49%;
+}
+.pro-a:hover{
+	color: black;
+}
+.follow-modal{
+
+background-color: #404142 !important;
+}
+
+.info{
+	color: white !important;
+}
+
+.modal-header{
+color:white !important;
+}
+.follow-delete{
+    border-radius: 5px;
+    width: 100px;
+    height: 28px;
+    font-weight: 500;
+    background-color: #545454;
+    color: white;
+   	border: none;
+}
+.follow-delete:hover{
+	background-color: #942d2d;
+}
+.modal-body::-webkit-scrollbar {
+	display: none;
+}
+	</style>
+	
+	
 </head>
 <body>
 
@@ -30,7 +76,7 @@
 								<c:when test="${loginMember.memberNo == memberNo}">
 
 									<span>${loginMember.memberName}</span>
-									<a href="${contextPath}/member/myPage">프로필변경</a>
+									<a class="pro-a" href="${contextPath}/member/myPage">프로필변경</a>
 									<img src="${contextPath}/resources/images/myBoard/png"
 										data-bs-toggle="modal" data-bs-target="#followerList3">
 								</c:when>
@@ -117,7 +163,7 @@
 			<div class="modal fade" id="followerList" tabindex="-1"
 				aria-labelledby="followerListLabel" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content follow-modal">
 						<div class="modal-header">
 							<h5 class="modal-title" id="followerListLabel">팔로워 목록</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -234,7 +280,7 @@
 			<div class="modal fade" id="followerList2" tabindex="-1"
 				aria-labelledby="followerList2Label" aria-hidden="true">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content  follow-modal">
 						<div class="modal-header">
 							<h5 class="modal-title" id="followerListLabel">팔로우 목록</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -388,11 +434,26 @@
 
 
 	<script>
+	
+	
+	
+	
 	const memberNo = "${loginMember.memberNo}";
 	const memberNickName = "${loginMember.memberNickName}";
 	const memberName = "${loginMember.memberName}";
 	const contextPath = "${contextPath}";
 	const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
+	
+	
+	function memberView(member){
+		location.href = contextPath + "/board1/myBoard/"+member		
+	
+	}
+	
+ 	function postSubmit(postNo){
+		 location.href = contextPath + "/post/view/"+postNo
+	} 
+	
 	
 	
 		var thisMemberNo = window.location.href.split("/")[6];
@@ -439,28 +500,28 @@
 
 									if (list[i].poster !== undefined
 											& list[i].postContent !== undefined) {
-										html.push('<div class="show" style="background: url('
+										html.push('<div  onclick = "postSubmit('+list[i].postNo+');" class="show postBox" style="background: url('
 														+ list[i].poster
 														+ ') no-repeat center center; background-size: cover;"></div>');
 									} else if (list[i].poster === undefined
 											&& list[i].postContent !== undefined) {
 
 										if (list[i].listPostImage[0] === undefined) {
-											html.push('<div class="show"><span>'
+											html.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox"><span>'
 															+ list[i].postContent
 															+ '</span></div>');
 										} else {
 											console
 													.log(list[i].listPostImage[0].postImagePath);
 											html
-													.push('<div class="show" style="background: url(/fin'
+													.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox" style="background: url(/fin'
 															+ list[i].listPostImage[0].postImagePath
 															+ list[i].listPostImage[0].postImageName
 															+ ') no-repeat center center; background-size: cover;"></div>');
 										}
 
 									} else {
-										html.push('<div class="show"></div>');
+										html.push('<div onclick = "postSubmit('+list[i].postNo+');" class="show postBox"></div>');
 									}
 
 								}
@@ -599,13 +660,12 @@
 							
 						html.push(
 								'<div class="list-item">' +
-									'<div class="img"></div>' +
-									'<div class="info">' +
+									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
+									'<div onclick = "memberView('+list[i].memberNo+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
 										'<span>'+ list[i].memberNm +'</span>' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
-									'<a class="">삭제</a>'+
 									'</div>' +
 								'</div>'
 								);
@@ -626,7 +686,7 @@
 			});
 				
 			}).on('hide.bs.modal', function() {
-				alert('닫는다');
+				//alert('닫는다');
 			});
 		
 		// 해당 페이지 멤버 팔로워 조회
@@ -650,8 +710,8 @@
 							
 						html.push(
 								'<div class="list-item list-item-'+ i +'">' +
-									'<div class="img"></div>' +
-									'<div class="info">' +
+									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
+									'<div onclick = "memberView('+list[i].toUser+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
 										'<span>'+ list[i].memberNm +'</span>' +
 										'<input type="hidden" name="friendNo" value="' +list[i].memberNo + '">' +
@@ -680,7 +740,7 @@
 			});
 				
 			}).on('hide.bs.modal', function() {
-				alert('닫는다2');
+				//alert('닫는다2');
 			});
 		
 		 function followDelete(event,friendNo) {
