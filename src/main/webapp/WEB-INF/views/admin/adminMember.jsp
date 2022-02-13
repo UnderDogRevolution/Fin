@@ -81,7 +81,7 @@
 				</c:if>
 				
 					<div class="adminHeader">회원관리</div>
-					<div class="adminBoardMain">
+					<div class="adminBoardMain" style="min-height: 650px;">
 					
 						<div class="adminSearch">
 								<select name="sk" class="select selectStatusMenu" id="sk">
@@ -134,12 +134,14 @@
 							</div>
 
 						</div>
+
+						<button class="setBtn" disabled onclick="changeCheckbox(202);">정지</button>
+						<button class="setBtn" disabled onclick="changeCheckbox(200);">일반</button>
+						<button class="setBtn" disabled onclick="changeCheckbox(201);">탈퇴</button>
+
 					</div>
 					
 					
-					<button class="setBtn" disabled onclick="changeCheckbox(202);">정지</button>
-					<button class="setBtn" disabled onclick="changeCheckbox(200);">일반</button>
-					<button class="setBtn" disabled onclick="changeCheckbox(201);">탈퇴</button>
 					
 					<%---------------------- Pagination ----------------------%>
 					<div class="my-5">

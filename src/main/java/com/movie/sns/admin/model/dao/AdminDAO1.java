@@ -112,6 +112,14 @@ public class AdminDAO1 {
 		return sqlSession.selectOne("adminMapper1.reportView", reportNo);
 	}
 
+	/** 게시글 상태 일괄 변경(일반)
+	 * @param checkedPostNo
+	 * @return result
+	 */
+	public int multiChangePostStatus(int[] checkedPostNo) {
+		return sqlSession.update("adminMapper1.multiChangePostStatus", checkedPostNo);
+	}
+
 	
 	
 	

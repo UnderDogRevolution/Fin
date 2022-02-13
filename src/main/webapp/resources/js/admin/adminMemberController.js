@@ -569,8 +569,8 @@ $("#memberNoSort").on("click",function(){
   // 오름차순인 경우
   if($(this).hasClass("asc")){
 
+    $("#enrollDtSort").removeClass("enrollDate");
     $(this).removeClass("memberNumber");
-    $(this).removeClass("enrollDate");
     $(this).addClass("memberNumber");
 
     $(this).removeClass("asc");
@@ -606,6 +606,7 @@ $("#memberNoSort").on("click",function(){
 
 });
 
+// 가입일로 정렬하기
 $("#enrollDtSort").on("click", function(){
 
   const statusValue = $("#statusValue option:selected").val();
@@ -630,7 +631,7 @@ $("#enrollDtSort").on("click", function(){
 
   }else{
     
-    $(this).removeClass("memberNumber");
+    $("#memberNoSort").removeClass("memberNumber");
     $(this).removeClass("enrollDate");
     $(this).addClass("enrollDate");
 

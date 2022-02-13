@@ -38,6 +38,14 @@ public interface AdminService1 {
 	AdminReport reportView(String reportNo);
 
 	
+	/** 게시글 상태 일괄 변경(일반)
+	 * @param checkedPostNo
+	 * @param statusValue
+	 * @return result
+	 */
+	int multiChangePostStatus(int[] checkedPostNo, int statusValue);
+
+	
 	
 	
 	
