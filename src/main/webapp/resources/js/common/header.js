@@ -10,6 +10,62 @@ $(".noticewrap").on("click", function (e) {
 
         $(".notice_box").slideDown(200);
         $(".notice_box").addClass("show");
+        
+        var html = [];
+        var notice_box = $(".notice_box");
+        $.ajax({
+
+						url : contextPath + "/selectAlram" ,
+						type : "get",
+						dataType : "JSON",
+						
+						success : function(list) {			
+							
+							
+							console.log("===================================");
+							console.log(list);
+						if (list.length > 0){
+							
+							for(var i = 0; i < list.length; i++){
+								
+								
+							html.push(
+								'<div class="noticeList">' +
+                                    '<div class="img-profile"></div>'    +                                
+                                    '<div class="reply-comment-wrap">' +
+                                        '<span>'+ list[i].alramContent +'</span>' +
+                                    '</div>' +
+                                    
+                                '</div>'
+                                );
+								
+							}	
+							
+							notice_box.html(html.join(''));
+						}	
+							
+ 
+						
+							
+						},
+
+						error : function(request, status, error) {
+
+							// 비동기 통신중 서버로부터 에러 응답이 돌아왔을 때 수행
+							if (request.status == 404) {
+								console.log("ajax 요청 주소가 올바르지 않습니다.");
+
+							} else if (request.status == 500) {
+								console.log("서버 내부 에러 발생");
+								console.log(request.responseText);
+							}
+
+						}
+
+					});
+        
+        
+        
 
     }
 });
@@ -70,7 +126,7 @@ window.onclick = function (event) {
         $('.boardMenu').removeClass("show");
     }
 
-		
+	
 
 
 }

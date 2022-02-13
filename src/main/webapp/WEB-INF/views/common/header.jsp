@@ -60,21 +60,12 @@
 							<div class="notify-wrap">
                             <div class="notice_box">
                                 <!-- 알림영역 -->
-                                <div class="noticeList frends-request" data-bs-toggle="modal" data-bs-target="#followerList5">
-                                    <div class="img-profile"></div>
-                                    <div class="fol-request">
-                                        <span>팔로우 요청</span> 
-                                        <span>sangwon 외 32명</span>
-                                    </div>
-                                
-                                    
-                                   
-                                </div>
-                                <div class="noticeList">
+                            
+                                <!-- <div class="noticeList">
                                     <div class="img-profile"></div>
                                     
                                     <div class="reply-comment-wrap">
-                                        <span>이상원님이 댓글을 남기셨습니다.ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇ</span>
+                                        <span></span>
                                     </div>
                                     
                                 </div>
@@ -119,7 +110,7 @@
                                         <span>이상원님이 댓글을 남기셨습니다.</span>
                                     </div>
                                     
-                                </div>
+                                </div> -->
                                 
 
 
