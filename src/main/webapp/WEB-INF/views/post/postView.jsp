@@ -15,6 +15,7 @@
 			width: 100%;
 			height: 96%;
 			padding-top: 129px;
+			align-items: flex-start;
 		}
 	</style>
 </head>
@@ -125,7 +126,7 @@
 		</div>
 		</div>
 
-		<div style="margin-left: 4%; flex-basis: 18%; display: flex; flex-direction: column; align-items: flex-start;">
+		<div style="flex-basis: 18%; flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 23%;">
 			<jsp:include page="../main/side.jsp"></jsp:include>
 		</div>
 	</div>

@@ -26,10 +26,17 @@ public class Member {
 	private int violationNo;			// 경고 번호
 	private String violationContent;	// 경고 내용
 	
-	// 팔로잉 리스트, 팔로워 리스트 추가 예정
+	// 팔로우 리스트
 	private int toUser; // 나를 팔로우한 회원번호 
 	private List<Member> followMember;
 	private List<Member> followerMember;
+	
+	// 정렬용 필드
+	private String statusValue; // 상태값
+	private String sortColumn;	// 정렬할 컬럼
+	private String sortMethod;	// 정렬 방식
+	
+	
 	// 기본생성자
 	public Member() {	}
 	public int getMemberNo() {
@@ -146,6 +153,24 @@ public class Member {
 	public void setFollowerMember(List<Member> followerMember) {
 		this.followerMember = followerMember;
 	}
+	public String getStatusValue() {
+		return statusValue;
+	}
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
+	}
+	public String getSortColumn() {
+		return sortColumn;
+	}
+	public void setSortColumn(String sortColumn) {
+		this.sortColumn = sortColumn;
+	}
+	public String getSortMethod() {
+		return sortMethod;
+	}
+	public void setSortMethod(String sortMethod) {
+		this.sortMethod = sortMethod;
+	}
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberName=" + memberName + ", memberNickName=" + memberNickName
@@ -155,17 +180,10 @@ public class Member {
 				+ ", memberStatusName=" + memberStatusName + ", memberGradeName=" + memberGradeName
 				+ ", violationCount=" + violationCount + ", violationNo=" + violationNo + ", violationContent="
 				+ violationContent + ", toUser=" + toUser + ", followMember=" + followMember + ", followerMember="
-				+ followerMember + "]";
+				+ followerMember + ", statusValue=" + statusValue + ", sortColumn=" + sortColumn + ", sortMethod="
+				+ sortMethod + "]";
 	}
-	
-	
 
-
-	
-
-
-
-	
 	
 
 
