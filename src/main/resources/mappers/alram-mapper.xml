@@ -38,9 +38,9 @@
 	</select>
 	
 	<update id="deleteAlram">
-	UPDATE ALRAM SET REPLY_STATUS_CD = 1
+	UPDATE ALRAM SET ALRAM_STATUS = 1
 	WHERE
-	ALRAM_STATUS = #{deleteAlramNo}
+	SEQ_ALRAM_NO = #{deleteAlramNo}
 	
 	
 	
