@@ -30,7 +30,7 @@ $(".noticewrap").on("click", function (e) {
 								
 								
 							html.push(
-								'<div class="noticeList">' +
+								'<div class="noticeList noticeList'+ i +'">' +
                                     '<div class="img-profile"></div>'    +                                
                                     '<div class="reply-comment-wrap">' +
                                         '<span>'+ list[i].alramContent +'</span>' +
