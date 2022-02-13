@@ -76,8 +76,7 @@ select:focus {
 								<option value="askContent">내용</option>
 								<option value="memberName">이름</option>
 
-							</select> <input name="sv" type="text" id="sv">
-							<button onclick="findAsk();">검색</button>
+							</select> <input autocomplete="off" name="sv" type="text" id="sv" oninput="findAsk();">
 						</div>
 
 						<div class="adminBoardtable">
@@ -95,35 +94,8 @@ select:focus {
 										</tr>
 
 									</thead>
-									<tbody>
-										<c:choose>
-
-											<c:when test="${empty askList}">
-												<tr>
-													<td colspan="6">등록된 문의글이 존재하지 않습니다.</td>
-												</tr>
-
-											</c:when>
-											<c:otherwise>
-												<c:forEach items="${askList}" var="ask">
-													<tr>
-														<td style="cursor: pointer;"
-															onclick="showAskDetail(${ask.askNo});">${ask.askNo}</td>
-														<td style="cursor: pointer;"
-															onclick="showAskDetail(${ask.askNo});">${ask.askTitle}</td>
-														<td style="cursor: pointer;"
-															onclick="showAskDetail(${ask.askNo});">${ask.askContent}</td>
-														<td style="cursor: pointer;"
-															onclick="showAskDetail(${ask.askNo});">${ask.memberName}</td>
-														<td style="cursor: pointer;"
-															onclick="showAskDetail(${ask.askNo});">${ask.askDate}</td>
-														<td><p class="deleteBtn" id="deleteBtn"
-																style="cursor: pointer;"
-																onclick="askDelete(event,${ask.askNo});">삭제</p></td>
-													</tr>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
+									<tbody class="tbody">
+									
 									</tbody>
 									<tfoot>
 									</tfoot>
@@ -133,6 +105,8 @@ select:focus {
 
 
 					</div>
+					
+					<%---------------------- Pagination ----------------------%>
 					<div class="my-5">
 						<div>
 							<ul class="pagination">
@@ -248,7 +222,7 @@ select:focus {
 		const contextPath = "${contextPath}";
 	</script>
 
-<!-- 전역 변수 -->
+	<!-- 전역 변수 -->
 	<script>
 		const contextPath = "${contextPath}";
 		
@@ -311,7 +285,7 @@ select:focus {
 								if(result > 0){
 									
 									deleteRow.parent().parent().remove();
-									
+									location.reload();	//안될시 방법
 								}else{
 									console.log("삭제에 실패하였습니다.");
 								}
