@@ -47,7 +47,6 @@ public class PostServiceImpl implements PostService {
 		post.setPostContent((String)postVO.get("postContent"));
 		post.setCheckUsePoster((int)postVO.get("checkUsePoster"));
 		
-		List<String> tagArr = (List<String>)postVO.get("tagArr");
 
 		Map<String, Object> movieMap = new HashMap<String, Object>();
 		Movie movie = new Movie();
@@ -99,14 +98,18 @@ public class PostServiceImpl implements PostService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("postNo", post.getPostNo());
 		
-		for(String tagName : tagArr) {
-			map.put("tagName", tagName);
-			result = dao.dupCheckTag(map);
-			if(result == 1) { //중복되는 태그가 있는 경우
-				result = dao.insertPostTag(map);
-			}else if(result == 0) { //중복되는 태그가 없는 경우
-				result = dao.inserTag(map);
-				result = dao.insertPostTag(map);
+		if(postVO.get("tagArr") != null) {
+			List<String> tagArr = (List<String>)postVO.get("tagArr");
+			
+			for(String tagName : tagArr) {
+				map.put("tagName", tagName);
+				result = dao.dupCheckTag(map);
+				if(result == 1) { //중복되는 태그가 있는 경우
+					result = dao.insertPostTag(map);
+				}else if(result == 0) { //중복되는 태그가 없는 경우
+					result = dao.inserTag(map);
+					result = dao.insertPostTag(map);
+				}
 			}
 		}
 		movie.setPostNo(post.getPostNo());
