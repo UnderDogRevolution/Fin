@@ -23,6 +23,7 @@ $(".noticewrap").on("click", function(e) {
 
 
 				console.log("===================================");
+				console.log("===================================");
 				console.log(list);
 				if (list.length > 0) {
 
@@ -30,8 +31,9 @@ $(".noticewrap").on("click", function(e) {
 
 
 						html.push(
+							
 							'<div class="noticeList noticeList' + i + '" data-alram-no="' + list[i].alramNo + '" data-alram-url="'+list[i].alramUrl+'" >' +
-							'<div class="img-profile"></div>' +
+							'<div class="img-profile" style="background: url('+contextPath+list[i].profileImage.imgPath + list[i].profileImage.imgName + '); background-size: cover"></div>' +
 							'<div class="reply-comment-wrap">' +
 							'<span>' + list[i].alramContent + '</span>' +
 							'</div>' +
