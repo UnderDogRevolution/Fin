@@ -13,6 +13,22 @@
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/main/crud-post.css">
 <style type="text/css">
+html::-webkit-scrollbar {
+	display: none !important;
+}
+
+.container::-webkit-scrollbar {
+	display: none;
+}
+
+.board-show::-webkit-scrollbar {
+	display: none;
+}
+
+.follow-modal_ {
+	width: 450px;
+}
+
 .sexyboy {
 	background-color: #404142 !important;
 }
@@ -463,7 +479,18 @@
 	const memberName = "${loginMember.memberName}";
 	const contextPath = "${contextPath}";
 	const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
+<<<<<<< HEAD
+	
+/* 	
+	function updatePwUser(){
+		location.href = contextPath + "/member/updatePw"
+	}
+	function enquery(){
+		location.href = contextPath + "/member/ask"
+	}
+=======
 	const alramNo = "${memberNo}";
+>>>>>>> a0262170f89f19841f22b4755c1f9322c1e87d72
 	
 	function memberView(member){
 		location.href = contextPath + "/board1/myBoard/"+member		
@@ -473,7 +500,7 @@
  	function postSubmit1(postNo){
 		 location.href = contextPath + "/post/view/"+postNo
 	} 
-	
+
 	
 	
 		var thisMemberNo = window.location.href.split("/")[6];
@@ -636,7 +663,7 @@
 				});
 
 		$(document).on("click", '.follower', function() {
-
+			console.log("fkdafjlkf");
 			var html = [];	
 			
 			var _this = $(this);

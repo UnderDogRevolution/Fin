@@ -98,7 +98,7 @@ function memberUpdateValidate() {
 //이미지 수정 부분
 
 $(function() {
-	$(".memberImg").on("click", function() {
+	$("#img").on("click", function() {
 		var index = $(".memberImg").index(this);
 
 		$("[type=file]").eq(index).click();
