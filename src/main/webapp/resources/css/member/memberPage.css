@@ -91,6 +91,8 @@ a {
 }
 
 .a-main-logo{
+  display : flex;
+  align-items : center;
   position: relative;
   z-index: 5001;
   float: left;
@@ -109,15 +111,26 @@ a {
   user-select: none;
 }
 
+.a-logo-img{
+	width:100%;
+}
+
+@media (min-width: 0px){
+  .a-main-logo{
+    width: 180px;
+    font-size: 30px;
+  }
+}
+
 @media (min-width: 576px){
   .a-main-logo{
-    width: 150px;
+    width: 180px;
     font-size: 30px;
   }
 }
 @media (min-width: 768px){
   .a-main-logo{
-    width: 180px;
+    width: 200px;
     font-size: 35px;
   }
 }
@@ -126,7 +139,7 @@ a {
     padding: 0 50px;
   }
   .a-main-logo{
-    width: 200px;
+    width: 220px;
     font-size: 35px;
   }
 }
