@@ -546,7 +546,8 @@ function postValidate(){
             youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
             postVO.youtube = youtube;
             postVO.checkUsePoster = 0;
-        }else if(crudImg.getAttribute("src") != null){
+        }else if(crudImg.getAttribute("src") != null && movie != null){
+            console.log(movie);
             postVO.checkUsePoster = 1;
         }else{
             postVO.checkUsePoster = 0;
