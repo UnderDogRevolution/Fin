@@ -22,9 +22,6 @@
 
 
 <body>
-	${post}
-	<br>
-	${post.listPostImage[0] == null}
 	<div id="main-container">
 
 		
