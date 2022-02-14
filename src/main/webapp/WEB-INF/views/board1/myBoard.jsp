@@ -591,7 +591,7 @@ background-color: #942d2d;
 							
 							alramObj.alramTakeMemberNo = alramNo;
 							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
-							alramObj.alramUrl = contextPath + "/board1/myBoard/" + alramNo;
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
 							alramObj.alramGiveNo = memberNo;
 							
 							
