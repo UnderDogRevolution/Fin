@@ -132,7 +132,6 @@ public class ChatServiceImpl implements ChatService {
 		ChatRoom chatRoom = null;
 		result = dao.searchChatRoomJoin(room);
 		if (result > 0) { // 채팅방이 존재할 경우
-			// 방번호를 얻어와 두사람 상태가 참여중인지 조회
 			result = dao.joinChatNo(room);
 			System.out.println("방번호 결과값" + result);
 			
