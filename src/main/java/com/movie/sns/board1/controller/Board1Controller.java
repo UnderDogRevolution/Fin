@@ -126,7 +126,7 @@ public class Board1Controller {
 
 	@ResponseBody
 	@RequestMapping(value = "myBoard/{memberNo}/deleteFollow", method = RequestMethod.GET)
-	public int deleteFollow(@PathVariable("friendNo") int friendNo, String mode, Model model, HttpSession session,
+	public int deleteFollow(@PathVariable("memberNo") int friendNo, String mode, Model model, HttpSession session,
 			Member member) {
 
 		Member loginMember = (Member) session.getAttribute("loginMember");
