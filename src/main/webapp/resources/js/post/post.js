@@ -923,7 +923,7 @@ function selectReply(postNo){
 				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
 				replyPng.addEventListener("click", function(e){
 					e.stopPropagation();
-					comment(this, items.replyNo)
+					comment(this, items.replyNo, items.memberNo);
 				})
 			
 				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다. 그리고 이미지는 focus가 안되기 때문에 이 두 이벤트는 적절하지 않다!
@@ -959,7 +959,7 @@ function selectReply(postNo){
 	return replyDiv
 }
 
-function comment(e, replyNo){
+function comment(e, replyNo, replpyMemberNo){
 	
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
@@ -970,11 +970,11 @@ function comment(e, replyNo){
 		input.setAttribute("placeholder", "답글을 달아주세요!");
 		input.focus();
 	}
-	img.setAttribute("onclick", "insertComment(this,"+replyNo+")")
+	img.setAttribute("onclick", "insertComment(this,"+replyNo+ "," + replpyMemberNo +")");
 }
 
 
-function insertComment(e, replyNo){
+function insertComment(e, replyNo, replpyMemberNo){
 	if(typeof memberNo == "undefined"  || memberNo == ""){
         alert("로그인 해주세요!")
         return;
@@ -996,10 +996,11 @@ function insertComment(e, replyNo){
 				if(result>0){
 					alert("답글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
-					
+					console.log("=================================");
+					console.log(replpyMemberNo);
 					const alramObj = {};
 								
-								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramTakeMemberNo = replpyMemberNo;
 								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
