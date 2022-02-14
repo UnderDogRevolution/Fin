@@ -28,6 +28,7 @@ for (const items of whitePopcorn) {
 					alramObj.alramTakeMemberNo = postMemberNo;
 					alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 					alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+					alramObj.alramGiveNo = loginMemberNo;
 
 
 
@@ -94,7 +95,7 @@ function deletePost(e) {
 			success: function(result) {
 				if (result > 0) {
 					alert("게시글이 삭제 되었습니다.")
-					revealPost()
+					location.href = contextPath +"/main";
 
 				} else {
 					alert("게시글 삭제 중 문제가 발생했습니다.")
@@ -156,6 +157,7 @@ function insertReply(e) {
 						alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
 						alramObj.alramContent = loginMemberName + "님이 댓글을 남겼습니다.";
 						alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+						alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -226,6 +228,7 @@ function insertComment(e, replyNo, replyMemberNo) {
 								alramObj.alramTakeMemberNo = replyMemberNo;
 								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -543,6 +546,7 @@ function selectReply(postNo) {
 								alramObj.alramTakeMemberNo = _this.parents('.parent-reply').children('.profile-reply').children().attr('id');
 								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 
 
 

@@ -446,6 +446,7 @@ function searchPostList(){
 								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
 								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -652,6 +653,7 @@ function insertReply(e){
 						alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
 						alramObj.alramContent = loginMemberName + "님이 댓글을 남겼습니다.";
 						alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+						alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -863,6 +865,7 @@ function selectReply(postNo){
 								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
 								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -1000,6 +1003,7 @@ function insertComment(e, replyNo, replyMemberNo){
 								alramObj.alramTakeMemberNo = replyMemberNo;
 								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -1033,8 +1037,7 @@ function deletePost(e){
 			success: function (result) {
 				if(result>0){
 					alert("게시글이 삭제 되었습니다.")
-					revealPost()
-
+					location.reload();
 				}else{
 					alert("게시글 삭제 중 문제가 발생했습니다.")
 				}
