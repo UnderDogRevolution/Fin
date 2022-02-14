@@ -8,6 +8,7 @@ let youtubePath = null;
 (function(){
 	document.querySelectorAll(".insert-media > img")[0].addEventListener("click", function(){
 		document.querySelectorAll("[type='file']")[0].click()
+        
 	})
 })()
 
@@ -38,6 +39,7 @@ function loadImg(input, num){
         // onPoster.style.display = "inline";
         const youtubeBox = document.getElementsByClassName("youtube-box")[0];
         if(youtubeBox){
+            youtubePath = null;
             youtubeBox.remove()
         }
         
@@ -74,6 +76,7 @@ deleteImg.addEventListener("click", function(e){
         youtubeFrame.remove();
         deleteImg.style.display = "none"
         postImg.style.display = "none";
+        youtubePath = null;
     }
     
 })
@@ -280,12 +283,14 @@ async function fetchMovie(page){
                 
                 onPoster.addEventListener("click", function(e){
                     e.stopPropagation();
+                    inputFile.value = "";
                     crudImg.setAttribute("src", movie.poster); // this의 레벨은 영역을 좀만 벗어나도 달라진다.
                     postImg.style.display = "block"
                     // tempURL.innerText = movie.poster;
                     deleteImg.style.display = "inline";
                     const youtubeBox = document.getElementsByClassName("youtube-box")[0];
                     if(youtubeBox){
+                        youtubePath = null;
                         youtubeBox.remove()
                     }
                 })
@@ -475,7 +480,6 @@ function postValidate(){
         alert("내용을 입력해주세요!")
         return;
     }
-
         const rating = document.getElementsByClassName("rating-value")[0].innerText
         if(movie != null){
             if(rating != ""){
@@ -499,35 +503,39 @@ function postValidate(){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
         }
-        if(youtubePath != null){
-            const youtube = {}
-            const youtubeUrl =  (youtubePath.match(/(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i))[0];
-            const youtubeId = youtubeUrl.substring(30)
-            youtube.path = youtubePath;
-            youtube.id = youtubeId;
-            youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
-            console.log(youtube)
-            postVO.youtube = youtube;
-        }
 
-        if(crudImg.getAttribute("src") != null && !inputFile.files[0]){
-            postVO.checkUsePoster = 1;
-        }else{
-            postVO.checkUsePoster = 0;
-        }
         
         
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
         postVO.movie = movie;
         console.log(postVO);
-
+        
         // image 영역
         const formData = new FormData();
         const image = document.getElementsByClassName("files")[0]
         if(image.files.length > 0){
-            formData.append('image', image.files[0])
+            
         }
+        if(inputFile.value.length >0){
+            formData.append('image', image.files[0])
+            postVO.checkUsePoster = 0;
+        }else if(youtubePath != null){
+            const youtube = {}
+            const youtubeUrl =  (youtubePath.match(/(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i))[0];
+            const youtubeId = youtubeUrl.substring(30)
+            youtube.path = youtubePath;
+            youtube.id = youtubeId;
+            youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
+            postVO.youtube = youtube;
+            postVO.checkUsePoster = 0;
+        }else if(crudImg.getAttribute("src") != null && movie != null){
+            console.log(movie);
+            postVO.checkUsePoster = 1;
+        }else{
+            postVO.checkUsePoster = 0;
+        }
+        
         formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
         console.log(formData);
         $.ajax({ 
@@ -575,6 +583,7 @@ function onYoutube(){
 
     if(youtubePath.indexOf('title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;') > 0){
         console.log(postImg)
+        inputFile.value = "";
         postImg.style.display = "block";
         crudImg.removeAttribute("src");
         const youtubeBox = document.createElement("div")

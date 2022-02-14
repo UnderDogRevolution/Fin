@@ -35,6 +35,7 @@
 	FROM ALRAM
 	WHERE ALRAM_NO = #{memberNo}
 	AND ALRAM_STATUS = 0
+	ORDER BY SEQ_ALRAM_NO DESC
 	</select>
 	
 	<update id="deleteAlram">
