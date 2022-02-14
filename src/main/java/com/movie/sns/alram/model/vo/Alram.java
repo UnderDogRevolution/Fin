@@ -1,5 +1,7 @@
 package com.movie.sns.alram.model.vo;
 
+import com.movie.sns.member.model.vo.Image;
+
 public class Alram {
 	
 	// 댓글 대댓글 쓴 , 댓글 대댓글 게시글 좋아요 누른, 날 친구한, 날 태그한 사람 넘버
@@ -12,6 +14,7 @@ public class Alram {
 	int alramStatus;
 	int alramGiveNo;
 	
+	private Image profileImage;
 //	
 //	int postMemberNo; 					// 게시글을 작성한 회원 넘버
 //	
@@ -82,12 +85,22 @@ public class Alram {
 		this.alramGiveNo = alramGiveNo;
 	}
 
+	public Image getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(Image profileImage) {
+		this.profileImage = profileImage;
+	}
+
 	@Override
 	public String toString() {
 		return "Alram [alramNo=" + alramNo + ", alramTakeMemberNo=" + alramTakeMemberNo + ", alramContent="
 				+ alramContent + ", alramUrl=" + alramUrl + ", alramStatus=" + alramStatus + ", alramGiveNo="
-				+ alramGiveNo + "]";
+				+ alramGiveNo + ", profileImage=" + profileImage + "]";
 	}
+
+	
 
 	
 

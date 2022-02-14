@@ -201,14 +201,14 @@ function postModal(postNo) {
 
 
 		success: function(post) {
-
-			console.log(post.blind);
+			console.log(post);
 			const a2 = $('<a style="text-decoration: none; color: white;"'
 				+ 'href="' + contextPath + '/board1/myBoard/' + post.memberNo + '">' + post.memberNm + '</a>')
 			const a = $('<a style="text-decoration: none; color: white;"'
 				+ 'href="' + contextPath + '/post/view/' + post.postNo + '">' + post.postContent + '</a>')
 			const select = $('<select  name="statusCd"  class="select"></select>');
 			select.attr("onchange", "changeStatus(event," + post.postNo + ")");
+			$(".modal-img").html("");
 			for (let i = 500; i < 505; i++) {
 				const option = $("<option>");
 				option.val(i);
@@ -241,7 +241,9 @@ function postModal(postNo) {
 			if (post.imgPath != null) {
 
 				$(".modal-img").css("display", "flex");
-				$(".modal-imgtag").attr("src", contextPath + post.imgPath + post.imgNm);
+
+				const img = $("<img class = 'modal-imgtag'>").attr("src", contextPath + post.imgPath + post.imgNm);
+				$(".modal-img").append(img)
 				$($(".postListContent")[0]).html(post.postNo);
 				$($(".postListContent")[1]).html(post.memberNo);
 				$($(".postListContent")[2]).append(a2);
@@ -253,7 +255,44 @@ function postModal(postNo) {
 				$($(".postListContent")[8]).append(select);
 				$($(".postListContent")[9]).html(post.blind);
 				$($(".postListContent")[10]).html(post.CNT);
+			} else if (post.poster != null) {
+				$(".modal-img").css("display", "flex");
+				const img = $("<img class = 'modal-imgtag'>").attr("src", post.poster);
+				$(".modal-img").append(img)
+				$($(".postListContent")[0]).html(post.postNo);
+				$($(".postListContent")[1]).html(post.memberNo);
+				$($(".postListContent")[2]).append(a2);
+				$($(".postListContent")[3]).html(post.memberNick);
+				$($(".postListContent")[4]).append(a);
+				$($(".postListContent")[5]).html(post.likeCount);
+				$($(".postListContent")[6]).html(post.createDt);
+				$($(".postListContent")[7]).html(post.modifyDt);
+				$($(".postListContent")[8]).append(select);
+				$($(".postListContent")[9]).html(post.blind);
+				$($(".postListContent")[10]).html(post.CNT);
+
+
+			} else if (post.youtube_path != null) {
+
+				console.log(post.youtube_path);
+				$(".modal-img").css("display", "flex");
+				$(".modal-img").html(post.youtube_path)
+				$($(".postListContent")[0]).html(post.postNo);
+				$($(".postListContent")[1]).html(post.memberNo);
+				$($(".postListContent")[2]).append(a2);
+				$($(".postListContent")[3]).html(post.memberNick);
+				$($(".postListContent")[4]).append(a);
+				$($(".postListContent")[5]).html(post.likeCount);
+				$($(".postListContent")[6]).html(post.createDt);
+				$($(".postListContent")[7]).html(post.modifyDt);
+				$($(".postListContent")[8]).append(select);
+				$($(".postListContent")[9]).html(post.blind);
+				$($(".postListContent")[10]).html(post.CNT);
+
+
+
 			} else {
+
 				$(".modal-img").css("display", "none");
 				$($(".postListContent")[0]).html(post.postNo);
 				$($(".postListContent")[1]).html(post.memberNo);

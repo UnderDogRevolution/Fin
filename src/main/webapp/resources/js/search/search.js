@@ -11,7 +11,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 
 
 //인물 클릭시
- function searchMember(){ // ajax 
+function searchMember() { // ajax 
 	// 검색 val()를 가져온다
 	const search = searchParam("searchResult");
 	console.log(search);
@@ -22,7 +22,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 		dataType: 'JSON',
 		success: function(list) {
 			console.log(list);
-			if(list.length == 0){
+			if (list.length == 0) {
 				const templateLiterals = ` <div id="no-search-result">
 											<img src="${contextPath}/resources/images/temp/search_icon.png">
 											<br>
@@ -37,7 +37,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 				console.log(path);
 				if (member.CNT > 0) { //내가 팔로우한 사람인 경우
 					const main = $("#container-post");
-					const result = $("<div class='user-post'>");
+					const result = $("<div class='user-post' onclick = 'memberViewResult(" + member.memberNo + ")'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
 					const img_ = $("<img>");
@@ -50,7 +50,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 					const profdiv3 = $("<div>");
 					const profdiv4 = $("<div>");
 					const button = $("<div>");
-					const button_ = $("<button id = 'flbtn' onclick = 'flInsert(this"+ ","+ member.memberNo + ")'>");
+					const button_ = $("<button id = 'flbtn' onclick = 'flInsert(event" + "," + member.memberNo + ")'>");
 					a.append(img_);
 					imgdiv.append(a);
 					profdiv1.text("이름 : " + member.memberNm);
@@ -68,14 +68,14 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 					peplewrap.append(button);
 					result.append(peplewrap);
 					main.append(result);
-					
-					button_.css('background-color', 'black');
+
+					button_.css('background-color', '#942d2d');
 					button_.css('color', 'white');
 				} else {
 
-					
+
 					const main = $("#container-post");
-					const result = $("<div class='user-post'>");
+					const result = $("<div class='user-post' onclick = 'memberViewResult(" + member.memberNo + ")'>");
 					const peplewrap = $(" <div class='searchboard-pr'>");
 					const imgdiv = $("<div>");
 					const img_ = $("<img>");
@@ -90,7 +90,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 					const profdiv5 = $("<div>");
 					const button = $("<div>");
 					const p = $("<p>");
-					const button_ = $("<button id = 'flbtn' onclick = 'flInsert(event"+"," + member.memberNo + ")'>");
+					const button_ = $("<button id = 'flbtn' onclick = 'flInsert(event" + "," + member.memberNo + ")'>");
 					button_.text("팔로우")
 					a.append(img_);
 					imgdiv.append(a);
@@ -108,9 +108,9 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 					peplewrap.append(button);
 					result.append(peplewrap);
 					main.append(result);
-					
-					button_.css('color', 'black');
-					button_.css('background-color', 'white');
+
+					button_.css('color', 'white');
+					button_.css('background-color', '#545454');
 
 
 
@@ -138,7 +138,8 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 
 
 // 팔로우 버튼 클릭시 text 요청중 으로 바꾸기 
-function flInsert(event,friendNo) {
+function flInsert(event, friendNo) {
+	event.stopPropagation();
 	console.log($(event.target).text());
 	const btn = $(event.target);
 	if (btn.text() == "팔로우") {
@@ -148,11 +149,10 @@ function flInsert(event,friendNo) {
 			data: { "memberNo": memberNo, "friendNo": friendNo },
 
 			success: function(result) {
-				console.log("성공")
 
 				btn.text("팔로잉");
 				btn.css('color', 'white');
-				btn.css('background-color', 'black');
+				btn.css('background-color', '#942d2d');
 
 			},
 			error: function() {
@@ -169,21 +169,35 @@ function flInsert(event,friendNo) {
 			data: { "memberNo": memberNo, "friendNo": friendNo },
 
 			success: function(result) {
-				console.log("성공")
-				btn.text("");
-				btn.text("팔로우");
-				btn.css('color', 'black');
-				btn.css('background-color', 'white');
 
-			},
-			error: function() {
+				if (confirm("정말로 팔로우를 취소하시겠습니까?")) {
+					
+					btn.text("");
+					btn.text("팔로우");
+					btn.css('color', 'white');
+					btn.css('background-color', '#545454');
 
-			}
+				}
+				},
+				error: function() {
+
+				}
 
 
-		});
+			});
 
 
 	}
 
 };
+
+
+
+function memberViewResult(memberNo) {
+	event.stopPropagation();
+	location.href = contextPath + "/board1/myBoard/" + memberNo
+
+
+}
+
+

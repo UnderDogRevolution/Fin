@@ -19,6 +19,8 @@
 		<result property="imgNm" column="POST_IMG_NM" />
 		<result property="blind" column="BLIND_POST_CONTENT" />
 		<result property="CNT" column="CNT" /> <!-- 신고 수   -->
+		<result property="poster" column="POSTER" /> <!-- 영화 주소 -->
+		<result property="youtube_path" column="YOUTUBE_PATH" /> <!-- 영화 주소 -->
 	</resultMap>
 
 	<resultMap type="AdminReport" id="AdminReport_rm">
@@ -472,18 +474,23 @@
 		SELECT * FROM POST_STATUS
 	</select>
 	<select id="postView" resultMap="adminPost_rm">
-		SELECT POST_NO , MEMBER_NM,MEMBER_NICKNM, POST_CONTENT , LIKE_COUNT,
+ 	  SELECT POST.POST_NO , MEMBER_NM,MEMBER_NICKNM, POST_CONTENT , LIKE_COUNT,
 		POST.CREATE_DT, POST.MODIFY_DT, MEMBER_NO , POST_STATUS_NM,
-		POST_STATUS_CD , POST_IMG_PATH , POST_IMG_NM,
+		POST_STATUS_CD , POST_IMG_PATH , POST_IMG_NM, POSTER,YOUTUBE_PATH,
 		(SELECT COUNT(*) FROM
 		REPORT
 		JOIN POST ON(TARGET_PK = POST_NO)
-		WHERE POST_NO = #{postNo}) CNT
+		WHERE POST.POST_NO = #{postNo}) CNT
 		FROM POST
-		JOIN POST_STATUS USING(POST_STATUS_CD)
-		LEFT JOIN POST_IMG USING(POST_NO)
-		JOIN MEMBER USING (MEMBER_NO)
-		WHERE POST_NO = #{postNo}
+        LEFT JOIN POST_YOUTUBE ON(POST.POST_NO = POST_YOUTUBE.POST_NO)
+		LEFT JOIN POST_STATUS USING(POST_STATUS_CD)
+        LEFT JOIN MOVIE_RATING ON(POST.POST_NO = MOVIE_RATING.POST_NO)
+        LEFT JOIN MOVIE ON(MOVIE_RATING.MOVIE_NO = MOVIE.MOVIE_NO)
+		LEFT JOIN POST_IMG  I ON(POST.POST_NO = I.POST_NO)
+        JOIN MEMBER A  ON(A.MEMBER_NO = POST.MEMBER_NO)
+		WHERE POST.POST_NO = #{postNo}
+        
+
 	</select>
 
 	<select id="searchStatus" resultMap="status_rm">

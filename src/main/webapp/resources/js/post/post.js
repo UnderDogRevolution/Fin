@@ -586,7 +586,6 @@ function revealPost(){
 				io.disconnect()
 			}else{
 				cp++;
-				console.log(temp)
 				io.observe(temp)
 			}
 		} 
@@ -776,7 +775,6 @@ function selectReply(postNo){
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
-				// console.log(items.memberNo == memberNo)
 				if(typeof memberNo != "undefined"){
 					if(items.memberNo == memberNo){ //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
