@@ -10,6 +10,7 @@ public class Alram {
 	String alramUrl;
 	
 	int alramStatus;
+	int alramGiveNo;
 	
 //	
 //	int postMemberNo; 					// 게시글을 작성한 회원 넘버
@@ -73,12 +74,22 @@ public class Alram {
 		this.alramStatus = alramStatus;
 	}
 
+	public int getAlramGiveNo() {
+		return alramGiveNo;
+	}
+
+	public void setAlramGiveNo(int alramGiveNo) {
+		this.alramGiveNo = alramGiveNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Alram [alramNo=" + alramNo + ", alramTakeMemberNo=" + alramTakeMemberNo + ", alramContent="
-				+ alramContent + ", alramUrl=" + alramUrl + ", alramStatus=" + alramStatus + "]";
+				+ alramContent + ", alramUrl=" + alramUrl + ", alramStatus=" + alramStatus + ", alramGiveNo="
+				+ alramGiveNo + "]";
 	}
 
+	
 
 
 	
