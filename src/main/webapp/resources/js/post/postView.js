@@ -221,8 +221,6 @@ function insertComment(e, replyNo, replyMemberNo) {
 						const replyDiv = selectReply(postNo);
 						post.append(replyDiv);
 					}
-				}
-				
 				const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = replyMemberNo;
@@ -232,11 +230,13 @@ function insertComment(e, replyNo, replyMemberNo) {
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+				}
+				
 				
 				
 				
 				 else {
-					alert("답글 등록 중 문제가 발생했습니다.")
+					alert("답글 등록 중 문제가 발생했습니다.");
 				}
 			},
 			error: function(req, status, error) {
