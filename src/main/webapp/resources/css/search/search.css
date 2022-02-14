@@ -89,14 +89,17 @@ a:hover {
 	border-radius: 5px;
 	margin: auto;
 }
-
+.user-post:hover{
+	transform: scale(1.1);
+	transition-duration: 3s;
+	cursor: pointer;
+}
 .user-post>a {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 }
-
 /* .post-header {
 	display: flex;
 	width: 100%;
