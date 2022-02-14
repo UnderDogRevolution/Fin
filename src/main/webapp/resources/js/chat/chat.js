@@ -20,11 +20,27 @@ function flInsert(event, friendNo) {
 			data: { "memberNo": memberNo, "friendNo": friendNo },
 
 			success: function(result) {
-				console.log("성공")
 
 				btn.text("팔로잉");
 				btn.removeClass("messagebtn2-1");
 				btn.addClass("messagebtn2-3");
+				
+				
+				const alramObj = {};
+							
+							alramObj.alramTakeMemberNo = friendNo;
+							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+				
+				
+				
+				
 
 			},
 			error: function() {
@@ -41,11 +57,13 @@ function flInsert(event, friendNo) {
 			data: { "memberNo": memberNo, "friendNo": friendNo },
 
 			success: function(result) {
-				console.log("성공")
+			if(confirm("팔로우를 취소하시겠습니까?")){
+				
 				btn.text("");
 				btn.text("팔로우");
 				btn.removeClass("messagebtn2-3");
 				btn.addClass("messagebtn2-1");
+			}
 
 			},
 			error: function() {

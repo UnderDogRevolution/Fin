@@ -14,6 +14,7 @@ document.querySelector("input[name=searchResult]").value = getParam("searchResul
 function searchMember() { // ajax 
 	// 검색 val()를 가져온다
 	const search = searchParam("searchResult");
+	
 	console.log(search);
 	$.ajax({
 		url: contextPath + "/search/member",
@@ -22,6 +23,7 @@ function searchMember() { // ajax
 		dataType: 'JSON',
 		success: function(list) {
 			console.log(list);
+			
 			if (list.length == 0) {
 				const templateLiterals = ` <div id="no-search-result">
 											<img src="${contextPath}/resources/images/temp/search_icon.png">
@@ -142,6 +144,7 @@ function flInsert(event, friendNo) {
 	event.stopPropagation();
 	console.log($(event.target).text());
 	const btn = $(event.target);
+	
 	if (btn.text() == "팔로우") {
 
 		$.ajax({
@@ -153,6 +156,19 @@ function flInsert(event, friendNo) {
 				btn.text("팔로잉");
 				btn.css('color', 'white');
 				btn.css('background-color', '#942d2d');
+				
+				
+					const alramObj = {};
+							
+							alramObj.alramTakeMemberNo = friendNo;
+							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
 
 			},
 			error: function() {

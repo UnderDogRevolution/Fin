@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<div class="col-sm-4 mt-5">
-	<h3>사이드 메뉴</h3>
-	<ul class="list-group">
-		<li class="list-group-item list-group-item-action"><a href="myPage">내정보</a></li>
-		<li class="list-group-item list-group-item-action"><a href="updatePw">비밀번호 변경</a></li>
-		<li class="list-group-item list-group-item-action"><a href="ask">바라는 점</a></li>
-		<li class="list-group-item list-group-item-action"><a href="secession">회원 탈퇴</a></li>
-	</ul>
+	pageEncoding="UTF-8"%>
+<div class="side">
+	<a class="btn  btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
+	<a class="btn btn-lg" a href="updatePw" role="button">비밀번호 수정</a><br>
+	<a class="btn btn-lg" a href="ask" role="button">바라는 점</a><br> <a
+		class="btn  btn-lg" a href="secession" role="button">회원탈퇴</a>
+
 </div>
