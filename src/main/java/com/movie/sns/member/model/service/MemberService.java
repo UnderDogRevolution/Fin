@@ -58,7 +58,7 @@ public interface MemberService {
 	 * @param authCode
 	 * @return result
 	 */
-	int insertAuthCode(String memberEmail, String authCode);
+	int insertAuthCode(String memberEmail, String authCode, HttpServletRequest req);
 
 
 	/** 이메일 인증코드 조회하기
