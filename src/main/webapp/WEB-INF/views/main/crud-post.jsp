@@ -9,7 +9,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
     <div class="modal-content" style="width: 100%; height: 100%; background-color: inherit;">
          <div class="modal-post">
             <div class="modal-post-header">
-                <span>${loginMember.memberName}</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
+                <span>${loginMember.memberNickName}</span>  <span class="header-tag" onclick="postValidate()">공유</span> <span class="header-tag" style="display: none;" onclick="Review()">검색 &nbsp; </span>
             </div>
             <div class="modal-post-content">
                 <div class="modal-review-title">
