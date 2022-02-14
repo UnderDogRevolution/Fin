@@ -10,66 +10,72 @@
 <title>myboard</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/board/myboard.css">
-	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
-	<style type="text/css">
-	.sexyboy{
-	
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/main/crud-post.css">
+<style type="text/css">
+.sexyboy {
 	background-color: #404142 !important;
-	}
-	.postBox{
-		cursor: pointer;
-	}
-	.postBox:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
 }
-.img > img{
+
+.postBox {
+	cursor: pointer;
+}
+
+.postBox:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
+}
+
+.img>img {
 	width: 100%;
-    height: 100%;
-    border-radius: 49%;
+	height: 100%;
+	border-radius: 49%;
 }
-.pro-a:hover{
+
+.pro-a:hover {
 	color: black;
 }
-.follow-modal{
 
-background-color: #404142 !important;
+.follow-modal {
+	background-color: #404142 !important;
 }
 
-.info{
+.info {
 	color: white !important;
 }
 
-.modal-header{
-color:white !important;
+.modal-header {
+	color: white !important;
 }
-.follow-delete{
-    border-radius: 5px;
-    width: 100px;
-    height: 28px;
-    font-weight: 500;
-    background-color: #545454;
-    color: white;
-   	border: none;
+
+.follow-delete {
+	border-radius: 5px;
+	width: 100px;
+	height: 28px;
+	font-weight: 500;
+	background-color: #545454;
+	color: white;
+	border: none;
 }
-.follow-delete:hover{
+
+.follow-delete:hover {
 	background-color: #942d2d;
 }
+
 .modal-body::-webkit-scrollbar {
 	display: none;
 }
 
-.setting-update:hover{
-background-color: #942d2d;
-
+.setting-update:hover {
+	background-color: #942d2d;
 }
-.setting-update > a:hover{
+
+.setting-update>a:hover {
 	color: white;
 }
+</style>
 
-	</style>
-	
-	
+
 </head>
 <body>
 
@@ -97,7 +103,7 @@ background-color: #942d2d;
 								</c:when> --%>
 								<c:otherwise>
 									<span>${member.memberName}</span>
-										
+
 									<c:choose>
 										<c:when test="${follow eq 0}">
 											<a class="follow">팔로우</a>
@@ -183,7 +189,7 @@ background-color: #942d2d;
 						</div>
 						<div class="modal-body">
 							<div class="list-wrap">
-								 <!-- <div class="list-item">
+								<!-- <div class="list-item">
 									<div class="img"></div>
 									<div class="info">
 										<span>user01</span> <span>이상원</span>
@@ -425,7 +431,9 @@ background-color: #942d2d;
 										data-bs-target="#followerList2">팔로우</div>
 
 
-									<div class="setting-update"><a href = "${contextPath}/member/logout">로그 아웃</a></div>
+									<div class="setting-update">
+										<a href="${contextPath}/member/logout">로그 아웃</a>
+									</div>
 
 
 
@@ -505,12 +513,18 @@ background-color: #942d2d;
 							mode : mode
 						},
 						success : function(list) {
-							
+							console.log(list);
 							if (list.length > 0) {
 
 								for (var i = 0; i < list.length; i++) {
-
-									if (list[i].poster !== undefined
+								
+									
+								if(list[i].thumbnail !== undefined){
+									html.push('<div  onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url('
+											+ list[i].thumbnail
+											+ ') no-repeat center center; background-size: cover;"></div>');
+								
+								}else if (list[i].poster !== undefined
 											& list[i].postContent !== undefined) {
 										html.push('<div  onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url('
 														+ list[i].poster
@@ -814,6 +828,6 @@ background-color: #942d2d;
 		
 		
 	</script>
-		<jsp:include page="../main/crud-post.jsp"></jsp:include>
+	<jsp:include page="../main/crud-post.jsp"></jsp:include>
 </body>
 </html>
