@@ -193,6 +193,8 @@ select:focus {
 
 									</thead>
 									<tbody class="tbody">
+										
+						<%-- 				
 										<c:choose>
 
 											<c:when test="${empty reply}">
@@ -238,6 +240,9 @@ select:focus {
 												</c:forEach>
 											</c:otherwise>
 										</c:choose>
+									
+									 --%>
+									
 									</tbody>
 									<tfoot>
 

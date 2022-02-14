@@ -1,209 +1,231 @@
-input{ font-family:"Noto Sans KR";}
+input {
+	font-family: "Noto Sans KR";
+}
 /* css초기화 */
 /* http://meyerweb.com/eric/tools/css/reset/ 
 v2.0 | 20110126
 License: none (public domain)
 */
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-html,
-body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background: #272727;
-    color: #FDFDFD;
-    height: 100%;
-    padding: 0px;
-    font-family:"Noto Sans KR";
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
 }
 
-body > * {
+body {
+	line-height: 1;
 }
-.header{
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    font-size: 30px;
-    width: 100%;
-    z-index: 1000;
-    align-items: center;
-    border-bottom: 3px solid #942d2d;
-    color: #942d2d;
-    font-weight: 700;
-    justify-content: center;
-    background-color: #272727;
+
+ol, ul {
+	list-style: none;
 }
-.header > div:nth-child(1){
-    display: flex;
-    justify-content: left;
-    width: 1000px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+
+blockquote, q {
+	quotes: none;
 }
-.header > div:nth-child(2){
-	color: white;
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background: #272727;
+	color: #FDFDFD;
+	height: 100%;
+	padding: 0px;
+	font-family: "Noto Sans KR";
+}
+
+body>* {
+	
+}
+
+.header {
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	font-size: 30px;
+	width: 100%;
+	z-index: 1000;
+	align-items: center;
+	border-bottom: 3px solid #942d2d;
+	color: #942d2d;
+	font-weight: 700;
+	justify-content: center;
+	background-color: #272727;
+}
+
+.header>div:nth-child(1) {
+	display: flex;
+	justify-content: left;
+	width: 1000px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.header>div:nth-child(2) {
+	font-size: 16px;
+	width: 120px;
+}
+
+
+.mainController {
+	width: 100%;
+	height: 100%;
+}
+
+main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-top: 90px;
+}
+
+.adminSide {
+	position: absolute;
+	width: 150px;
+	left: -190px;
+	top: 30px;
+	height: 426px;
+}
+
+.adminSide>div {
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	align-items: center;
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #272727;
+	background-color: #3a3939;
+	cursor: pointer;
+}
+
+.adminBoardwraper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
+
+.adminBoard {
+	width: 1050px;
+	height: 750px;
+}
+
+.adminBoard>div {
+	display: flex;
+	width: 100%;
+	height: 250px;
+}
+
+.adminBoard>div>div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 350px;
+	height: 100%;
 	font-size: 20px;
 }
-.mainController{
-    width: 100%;
-    height: 100%;
-    
+
+.memberNum {
+	background-color: #942d2d49;
+	cursor: pointer;
 }
 
-main{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 90px;
-
-}
-.adminSide{
-    position: absolute;
-    width: 150px;
-    left: -190px;
-    top: 30px;
-    height: 426px;
-}
-.adminSide > div{
-    display: flex;
-    justify-content: center;
-    font-size: 20px;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    border-bottom: 1px solid #272727;
-    background-color: #3a3939;
-    cursor: pointer;
-}
-.adminBoardwraper{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height:100%;
-}
-.adminBoard{
-    width: 1050px;
-    height: 750px;
+.boardNum {
+	background-color: #942d2d49;
+	cursor: pointer;
 }
 
-.adminBoard > div{
-    display: flex;
-    width: 100%;
-    height: 250px;
-}
-.adminBoard > div > div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 350px;
-    height: 100%;
-    font-size: 20px;
-   
-}
-.memberNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.boardNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.reportNum{
-    background-color: #942d2d49;
-    cursor: pointer;
-}
-.enNum{
-    cursor: pointer;
-    background-color: #942d2d49;
-}
-.replyNum{
-    cursor: pointer;
-    background-color: #942d2d49;
+.reportNum {
+	background-color: #942d2d49;
+	cursor: pointer;
 }
 
-.memberNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
-}
-.boardNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
-}
-.reportNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
-}
-.enNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
-}
-.replyNum:hover{
-    transform: scale( 1.1 );
-    transition-duration: 1s;
+.enNum {
+	cursor: pointer;
+	background-color: #942d2d49;
 }
 
-.member-side:hover{
-    color: red;
+.replyNum {
+	cursor: pointer;
+	background-color: #942d2d49;
 }
-.en-side:hover{
-    color: red;
+
+.memberNum:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
 }
-.board-side:hover{
-    color: red;
+
+.boardNum:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
 }
-.report-side:hover{
-    color: red;
+
+.reportNum:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
 }
-.statistics-side:hover{
-    color: red;
+
+.enNum:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
 }
-.logout-side:hover{
-    color: red;
+
+.replyNum:hover {
+	transform: scale(1.1);
+	transition-duration: 1s;
 }
-.main-side:hover{
-    color: red;
+
+.member-side:hover {
+	color: red;
+}
+
+.en-side:hover {
+	color: red;
+}
+
+.board-side:hover {
+	color: red;
+}
+
+.report-side:hover {
+	color: red;
+}
+
+.statistics-side:hover {
+	color: red;
+}
+
+.logout-side:hover {
+	color: red;
+}
+
+.main-side:hover {
+	color: red;
 }
