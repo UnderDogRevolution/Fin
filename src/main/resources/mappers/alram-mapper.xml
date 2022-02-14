@@ -12,8 +12,28 @@
 		<result property="alramUrl" column="ALRAM_URL" />
 		<result property="alramStatus" column="ALRAM_STATUS" />
 		
+		<collection property="profileImage" column="MEMBER_NO"
 
+			select="selectMemberImg" />
 	</resultMap>
+	
+		<resultMap type="com.movie.sns.member.model.vo.Image"
+		id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+	
+	<!-- 회원 이미지 조회 --> 
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH,
+		MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 
 
