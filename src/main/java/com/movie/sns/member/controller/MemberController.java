@@ -176,13 +176,13 @@ public class MemberController {
 	// 이메일 인증번호 생성 후 DB에 삽입
 	@RequestMapping(value="emailAuth", method=RequestMethod.POST)
 	@ResponseBody
-	public int emailAuth(@RequestParam(value="memberEmail") String memberEmail) {
+	public int emailAuth(@RequestParam(value="memberEmail") String memberEmail, HttpServletRequest req) {
 		
 		// 랜덤 문자열 생성
 		String authCode = new RandomNumber().generateCertificationNo();
 		
 		// MemberAuth 객체에 정보를 담아서 DB에 삽입
-		int result = service.insertAuthCode(memberEmail, authCode);
+		int result = service.insertAuthCode(memberEmail, authCode, req);
 		
 		return result;
 	}

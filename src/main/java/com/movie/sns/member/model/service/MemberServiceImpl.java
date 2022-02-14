@@ -201,7 +201,7 @@ public class MemberServiceImpl implements MemberService{
 	// 이메일 인증번호 삽입하기
 	@Override
 	@Transactional
-	public int insertAuthCode(String memberEmail, String authCode) {
+	public int insertAuthCode(String memberEmail, String authCode, HttpServletRequest req) {
 
 		int result = 0;
 		
@@ -216,7 +216,7 @@ public class MemberServiceImpl implements MemberService{
 		result = dao.insertAuthCode(memberAuth);
 		
 		if(result > 0) {
-			emailCtrl.sendMail(memberEmail, authCode);
+			emailCtrl.sendMail(memberEmail, authCode, req);
 		}
 		
 		return result;
