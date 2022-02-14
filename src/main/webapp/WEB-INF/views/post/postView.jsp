@@ -22,6 +22,7 @@
 
 
 <body>
+	${post}
 	<div id="main-container">
 
 		
