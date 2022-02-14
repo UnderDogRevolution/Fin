@@ -153,7 +153,6 @@ inputContent.addEventListener("input", function(){
     countBox.innerText = count;
 })
 
-console.log("moviedb");
 
 let page = 1;
 const key = "a93bbecafca4d9f151b867232f870461";
@@ -212,7 +211,11 @@ async function fetchMovie(page){
                 const img = document.createElement("img")
     
                 div2.className = "search-result-img";
-                img.setAttribute("src", base_url + items.poster_path)
+                if(items.poster_path == null){
+                    img.setAttribute("src", contextPath + "/resources/images/temp/no-pictures.png")
+                }else{
+                    img.setAttribute("src", base_url + items.poster_path)
+                }
                 div2.appendChild(img)
                 
                 div3.className = "search-result-content";
@@ -480,7 +483,6 @@ function postValidate(){
         alert("내용을 입력해주세요!")
         return;
     }
-
         const rating = document.getElementsByClassName("rating-value")[0].innerText
         if(movie != null){
             if(rating != ""){
@@ -503,8 +505,25 @@ function postValidate(){
             if(items.innerText.indexOf('#') >-1){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
+            if(items.innerText.indexOf('@') > -1){
+                // $.ajax({ 
+                //     url: contextPath + "/post/searchUser",
+                //     data: { "tagName": items.innerText.replace("@", "")},
+                //     type: "POST",
+                //     dataType : "JSON",
+                //     success: function (tagList) {
+                //         console.log(tagList)
+                //     },
+                //     error: function (req, status, error) {
+                //         console.log("ajax 실패");
+                //         console.log(req.responseText);
+                //         console.log(status);
+                //         console.log(error);
+                //     }
+            
+                // })
+            }
         }
-
         
         
         postVO.postContent = inputTextarea.value;
@@ -518,22 +537,6 @@ function postValidate(){
         if(image.files.length > 0){
             
         }
-        // if(crudImg.getAttribute("src") != null && inputFile.value == '' && youtubePath == null){
-        //     postVO.checkUsePoster = 1;
-        // }else if(youtubePath != null){
-        //     const youtube = {}
-        //     const youtubeUrl =  (youtubePath.match(/(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i))[0];
-        //     const youtubeId = youtubeUrl.substring(30)
-        //     youtube.path = youtubePath;
-        //     youtube.id = youtubeId;
-        //     youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
-        //     console.log(youtube)
-        //     postVO.youtube = youtube;
-        // }else if(inputFile.value.length >0){
-        //     formData.append('image', image.files[0])
-        // }else{
-        //     postVO.checkUsePoster = 0;
-        // }
         if(inputFile.value.length >0){
             formData.append('image', image.files[0])
             postVO.checkUsePoster = 0;
@@ -599,7 +602,10 @@ function onYoutube(){
    
 
     if(youtubePath.indexOf('title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;') > 0){
-        console.log(postImg)
+        const divArr = document.querySelectorAll(".post-img > div");
+        for(const items of divArr){
+            items.remove()
+        }
         inputFile.value = "";
         postImg.style.display = "block";
         crudImg.removeAttribute("src");
@@ -608,6 +614,7 @@ function onYoutube(){
         youtubeBox.innerHTML = youtubePath;
         postImg.append(youtubeBox); // innerHTML을 하면 그 안에 요소들이 재정의 된다 따라서 안에 요소들이 정의된 변수명들이 미스매칭되는 문제가 발생한다.
         deleteImg.style.display = "inline";
+
     }else{
         alert("유튜브 경로가 잘못되었습니다.")
         youtubePath = null;

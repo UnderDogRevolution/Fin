@@ -95,10 +95,6 @@ td {
 	padding-bottom: 20px;
 }
 
-.header>div:nth-child(2) {
-	color: white;
-	font-size: 20px;
-}
 
 .mainController {
 	width: 100%;
@@ -115,6 +111,10 @@ main {
 thead {
 	color: white;
 	text-align: center;
+}
+.header>div:nth-child(2) {
+	font-size: 20px;
+	width: 120px;
 }
 
 .adminSide {

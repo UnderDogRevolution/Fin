@@ -428,6 +428,7 @@ function revealPost(){
 								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
 								alramObj.alramContent = loginMemberName + "님이 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -585,7 +586,6 @@ function revealPost(){
 				io.disconnect()
 			}else{
 				cp++;
-				console.log(temp)
 				io.observe(temp)
 			}
 		} 
@@ -627,6 +627,7 @@ function insertReply(e){
 								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
 								alramObj.alramContent = loginMemberName + "님이 댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -774,7 +775,6 @@ function selectReply(postNo){
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
-				// console.log(items.memberNo == memberNo)
 				if(typeof memberNo != "undefined"){
 					if(items.memberNo == memberNo){ //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
@@ -872,6 +872,7 @@ function selectReply(postNo){
 								alramObj.alramTakeMemberNo = _this.parents('.parent-reply').children('.profile-reply').children().attr('id');
 								alramObj.alramContent = loginMemberName + "님이 댓글에 좋아요를 눌렀습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								
@@ -923,7 +924,7 @@ function selectReply(postNo){
 				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
 				replyPng.addEventListener("click", function(e){
 					e.stopPropagation();
-					comment(this, items.replyNo)
+					comment(this, items.replyNo, items.memberNo);
 				})
 			
 				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다. 그리고 이미지는 focus가 안되기 때문에 이 두 이벤트는 적절하지 않다!
@@ -959,7 +960,7 @@ function selectReply(postNo){
 	return replyDiv
 }
 
-function comment(e, replyNo){
+function comment(e, replyNo, replyMemberNo){
 	
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
@@ -970,11 +971,11 @@ function comment(e, replyNo){
 		input.setAttribute("placeholder", "답글을 달아주세요!");
 		input.focus();
 	}
-	img.setAttribute("onclick", "insertComment(this,"+replyNo+")")
+	img.setAttribute("onclick", "insertComment(this,"+replyNo+ "," + replyMemberNo +")");
 }
 
 
-function insertComment(e, replyNo){
+function insertComment(e, replyNo, replyMemberNo){
 	if(typeof memberNo == "undefined"  || memberNo == ""){
         alert("로그인 해주세요!")
         return;
@@ -996,12 +997,14 @@ function insertComment(e, replyNo){
 				if(result>0){
 					alert("답글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
-					
+					console.log("=================================");
+					console.log(replyMemberNo);
 					const alramObj = {};
 								
-								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
+								alramObj.alramTakeMemberNo = replyMemberNo;
 								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
+								alramObj.alramGiveNo = loginMemberNo;
 								
 								
 								

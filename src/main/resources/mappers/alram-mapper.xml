@@ -11,9 +11,30 @@
 		<result property="alramContent" column="ALRAM_CONTENT" />
 		<result property="alramUrl" column="ALRAM_URL" />
 		<result property="alramStatus" column="ALRAM_STATUS" />
+		<result property="alramGiveNo" column="ALRAM_GIVENO" />
 		
+		<collection property="profileImage" column="ALRAM_GIVENO"
 
+			select="selectMemberImg" />
 	</resultMap>
+
+	<resultMap type="com.movie.sns.member.model.vo.Image"
+		id="Image_rm">
+		<id property="imgNo" column="MEMBER_IMG_NO" />
+
+		<result property="imgPath" column="MEMBER_IMG_PATH" />
+		<result property="imgName" column="MEMBER_IMG_NM" />
+		<result property="imgLevel" column="MEMBER_IMG_LEVEL" />
+		<result property="imgOriginal" column="MEMBER_IMG_ORIGINAL" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+
+	<!-- 회원 이미지 조회 -->
+	<select id="selectMemberImg" resultMap="Image_rm">
+		SELECT MEMBER_IMG_PATH,
+		MEMBER_IMG_NM FROM MEMBER_IMG
+		WHERE MEMBER_NO = #{alramGiveNo}
+	</select>
 
 
 
@@ -21,29 +42,31 @@
 
 
 	<insert id="insertAlram">
-	
-	INSERT INTO ALRAM VALUES(SEQ_ALERT_NO.NEXTVAL,
-		#{alramTakeMemberNo} , #{alramContent}, #{alramUrl}, 0)
-	
-	
+
+		INSERT INTO ALRAM VALUES(SEQ_ALERT_NO.NEXTVAL,
+		#{alramTakeMemberNo} ,
+		#{alramContent}, #{alramUrl}, 0, #{alramGiveNo})
+
+
 	</insert>
-	
-	
+
+
 	<select id="selectAlram" resultMap="alram_rm">
-	
-	SELECT SEQ_ALRAM_NO, ALRAM_CONTENT, ALRAM_URL, ALRAM_STATUS
-	FROM ALRAM
-	WHERE ALRAM_NO = #{memberNo}
-	AND ALRAM_STATUS = 0
+
+		SELECT SEQ_ALRAM_NO, ALRAM_CONTENT, ALRAM_URL, ALRAM_STATUS, ALRAM_GIVENO
+		FROM ALRAM
+		WHERE ALRAM_NO = #{memberNo}
+		AND ALRAM_STATUS = 0
+		ORDER BY SEQ_ALRAM_NO DESC
 	</select>
-	
+
 	<update id="deleteAlram">
-	UPDATE ALRAM SET ALRAM_STATUS = 1
-	WHERE
-	SEQ_ALRAM_NO = #{deleteAlramNo}
-	
-	
-	
+		UPDATE ALRAM SET ALRAM_STATUS = 1
+		WHERE
+		SEQ_ALRAM_NO = #{deleteAlramNo}
+
+
+
 	</update>
 
 </mapper>
