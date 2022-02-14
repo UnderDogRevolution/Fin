@@ -90,8 +90,6 @@
 		WHERE TAG_NM LIKE '%'||#{tagName}||'%'
 	</select>
 	
-	
-	 
 	 <select id="selectUser" resultMap="member_rm">
 		SELECT MEMBER_NICKNM
 		FROM MEMBER
@@ -318,7 +316,7 @@
                 WHERE POST_STATUS_CD = 500
                 AND MOVIE_RATING_NO IN (SELECT MAX(MOVIE_RATING_NO) FROM MOVIE_RATING GROUP BY MOVIE_NO, MEMBER_NO)
                 GROUP BY MOVIE_NO, MOVIE_TITLE, MOVIE_DT, POSTER, MOVIE_GENRE, MOVIE_DIRECTOR, POSTER
-                HAVING COUNT(MOVIE_RATING_NO) >= 3
+                HAVING COUNT(MOVIE_RATING_NO) >= 2
 			ORDER BY AVG DESC) A) WHERE RNUM <6
 		]]>
 	</select>
