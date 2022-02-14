@@ -95,7 +95,7 @@ function deletePost(e) {
 			success: function(result) {
 				if (result > 0) {
 					alert("게시글이 삭제 되었습니다.")
-					revealPost()
+					location.href = contextPath +"/main";
 
 				} else {
 					alert("게시글 삭제 중 문제가 발생했습니다.")

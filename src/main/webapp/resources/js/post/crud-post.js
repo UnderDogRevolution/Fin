@@ -212,7 +212,11 @@ async function fetchMovie(page){
                 const img = document.createElement("img")
     
                 div2.className = "search-result-img";
-                img.setAttribute("src", base_url + items.poster_path)
+                if(items.poster_path == null){
+                    img.setAttribute("src", contextPath + "/resources/images/temp/no-pictures.png")
+                }else{
+                    img.setAttribute("src", base_url + items.poster_path)
+                }
                 div2.appendChild(img)
                 
                 div3.className = "search-result-content";
@@ -582,7 +586,10 @@ function onYoutube(){
    
 
     if(youtubePath.indexOf('title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;') > 0){
-        console.log(postImg)
+        const divArr = document.querySelectorAll(".post-img > div");
+        for(const items of divArr){
+            items.remove()
+        }
         inputFile.value = "";
         postImg.style.display = "block";
         crudImg.removeAttribute("src");
@@ -591,6 +598,7 @@ function onYoutube(){
         youtubeBox.innerHTML = youtubePath;
         postImg.append(youtubeBox); // innerHTML을 하면 그 안에 요소들이 재정의 된다 따라서 안에 요소들이 정의된 변수명들이 미스매칭되는 문제가 발생한다.
         deleteImg.style.display = "inline";
+
     }else{
         alert("유튜브 경로가 잘못되었습니다.")
         youtubePath = null;
