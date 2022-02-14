@@ -23,7 +23,7 @@ input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
-	
+
 /* Firefox */
 input[type=number] {
 	-moz-appearance: textfield;
@@ -53,6 +53,7 @@ h5 {
 	display: flex;
 	width: 100%;
 	height: 40px;
+	justify-content: center;
 }
 
 .postListContent {
@@ -150,6 +151,15 @@ select:focus {
 .selectPostsend {
 	width: 100px;
 	text-align: center;
+}
+
+.modal-img{
+	height: 300px;
+
+}
+
+.modal-body::-webkit-scrollbar {
+	display: none;
 }
 </style>
 
@@ -341,7 +351,7 @@ select:focus {
 
 	<div class="modal fade" id="postModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div style="width: 400px;"
+		<div style="width: 500px;"
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content postModal-content">
 				<div class="modal-header postModal-header">
@@ -353,6 +363,10 @@ select:focus {
 				<div class="modal-body">
 
 
+					<div class="modalContentwrap modal-img">
+						<img class = "modal-imgtag" alt="">
+						
+					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">게시글 번호</div>
 						<div class="postListContent"></div>
@@ -391,6 +405,10 @@ select:focus {
 					</div>
 					<div class="modalContentwrap">
 						<div class="postListTitle">블라인드사유</div>
+						<div class="postListContent"></div>
+					</div>
+					<div class="modalContentwrap">
+						<div class="postListTitle">신고 수</div>
 						<div class="postListContent"></div>
 					</div>
 

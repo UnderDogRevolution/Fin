@@ -15,9 +15,12 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="statusNm" column="POST_STATUS_NM" />
 		<result property="status" column="POST_STATUS_CD" />
+		<result property="imgPath" column="POST_IMG_PATH" />
+		<result property="imgNm" column="POST_IMG_NM" />
 		<result property="blind" column="BLIND_POST_CONTENT" />
+		<result property="CNT" column="CNT" /> <!-- 신고 수   -->
 	</resultMap>
-	
+
 	<resultMap type="AdminReport" id="AdminReport_rm">
 		<id property="reportNo" column="REPORT_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
@@ -55,54 +58,58 @@
 		<id property="statusCd" column="REPLY_STATUS_CD" />
 		<result property="statusNm" column="REPLY_STATUS_NM" />
 	</resultMap>
-	
-	<select id="memberCount" resultType = "_int">
-	SELECT COUNT(*) FROM MEMBER
-	
+
+	<select id="memberCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+
 	</select>
-	
-	
-	<select id="askCount" resultType = "_int">
-	SELECT COUNT(*) FROM ADMIN_ASK
-	
+
+
+	<select id="askCount" resultType="_int">
+		SELECT COUNT(*) FROM ADMIN_ASK
+
 	</select>
-	
-	
-	<select id="replyView" resultMap = "adminReply_rm">
-	 	 SELECT REPLY_NO ,
+
+
+	<select id="replyView" resultMap="adminReply_rm">
+		SELECT REPLY_NO ,
 		REPLY_CONTENT ,REPLY_CREATE_DT , LIKE_COUNT ,
-		POST_NO , MEMBER_NO ,MEMBER_NICKNM,
-		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM,BLIND_REPLY_CONTENT
+		POST_NO ,
+		MEMBER_NO ,MEMBER_NICKNM,
+		REPLY_STATUS_CD , REPLY_STATUS_NM ,
+		MEMBER_NM,BLIND_REPLY_CONTENT
 		FROM REPLY
 		JOIN MEMBER
 		USING(MEMBER_NO)
 		JOIN REPLY_STATUS
 		USING(REPLY_STATUS_CD)
-		LEFT JOIN BLIND_REPLY USING(REPLY_NO)
-        WHERE REPLY_NO = #{replyNo}
+		LEFT JOIN BLIND_REPLY
+		USING(REPLY_NO)
+		WHERE REPLY_NO = #{replyNo}
 	</select>
-	
-	
-	
-	<!--댓글 블라인드 내용 삽입  -->
-	
+
+
+
+	<!--댓글 블라인드 내용 삽입 -->
+
 	<update id="changeReplyStatus">
 		UPDATE REPLY SET REPLY_STATUS_CD = #{status}
 		WHERE
 		REPLY_NO = #{replyNo}
-	
+
 	</update>
-	
-	
-	
+
+
+
 	<insert id="insertReplyBlind">
-		INSERT INTO BLIND_REPLY VALUES(SEQ_BLIND_REPLY_NO.NEXTVAL
+		INSERT INTO BLIND_REPLY
+		VALUES(SEQ_BLIND_REPLY_NO.NEXTVAL
 		,#{blind}, DEFAULT
 		,#{replyNo})
 
 	</insert>
-	
-	
+
+
 	<!-- 댓글 블라인드 내용 지우기 -->
 	<delete id="deleteReplyBlind">
 		DELETE FROM BLIND_REPLY
@@ -110,7 +117,7 @@
 	</delete>
 
 
-	<!--댓글 상태조회  -->
+	<!--댓글 상태조회 -->
 	<select id="searchStatusReply" resultMap="reply_Status_rm">
 		SELECT REPLY_STATUS_CD
 		FROM REPLY
@@ -150,7 +157,8 @@
 						JOIN REPLY_STATUS USING(REPLY_STATUS_CD)
 						WHERE
 						REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
-						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
+						OR REPLY_STATUS_NM
+						LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 
@@ -166,7 +174,7 @@
 		SELECT REPLY_STATUS_NM
 		, REPLY_STATUS_CD
 		FROM REPLY_STATUS
-		
+
 
 	</select>
 	<!-- 댓글 조회 -->
@@ -174,7 +182,8 @@
 		SELECT REPLY_NO ,
 		REPLY_CONTENT , REPLY_CREATE_DT , LIKE_COUNT ,
 		POST_NO , MEMBER_NO ,
-		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM , MEMBER_NICKNM
+		REPLY_STATUS_CD , REPLY_STATUS_NM , MEMBER_NM ,
+		MEMBER_NICKNM
 		FROM REPLY
 		JOIN MEMBER
 		USING(MEMBER_NO)
@@ -203,8 +212,9 @@
 						WHERE MEMBER_NO = #{inputResult}
 					</when>
 					<when test="searchPost == 'status'">
-						WHERE REPLY_STATUS_NM LIKE '%'|| #{inputResult}||'%'
-						OR REPLY_STATUS_NM  LIKE #{inputResult}||'%'
+						WHERE REPLY_STATUS_NM LIKE '%'||
+						#{inputResult}||'%'
+						OR REPLY_STATUS_NM LIKE #{inputResult}||'%'
 					</when>
 				</choose>
 			</if>
@@ -230,16 +240,18 @@
 					</when>
 					<when test="searchPost == 'memberNm'">
 						JOIN MEMBER USING(MEMBER_NO)
-						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						WHERE MEMBER_NM LIKE
+						#{inputResult}||'%'
 						OR
 						MEMBER_NM
 						LIKE '%'||#{inputResult}||'%'
 
 					</when>
 					<when test="searchPost == 'memberNick'">
-						
+
 						JOIN MEMBER USING(MEMBER_NO)
-						WHERE MEMBER_NICKNM LIKE #{inputResult}||'%'
+						WHERE MEMBER_NICKNM LIKE
+						#{inputResult}||'%'
 						OR
 						MEMBER_NICKNM
 						LIKE '%'||#{inputResult}||'%'
@@ -255,13 +267,14 @@
 						USING(POST_STATUS_CD)
 						WHERE
 						POST_STATUS_NM LIKE '%'||#{inputResult}||'%'
-						OR POST_STATUS_NM LIKE #{inputResult}||'%'
-						
+						OR POST_STATUS_NM LIKE
+						#{inputResult}||'%'
+
 					</when>
 				</choose>
 
 			</if>
-			
+
 			<if test="statusValue != 'all'">
 				<choose>
 					<when test="statusValue == '500'">
@@ -283,9 +296,9 @@
 			</if>
 
 		</if>
-		
+
 		<if test="inputResult == ''">
-		
+
 			<if test="statusValue != 'all'">
 				<choose>
 					<when test="statusValue == '500'">
@@ -305,16 +318,16 @@
 					</when>
 				</choose>
 			</if>
-			
+
 		</if>
-		
+
 
 	</select>
 
 
 	<select id="adminPost" resultMap="adminPost_rm">
 		SELECT POST_NO , MEMBER_NM,MEMBER_NICKNM,
-		POST_CONTENT  ,
+		POST_CONTENT ,
 		LIKE_COUNT,
 		POST.CREATE_DT,
 		POST.MODIFY_DT,
@@ -326,7 +339,8 @@
 		POST_STATUS
 		USING(POST_STATUS_CD)
 		JOIN
-		MEMBER USING (MEMBER_NO)
+		MEMBER
+		USING (MEMBER_NO)
 
 		<if test="inputResult != ''">
 			<if test="searchPost != null">
@@ -336,19 +350,21 @@
 
 					</when>
 					<when test="searchPost == 'memberNm'">
-						
+
 						WHERE MEMBER_NM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NM
-						LIKE '%'||#{inputResult}||'%'
+						LIKE
+						'%'||#{inputResult}||'%'
 
 					</when>
 					<when test="searchPost == 'memberNick'">
-						
+
 						WHERE MEMBER_NICKNM LIKE #{inputResult}||'%'
 						OR
 						MEMBER_NICKNM
-						LIKE '%'||#{inputResult}||'%'
+						LIKE
+						'%'||#{inputResult}||'%'
 
 					</when>
 					<when test="searchPost == 'postNo'">
@@ -361,7 +377,7 @@
 					</when>
 				</choose>
 			</if>
-			
+
 			<if test="statusValue != 'all'">
 				<choose>
 					<when test="statusValue == '500'">
@@ -381,11 +397,11 @@
 					</when>
 				</choose>
 			</if>
-			
+
 		</if>
-		
+
 		<if test="inputResult == ''">
-		
+
 			<if test="statusValue != 'all'">
 				<choose>
 					<when test="statusValue == '500'">
@@ -405,14 +421,14 @@
 					</when>
 				</choose>
 			</if>
-			
+
 		</if>
-		
+
 		<choose>
 			<when test="sortColumn == null">
 				ORDER BY POST_NO DESC
 			</when>
-			
+
 			<otherwise>
 				<choose>
 					<when test="sortColumn == 'createDate'">
@@ -423,7 +439,7 @@
 							ORDER BY POST.CREATE_DT
 						</if>
 					</when>
-					
+
 					<when test="sortColumn == 'modifyDate'">
 						<if test="sortMethod == 'desc'">
 							ORDER BY POST.MODIFY_DT DESC
@@ -435,7 +451,7 @@
 				</choose>
 			</otherwise>
 		</choose>
-		
+
 	</select>
 
 	<update id="changeStatus">
@@ -456,17 +472,18 @@
 		SELECT * FROM POST_STATUS
 	</select>
 	<select id="postView" resultMap="adminPost_rm">
-		SELECT POST_NO , POST_CONTENT , MEMBER_NICKNM,
-		 LIKE_COUNT ,POST.CREATE_DT,POST.MODIFY_DT,
-		POST_STATUS_CD,POST_STATUS_NM , BLIND_POST_CONTENT,MEMBER_NO,
-		MEMBER_NM
+		SELECT POST_NO , MEMBER_NM,MEMBER_NICKNM, POST_CONTENT , LIKE_COUNT,
+		POST.CREATE_DT, POST.MODIFY_DT, MEMBER_NO , POST_STATUS_NM,
+		POST_STATUS_CD , POST_IMG_PATH , POST_IMG_NM,
+		(SELECT COUNT(*) FROM
+		REPORT
+		JOIN POST ON(TARGET_PK = POST_NO)
+		WHERE POST_NO = #{postNo}) CNT
 		FROM POST
 		JOIN POST_STATUS USING(POST_STATUS_CD)
-		JOIN MEMBER
-		USING (MEMBER_NO)
-		LEFT JOIN BLIND_POST USING(POST_NO)
-		WHERE POST_NO =
-		#{postNo}
+		LEFT JOIN POST_IMG USING(POST_NO)
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE POST_NO = #{postNo}
 	</select>
 
 	<select id="searchStatus" resultMap="status_rm">
@@ -483,15 +500,15 @@
 		WHERE POST_NO = #{postNo}
 
 	</delete>
-	
-	
-	<select id="reportCount" resultType = "_int">
-	
-	SELECT COUNT(*) FROM REPORT
-	
-	
-	
-	<if test="inputResult != ''">
+
+
+	<select id="reportCount" resultType="_int">
+
+		SELECT COUNT(*) FROM REPORT
+
+
+
+		<if test="inputResult != ''">
 
 			<if test="searchPost != null">
 				<choose>
@@ -500,14 +517,16 @@
 					</when>
 					<when test="searchPost == 'memberNm'">
 						JOIN MEMBER USING(MEMBER_NO)
-						WHERE MEMBER_NM LIKE #{inputResult}||'%'
+						WHERE MEMBER_NM LIKE
+						#{inputResult}||'%'
 						OR
 						MEMBER_NM
 						LIKE '%'||#{inputResult}||'%'
 					</when>
 					<when test="searchPost == 'status'">
 						JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
-						WHERE REPORT_TYPE_NM LIKE #{inputResult}||'%'
+						WHERE
+						REPORT_TYPE_NM LIKE #{inputResult}||'%'
 					</when>
 					<when test="searchPost == 'reportNo'">
 						WHERE REPORT_NO = #{inputResult}
@@ -517,23 +536,24 @@
 			</if>
 
 		</if>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	</select>
-	
-	<select id="reportBoard" resultMap = "AdminReport_rm">
-	
-        SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
-    ,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM
-    FROM REPORT
-    JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
-    LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
-    JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
-   
+
+	<select id="reportBoard" resultMap="AdminReport_rm">
+
+		SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT ,
+		REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
+		,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM
+		FROM REPORT
+		JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
+		LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
+		JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
+
 		<if test="inputResult != ''">
 
 			<if test="searchPost != null">
@@ -558,37 +578,38 @@
 			</if>
 
 		</if>
-	ORDER BY REPORT_NO DESC
-	
+		ORDER BY REPORT_NO DESC
+
 	</select>
-	
-	
-	
-	<select id="reportView" resultMap = "AdminReport_rm">
-	 SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT , REPORT_TYPE_NO , MEMBER_NICKNM
-    ,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM , REPORT.MEMBER_NO
-    FROM REPORT
-    JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
-    LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
-    JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
-    WHERE REPORT_NO = #{reportNo}
-	
+
+
+
+	<select id="reportView" resultMap="AdminReport_rm">
+		SELECT REPORT_NO , REPORT.MEMBER_NO , REPORT_CONTENT , REPORT.CREATE_DT ,
+		REPORT_TYPE_NO , MEMBER_NICKNM
+		,TARGET_PK,MEMBER_NM, REPORT_TYPE_NM , REPORT.MEMBER_NO
+		FROM REPORT
+		JOIN REPORT_TYPE USING(REPORT_TYPE_NO)
+		LEFT JOIN POST ON(REPORT.TARGET_PK = POST.POST_NO)
+		JOIN MEMBER ON(REPORT.MEMBER_NO = MEMBER.MEMBER_NO)
+		WHERE REPORT_NO = #{reportNo}
+
 	</select>
-	
-	
+
+
 	<!-- 게시글 상태 일괄 변경(일반) -->
 	<update id="multiChangePostStatus">
 		UPDATE POST SET
 		POST_STATUS_CD = 500
 		WHERE POST_NO IN (
-		
-		<foreach collection="array" item="postNo" separator="," >
+
+		<foreach collection="array" item="postNo" separator=",">
 			#{postNo}
 		</foreach>
-		
+
 		)
 	</update>
-	
-	
-	
+
+
+
 </mapper>
