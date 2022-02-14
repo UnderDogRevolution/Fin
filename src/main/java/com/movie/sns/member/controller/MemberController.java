@@ -250,42 +250,17 @@ public class MemberController {
 	
 	// 비밀번호 찾기 링크 만들기
 	@RequestMapping(value = "findPw", method=RequestMethod.POST)
-//	@ResponseBody
-	public String findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
-		/*int*/
-		// 가입 여부 체크하기
-		int result = service.emailDupCheck(memberEmail);
+	@ResponseBody
+	public int findPw(String memberEmail, RedirectAttributes ra, HttpServletRequest req){
 		
-		if(result == 1) {
-			
-			// 암호화해서 DB에 INSERT
-			result = service.insertEncEmail(memberEmail, req);
-			
-			if(result > 0) {
-				
-				System.out.println("메일 전송 성공!");
-				// 암호화 데이터 삽입 성공한 경우
-				// 암호화된 값을 얻어와 @pathVariable로 사용해 이메일 발송
-				// 주소로 요청이 오면 유효기간을 검사하고 변경페이지 or 메인페이지로 forward 
-			}
-			
-			// 가입한 이메일인 경우(sweetAlert 사용예정)
-			String successMessage = "메일 전송 성공";
-			String text = memberEmail + "로 변경링크를 전송했습니다.";
-			String icon = "success";
-			Util.swalSetMessage(successMessage, text, icon, ra);
-			
-		}else {
-			
-			// 가입하지 않은 이메일인 경우
-			ra.addFlashAttribute("message1", memberEmail + "은");
-			ra.addFlashAttribute("message2", "가입하지 않은 이메일입니다.");
-			
-		}
+		// 암호화해서 DB에 INSERT
+		int result = service.insertEncEmail(memberEmail, req);
 		
-		ra.addFlashAttribute("result", result);
+		// 암호화 데이터 삽입 성공한 경우
+		// 암호화된 값을 얻어와 @pathVariable로 사용해 이메일 발송
+		// 주소로 요청이 오면 유효기간을 검사하고 변경페이지 or 메인페이지로 forward 
 		
-		return /*result*/ "redirect:/member/login";
+		return result;
 		
 	}
 	
@@ -329,7 +304,7 @@ public class MemberController {
 		}else if(result == -1){
 			// 링크 만료
 			String successMessage = "변경 실패";
-			String text = "변경 링크가 만료되었습니다. <br> 다시 시도해주세요.";
+			String text = "변경 링크가 만료되었습니다. <br> 링크를 다시 발급 받아주세요.";
 			String icon = "error";
 			Util.swalSetMessage(successMessage, text, icon, ra);
 			path = "redirect:/member/findPw";
