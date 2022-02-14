@@ -480,7 +480,6 @@ function postValidate(){
         alert("내용을 입력해주세요!")
         return;
     }
-
         const rating = document.getElementsByClassName("rating-value")[0].innerText
         if(movie != null){
             if(rating != ""){
@@ -518,22 +517,6 @@ function postValidate(){
         if(image.files.length > 0){
             
         }
-        // if(crudImg.getAttribute("src") != null && inputFile.value == '' && youtubePath == null){
-        //     postVO.checkUsePoster = 1;
-        // }else if(youtubePath != null){
-        //     const youtube = {}
-        //     const youtubeUrl =  (youtubePath.match(/(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i))[0];
-        //     const youtubeId = youtubeUrl.substring(30)
-        //     youtube.path = youtubePath;
-        //     youtube.id = youtubeId;
-        //     youtube.thumbnail = `https://img.youtube.com/vi/${youtubeId}/0.jpg`
-        //     console.log(youtube)
-        //     postVO.youtube = youtube;
-        // }else if(inputFile.value.length >0){
-        //     formData.append('image', image.files[0])
-        // }else{
-        //     postVO.checkUsePoster = 0;
-        // }
         if(inputFile.value.length >0){
             formData.append('image', image.files[0])
             postVO.checkUsePoster = 0;

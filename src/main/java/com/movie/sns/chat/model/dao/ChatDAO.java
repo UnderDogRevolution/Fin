@@ -191,7 +191,16 @@ public class ChatDAO {
 		return sqlSession.selectList("chatMapper.searchPerson",chat);
 	}
 
-
+	/*
+	 * public int selectJoinCount(ChatRoom room) { return
+	 * sqlSession.selectOne("chatMapper.selectJoinCount",room); }
+	 * 
+	 * 
+	 * public List<ChatRoom> selectGropCount(ChatRoom room) {
+	 * 
+	 * return sqlSession.selectList("chatMapper.selectGropCount" , room); }
+	 * 
+	 */
 
 
 
