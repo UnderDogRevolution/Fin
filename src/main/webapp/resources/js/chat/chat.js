@@ -24,6 +24,23 @@ function flInsert(event, friendNo) {
 				btn.text("팔로잉");
 				btn.removeClass("messagebtn2-1");
 				btn.addClass("messagebtn2-3");
+				
+				
+				const alramObj = {};
+							
+							alramObj.alramTakeMemberNo = friendNo;
+							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+				
+				
+				
+				
 
 			},
 			error: function() {
