@@ -22,7 +22,8 @@
 
 
 <body>
-	${post}
+	${post} <br>
+	
 	<div id="main-container">
 
 		
@@ -41,10 +42,10 @@
 								<div>
 									<c:choose>
 										<c:when test="${post.listProfile[0] != null}">
-											<img class="profile-img" src="${contextPath}${post.listProfile[0].imgPath}${post.listProfile[0].imgName}">
+											<img class="profile-img" id="${post.memberNo}" src="${contextPath}${post.listProfile[0].imgPath}${post.listProfile[0].imgName}">
 										</c:when>
 										<c:otherwise>
-											<img class="profile-img" src="${contextPath}/resources/images/common/defaultProfileImage.png">
+											<img class="profile-img" id="${post.memberNo}" src="${contextPath}/resources/images/common/defaultProfileImage.png">
 										</c:otherwise>
 									</c:choose>
 								</div>

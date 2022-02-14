@@ -959,7 +959,7 @@ function selectReply(postNo){
 	return replyDiv
 }
 
-function comment(e, replyNo, replpyMemberNo){
+function comment(e, replyNo, replyMemberNo){
 	
 	const post = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
 	const arr = post.querySelectorAll(".input-content-reply > div")
@@ -970,11 +970,11 @@ function comment(e, replyNo, replpyMemberNo){
 		input.setAttribute("placeholder", "답글을 달아주세요!");
 		input.focus();
 	}
-	img.setAttribute("onclick", "insertComment(this,"+replyNo+ "," + replpyMemberNo +")");
+	img.setAttribute("onclick", "insertComment(this,"+replyNo+ "," + replyMemberNo +")");
 }
 
 
-function insertComment(e, replyNo, replpyMemberNo){
+function insertComment(e, replyNo, replyMemberNo){
 	if(typeof memberNo == "undefined"  || memberNo == ""){
         alert("로그인 해주세요!")
         return;
@@ -997,10 +997,10 @@ function insertComment(e, replyNo, replpyMemberNo){
 					alert("답글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
 					console.log("=================================");
-					console.log(replpyMemberNo);
+					console.log(replyMemberNo);
 					const alramObj = {};
 								
-								alramObj.alramTakeMemberNo = replpyMemberNo;
+								alramObj.alramTakeMemberNo = replyMemberNo;
 								alramObj.alramContent = loginMemberName + "님이 대댓글을 남겼습니다.";
 								alramObj.alramUrl = contextPath + "/post/view/" + postNo;
 								
