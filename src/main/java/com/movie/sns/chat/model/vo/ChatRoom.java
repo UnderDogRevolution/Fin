@@ -18,11 +18,24 @@ public class ChatRoom {
 	private int cnt; // 참여자 수
 	private String memberBirth;
 	private String inputResult;
+	private int count;
 	public ChatRoom() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
+
+	public int getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
 
 	public String getMemberBirth() {
 		return memberBirth;
@@ -173,8 +186,11 @@ public class ChatRoom {
 		return "ChatRoom [img=" + img + ", chatRoomNo=" + chatRoomNo + ", statusCode=" + statusCode + ", memberNo="
 				+ memberNo + ", memberName=" + memberName + ", friendNo=" + friendNo + ", friendNm=" + friendNm
 				+ ", imgPath=" + imgPath + ", imgNm=" + imgNm + ", cnt=" + cnt + ", memberBirth=" + memberBirth
-				+ ", inputResult=" + inputResult + "]";
+				+ ", inputResult=" + inputResult + ", count=" + count + "]";
 	}
+
+
+
 
 
 

@@ -30,6 +30,7 @@
 		<result property="friendNm" column="CHAT_FR_Nm" />
 		<result property="imgPath" column="MEMBER_IMG_PATH" />
 		<result property="imgNm" column="MEMBER_IMG_NM" />
+		<result property="count" column="COUNT" />
 
 		<collection property="img" column="CHAT_FR_NO"
 			javaType="java.util.ArrayList" ofType="Image"
@@ -290,4 +291,14 @@
 		WHERE MEMBER_NO = #{friendNo}
 		AND CHAT_ROOM_NO = #{chatRoomNo}
 	</select>
+	
+<!-- 	<select id="selectGropCount" resultMap = "chatRoom_rm">
+	 
+    SELECT CHAT_ROOM_NO, COUNT(*) FROM CHAT_ROOM_JOIN
+	WHERE CHAT_ROOM_NO IN ( (SELECT CHAT_ROOM_NO FROM (SELECT CHAT_ROOM_NO  FROM CHAT_ROOM_JOIN
+	WHERE MEMBER_NO = #{memberNO} INTERSECT SELECT CHAT_ROOM_NO FROM CHAT_ROOM_JOIN  WHERE MEMBER_NO = #{friendNo})))
+	GROUP BY CHAT_ROOM_NO
+      
+	
+	</select> -->
 </mapper>
