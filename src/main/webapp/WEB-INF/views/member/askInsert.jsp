@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<title>myPage</title>
+<title>ask</title>
 
 <style type="text/css">
 html, body {
@@ -185,14 +185,15 @@ fieldset {
 	color: black;
 	background-color: white;
 	width: 100px;
-	height: 30px;
+	height: 40px;
 	margin-left: 0 !important;
-	font-weight: 700;
+	font-weight: 600;
 }
 .askTitlewrap{
 display: flex;
-justify-content: center;
-margin-bottom: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-left: -17px;
 }
 .sudmit_btn:hover {
 	background-color: #bb2d3b;
@@ -206,7 +207,7 @@ margin-bottom: 20px;
 margin-bottom: 130px;
 }
 .askTitleLavel{
-	margin-right: 30px;
+	margin-right: 15px;
     font-size: 20px;
     font-weight: 700;
 }
@@ -255,7 +256,7 @@ margin-right: 183px;
         </div>
 
         <div class="ask_titlewrap" style="font-weight: bolder; font-size:1.25rem;">
-          <h1>관리자에게 건의사항이나 바라는 점, 아쉬운 점 등이 있으시면, 아래에 텍스트를 작성해 제출해주세요.</h1>
+          <p style="font-size: 20px; margin-top: 50px;">관리자에게 건의사항이나 바라는 점, 아쉬운 점 등이 있으시면, 아래에 텍스트를 작성해 제출해주세요.</p>
         </div>
         
         <div class="askTitlewrap">
@@ -271,7 +272,7 @@ margin-right: 183px;
         </div>
         <br>
 
-        <button type="submit" class="btnsub btn-danger btn-lg">제출하기</button>
+         <button type="submit" class="sudmit_btn"">탈퇴하기</button>
       </div>
   </form>
 

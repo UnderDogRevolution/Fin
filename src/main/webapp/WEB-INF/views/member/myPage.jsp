@@ -144,7 +144,7 @@ fieldset {
 	width: 100%;
 	flex-flow: row nowrap;
 	justify-content: center;
-	margin-bottom: 2%; 
+	margin-bottom: 2%;
 	margin-left: -30px;
 }
 
@@ -185,18 +185,18 @@ fieldset {
 	color: black;
 	background-color: white;
 	width: 100px;
-	height: 30px;
+	height: 40px;
 	margin-left: 0 !important;
-	font-weight: 700;
+	font-weight: 600;
 }
-.sudmit_btn:hover{
+
+.sudmit_btn:hover {
 	background-color: #bb2d3b;
 	color: white;
 }
-.subwrap{
 
-margin-left: 0 !important;
-
+.subwrap {
+	margin-left: 0 !important;
 }
 </style>
 </head>
@@ -204,9 +204,9 @@ margin-left: 0 !important;
 
 <div id="wrap">
 	<div class="myPageContainer">
-		
-		<jsp:include page="sideMenu.jsp"/>
-		
+
+		<jsp:include page="sideMenu.jsp" />
+
 		<form method="POST" action="update" enctype="multipart/form-data"
 			onsubmit="return memberUpdateValidate();" role="form"
 			class="formwrap">

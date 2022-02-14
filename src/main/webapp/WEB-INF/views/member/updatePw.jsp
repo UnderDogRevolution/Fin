@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
-<title>myPage</title>
+<title>update</title>
 
 <style type="text/css">
 html, body {
@@ -194,8 +194,7 @@ fieldset {
 	width: 100px;
 	height: 30px;
 	margin-left: 0 !important;
-	margin-top: 15px;
-	font-weight: 700;
+	font-weight: 400;
 }
 
 .sudmit_btn:hover {
@@ -223,9 +222,9 @@ fieldset {
 	color: black;
 	background-color: white;
 	width: 100px;
-	height: 30px;
+	height: 40px;
 	margin-left: 0 !important;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .sudmit_btn:hover {
@@ -289,47 +288,6 @@ fieldset {
 <c:if test="${ !empty requestScope.title }">
 
 
-  <div id="wrap">
-    <div class="side">
-      <a class="btn btn-danger btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
-      <a class="btn btn-danger btn-lg" a href="updatePw" role="button">비밀번호 수정</a><br>
-      <a class="btn btn-danger btn-lg" a href="ask" role="button">바라는 점</a><br>
-      <a class="btn btn-danger btn-lg" a href="secession" role="button">회원탈퇴</a>
-    </div>
-
-    <form method="POST" action="updatePw" onsubmit="return updatePwValidate();">
-      <div class="contents"><br>
-
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label" style="font-weight: bolder; font-size:2rem;">비밀번호 수정</label>
-        </div>
-
-        <div class="row-mb-3-con">
-          <label for="currentPw" class="form-label" >현재 비밀번호</label>
-          <input type="password" class="inputform" id="currentPw" name="currentPw">
-        </div>
-
-        <div class="row-mb-3-con">
-          <label for="newPw1" class="form-label">새 비밀번호</label>
-          <input type="password" class="inputform" id="newPw1" name="newPw1">
-        </div>
-
-        <div class="row-mb-3-con">
-          <label for="newPw2" class="form-label">새 비밀번호 확인</label>
-          <input type="password" class="inputform" id="newPw2" name="newPw2">
-        </div>
-
-        <div class="mb-3" style="font-weight: bold;">
-          <br>
-          <h1>6~16자의 영문 대/소문자, 숫자, 특수기호 조합 사용할 수 있습니다.<br>
-            이전에 사용했던 비밀번호나 타 사이트와 다른 비밀번호를 사용하고 비밀번호는 주기적으로 변경해 주세요.</h1>
-        </div>
-
-        <button type="submit" class="btnsub btn-danger btn-lg">저장하기</button>
-      </div>
-  </div>
-  </form>
-  
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <c:if test="${ !empty requestScope.title }">
 	<script>
@@ -363,6 +321,7 @@ fieldset {
 			}
 
 		}
+		</c:if>
 	</script>
 </c:if>
 
