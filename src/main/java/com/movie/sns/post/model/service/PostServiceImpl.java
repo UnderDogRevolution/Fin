@@ -118,7 +118,7 @@ public class PostServiceImpl implements PostService {
 			movieMap = (Map<String, Object>)postVO.get("movie");
 			Movie temp = new Movie();
 			movie = (Movie)Util.convertMapToObject(movieMap, temp);
-			movie.setMemberNo(1);
+			movie.setMemberNo((int)postVO.get("memberNo"));
 			movie.setPostNo(post.getPostNo());
 			
 			if(result>0) {
