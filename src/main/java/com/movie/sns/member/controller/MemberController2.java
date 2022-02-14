@@ -6,16 +6,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,14 +57,14 @@ public class MemberController2 {
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
 		int result = service.updateMember(member, images, webPath, serverPath, deleteCheck);
-
+		System.out.println(deleteCheck);
 		String path = null;
 		
 		if (result > 0) { // 수정 성공
-
-			loginMember.setMemberNickName(nickInput);
-			loginMember.setMemberBirth(birthInput);
-			loginMember.setProfileImage(member.getProfileImage());
+			
+				loginMember.setMemberNickName(nickInput);
+				loginMember.setMemberBirth(birthInput);
+				loginMember.setProfileImage(member.getProfileImage());
 			
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
 		} else { // 실패
