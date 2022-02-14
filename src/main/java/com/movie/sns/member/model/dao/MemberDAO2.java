@@ -66,16 +66,6 @@ public class MemberDAO2 {
 		return sqlSession.delete("memberMapper.deleteImages", map);
 	}
 
-	
-	/** 이미지 삽입
-	 * @param img
-	 * @return
-	 */
-	public int insertImage(Image img) {
-		return sqlSession.insert("memberMapper.insertImage", img);
-	}
-
-	
 	/** 이미지 수정
 	 * @param img
 	 * @return

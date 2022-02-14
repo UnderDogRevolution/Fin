@@ -2,7 +2,6 @@ package com.movie.sns.member.model.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,13 +55,15 @@ public class MemberService2Impl implements MemberService2 {
 
 		if (result > 0) {
 			
-			if(deleteCheck == 1) {
+			if(deleteCheck == 1) { //1일때 기본이미지
 				Image img = new Image();
 				img.setImgPath("/resources/images/common/");
 				img.setImgName("defaultProfileImage.png");
 				img.setImgOriginal("defaultProfileImage.png");
 				img.setMemberNo(member.getMemberNo());
+				System.out.println(img);
 				result = dao.updateImage(img);
+				
 			}
 			
 			else {
@@ -79,8 +80,9 @@ public class MemberService2Impl implements MemberService2 {
 						img.setMemberNo(member.getMemberNo());
 						
 						imgList.add(img);
-						
 						member.setProfileImage(img);
+						
+						System.out.println(img);
 					}
 				}
 				

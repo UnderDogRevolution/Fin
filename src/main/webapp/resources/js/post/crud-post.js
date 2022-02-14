@@ -153,7 +153,6 @@ inputContent.addEventListener("input", function(){
     countBox.innerText = count;
 })
 
-console.log("moviedb");
 
 let page = 1;
 const key = "a93bbecafca4d9f151b867232f870461";
@@ -506,8 +505,25 @@ function postValidate(){
             if(items.innerText.indexOf('#') >-1){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
+            if(items.innerText.indexOf('@') > -1){
+                // $.ajax({ 
+                //     url: contextPath + "/post/searchUser",
+                //     data: { "tagName": items.innerText.replace("@", "")},
+                //     type: "POST",
+                //     dataType : "JSON",
+                //     success: function (tagList) {
+                //         console.log(tagList)
+                //     },
+                //     error: function (req, status, error) {
+                //         console.log("ajax 실패");
+                //         console.log(req.responseText);
+                //         console.log(status);
+                //         console.log(error);
+                //     }
+            
+                // })
+            }
         }
-
         
         
         postVO.postContent = inputTextarea.value;

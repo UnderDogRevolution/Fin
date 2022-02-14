@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 	<style type="text/css">
 	html::-webkit-scrollbar{
-	display: none;
+	display: none !important;
 	}
 	.container::-webkit-scrollbar{
 	display: none;
@@ -471,7 +471,7 @@ background-color: gray;
 	const contextPath = "${contextPath}";
 	const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
 	
-	
+/* 	
 	function updatePwUser(){
 		location.href = contextPath + "/member/updatePw"
 	}
@@ -487,7 +487,7 @@ background-color: gray;
  	function postSubmit1(postNo){
 		 location.href = contextPath + "/post/view/"+postNo
 	} 
-	
+
 	
 	
 		var thisMemberNo = window.location.href.split("/")[6];
@@ -635,7 +635,7 @@ background-color: gray;
 				});
 
 		$(document).on("click", '.follower', function() {
-
+			console.log("fkdafjlkf");
 			var html = [];	
 			
 			var _this = $(this);
