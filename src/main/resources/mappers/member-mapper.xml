@@ -135,7 +135,7 @@
 		UPDATE MEMBER_IMG SET
 		MEMBER_IMG_PATH = #{imgPath},
 		MEMBER_IMG_NM = 'defaultProfileImage.png',
-		MEMBER_IMG_ORIGINAL = 'defaultProfileImage.png}'
+		MEMBER_IMG_ORIGINAL = 'defaultProfileImage.png'
 		WHERE MEMBER_NO = #{MemberNo}
 		AND MEMBER_IMG_LEVEL = 0
 	</delete>

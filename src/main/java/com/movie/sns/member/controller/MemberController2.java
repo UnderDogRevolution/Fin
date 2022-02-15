@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.sns.member.model.service.MemberService2;
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 import com.movie.sns.admin.model.vo.AdminAsk;
 
@@ -44,28 +45,32 @@ public class MemberController2 {
 	public String updateMember(
 			@ModelAttribute("loginMember") Member loginMember,
 			@RequestParam("nickInput") String nickInput,
-			@RequestParam("birthInput") String birthInput,
-			@DateTimeFormat(pattern = "yyyy-MM-dd") Member member, RedirectAttributes ra,
-			List<MultipartFile> images, 
+			@RequestParam("birthInput") @DateTimeFormat(pattern = "yyyy-MM-dd")String birthInput,
+			Member member, RedirectAttributes ra,
+			List<MultipartFile> images,
 			@RequestParam(value="deleteCheck", required = false, defaultValue = "0" )int deleteCheck, HttpSession session) {
-
+		
+		
+		member.setMemberBirth(birthInput);
 		member.setMemberNo(loginMember.getMemberNo());
 		member.setMemberNickName(nickInput);
-		member.setMemberBirth(birthInput);
 
 		String webPath = "/resources/images/member/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
 		int result = service.updateMember(member, images, webPath, serverPath, deleteCheck);
-		System.out.println(deleteCheck);
 		String path = null;
 		
 		if (result > 0) { // 수정 성공
+				
+			
 			
 				loginMember.setMemberNickName(nickInput);
 				loginMember.setMemberBirth(birthInput);
-				loginMember.setProfileImage(member.getProfileImage());
 			
+				
+				
+				
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);
 		} else { // 실패
 			Util.swalSetMessage("회원정보 수정 실패", "회원정보 변경에 실패하였습니다.", "error", ra);
