@@ -6,7 +6,8 @@
 <title>ask</title>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/member/myPage.css">
-
+	<link rel="stylesheet"
+	href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 
 
@@ -88,7 +89,11 @@
 	}
 </script>
 
-
+<script>
+	const memberNo = loginMemberNo;
+	const contextPath = "${contextPath}"
+</script>
+<jsp:include page="../main/crud-post.jsp"></jsp:include>
 </body>
 
 </html>
