@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.movie.sns.member.model.service.MemberService;
 import com.movie.sns.member.model.service.MemberService2;
 import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
@@ -63,12 +64,13 @@ public class MemberController2 {
 		
 		if (result > 0) { // 수정 성공
 				
-			
-			
-				loginMember.setMemberNickName(nickInput);
-				loginMember.setMemberBirth(birthInput);
-			
+			Image memberImage = service.selectProfileImage(loginMember.getMemberNo());
 				
+			loginMember.setProfileImage(memberImage);
+			loginMember.setMemberNickName(nickInput);
+			loginMember.setMemberBirth(birthInput);
+			
+			System.out.println("회원 이미지" + memberImage);
 				
 				
 			Util.swalSetMessage("회원정보 수정 성공", "회원정보가 변경되었습니다.", "success", ra);

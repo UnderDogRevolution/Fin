@@ -119,7 +119,12 @@ public class MemberService2Impl implements MemberService2 {
 		return dao.selectImgList();
 	}
 	
-	
+	// 회원 이미지 조회
+	@Override
+	public Image selectProfileImage(int memberNo) {
+		return dao.selectProfileImage(memberNo);
+	}
+
 	// 회원 탈퇴
 	@Override
 	public int secession(int memberNo, String currentPw) {
