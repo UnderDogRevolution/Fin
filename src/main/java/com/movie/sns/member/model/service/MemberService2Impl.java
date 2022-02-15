@@ -52,8 +52,6 @@ public class MemberService2Impl implements MemberService2 {
 
 		int result = dao.updateMember(member);
 
-
-		if (result > 0) {
 			
 			if(deleteCheck == 1) { //1일때 기본이미지
 				Image img = new Image();
@@ -63,7 +61,6 @@ public class MemberService2Impl implements MemberService2 {
 				img.setMemberNo(member.getMemberNo());
 				System.out.println(img);
 				result = dao.updateImage(img);
-				
 			}
 			
 			else {
@@ -104,9 +101,6 @@ public class MemberService2Impl implements MemberService2 {
 						e.printStackTrace();
 					}
 				}
-				
-			}
-
 		}
 		return result;
 	}
