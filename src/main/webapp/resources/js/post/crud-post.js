@@ -337,10 +337,16 @@ function autoComplete(arr){ // 배열 매개변수
 }
 
 function changeContent(){
-    const content = inputTextarea.value.replaceAll("\n","<br>").replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
+    const content = inputTextarea.value.replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
-    let change = content.replace(tagRegExp, function(target){
+
+    let change = content.replaceAll("<", "&lt;");
+    
+    change = change.replaceAll(">", "&gt;");
+    change = change.replaceAll("\n", "<br>");
+    console.log(change)
+    change = change.replace(tagRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
     change = change.replace(userRegExp, function(target){

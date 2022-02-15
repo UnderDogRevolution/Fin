@@ -5,7 +5,7 @@ const postContainer = document.getElementById("container-post")
 let cp =1  // let cp 1 이 함수 실행 아래보다 있으면 안된다.
 let onlyFollow = 0;
 postContainer.innerHTML = "";
-revealPost() 
+revealPost()
 const option = {
 	root: document.getElementById("container-post"),
 	rootMargin: '100px 0px 0px 0px'
@@ -497,12 +497,13 @@ function revealPost(){
 					const input = document.createElement("textarea")
 					input.setAttribute("type", "text");
 					input.setAttribute("placeholder", "댓글을 달아주세요!");
-					input.addEventListener("keyup", e =>{
+					input.addEventListener("keydown", e =>{
 						const replyImg = e.target.parentNode.parentNode.getElementsByTagName("img")[0];
 						e.target.style.height = "auto"
 						let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
 						e.target.style.height = `${scHeight}px`
-						console.log(scHeight)
+						console.log(e)
+						console.log(e.key)
 						if(e.key == "Enter"){
 							console.log(e.target.value)
 							e.target.value = e.target.value.replaceAll("\n", "");
@@ -579,7 +580,6 @@ function revealPost(){
 		},
 		complete: function(){
 			
-			// document.querySelectorAll('.post').forEach((post) => io.observe(post));
 			const temp = document.getElementsByClassName("post")[(cp*5)-1]
 			
 			if(temp == null){
