@@ -9,13 +9,10 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 	<style>
 		#main-container{
-			display: flex;
-			justify-content: center;
-			flex-direction: row;
 			width: 100%;
 			height: 96%;
 			padding-top: 129px;
-			align-items: flex-start;
+			position: relative;
 		}
 	</style>
 </head>
@@ -127,7 +124,7 @@
 		</div>
 		</div>
 
-		<div style="flex-basis: 18%; flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 23%;">
+		<div style="display: flex; flex-direction: column; align-items: flex-start; position: absolute; left: 50%; transform: translate(20%); width: 450px;">
 			<jsp:include page="../main/side.jsp"></jsp:include>
 		</div>
 	</div>
