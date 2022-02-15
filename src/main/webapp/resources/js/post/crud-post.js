@@ -417,7 +417,6 @@ const observer = new MutationObserver(mutations => {
                                         type: "POST",
                                         dataType : "JSON",
                                         success: function (tagList) {
-                                            console.log(tagList)
                                             const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
                                             modalSide.style.top = Number(top) + 24 + "px"; 
                                             
@@ -506,25 +505,29 @@ function postValidate(){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
             if(items.innerText.indexOf('@') > -1){
-                // $.ajax({ 
-                //     url: contextPath + "/post/searchUser",
-                //     data: { "tagName": items.innerText.replace("@", "")},
-                //     type: "POST",
-                //     dataType : "JSON",
-                //     success: function (tagList) {
-                //         console.log(tagList)
-                //     },
-                //     error: function (req, status, error) {
-                //         console.log("ajax 실패");
-                //         console.log(req.responseText);
-                //         console.log(status);
-                //         console.log(error);
-                //     }
+                // 피 태그자의 멤버no
+                $.ajax({ 
+                    url: contextPath + "/post/searchUser",
+                    data: { "tagName": items.innerText.replace("@", "")},
+                    type: "POST",
+                    dataType : "JSON",
+                    success: function (tagList) {
+                        for(const items of tagList){
+                            console.log(items) // memberNo가 받아옴
+                            console.log("태그 유저")
+                            console.log(items.memberNo)
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log("ajax 실패");
+                        console.log(req.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
             
-                // })
+                })
             }
         }
-        
         
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
