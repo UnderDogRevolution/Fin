@@ -88,9 +88,9 @@ public class ChatController {
 	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public String searchJoin(String chatNo, String memberNo, String frNo, Model model) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		System.out.println("이건 채팅방번호다" + chatNo); // 채팅방 번호
-		System.out.println("내번호" + memberNo);// 회원번호 일단가져옴 loginMemberNo 에도 있음 ㅋ
-		System.out.println("나말고 나랑대화하는아이 번호" + frNo);
+		//System.out.println("이건 채팅방번호다" + chatNo); // 채팅방 번호
+		//System.out.println("내번호" + memberNo);// 회원번호 일단가져옴 loginMemberNo 에도 있음 ㅋ
+		//System.out.println("나말고 나랑대화하는아이 번호" + frNo);
 		int friendNo = Integer.parseInt(frNo);
 		Member member = service.searchMember(friendNo);
 
@@ -99,7 +99,7 @@ public class ChatController {
 		// 내가아닌 참여자 정보 가져올려면 memberNo 필요
 		// 해당 방 상대회원조회
 		model.addAttribute("chatNo", chatNo);
-		System.out.println("해당 방 메세지다" + message);
+		//System.out.println("해당 방 메세지다" + message);
 		// List<ChatMessage> message = service.searchMessage(chatNo , memberNo);
 		result.put("memberNo", member.getMemberNo());
 		result.put("memberName", member.getMemberName());
@@ -150,7 +150,7 @@ public class ChatController {
 			chat.setMemberNo(loginMember.getMemberNo());
 			List<ChatFriend> rList = service.searchFollower(chat);
 			
-			System.out.println("친구놈들 가져오기"+rList);
+			//System.out.println("친구놈들 가져오기"+rList);
 			return new Gson().toJson(rList);
 		}
 		
@@ -169,7 +169,7 @@ public class ChatController {
 				
 			}
 			
-			System.out.println("검색결과"+rList);
+			//System.out.println("검색결과"+rList);
 			return new Gson().toJson(rList);
 		}
 		
