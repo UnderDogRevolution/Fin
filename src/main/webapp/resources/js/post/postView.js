@@ -734,7 +734,7 @@ document.getElementsByClassName("profile-img")[0].addEventListener("click", func
 })
 
 const textarea = document.getElementsByTagName("textarea")[0]
-textarea.addEventListener("keyup", e => {
+textarea.addEventListener("keydown", e => {
 	const replyImg = e.target.parentNode.parentNode.getElementsByTagName("img")[0];
 	e.target.style.height = "auto"
 	let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
@@ -743,6 +743,7 @@ textarea.addEventListener("keyup", e => {
 	if (e.key == "Enter") {
 		console.log(e.target.value)
 		e.target.value = e.target.value.replaceAll("\n", "");
+		e.preventDefault();
 		replyImg.click();
 	}
 })
