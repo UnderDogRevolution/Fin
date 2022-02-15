@@ -49,6 +49,9 @@ public class MemberController {
 		// 이전 페이지 주소를 세션에 담기
 		req.getSession().setAttribute("prevURL", referer);
 		
+		HttpSession session = req.getSession();
+		
+		
 		return "member/login";
 	}
 	
