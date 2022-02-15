@@ -59,7 +59,7 @@ public class MemberDAO {
 		
 		int result = sqlSession.insert("memberMapper.signUp", member);
 		
-		System.out.println("회원번호 : " + member.getMemberNo());
+//		System.out.println("회원번호 : " + member.getMemberNo());
 		
 		if(result > 0) result = member.getMemberNo();
 		else result = 0;
