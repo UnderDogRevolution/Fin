@@ -71,6 +71,8 @@
 
 <script src="${contextPath}/resources/js/member/memberUpdate.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- sweetalert2 JS -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <c:if test="${ !empty requestScope.title }">
 	<script>
@@ -88,11 +90,14 @@
 		}
 	</script>
 	<script>
-		swal({
+		swal.fire({
 			title : "${title}",
-			text : "${text}",
-			icon : "${icon}"
-		});
+			html  : "${text}",
+			icon  : "${icon}",
+      showConfirmButton: true,
+      confirmButtonText: '확인',
+      confirmButtonColor: '#F05454'
+		})
 	</script>
 </c:if>
 
