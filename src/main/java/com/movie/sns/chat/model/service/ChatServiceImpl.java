@@ -53,7 +53,7 @@ public class ChatServiceImpl implements ChatService {
 	public int insertMessage(ChatMessage cm) {
 		int result = 0;
 		String message = cm.getMessage();
-		System.out.println(message);
+		//System.out.println(message);
 		if (cm.getType() == 1) {
 			result = dao.insertMessage(cm);
 		} else {
@@ -81,7 +81,7 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public int deleteChat(ChatRoomJoin join) {
 		int result = dao.selectJoinCount(join); // 참여자 수 조회
-		System.out.println("채팅방 결과값" + result);
+		//System.out.println("채팅방 결과값" + result);
 
 		if (result > 1) { // 결과 값이 2 인경우 -- 두명다 참여중
 			result = dao.updateJoin(join);
@@ -97,7 +97,7 @@ public class ChatServiceImpl implements ChatService {
 	public int updateJoinUp(ChatMessage cm) {
 		int result = 0;
 		result = dao.selectFriendJoin(cm);
-		System.out.println("상대방이 미 참여중 인경우 0" + result);
+		//System.out.println("상대방이 미 참여중 인경우 0" + result);
 		if (result == 0) {
 			result = dao.updateJoinUp(cm);
 			if (result > 0) {
@@ -109,7 +109,7 @@ public class ChatServiceImpl implements ChatService {
 		 * if (result == 0) { // 상대방이 채팅 참여중이다 1인경우 참여중 아닌경우 미참여중 result =
 		 * dao.updateJoinUp(cm); }
 		 */
-		System.out.println("결과 값 구분 참여 중인 경우 1 상태 업뎃시2" + result);
+		//System.out.println("결과 값 구분 참여 중인 경우 1 상태 업뎃시2" + result);
 		return result;
 	}
 
@@ -133,23 +133,23 @@ public class ChatServiceImpl implements ChatService {
 		result = dao.searchChatRoomJoin(room);
 		if (result > 0) { // 채팅방이 존재할 경우
 			result = dao.joinChatNo(room);
-			System.out.println("방번호 결과값" + result);
+			//System.out.println("방번호 결과값" + result);
 			
 					room.setChatRoomNo(result);// 조회 성공
 				 chatRoom = dao.selectFriend(room); // 친구 이미지, 이름 가져올려면 세팅해야됨
-					System.out.println("세팅되었는지 조회" + chatRoom);
+					//System.out.println("세팅되었는지 조회" + chatRoom);
 			if (result > 0) { // 조회값이 0보다 클 경우 방번호를 얻어옴
 					result = dao.selectJoinCount2(room); // 내가 참여중인지 아닌지 확인하기
 					// 내가 참여중인경우 1 아닌경우 0
-					System.out.println("방번호 조회 값까지 넘어옴" + result);
+					//System.out.println("방번호 조회 값까지 넘어옴" + result);
 					if(result > 0) {// 내가 참여중이지 않은경우 일단 채팅방이 있으니 상대방 업데이트 할 필요가 없다.
 									// 왜? 메세지보내면 자동으로 상대방 참여상태를 update되게 만들었기 때문에
 									// 내가 참여중인 경우 아무것도 할 필요가 없음 js에 chatRoomNo만 보내면 될 듯.
 						result = -1; // result가 1일시에 요소가 생성 될 수 있게 끔 -1로 구분짓는다.
-					System.out.println("내가 참여중인경우 -1" + result);
+					//System.out.println("내가 참여중인경우 -1" + result);
 					}else {// 내가참여중이지않은경우 나를 참여중으로 바꾼다
 						result = dao.updateMyJoin(room);
-						System.out.println("참여중으로 바꿨다" + result);
+						//System.out.println("참여중으로 바꿨다" + result);
 						
 					}
 			}
@@ -158,12 +158,12 @@ public class ChatServiceImpl implements ChatService {
 			result = dao.insertChatRoom(room);// 채팅방 생성 후 그 채팅방 안에 참여시키기 currval사용
 				if(result > 0) {
 					result = dao.insertChatRoomJoin(room);
-					System.out.println("채팅방 생성 후 참가까지 성공 " + result);
+					//System.out.println("채팅방 생성 후 참가까지 성공 " + result);
 					if(result > 0) { // memberNo로 join 성공 시 상대방도 초대
 						result = dao.insertFriend(room);
 						if(result > 0) {
 							result = dao.joinChatNo(room);
-							System.out.println("방번호 결과값" + result);
+						//	System.out.println("방번호 결과값" + result);
 							
 							room.setChatRoomNo(result);// 조회 성공
 							chatRoom = dao.selectFriend(room);

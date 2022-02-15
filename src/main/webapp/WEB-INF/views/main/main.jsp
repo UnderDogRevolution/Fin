@@ -9,13 +9,10 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 	<style>
 		#main-container{
-			display: flex;
-			justify-content: center;
-			flex-direction: row;
 			width: 100%;
 			height: 96%;
 			padding-top: 129px;
-			align-items: flex-start;
+			position: relative;
 		}
 		/* margin-top을 주면 body가 주저 앉는다. 그래서 padding-top을 줘야 한다. */
 	</style>
@@ -24,7 +21,7 @@
 <body >
 	<div id="main-container">
 		<jsp:include page="feed.jsp"></jsp:include>
-		<div style="flex-basis: 18%; flex-grow: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 23%;">
+		<div style="display: flex; flex-direction: column; align-items: flex-start; position: absolute; left: 50%; transform: translate(20%); width: 450px;">
 			<jsp:include page="side.jsp"></jsp:include>
 			<div style="font-weight: bold; margin-left: 9%; margin-top: 5%;">
 				<span onclick="recentPost();" style="cursor: pointer;">최신</span><span> / </span ><span onclick="onlyFollowPost()" style="cursor: pointer;">팔로우</span>

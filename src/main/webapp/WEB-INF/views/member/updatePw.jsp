@@ -31,7 +31,7 @@
 				</div>
 
 				<div class="row-mb-3-con">
-					<label for="currentPw" class="form-label">비밀번호 수정</label> <input
+					<label for="currentPw" class="form-label">현재 비밀번호</label> <input
 						type="password" class="inputform" id="currentPw" name="currentPw">
 				</div>
 
@@ -62,16 +62,21 @@
 
 <script src="${contextPath}/resources/js/member/memberUpdate.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- sweetalert2 JS -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
 <c:if test="${ !empty requestScope.title }">
 	<script>
-		swal({
+		swal.fire({
 			title : "${title}",
-			text : "${text}",
-			icon : "${icon}"
-		});
+			html  : "${text}",
+			icon  : "${icon}",
+      showConfirmButton: true,
+      confirmButtonText: '확인',
+      confirmButtonColor: '#F05454'
+		})
 	</script>
 
 	<script>
