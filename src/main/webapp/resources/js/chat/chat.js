@@ -701,7 +701,7 @@ function sendImg() {
 
 
 				const alramObj = {};
-<<<<<<< HEAD
+
 							
 							alramObj.alramTakeMemberNo = targetNo;
 							alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
@@ -713,19 +713,7 @@ function sendImg() {
 							alramSock.send(JSON.stringify(alramObj));
 				
 							$('.notice-num').show();
-=======
 
-				alramObj.alramTakeMemberNo = targetNo;
-				alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
-				alramObj.alramUrl = contextPath + "/chat/myChat/";
-				alramObj.alramGiveNo = memberNo;
-
-
-
-				alramSock.send(JSON.stringify(alramObj));
-
-
->>>>>>> 4eb7e69626bbb9bc61f719f345e6b50a5bd79aef
 			},
 
 
@@ -789,7 +777,7 @@ function msgUp() { //메세지 보내기
 		$("#inputChatting").val("");
 
 		const alramObj = {};
-<<<<<<< HEAD
+
 							
 							alramObj.alramTakeMemberNo = targetNo;
 							alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
@@ -804,20 +792,7 @@ function msgUp() { //메세지 보내기
 							
 							$('.notice-num').show();
 		
-=======
 
-		alramObj.alramTakeMemberNo = targetNo;
-		alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
-		alramObj.alramUrl = contextPath + "/chat/myChat/";
-		alramObj.alramGiveNo = memberNo;
-
-
-
-		alramSock.send(JSON.stringify(alramObj));
-
-		console.log(alramObj);
-
->>>>>>> 4eb7e69626bbb9bc61f719f345e6b50a5bd79aef
 	}
 };
 
