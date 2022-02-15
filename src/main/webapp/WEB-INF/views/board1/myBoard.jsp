@@ -435,11 +435,11 @@ html::-webkit-scrollbar {
 							<div class="setting-list-wrap">
 								<div class="setting-list-item">
 
-									<div class="setting-update">
-										<a href="${contextPath}/member/updatePw">비밀번호 변경</a>
+									<div onclick = "updatePwUser()" class="setting-update">
+										비밀번호 변경
 									</div>
-									<div class="setting-update">
-										<a href="${contextPath}/member/ask">바라는 점</a>
+									<div onclick = "enquery()" class="setting-update">
+										바라는 점
 									</div>
 									<div class="setting-update" data-bs-toggle="modal"
 										data-bs-target="#followerList">팔로워</div>
@@ -479,18 +479,17 @@ html::-webkit-scrollbar {
 	const memberName = "${loginMember.memberName}";
 	const contextPath = "${contextPath}";
 	const myImgPath = "${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}";
-<<<<<<< HEAD
 	
-/* 	
+
 	function updatePwUser(){
 		location.href = contextPath + "/member/updatePw"
 	}
 	function enquery(){
 		location.href = contextPath + "/member/ask"
 	}
-=======
+
 	const alramNo = "${memberNo}";
->>>>>>> a0262170f89f19841f22b4755c1f9322c1e87d72
+
 	
 	function memberView(member){
 		location.href = contextPath + "/board1/myBoard/"+member		

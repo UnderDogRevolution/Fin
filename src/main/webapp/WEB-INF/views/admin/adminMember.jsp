@@ -56,6 +56,7 @@
 		border-radius: 5px;
 		padding: 10px;
 	}
+	
 
 </style>
 
@@ -98,7 +99,7 @@
 
 							<div class="table table-hover table-dark align-middle">
 								
-								<table class="table my-5"
+								<table style=" table-layout: fixed;" class="table my-5"
 									id="list-table">
 
 									<thead>
@@ -111,7 +112,7 @@
 											<th style="width: 200px;">닉네임</th>
 											<th>이메일</th>
 											<th id="enrollDtSort" class="asc"><span>가입일 ▲</span></th>
-											<th>
+											<th style="width: 200;">
 												회원상태
 												<select id="statusValue" class="selectStatusMenu">
 													<option value="all">전체</option>
