@@ -502,12 +502,11 @@ function revealPost(){
 						e.target.style.height = "auto"
 						let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
 						e.target.style.height = `${scHeight}px`
-						console.log(e)
-						console.log(e.key)
 						if(e.key == "Enter"){
-							console.log(e.target.value)
 							e.target.value = e.target.value.replaceAll("\n", "");
+							e.preventDefault();
 							replyImg.click();
+							e.target.value = "";
 						}
 					})
 					inputReplyDivIn2.append(input);

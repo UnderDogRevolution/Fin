@@ -1,6 +1,7 @@
 // 입장한 채팅방 상대 회원 번호
 let targetNo;
 let createDate;
+let chattingNo;
 selectChatRoom();
 // 헤더 공통 js 끝
 
@@ -24,23 +25,23 @@ function flInsert(event, friendNo) {
 				btn.text("팔로잉");
 				btn.removeClass("messagebtn2-1");
 				btn.addClass("messagebtn2-3");
-				
-				
+
+
 				const alramObj = {};
-							
-							alramObj.alramTakeMemberNo = friendNo;
-							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
-							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
-							alramObj.alramGiveNo = memberNo;
-							
-							
-							
-							alramSock.send(JSON.stringify(alramObj));
-				
-				
-				
-				
-				
+
+				alramObj.alramTakeMemberNo = friendNo;
+				alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+				alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+				alramObj.alramGiveNo = memberNo;
+
+
+
+				alramSock.send(JSON.stringify(alramObj));
+
+
+
+
+
 
 			},
 			error: function() {
@@ -57,13 +58,13 @@ function flInsert(event, friendNo) {
 			data: { "memberNo": memberNo, "friendNo": friendNo },
 
 			success: function(result) {
-			if(confirm("팔로우를 취소하시겠습니까?")){
-				
-				btn.text("");
-				btn.text("팔로우");
-				btn.removeClass("messagebtn2-3");
-				btn.addClass("messagebtn2-1");
-			}
+				if (confirm("팔로우를 취소하시겠습니까?")) {
+
+					btn.text("");
+					btn.text("팔로우");
+					btn.removeClass("messagebtn2-3");
+					btn.addClass("messagebtn2-1");
+				}
 
 			},
 			error: function() {
@@ -510,7 +511,7 @@ function searchChatting(chatNo, frNo, path) { // 친구 클릭시 동작
 			const imgbtn = $('<svg onclick = "imgUp()"  aria-label="사진 또는 동영상 추가" class="_8-yf5 imgbtn" color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M6.549 5.013A1.557 1.557 0 108.106 6.57a1.557 1.557 0 00-1.557-1.557z" fill-rule="evenodd"></path><path d="M2 18.605l3.901-3.9a.908.908 0 011.284 0l2.807 2.806a.908.908 0 001.283 0l5.534-5.534a.908.908 0 011.283 0l3.905 3.905" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path><path d="M18.44 2.004A3.56 3.56 0 0122 5.564h0v12.873a3.56 3.56 0 01-3.56 3.56H5.568a3.56 3.56 0 01-3.56-3.56V5.563a3.56 3.56 0 013.56-3.56z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>');
 
 			const chatRoomNo = $('<input class = "chatRoomNo" type = "hidden" value = ' + chatNo + '>');
-
+			chattingNo = chatNo;
 
 			const chatContent = $("<div class='chatContent'>");
 			const chatHeader = $("<div class=chatContent-header>")
@@ -695,20 +696,20 @@ function sendImg() {
 				obj.type = 1;
 
 				chattingSock.send(JSON.stringify(obj));
-				
-				
+
+
 				const alramObj = {};
-							
-							alramObj.alramTakeMemberNo = targetNo;
-							alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
-							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
-							alramObj.alramGiveNo = memberNo;
-							
-							
-							
-							alramSock.send(JSON.stringify(alramObj));
-				
-				
+
+				alramObj.alramTakeMemberNo = targetNo;
+				alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
+				alramObj.alramUrl = contextPath + "/chat/myChat/";
+				alramObj.alramGiveNo = memberNo;
+
+
+
+				alramSock.send(JSON.stringify(alramObj));
+
+
 			},
 
 
@@ -770,20 +771,20 @@ function msgUp() { //메세지 보내기
 		obj.path = myImgPath;
 		chattingSock.send(JSON.stringify(obj));
 		$("#inputChatting").val("");
-		
+
 		const alramObj = {};
-							
-							alramObj.alramTakeMemberNo = targetNo;
-							alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
-							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
-							alramObj.alramGiveNo = memberNo;
-							
-							
-							
-							alramSock.send(JSON.stringify(alramObj));
-		
-							console.log(alramObj);
-		
+
+		alramObj.alramTakeMemberNo = targetNo;
+		alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
+		alramObj.alramUrl = contextPath + "/chat/myChat/";
+		alramObj.alramGiveNo = memberNo;
+
+
+
+		alramSock.send(JSON.stringify(alramObj));
+
+		console.log(alramObj);
+
 	}
 };
 
@@ -829,52 +830,55 @@ chattingSock.onmessage = function(e) {
 	} else {// 메세지가 없는금방 초대된 상태
 
 	}
+	console.log(chattingNo + ',' +obj.chatRoomNo);
+	if (chattingNo == obj.chatRoomNo) {
 
-	if (memberNo == obj.memberNo) {
+		if (memberNo == obj.memberNo) {
 
-		const ul = $("#chattingwrap")
-		const img = $("<img style = 'width: 30px; height: 30px'>");
-		const div = $("<div style =  width: 40px; height : 60px; padding-left : 10px;'>")
-		const divt = $("<div class = 'myChattingwrap'>");
-		img.attr("src", obj.path);
-		div.append(img);
-		const li = $("<li>")
-		li.addClass("myChatting");
-		const myMessage = $("<span class = 'myMessage'>");
-		myMessage.html(p);
-		const msgCreate = $("<span class = 'msgCreate'>");
-		msgCreate.html(obj.createDate);
+			const ul = $("#chattingwrap")
+			const img = $("<img style = 'width: 30px; height: 30px'>");
+			const div = $("<div style =  width: 40px; height : 60px; padding-left : 10px;'>")
+			const divt = $("<div class = 'myChattingwrap'>");
+			img.attr("src", obj.path);
+			div.append(img);
+			const li = $("<li>")
+			li.addClass("myChatting");
+			const myMessage = $("<span class = 'myMessage'>");
+			myMessage.html(p);
+			const msgCreate = $("<span class = 'msgCreate'>");
+			msgCreate.html(obj.createDate);
 
-		li.append(myMessage);
-		li.append(msgCreate);
-		divt.append(li);
-		divt.append(img);
-		ul.append(divt);
+			li.append(myMessage);
+			li.append(msgCreate);
+			divt.append(li);
+			divt.append(img);
+			ul.append(divt);
 
 
-	} else {
-		const ul = $("#chattingwrap")
-		const divt = $("<div class = 'frChattingwrap'>");
-		const frdiv = $("<div>");
-		const li = $("<li>")
-		li.addClass("frChatting");
-		const img = $("<img style = 'width: 30px; height: 30px;'>");
-		img.attr("src", obj.path);
-		const frName = $("<div class = 'frName'>");
-		frName.html(obj.memberName);
+		} else {
+			const ul = $("#chattingwrap")
+			const divt = $("<div class = 'frChattingwrap'>");
+			const frdiv = $("<div>");
+			const li = $("<li>")
+			li.addClass("frChatting");
+			const img = $("<img style = 'width: 30px; height: 30px;'>");
+			img.attr("src", obj.path);
+			const frName = $("<div class = 'frName'>");
+			frName.html(obj.memberName);
 
-		const frMessage = $("<span class = 'frMessage'>");
-		frMessage.html(p)
+			const frMessage = $("<span class = 'frMessage'>");
+			frMessage.html(p)
 
-		const msgCreate = $("<span class = 'msgCreate'>");
-		msgCreate.html(obj.createDate);
-		li.append(frMessage);
-		li.append(msgCreate);
-		frdiv.append(frName);
-		frdiv.append(li);
-		divt.append(img);
-		divt.append(frdiv);
-		ul.append(divt);
+			const msgCreate = $("<span class = 'msgCreate'>");
+			msgCreate.html(obj.createDate);
+			li.append(frMessage);
+			li.append(msgCreate);
+			frdiv.append(frName);
+			frdiv.append(li);
+			divt.append(img);
+			divt.append(frdiv);
+			ul.append(divt);
+		}
 	}
 
 
