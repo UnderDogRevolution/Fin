@@ -296,6 +296,9 @@ td {
 	color: white;
 	margin: 5px;
 }
+.main-side:hover {
+	color: #942d2d;
+}
 .setBtn:disabled{background-color: gray; color: #272727;}
 
 .asc, .desc {

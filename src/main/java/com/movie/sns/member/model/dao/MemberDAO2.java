@@ -90,4 +90,12 @@ public class MemberDAO2 {
 		return sqlSession.insert("memberMapper.insertAsk", ask);
 	}
 
+	/** 회원 이미지 조회
+	 * @param memberNo
+	 * @return image
+	 */
+	public Image selectProfileImage(int memberNo) {
+		return sqlSession.selectOne("memberMapper2.selectProfileImage", memberNo);
+	}
+
 }

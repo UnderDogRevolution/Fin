@@ -695,6 +695,20 @@ function sendImg() {
 				obj.type = 1;
 
 				chattingSock.send(JSON.stringify(obj));
+				
+				
+				const alramObj = {};
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+				
 			},
 
 
@@ -756,6 +770,20 @@ function msgUp() { //메세지 보내기
 		obj.path = myImgPath;
 		chattingSock.send(JSON.stringify(obj));
 		$("#inputChatting").val("");
+		
+		const alramObj = {};
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+		
+							console.log(alramObj);
+		
 	}
 };
 

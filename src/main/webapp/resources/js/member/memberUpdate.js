@@ -1,12 +1,5 @@
 
 
-
-
-
-
-
-
-
 const updateCheckObj = {
 	"nickName": true,
 }

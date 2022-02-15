@@ -337,10 +337,16 @@ function autoComplete(arr){ // 배열 매개변수
 }
 
 function changeContent(){
-    const content = inputTextarea.value.replaceAll("\n","<br>").replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
+    const content = inputTextarea.value.replaceAll(" ", "&nbsp;"); // 두번째 공백이 입력되지 않는다 따라서 공백 처리를 해보자
     const tagRegExp = /#[ㄱ-힣a-zA-Z\d]{1,}/g;
     const userRegExp = /@[ㄱ-힣a-zA-Z\d]{1,}/g;
-    let change = content.replace(tagRegExp, function(target){
+
+    let change = content.replaceAll("<", "&lt;");
+    
+    change = change.replaceAll(">", "&gt;");
+    change = change.replaceAll("\n", "<br>");
+    console.log(change)
+    change = change.replace(tagRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
     change = change.replace(userRegExp, function(target){
@@ -417,7 +423,6 @@ const observer = new MutationObserver(mutations => {
                                         type: "POST",
                                         dataType : "JSON",
                                         success: function (tagList) {
-                                            console.log(tagList)
                                             const top = getAbsoluteTop(mutation.addedNodes[i]) - getAbsoluteTop(textareaBox)
                                             modalSide.style.top = Number(top) + 24 + "px"; 
                                             
@@ -505,27 +510,9 @@ function postValidate(){
             if(items.innerText.indexOf('#') >-1){
                 tagArr.push(items.innerText.replace('#', ""));
             } 
-            if(items.innerText.indexOf('@') > -1){
-                // $.ajax({ 
-                //     url: contextPath + "/post/searchUser",
-                //     data: { "tagName": items.innerText.replace("@", "")},
-                //     type: "POST",
-                //     dataType : "JSON",
-                //     success: function (tagList) {
-                //         console.log(tagList)
-                //     },
-                //     error: function (req, status, error) {
-                //         console.log("ajax 실패");
-                //         console.log(req.responseText);
-                //         console.log(status);
-                //         console.log(error);
-                //     }
-            
-                // })
-            }
+           
         }
-        
-        
+     
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
         postVO.movie = movie;
@@ -558,6 +545,7 @@ function postValidate(){
         
         formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
         console.log(formData);
+        let alramPostNo = 0;
         $.ajax({ 
             url: contextPath + "/post/insert",
             type: "POST",
@@ -568,6 +556,7 @@ function postValidate(){
             async : false,
             success: function (result) {
                 if(result >0){
+					alramPostNo = result;
                     alert("게시글 등록 성공!");
                     location.href = contextPath + "/post/view/" + result;
                 }else{
@@ -582,6 +571,45 @@ function postValidate(){
             }
 
         })
+        
+        for(const items of tagName){
+	         if(items.innerText.indexOf('@') > -1){
+	                // 피 태그자의 멤버no
+	                $.ajax({ 
+	                    url: contextPath + "/post/searchUser",
+	                    data: { "tagName": items.innerText.replace("@", "")},
+	                    type: "POST",
+	                    dataType : "JSON",
+	                    success: function (tagList) {
+	                        for(const items of tagList){
+	                            console.log(items) // memberNo가 받아옴
+	                            console.log("태그 유저")
+	                            console.log(items.memberNo)
+	                            
+	                            const alramObj = {};
+								
+								alramObj.alramTakeMemberNo = items.memberNo;
+								alramObj.alramContent = loginMemberName + "님이 태그 했습니다.";
+								alramObj.alramUrl = contextPath + "/post/view/" + alramPostNo;
+								alramObj.alramGiveNo = loginMemberNo;
+								
+								
+								
+								alramSock.send(JSON.stringify(alramObj));
+	                            
+	                        }
+	                    },
+	                    error: function (req, status, error) {
+	                        console.log("ajax 실패");
+	                        console.log(req.responseText);
+	                        console.log(status);
+	                        console.log(error);
+	                    }
+	            
+	                })
+	            }
+	
+		}
     
 }
 

@@ -23,8 +23,8 @@
 	<div class="startPage">
 
 	    <nav class="a-nav-menu">
-	      <div class="a-main-logo" onclick='location.href="startPage.html"'>
-	        Montage
+	      <div class="a-main-logo" onclick='location.href="${contextPath}"'>
+	        <img class="a-logo-img" src="${contextPath}/resources/images/common/Montage-logo.png">
 	      </div>
 	    </nav>
 	    

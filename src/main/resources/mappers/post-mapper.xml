@@ -91,7 +91,7 @@
 	</select>
 	
 	 <select id="selectUser" resultMap="member_rm">
-		SELECT MEMBER_NICKNM
+		SELECT MEMBER_NICKNM, MEMBER_NO
 		FROM MEMBER
 		WHERE MEMBER_NICKNM LIKE '%'||#{tagName}||'%'
 		AND STATUS_CD = 200

@@ -23,7 +23,7 @@
     <!-- 메인으로 갈 수 있도록 로고 있는 내비게이션바 만들기 -->
     <nav class="a-nav-menu">
       <div class="a-main-logo" onclick='location.href="${contextPath}"'>
-        Montage
+        <img class="a-logo-img" src="${contextPath}/resources/images/common/Montage-logo.png">
       </div>
     </nav>
     

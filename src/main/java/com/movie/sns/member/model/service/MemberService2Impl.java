@@ -61,47 +61,60 @@ public class MemberService2Impl implements MemberService2 {
 				img.setMemberNo(member.getMemberNo());
 				System.out.println(img);
 				result = dao.updateImage(img);
+		if(deleteCheck == 1) { //1일때 기본이미지
+				
+			
+			Image img = new Image();
+			img.setImgPath("/resources/images/common/");
+			img.setImgName("defaultProfileImage.png");
+			img.setImgOriginal("defaultProfileImage.png");
+			img.setMemberNo(member.getMemberNo());
+			System.out.println(img);
+			result = dao.updateImage(img);
+			
+		}
+		
+		else {
+			List<Image> imgList = new ArrayList<Image>();
+			
+			for (int i = 0; i < images.size(); i++) {
+				if (!images.get(i).getOriginalFilename().equals("")) {
+					
+					Image img = new Image();
+					img.setImgPath(webPath); // 웹 접근 경로
+					img.setImgOriginal(images.get(i).getOriginalFilename()); // 원본 파일명
+					img.setImgName(Util.fileRename(images.get(i).getOriginalFilename())); // 변경된 파일명
+					img.setImgLevel(i); // 이미지 레벨
+					img.setMemberNo(member.getMemberNo());
+					
+					imgList.add(img);
+					member.setProfileImage(img);
+					
+					System.out.println(img);
+				}
 			}
 			
-			else {
-				List<Image> imgList = new ArrayList<Image>();
+			for (Image img : imgList) {
 				
-				for (int i = 0; i < images.size(); i++) {
-					if (!images.get(i).getOriginalFilename().equals("")) {
+				result = dao.updateImage(img);
+			} 
+			
+			// 파일이 있다면 저장
+			if (!imgList.isEmpty()) {
+				try {
+					for (int i = 0; i < imgList.size(); i++) {
 						
-						Image img = new Image();
-						img.setImgPath(webPath); // 웹 접근 경로
-						img.setImgOriginal(images.get(i).getOriginalFilename()); // 원본 파일명
-						img.setImgName(Util.fileRename(images.get(i).getOriginalFilename())); // 변경된 파일명
-						img.setImgLevel(i); // 이미지 레벨
-						img.setMemberNo(member.getMemberNo());
-						
-						imgList.add(img);
-						member.setProfileImage(img);
-						
-						System.out.println(img);
+						images.get(imgList.get(i).getImgLevel())
+						.transferTo(new File(serverPath + "/" + imgList.get(i).getImgName()));
 					}
-				}
-				
-				for (Image img : imgList) {
 					
-					result = dao.updateImage(img);
-				} 
-				
-				// 파일이 있다면 저장
-				if (!imgList.isEmpty()) {
-					try {
-						for (int i = 0; i < imgList.size(); i++) {
-							
-							images.get(imgList.get(i).getImgLevel())
-							.transferTo(new File(serverPath + "/" + imgList.get(i).getImgName()));
-						}
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+			}
+			
 		}
+
 		return result;
 	}
 	
@@ -114,7 +127,12 @@ public class MemberService2Impl implements MemberService2 {
 		return dao.selectImgList();
 	}
 	
-	
+	// 회원 이미지 조회
+	@Override
+	public Image selectProfileImage(int memberNo) {
+		return dao.selectProfileImage(memberNo);
+	}
+
 	// 회원 탈퇴
 	@Override
 	public int secession(int memberNo, String currentPw) {
