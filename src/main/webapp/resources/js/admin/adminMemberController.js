@@ -422,10 +422,10 @@ function findMember(cp, statusValue, sortColumn, sortMethod){
           const td2 = $('<td>'+ member.memberNo +'</td>');
 
           // 이름
-          const td3 = $('<td><span class="shortText" style="cursor:pointer;" onclick="showMemberDetail('+ member.memberNo +');">'+ member.memberName +'</span></td>');
+          const td3 = $('<td class="shortText"><span style="cursor:pointer;" onclick="showMemberDetail('+ member.memberNo +');">'+ member.memberName +'</span></td>');
           
           // 닉네임
-          const td4 = $('<td><a class="shortText" style="text-decoration: none; color: white;"	href="' + contextPath + '/board1/myBoard/'+ member.memberNo +'">'+ member.memberNickName +'</a></td>');
+          const td4 = $('<td class="shortText"><a style="text-decoration: none; color: white;"	href="' + contextPath + '/board1/myBoard/'+ member.memberNo +'">'+ member.memberNickName +'</a></td>');
           
           // 이메일
           const td5 = $('<td>'+ member.memberEmail +'</td>');
