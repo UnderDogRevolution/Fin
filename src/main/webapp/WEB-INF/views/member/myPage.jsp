@@ -39,8 +39,6 @@
                <div class="memberImg">
                   <img id="img"
                      src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
-                     onerror="this.onerror=null; 
-                       this.src='../resources/images/common/defaultProfileImage.png'"
                      name="img"
                      style="border-radius: 30%; cursor: pointer; width: 180px; height: 180px;">
                   <br>
