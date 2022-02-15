@@ -51,7 +51,7 @@
 				</div>
 				<br>
 
-				<button type="submit" class="sudmit_btn"">탈퇴하기</button>
+				<button type="submit" class="sudmit_btn"">보내기</button>
 			</div>
 		</form>
 
