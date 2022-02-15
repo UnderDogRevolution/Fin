@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.movie.sns.admin.model.vo.AdminAsk;
+import com.movie.sns.member.model.vo.Image;
 import com.movie.sns.member.model.vo.Member;
 
 public interface MemberService2 {
@@ -47,6 +48,13 @@ public interface MemberService2 {
 	 * @return
 	 */
 	int insertAsk(AdminAsk ask);
+
+
+	/** 회원 이미지 조회
+	 * @param memberNo
+	 * @return memberImage
+	 */
+	Image selectProfileImage(int memberNo);
 	
 
 }
