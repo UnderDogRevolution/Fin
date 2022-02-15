@@ -24,6 +24,7 @@
 		FROM MEMBER A
 		JOIN MEMBER_IMG ON(A.MEMBER_NO = MEMBER_IMG.MEMBER_NO )
 		WHERE MEMBER_NM LIKE '%'||#{search}||'%'
+		OR MEMBER_NICKNM LIKE '%'||#{search}||'%'
 		<if test="memberNo != null">
 		AND A.MEMBER_NO != #{memberNo}
 		</if>

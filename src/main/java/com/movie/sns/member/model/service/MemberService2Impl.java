@@ -52,7 +52,7 @@ public class MemberService2Impl implements MemberService2 {
 
 		int result = dao.updateMember(member);
 
-			
+				
 		if(deleteCheck == 1) { //1일때 기본이미지
 				
 			
