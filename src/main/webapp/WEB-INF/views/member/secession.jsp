@@ -4,238 +4,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <title>secession</title>
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/member/myPage.css">
 
-<style type="text/css">
-html, body {
-	background: #0D0D0D;
-	color: #FDFDFD;
-	height: 100%;
-	padding: 0px;
-	margin: 0px;
-	font-family: "Noto Sans KR";
-}
-
-input {
-	font-family: "Noto Sans KR";
-}
-
-#wrap {
-	width: 80%;
-	height: auto;
-	margin: 5% auto 0 auto;
-	font-size: 1rem;
-	color: #000000;
-	text-align: center;
-}
-
-.side {
-	width: 15%;
-	height: 94%;
-	line-height: 100%;
-	background-color: #0D0D0D;
-	position: absolute;
-	left: 100px;
-}
-
-.col-form-label {
-	margin-left: -30px;
-	width: 100px;
-	margin-bottom: 0.5rem;
-	font-weight: bold;
-	font-size: 1.5rem;
-}
-
-.contents {
-	width: 60%;
-	height: 94%;
-	line-height: 50%;
-	background-color: #ffffff;
-	border-radius: 1rem;
-	line-height: normal;
-	margin-left: 20px;
-}
-
-.input-file-text {
-	display: flex;
-	align-items: center;
-	padding: 0.1rem 0.75rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.9;
-	color: #212529;
-	text-align: center;
-	white-space: nowrap;
-	background-color: #e9ecef;
-	border: 1px solid #ced4da;
-}
-
-.btn {
-	margin: 5% 0 0 0;
-	width: 150px;
-	color: white;
-}
-
-.btn:hover {
-	color: white;
-	background-color: #bb2d3b;
-}
-
-.img-thumbnail {
-	padding: 0.25rem;
-	background-color: #fff;
-	border: 0;
-	max-width: 15%;
-	height: auto;
-}
-
-.imgform-control {
-	width: 30%;
-	padding: 0.375rem 0.35rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1;
-	color: #212529;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: 0.25rem;
-	display: none;
-}
-
-.input-group {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	align-items: center;
-	width: 100%;
-	text-align: center;
-}
-
-fieldset {
-	height: 50px;
-}
-
-.col-inputform {
-	width: 30%;
-	padding: 0;
-	margin: 0 0 0 15px;
-	font-size: 1.0rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	appearance: none;
-	border-radius: 5px;
-	height: 50px;
-	outline: none;
-	cursor: pointer;
-}
-
-.btnsub {
-	margin: 5% 0 5% 0;
-	font-size: 15px;
-}
-
-.row-mb-3-con {
-	display: flex;
-	width: 100%;
-	flex-flow: row nowrap;
-	justify-content: center;
-	margin-bottom: 2%;
-	margin-left: -30px;
-}
-
-.myPageContainer {
-	display: flex;
-	width: 100%;
-	position: relative;
-	justify-content: center;
-}
-
-.formwrap {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin-left: 35px;
-	height: 800px;
-	padding-top: 15px;
-}
-
-.memberImg {
-	display: flex;
-	justify-content: center;
-}
-.mb-3{
-margin-bottom: 3rem!important;
-}
-.deleteImg {
-	color: black;
-	border: none;
-	background-color: white;
-}
-
-.deleteImg:hover {
-	color: #bb2d3b;
-}
-
-.sudmit_btn {
-	border: none;
-	border-radius: 5px;
-	color: black;
-	background-color: white;
-	width: 100px;
-	height: 40px;
-	margin-left: 0 !important;
-	font-weight: 600;
-}
-
-.sudmit_btn:hover {
-	background-color: #bb2d3b;
-	color: white;
-}
-
-.subwrap {
-	margin-left: 0 !important;
-}
-
-.inputform {
-	outline: none;
-}
-
-.secession {
-	padding-top: 20px;
-}
-
-.secessionForm {
-	background-color: transparent;
-	border: none;
-	display: block;
-	resize: none;
-	outline: none;
-	margin: auto;
-	text-align: center;
-	font-weight: 700;
-}
-
-.secessionForm::-webkit-scrollbar {
-	display: none;
-}
-
-.comitbtnwrpa {
-	margin-top: 60px;
-	margin-left: -80px;
-}
-</style>
 </head>
 
 
 <div id="wrap">
 	<div class="myPageContainer">
 
-		<jsp:include page="sideMenu.jsp" />
+		<div class="side">
+			<a class="btn  btn-lg" href="myPage" role="button">개인정보 수정</a><br>
+			<a class="btn btn-lg" href="updatePw" role="button">비밀번호 수정</a><br>
+			<a class="btn btn-lg" href="ask"
+				role="button">바라는 점</a><br> 
+			<a class="btn  btn-lg"  style="background-color: #bb2d3b;" href="secession" role="button">회원탈퇴</a>
+
+		</div>
 
 		<form method="POST" action="secession"
 			onsubmit="return secessionValidate();" class="formwrap">
@@ -247,7 +32,7 @@ margin-bottom: 3rem!important;
 						style="font-weight: bolder; font-size: 2rem; color: #bb2d3b;">회원탈퇴</label>
 				</div>
 
-			
+
 				<div class="secession">
 					<!-- <p style="display: inline-block; color: #bb2d3b;">회원탈퇴</p> 약관] -->
 					<textarea class="secessionForm" id="" cols="65" rows="6.5" readonly>
@@ -257,9 +42,9 @@ margin-bottom: 3rem!important;
 	회원탈퇴를 하더라도, 서비스 약관 및 개인정보 취급방침 동의하에 따라 일정 기간동안 회원 개인정보를 보관합니다.
 	            </textarea>
 				</div>
-					<div class="mb-3" style="font-weight: bolder; font-size: 1rem;">
-					
-					
+				<div class="mb-3" style="font-weight: bolder; font-size: 1rem;">
+
+
 					<p style="margin-bottom: 10px; color: red; font-weight: 700;">주의!</p>
 					<h1>
 						탈퇴를 하시면 회원정보, 가입하신 그룹, 작성한 피드, 문의 내용이 초기화되며 복구하실 수 없습니다.<br>
