@@ -39,7 +39,7 @@ function flInsert(event, friendNo) {
 				
 				
 				
-				
+							$('.notice-num').show();
 				
 
 			},
@@ -708,7 +708,7 @@ function sendImg() {
 							
 							alramSock.send(JSON.stringify(alramObj));
 				
-				
+							$('.notice-num').show();
 			},
 
 
@@ -783,6 +783,8 @@ function msgUp() { //메세지 보내기
 							alramSock.send(JSON.stringify(alramObj));
 		
 							console.log(alramObj);
+							
+							$('.notice-num').show();
 		
 	}
 };

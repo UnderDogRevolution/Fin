@@ -452,6 +452,8 @@ function searchPostList(){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
+								$('.notice-num').show();
+								
 								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
@@ -659,6 +661,7 @@ function insertReply(e){
 								
 								
 						alramSock.send(JSON.stringify(alramObj));	
+						$('.notice-num').show();
 					
 
 				}else{
@@ -872,6 +875,8 @@ function selectReply(postNo){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
+								$('.notice-num').show();
+								
 								
 								
 							}else{
@@ -1009,6 +1014,8 @@ function insertComment(e, replyNo, replyMemberNo){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 					
 
 				}else{

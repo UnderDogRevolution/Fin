@@ -601,6 +601,7 @@ html::-webkit-scrollbar {
 
 		}
 
+
 		$(document).on("click", '.follow', function() {
 					
 			var html = [];
@@ -848,10 +849,7 @@ html::-webkit-scrollbar {
 		};
 
 		
-		
-		
-		
-		
+
 		
 	</script>
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>

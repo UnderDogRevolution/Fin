@@ -33,6 +33,8 @@ for (const items of whitePopcorn) {
 
 
 					alramSock.send(JSON.stringify(alramObj));
+					
+					$('.notice-num').show();
 
 
 				} else {
@@ -163,7 +165,7 @@ function insertReply(e) {
 								
 						alramSock.send(JSON.stringify(alramObj));	
 					
-					
+						$('.notice-num').show();
 
 				} else {
 					alert("댓글 등록 중 문제가 발생했습니다.")
@@ -233,6 +235,8 @@ function insertComment(e, replyNo, replyMemberNo) {
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 				}
 				
 				
@@ -537,8 +541,6 @@ function selectReply(postNo) {
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText) + 1;
 
-								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								console.log(_this.parents('.parent-reply').children('.profile-reply').children().attr('id'));
 
 
 								const alramObj = {};
@@ -552,7 +554,7 @@ function selectReply(postNo) {
 
 								alramSock.send(JSON.stringify(alramObj));
 
-
+								$('.notice-num').show();
 
 							} else {
 								alert("좋아요 기능에 오류가 발생했습니다.")
@@ -598,7 +600,7 @@ function selectReply(postNo) {
 				replyPng.setAttribute("style", "width: 20px; height: 20px; opacity: 0.5;")
 				replyPng.addEventListener("click", function(e) {
 					e.stopPropagation();
-					comment(this, items.replyNo)
+					comment(this, items.replyNo, items.memberNo)
 				})
 
 				// focusout이랑 blur의 이벤트 차이 알것 focusout은 버블링이 있고 blur는 없다. 그리고 이미지는 focus가 안되기 때문에 이 두 이벤트는 적절하지 않다!
