@@ -666,4 +666,3 @@
             </c:if>
 </script>
 <script src="${contextPath}/resources/js/post/post.js"></script>
-    

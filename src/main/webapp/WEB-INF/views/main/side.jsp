@@ -9,7 +9,6 @@
                 <a href="">
                     <div>
                         <div class="postImgwrap">
-                            <img src="img/라라랜드.jpg" alt="">
                         </div>
                         <div class="mvtext">
                             <div class="side_mvTitle">라라랜드</div>
