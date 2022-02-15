@@ -421,7 +421,7 @@ function searchPostList(){
 				imgFooter2.className = "white-popcorn"
 				imgFooter2.setAttribute("src", contextPath + "/resources/images/temp/gray_popcorn2.png")
 				imgFooter2.setAttribute("style", "width: 100%;");
-				imgFooter2.addEventListener("click", function(){
+				imgFooter2.addEventListener("click", function(e){
 					if(typeof memberNo == "undefined"  || memberNo == ""){
 						alert("로그인 해주세요!")
 						return;
@@ -620,13 +620,13 @@ function insertReply(e){
         alert("로그인 해주세요!")
         return;
     }
+	const post = e.parentNode.parentNode.parentNode
+	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
+	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
 	if(replyContent.length > 250){
 		alert(`댓글이 너무 깁니다!(${replyContent.length}/250)`)
 		return;
 	}
-	const post = e.parentNode.parentNode.parentNode
-	const postNo = post.querySelectorAll(".container-like >span ")[0].innerText;
-	const replyContent = e.parentNode.parentNode.getElementsByTagName("textarea")[0].value.replaceAll("\n", "");
 	if(replyContent.trim().length>0){
 		$.ajax({ 
 			url: contextPath + "/reply/insert",
