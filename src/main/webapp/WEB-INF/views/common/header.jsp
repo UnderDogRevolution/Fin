@@ -141,8 +141,7 @@
 							<li><i class="namewrap"> <img class="myImg"
 									src="${contextPath}${loginMember.profileImage.imgPath}${loginMember.profileImage.imgName}"
 									alt=""
-									onerror="this.onerror=null; 
-       					 this.src='../resources/images/common/defaultProfileImage.png'">
+									>
 									<div class="myclick">
 										<!-- 내영역 -->
 										<ul>
