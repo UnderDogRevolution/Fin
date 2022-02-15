@@ -52,15 +52,7 @@ public class MemberService2Impl implements MemberService2 {
 
 		int result = dao.updateMember(member);
 
-			
-			if(deleteCheck == 1) { //1일때 기본이미지
-				Image img = new Image();
-				img.setImgPath("/resources/images/common/");
-				img.setImgName("defaultProfileImage.png");
-				img.setImgOriginal("defaultProfileImage.png");
-				img.setMemberNo(member.getMemberNo());
-				System.out.println(img);
-				result = dao.updateImage(img);
+				
 		if(deleteCheck == 1) { //1일때 기본이미지
 				
 			
