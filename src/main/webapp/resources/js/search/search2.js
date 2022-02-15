@@ -517,7 +517,7 @@ function searchPostList(){
 					const input = document.createElement("textarea")
 					input.setAttribute("type", "text");
 					input.setAttribute("placeholder", "댓글을 달아주세요!");
-					input.addEventListener("keyup", e =>{
+					input.addEventListener("keydown", e =>{
 						const replyImg = e.target.parentNode.parentNode.getElementsByTagName("img")[0];
 						e.target.style.height = "auto"
 						let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
@@ -526,6 +526,7 @@ function searchPostList(){
 						if(e.key == "Enter"){
 							console.log(e.target.value)
 							e.target.value = e.target.value.replaceAll("\n", "");
+							e.preventDefault();
 							replyImg.click();
 						}
 					})

@@ -1,6 +1,7 @@
 package com.movie.sns.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 import javax.servlet.Filter;
@@ -62,7 +63,9 @@ public class LoginFilter implements Filter{
 							arr[1].equals("ask") 
 							) {
 						System.out.println("[필터] : 잘못된 접근입니다. 로그인페이지로 이동합니다.");
+						
 						resp.sendRedirect(req.getContextPath() + "/member/login");
+						
 					}else {
 						chain.doFilter(request, response);
 					}
