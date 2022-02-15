@@ -16,10 +16,10 @@
 	<div class="myPageContainer">
 
 		<div class="side">
-			<a style="background-color: #bb2d3b;" class="btn  btn-lg" a href="myPage" role="button">개인정보 수정</a><br>
-			<a class="btn btn-lg" a href="updatePw" role="button">비밀번호 수정</a><br>
-			<a class="btn btn-lg" a href="ask" role="button">바라는 점</a><br> <a
-				class="btn  btn-lg" a href="secession" role="button">회원탈퇴</a>
+			<a style="background-color: #bb2d3b;" class="btn"  href="myPage" role="button">개인정보 수정</a><br>
+			<a class="btn"  href="updatePw" role="button">비밀번호 수정</a><br>
+			<a class="btn"  href="ask" role="button">바라는 점</a><br> <a
+				class="btn "  href="secession" role="button">회원탈퇴</a>
 
 		</div>
 
@@ -31,7 +31,7 @@
 
 				<div class="row-mb-3">
 					<label for="exampleFormControlInput1" class=" myupdate form-label"
-						style="font-weight: bolder; font-size: 1.5rem; margin-bottom: 4%;">개인정보
+						style="font-weight: bolder;">개인정보
 						수정</label>
 				</div>
 

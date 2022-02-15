@@ -37,7 +37,7 @@ input {
 
 .contents {
 	width: 90%;
-	height: 90%;
+	height: 100%;
 	line-height: 50%;
 	background-color: #ffffff;
 	border-radius: 1rem;
@@ -358,5 +358,9 @@ fieldset {
 .myupdate{
 	margin-top: 20px;
 	margin-bottom: 10px !important;
+	font-size: 20px;
 	
+}
+.side > a {
+	font-size : 20px;
 }
