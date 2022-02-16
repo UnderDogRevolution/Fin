@@ -725,7 +725,6 @@ html::-webkit-scrollbar {
 									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
 									'<div onclick = "memberView('+list[i].memberNo+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
-										'<span>'+ list[i].memberNm +'</span>' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
 									'</div>' +
@@ -775,7 +774,6 @@ html::-webkit-scrollbar {
 									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
 									'<div onclick = "memberView('+list[i].toUser+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
-										'<span>'+ list[i].memberNm +'</span>' +
 										'<input type="hidden" name="friendNo" value="' +list[i].memberNo + '">' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
