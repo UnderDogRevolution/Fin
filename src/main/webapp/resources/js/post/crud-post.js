@@ -585,6 +585,8 @@ function postValidate(){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+	                            console.log("확인")
+	                            console.log($('.notice-num'))
 	                            
 	                        }
 	                    },
