@@ -138,7 +138,7 @@
     padding-top: 20px;
     padding-bottom: 20px;
     line-height: 24px;
-    font-family: "돋움";
+    font-family: "나눔스퀘어";
 }
 .textarea-box:hover{
     background-color: #38383a;
@@ -306,7 +306,7 @@
     word-break: break-all;
     padding-right: 7%;
     line-height: 135%;
-    font-family: "돋움";
+    font-family: "나눔스퀘어";
 }
 .user-reply > div:nth-child(2) > div:nth-last-child(1){
     padding-left: 7%;
