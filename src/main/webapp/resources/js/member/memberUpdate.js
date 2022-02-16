@@ -52,7 +52,6 @@ document.getElementById("nickInput").addEventListener("change", (e) => {
 
 				} else if (request.status == 500) {
 					console.log("서버 내부 에러 발생");
-					console.log(request.responseText);
 				}
 
 			},
@@ -63,7 +62,6 @@ document.getElementById("nickInput").addEventListener("change", (e) => {
 			}
 
 		});
-
 
 
 	} else { // 유효하지 않은 경우
