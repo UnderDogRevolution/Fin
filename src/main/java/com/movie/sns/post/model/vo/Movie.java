@@ -12,22 +12,24 @@ public class Movie {
 	private int postNo;
 	private int memberNo;
 	
-	private int AVG;
+	private double AVG;
 	private int ratingCount;
 	
 	
+	
+	public double getAVG() {
+		return AVG;
+	}
+	public void setAVG(double aVG) {
+		AVG = aVG;
+	}
 	public int getRatingCount() {
 		return ratingCount;
 	}
 	public void setRatingCount(int ratingCount) {
 		this.ratingCount = ratingCount;
 	}
-	public int getAVG() {
-		return AVG;
-	}
-	public void setAVG(int aVG) {
-		AVG = aVG;
-	}
+	
 	public String getMovieNo() {
 		return movieNo;
 	}

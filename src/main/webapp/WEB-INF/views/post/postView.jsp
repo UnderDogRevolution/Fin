@@ -19,8 +19,6 @@
 
 
 <body>
-	${post} <br>
-	
 	<div id="main-container">
 
 		
