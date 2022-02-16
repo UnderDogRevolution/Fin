@@ -116,7 +116,7 @@ public class MemberServiceImpl implements MemberService{
 			profileImage.setImgOriginal("defaultProfileImage.png");
 			profileImage.setMemberNo(result);
 			
-			System.out.println("프로필 이미지 정보" + profileImage);
+//			System.out.println("프로필 이미지 정보" + profileImage);
 			
 			result = dao.insertProfileImage(profileImage);
 			
@@ -134,7 +134,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String encEmail = encoder.encode(memberEmail);
 		
-		System.out.println(encEmail);
+//		System.out.println(encEmail);
 		
 		Map<String, String> emailMap = new HashMap<String, String>();
 		
