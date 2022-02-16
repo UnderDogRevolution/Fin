@@ -1,4 +1,3 @@
-console.log("rankMovie")
 rankMovie()
 function rankMovie(){
     const sideUl = document.getElementsByClassName("side-ul")[0];

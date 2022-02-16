@@ -1,4 +1,3 @@
-console.log("postView")
 //게시글 좋아요
 const whitePopcorn = document.getElementsByClassName("white-popcorn");
 const vividPopcorn = document.getElementsByClassName("vivid-popcorn");
@@ -22,7 +21,6 @@ for (const items of whitePopcorn) {
 					items.previousElementSibling.style.display = "block";
 					count.innerText = Number(count.innerText) + 1;
 					
-					console.log(post.memberNo);
 					const alramObj = {};
 
 					alramObj.alramTakeMemberNo = postMemberNo;
@@ -367,7 +365,6 @@ function selectReply(postNo) {
 		dataType: "JSON",
 		async: false,
 		success: function(replyList) {
-			console.log(replyList);
 			let plag = 0;
 			for (const items of replyList) {
 				const replyDiv1 = document.createElement("div");
@@ -450,7 +447,6 @@ function selectReply(postNo) {
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
-				// console.log(items.memberNo == memberNo)
 				if (typeof memberNo != "undefined") {
 					if (items.memberNo == memberNo) { //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
@@ -540,7 +536,6 @@ function selectReply(postNo) {
 								element.style.display = "none";
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText) + 1;
-
 
 
 								const alramObj = {};
@@ -654,70 +649,6 @@ function selectReply(postNo) {
 const post = document.getElementsByClassName("post")[0]
 
 post.append(selectReply(postNo));
-// 댓글 좋아요
-// const replyVividImg = document.getElementsByClassName("reply-vivid");
-// const replywhiteImg = document.getElementsByClassName("reply-white");
-// replyLike(replyVividImg, replywhiteImg);
-// function replyLike(replyVividImg, replywhiteImg){
-// 	for(const items of replywhiteImg){
-// 		items.addEventListener("click", function () {
-// 			const replyNo = this.nextElementSibling.innerText;
-// 			let count = this.nextElementSibling.nextElementSibling;
-// 			$.ajax({
-// 				url: contextPath + "/reply/insertReplyLike",
-// 				data: { "replyNo": replyNo },
-// 				type: "POST",
-// 				async: false,
-// 				success: function (result) {
-// 					if(result >0){
-// 						items.style.display = "none";
-// 						items.previousElementSibling.style.display = "inline";
-// 						count.innerText = Number(count.innerText)+1;
-// 					}else{
-// 						alert("좋아요 기능에 오류가 발생했습니다.")
-// 					}
-
-// 				},
-// 				error: function (req, status, error) {
-// 					console.log("ajax 실패");
-// 					console.log(req.responseText);
-// 					console.log(status);
-// 					console.log(error);
-// 				}
-
-// 			})
-// 		})
-// 	}
-// 	for(const items of replyVividImg){
-// 		items.addEventListener("click", function () {
-// 			const replyNo = this.nextElementSibling.nextElementSibling.innerText;
-// 			let count = this.nextElementSibling.nextElementSibling.nextElementSibling;
-// 			$.ajax({
-// 				url: contextPath + "/reply/deleteReplyLike",
-// 				data: { "replyNo": replyNo },
-// 				type: "POST",
-// 				async: false,
-// 				success: function (result) {
-// 					if(result >0){
-// 						items.style.display = "none";
-// 						items.nextElementSibling.style.display = "inline";
-// 						count.innerText = Number(count.innerText)-1;
-// 					}else{
-// 						alert("좋아요 기능에 오류가 발생했습니다.")
-// 					}
-
-// 				},
-// 				error: function (req, status, error) {
-// 					console.log("ajax 실패");
-// 					console.log(req.responseText);
-// 					console.log(status);
-// 					console.log(error);
-// 				}
-
-// 			})
-// 		})
-// 	}
-// }
 
 function copyURL(postNo) {
 
@@ -741,9 +672,7 @@ textarea.addEventListener("keydown", e => {
 	e.target.style.height = "auto"
 	let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
 	e.target.style.height = `${scHeight}px`
-	console.log(scHeight)
 	if (e.key == "Enter") {
-		console.log(e.target.value)
 		e.target.value = e.target.value.replaceAll("\n", "");
 		e.preventDefault();
 		replyImg.click();
