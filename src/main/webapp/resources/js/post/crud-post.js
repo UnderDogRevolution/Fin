@@ -1,5 +1,3 @@
-console.log("curd-post.js");
-
 // 즉시 실행 함수 (function(){})()
 
 // 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
@@ -329,7 +327,6 @@ inputTextarea.addEventListener("input",function(){
 
 function autoComplete(arr){ // 배열 매개변수
     for(const items of arr){
-        console.log(items.innerText);
         items.addEventListener("click",function(){
 
         })
@@ -345,7 +342,6 @@ function changeContent(){
     
     change = change.replaceAll(">", "&gt;");
     change = change.replaceAll("\n", "<br>");
-    console.log(change)
     change = change.replace(tagRegExp, function(target){
         return "<a href='#' class='attach' style='color: #0075de;'>" + target + "</a>";
     })
@@ -366,13 +362,10 @@ const observer = new MutationObserver(mutations => {
             for(let i=0; i < mutation.removedNodes.length; i++){
                  if(mutation.addedNodes[i] != null){
 
-                    // console.log(mutation.addedNodes);
                    
                     if(mutation.removedNodes[i].innerText != mutation.addedNodes[i].innerText){
                         let tagName = mutation.addedNodes[i].innerText;
-                        // console.log(mutation.addedNodes[i].innerText.indexOf('#'));
                         if(  tagName != null && tagName.length >0 ){
-                            // console.log(mutation.addedNodes[i]);
                             if(tagName.indexOf('#') > -1){
                                 tagName = tagName.replace('#', "");
                                 $.ajax({ //async : false 하면 순서대로 작동되서 잘되나 반응이 느려진다.
@@ -386,7 +379,6 @@ const observer = new MutationObserver(mutations => {
                                         modalSide.style.top = Number(top) + 24 + "px"; 
                                         
                                         const left = getAbsoluteLeft(mutation.addedNodes[i]) - getAbsoluteLeft(textareaBox)
-                                        console.log(getAbsoluteTop(mutation.addedNodes[i]))
                                         modalSide.style.left = (Number(left) - 4) + "px"; 
                                         tagListUl.innerHTML ="";
                                        
@@ -516,7 +508,6 @@ function postValidate(){
         postVO.postContent = inputTextarea.value;
         postVO.tagArr = tagArr;
         postVO.movie = movie;
-        console.log(postVO);
         
         // image 영역
         const formData = new FormData();
@@ -537,14 +528,12 @@ function postValidate(){
             postVO.youtube = youtube;
             postVO.checkUsePoster = 0;
         }else if(crudImg.getAttribute("src") != null && movie != null){
-            console.log(movie);
             postVO.checkUsePoster = 1;
         }else{
             postVO.checkUsePoster = 0;
         }
         
         formData.append('key', new Blob([JSON.stringify(postVO)], {type:"application/json"}));
-        console.log(formData);
         let alramPostNo = 0;
         $.ajax({ 
             url: contextPath + "/post/insert",
