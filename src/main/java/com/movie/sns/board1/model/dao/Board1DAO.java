@@ -20,8 +20,6 @@ public class Board1DAO {
 
 	public Member selectProfile(int memberNo) {
 
-		System.out.println("====================================");
-		System.out.println(memberNo);
 
 		return sqlSession.selectOne("boardMapper.selectProfile", memberNo);
 
