@@ -50,7 +50,7 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<span>${post.memberName}</span><span>${post.createDate}</span>
+								<span>${post.memberNickName}</span><span>${post.createDate}</span>
 								<div class="dropdown me-1 header-dropdown">
 									<img id="dropdownMenuOffset" data-bs-toggle="dropdown"	aria-expanded="false" data-bs-offset="10,-10" src="${contextPath}/resources/images/temp/dots.png">
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">

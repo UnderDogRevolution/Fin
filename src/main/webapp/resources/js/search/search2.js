@@ -81,7 +81,7 @@ function searchPostList(){
 				}
 				divHeader1.append(imgHeader1);
 				const spanHeader1 = document.createElement("span")
-				spanHeader1.innerText = items.memberName;
+				spanHeader1.innerText = items.memberNickName;
 				const spanHeader2 = document.createElement("span")
 				spanHeader2.innerText = items.createDate;
 				const divHeader2 = document.createElement("div")
