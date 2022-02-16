@@ -20,11 +20,17 @@
 
 <body>
 	<div id="main-container">
-
 		
 		<c:if test="${post.postStatusCode == 501}">
 			<script>
 				alert("삭제된 게시글 입니다.")
+				window.history.back();
+			</script>
+		</c:if>
+
+		<c:if test="${post.postStatusCode == 502 && loginMember.memberGradeCode == 100 }">
+			<script>
+				alert("관리자에 의해 삭제된 게시글 입니다.")
 				window.history.back();
 			</script>
 		</c:if>

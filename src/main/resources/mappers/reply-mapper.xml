@@ -80,6 +80,6 @@
 	</update>
 
 	<update id="deleteReply">
-		UPDATE REPLY SET REPLY_STATUS_CD = 601 WHERE REPLY_NO = #{replyNo}
+		UPDATE REPLY SET REPLY_STATUS_CD = 601 WHERE REPLY_NO = #{replyNo} OR PARENT_REPLY = #{replyNo}
 	</update>
 </mapper>
