@@ -204,6 +204,7 @@
 	<select id="postCount" resultType="_int">
 		SELECT COUNT(*) FROM POST
 		WHERE MEMBER_NO = #{memberNo}
+		AND POST_STATUS_CD = 500
 	</select>
 
 
