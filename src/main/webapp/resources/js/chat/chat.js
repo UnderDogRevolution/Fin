@@ -770,7 +770,7 @@ function msgUp() { //메세지 보내기
 							
 							$('.notice-num').show();
 		
-jib
+
 
 	}
 };
