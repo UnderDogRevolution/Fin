@@ -243,7 +243,6 @@ select:focus {
 				// 4) 일치하는 option 태그에 selected 속성 추가
 				option.setAttribute("selected", true)
 			}
-
 		}
 		
 		// 검색 input 세팅하기
@@ -297,7 +296,6 @@ select:focus {
 				
 								} else if (request.status == 500) {
 									console.log("서버 내부 에러 발생");
-									console.log(request.responseText);
 								}
 							}
 						});
