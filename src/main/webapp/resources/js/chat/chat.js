@@ -770,7 +770,7 @@ function msgUp() { //메세지 보내기
 							
 							$('.notice-num').show();
 		
-
+jib
 
 	}
 };
@@ -795,7 +795,7 @@ chattingSock.onmessage = function(e) {
 			success: function(result) {
 
 				if (result == 1) {
-
+				console.log(result)
 
 				} else if (result == 2) {
 					if (memberNo != obj.memberNo) {
