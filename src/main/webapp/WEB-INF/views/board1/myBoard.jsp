@@ -539,7 +539,6 @@ html::-webkit-scrollbar {
 							mode : mode
 						},
 						success : function(list) {
-							console.log(list);
 							if (list.length > 0) {
 
 								for (var i = 0; i < list.length; i++) {
@@ -563,8 +562,7 @@ html::-webkit-scrollbar {
 															+ list[i].postContent
 															+ '</span></div>');
 										} else {
-											console
-													.log(list[i].listPostImage[0].postImagePath);
+											
 											html
 													.push('<div onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url(/fin'
 															+ list[i].listPostImage[0].postImagePath
@@ -663,7 +661,7 @@ html::-webkit-scrollbar {
 				});
 
 		$(document).on("click", '.follower', function() {
-			console.log("fkdafjlkf");
+			
 			var html = [];	
 			
 			var _this = $(this);
@@ -715,7 +713,7 @@ html::-webkit-scrollbar {
 				dataType: "JSON",
 				type: "GET",
 				success: function(list) {
-					console.log(list)
+					
 					
 					  if(list.length > 0){
 						for(var i = 0; i < list.length; i++){
@@ -761,7 +759,7 @@ html::-webkit-scrollbar {
 				dataType: "JSON",
 				type: "GET",
 				success: function(list) {
-					console.log(list)
+				
 					
 					
 					
