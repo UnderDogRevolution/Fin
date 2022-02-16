@@ -97,7 +97,7 @@
 									style="padding-top: 5px;"></i></a></li>
 							<li><i class="fas fa-bell noticewrap"
 								style="padding-top: 5px;">
-									<div class="notice-num"></div>
+									<div class="notice-num" style="display : none"></div>
 
 									<div class="notify-wrap">
 										<div class="notice_box"></div>
@@ -150,7 +150,7 @@
 												href="${contextPath}/board1/myBoard/${loginMember.memberNo}">
 													<div class="myclick-li">프로필</div>
 											</a></li>
-											<li><a href="">
+											<li><a href="${contextPath}/board1/myBoard/${loginMember.memberNo}">
 													<div class="myclick-li">저장</div>
 											</a></li>
 											<li><a href="${contextPath}/member/myPage">
@@ -315,6 +315,8 @@
 		let alramSock;
 		const loginMemberNo = "${loginMember.memberNo}";
 		const loginMemberName = "${loginMember.memberName}";
+		const aramNotice = $(".notice-num");
+/* 		const alramShow = $(".notice-num").hide(); */
 		if (loginMemberNo != "") {
 
 			alramSock = new SockJS("<c:url value='/alram' />");
@@ -325,4 +327,5 @@
 			const alram = JSON.parse(e.data);
 			console.log(alram);
 		}
+
 	</script>

@@ -28,18 +28,20 @@ function flInsert(event, friendNo) {
 
 				const alramObj = {};
 
-				alramObj.alramTakeMemberNo = friendNo;
-				alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
-				alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
-				alramObj.alramGiveNo = memberNo;
-
-
-
-				alramSock.send(JSON.stringify(alramObj));
-
-
-
-
+							
+							alramObj.alramTakeMemberNo = friendNo;
+							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+				
+				
+							$('.notice-num').show();
+				
 
 
 			},
@@ -678,15 +680,17 @@ function sendImg() {
 
 				const alramObj = {};
 
-				alramObj.alramTakeMemberNo = targetNo;
-				alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
-				alramObj.alramUrl = contextPath + "/chat/myChat/";
-				alramObj.alramGiveNo = memberNo;
-
-
-
-				alramSock.send(JSON.stringify(alramObj));
-
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+							$('.notice-num').show();
 
 			},
 
@@ -751,15 +755,22 @@ function msgUp() { //메세지 보내기
 
 		const alramObj = {};
 
-		alramObj.alramTakeMemberNo = targetNo;
-		alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
-		alramObj.alramUrl = contextPath + "/chat/myChat/";
-		alramObj.alramGiveNo = memberNo;
 
-
-
-		alramSock.send(JSON.stringify(alramObj));
-
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+		
+							console.log(alramObj);
+							
+							$('.notice-num').show();
+		
+jib
 
 	}
 };
@@ -784,7 +795,7 @@ chattingSock.onmessage = function(e) {
 			success: function(result) {
 
 				if (result == 1) {
-
+				console.log(result)
 
 				} else if (result == 2) {
 					if (memberNo != obj.memberNo) {
