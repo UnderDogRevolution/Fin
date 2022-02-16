@@ -429,7 +429,6 @@ function revealPost(){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
-								$('.notice-num').show();
 								
 								
 							}else{
@@ -627,7 +626,6 @@ function insertReply(e){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
-								$('.notice-num').show();
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
@@ -871,7 +869,6 @@ function selectReply(postNo){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
-								$('.notice-num').show();
 								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
@@ -1001,7 +998,7 @@ function insertComment(e, replyNo, replyMemberNo){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
-								$('.notice-num').show();
+								
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
