@@ -1,4 +1,6 @@
 //헤더 부분
+
+
 $(".noticewrap").on("click", function(e) {
 
 	if ($('.notice_box').hasClass("show")) {
@@ -13,6 +15,7 @@ $(".noticewrap").on("click", function(e) {
 
 		var html = [];
 		var notice_box = $(".notice_box");
+		$(".notice-num").hide();
 		$.ajax({
 
 			url: contextPath + "/selectAlram",
@@ -22,11 +25,11 @@ $(".noticewrap").on("click", function(e) {
 			success: function(list) {
 
 
-				console.log("===================================");
-				console.log("===================================");
-				console.log(list);
+				
+				
+				
 				if (list.length > 0) {
-
+					
 					for (var i = 0; i < list.length; i++) {
 
 

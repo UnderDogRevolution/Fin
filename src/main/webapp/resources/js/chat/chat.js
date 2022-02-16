@@ -12,7 +12,6 @@ selectChatRoom();
 // 일단 화면을 봐야되니까 그냥 만들어지는지 확인하자
 
 function flInsert(event, friendNo) {
-	console.log($(event.target).text());
 	const btn = $(event.target);
 	if (btn.text() == "팔로우") {
 
@@ -29,18 +28,20 @@ function flInsert(event, friendNo) {
 
 				const alramObj = {};
 
-				alramObj.alramTakeMemberNo = friendNo;
-				alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
-				alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
-				alramObj.alramGiveNo = memberNo;
-
-
-
-				alramSock.send(JSON.stringify(alramObj));
-
-
-
-
+							
+							alramObj.alramTakeMemberNo = friendNo;
+							alramObj.alramContent = loginMemberName + "님이 팔로우를 했습니다.";
+							alramObj.alramUrl = contextPath + "/board1/myBoard/" + loginMemberNo;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+				
+				
+							$('.notice-num').show();
+				
 
 
 			},
@@ -98,7 +99,6 @@ function searchMember() {
 			dataType: "JSON",
 			type: "POST",
 			success: function(rList) {
-				console.log(rList);
 				$.each(rList, function(index, fr) {
 					const body = $(".modal-body");
 					const frMain = $("<div class = 'friendsListMain'>");
@@ -146,7 +146,6 @@ function searchPersion() { //인물조회
 
 
 
-			console.log(rList);
 			$.each(rList, function(index, fr) {
 
 				if (fr.CNT != 0) {
@@ -240,7 +239,6 @@ function selectChatRoom() {
 		dataType: "JSON",
 		success: function(chatList) {
 			$.each(chatList, function(index, room) {
-				console.log(room.imgPath);
 				const path = "'" + contextPath + room.imgPath + room.imgNm + "'";
 
 				const chatListWrap = $(".chatList-wrap");
@@ -259,9 +257,6 @@ function selectChatRoom() {
 				chat.append(nmdiv);
 				chat.append(icon);
 				chatListWrap.append(chat);
-				console.log(chat);
-				console.log(room.chatRoomNo);
-				console.log(room.chatRoomNo);
 
 
 			});
@@ -286,8 +281,6 @@ function selectchatting(frNo, memberNo, chatRoomNo, path) {
 		success: function(chatList) {
 			$.each(chatList, function(index, room) {
 
-				console.log(chatRoomNo);
-				console.log(room.chatRoomNo);
 				if (chatRoomNo == room.chatRoomNo) {
 					const chatListWrap = $(".chatList-wrap");
 					const chat = $('<div class = "chat" onclick="searchChatting(' + room.chatRoomNo + ',' + room.friendNo + ',' + path + ')">');
@@ -386,9 +379,6 @@ function goChatting(friendNo) {
 		type: "POST",
 		dataType: "JSON",
 		success: function(result) {
-			console.log(result);
-			console.log(result.result);
-			console.log(result.chatRoom.imgPath);
 			const number = result.result;
 			var chat;
 			if (number > 0) {
@@ -437,9 +427,6 @@ function goChatting(friendNo) {
 // 채팅 삭제 기능
 function deleteChat(event, chatRoomNo) {
 	event.stopPropagation();
-	console.log(event.target);
-	console.log(event.target.parentNode);
-	console.log(chatRoomNo)
 	if (confirm("채팅방을 나가시겠습니까?")) {
 		$.ajax({
 			url: contextPath + "/chat/delete",
@@ -535,7 +522,6 @@ function searchChatting(chatNo, frNo, path) { // 친구 클릭시 동작
 			// 대상 이름 삽입
 			chatHeader_div2.text(data.memberName)
 			chatMemberImg.attr("src", path)/* 이미지주소설정 */
-			console.log("맴버넘버" + memberNo);
 
 
 			chatHeader.append(chatHeader_div1);
@@ -666,17 +652,11 @@ function sendImg() {
 	// 매개변수 value == 클릭된 input 요소
 	const Img = document.getElementById("msgImg").files[0];
 	const chatRoomNo = $(".chatRoomNo").val();
-	console.log(Img);
-	// 파일이 선택된 경우 true
 	var reader = new FileReader();
-	// 다 읽은 경우
 
 	var form = $("#imgForm")[0];
 	var data = new FormData(form);
 	reader.onload = function(e) {
-		//console.log(e.target.result);
-		// e.target.result
-		// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
 		$.ajax({
 
 			url: contextPath + "/chat/imgUp",
@@ -700,15 +680,17 @@ function sendImg() {
 
 				const alramObj = {};
 
-				alramObj.alramTakeMemberNo = targetNo;
-				alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
-				alramObj.alramUrl = contextPath + "/chat/myChat/";
-				alramObj.alramGiveNo = memberNo;
-
-
-
-				alramSock.send(JSON.stringify(alramObj));
-
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 사진을 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+				
+							$('.notice-num').show();
 
 			},
 
@@ -765,7 +747,6 @@ function msgUp() { //메세지 보내기
 		obj.memberNo = memberNo;
 		obj.memberName = memberName;
 		obj.message = message;
-		console.log(message);
 		obj.chatRoomNo = chatRoomNo;
 		obj.targetNo = targetNo;
 		obj.path = myImgPath;
@@ -774,16 +755,22 @@ function msgUp() { //메세지 보내기
 
 		const alramObj = {};
 
-		alramObj.alramTakeMemberNo = targetNo;
-		alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
-		alramObj.alramUrl = contextPath + "/chat/myChat/";
-		alramObj.alramGiveNo = memberNo;
 
+							
+							alramObj.alramTakeMemberNo = targetNo;
+							alramObj.alramContent = memberName + "님이 메세지를 보냈습니다.";
+							alramObj.alramUrl = contextPath + "/chat/myChat/" ;
+							alramObj.alramGiveNo = memberNo;
+							
+							
+							
+							alramSock.send(JSON.stringify(alramObj));
+		
+							
+							
+							$('.notice-num').show();
+		
 
-
-		alramSock.send(JSON.stringify(alramObj));
-
-		console.log(alramObj);
 
 	}
 };
@@ -793,16 +780,12 @@ function msgUp() { //메세지 보내기
 chattingSock.onmessage = function(e) {
 	// e.data : 전달받은 메세지
 	// 메소드를 통해 전달받은 객체값을 JSON객체로 변환해서 obj 변수에 저장.
-	console.log(JSON.parse(e.data));
 	const obj = JSON.parse(e.data);
-	console.log("소켓 응답 : " + obj.message);
-	console.log(obj.path);
 	const p = $("<p>");
 	if (obj.message != undefined) {// 메세지가 있는 경우
 
 		//let chat = XSS(obj.message);
 		p.html(obj.message);
-		console.log(obj.message);
 		$.ajax({
 
 			url: contextPath + "/chat/updateJoinUp",
@@ -812,7 +795,7 @@ chattingSock.onmessage = function(e) {
 			success: function(result) {
 
 				if (result == 1) {
-
+				console.log(result)
 
 				} else if (result == 2) {
 					if (memberNo != obj.memberNo) {
@@ -830,7 +813,7 @@ chattingSock.onmessage = function(e) {
 	} else {// 메세지가 없는금방 초대된 상태
 
 	}
-	console.log(chattingNo + ',' +obj.chatRoomNo);
+	
 	if (chattingNo == obj.chatRoomNo) {
 
 		if (memberNo == obj.memberNo) {

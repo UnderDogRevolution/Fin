@@ -1,5 +1,3 @@
-console.log("post.js");
-
 const postContainer = document.getElementById("container-post")
 	
 let cp =1  // let cp 1 이 함수 실행 아래보다 있으면 안된다.
@@ -34,7 +32,6 @@ function revealPost(){
 				recentPost()
 				return;
 			}
-			console.log(postList)
 			for(const items of postList){
 				const post = document.createElement("div");
 				post.className = "post";
@@ -326,7 +323,6 @@ function revealPost(){
 						return target;
 					}
 				})
-				// console.log(text)
 				divContent2.innerHTML = text;
 				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
@@ -422,7 +418,6 @@ function revealPost(){
 								count.innerText = Number(count.innerText)+1;
 								
 								
-								//console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
 								const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
@@ -433,6 +428,10 @@ function revealPost(){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
+								
+								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
 							}
@@ -618,9 +617,6 @@ function insertReply(e){
 					alert("댓글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
 					
-					console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
-					console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
-					
 					const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
@@ -631,6 +627,7 @@ function insertReply(e){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								$('.notice-num').show();
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
@@ -670,8 +667,7 @@ function selectReply(postNo){
 		type: "POST",
 		dataType: "JSON",
 		async : false,
-		success: function (replyList) {
-			console.log(replyList);//memeberNo가 개발자 콘솔에서 다르게 출력되는 문제가 있다 실제로 js안에서는 이상이 없다.
+		success: function (replyList) {//memeberNo가 개발자 콘솔에서 다르게 출력되는 문제가 있다 실제로 js안에서는 이상이 없다.
 			let plag = 0;
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
@@ -862,8 +858,6 @@ function selectReply(postNo){
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)+1;
 								
-								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								console.log(_this.parents('.parent-reply').children('.profile-reply').children().attr('id'));
 								
 								
 								const alramObj = {};
@@ -877,7 +871,7 @@ function selectReply(postNo){
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
-								
+								$('.notice-num').show();
 								
 							}else{
 								alert("좋아요 기능에 오류가 발생했습니다.")
@@ -996,8 +990,6 @@ function insertComment(e, replyNo, replyMemberNo){
 				if(result>0){
 					alert("답글이 등록되었습니다.")
 					e.parentNode.parentNode.getElementsByTagName("textarea")[0].value = "";
-					console.log("=================================");
-					console.log(replyMemberNo);
 					const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = replyMemberNo;
@@ -1008,6 +1000,8 @@ function insertComment(e, replyNo, replyMemberNo){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 
 					if(post.getElementsByClassName("reply")[0]){
 						const reply = post.getElementsByClassName("reply")[0];
