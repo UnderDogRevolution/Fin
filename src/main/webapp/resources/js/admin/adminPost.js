@@ -201,7 +201,7 @@ function postModal(postNo) {
 
 
 		success: function(post) {
-			console.log(post);
+			// console.log(post);
 			const a2 = $('<a style="text-decoration: none; color: white;"'
 				+ 'href="' + contextPath + '/board1/myBoard/' + post.memberNo + '">' + post.memberNm + '</a>')
 			const a = $('<a style="text-decoration: none; color: white;"'
@@ -235,7 +235,7 @@ function postModal(postNo) {
 			}
 			select.on('focus', function() {
 				path = this.value;
-				console.log(path);
+				// console.log(path);
 			})
 
 			if (post.imgPath != null) {
@@ -274,7 +274,7 @@ function postModal(postNo) {
 
 			} else if (post.youtube_path != null) {
 
-				console.log(post.youtube_path);
+				// console.log(post.youtube_path);
 				$(".modal-img").css("display", "flex");
 				$(".modal-img").html(post.youtube_path)
 				$($(".postListContent")[0]).html(post.postNo);
@@ -328,7 +328,7 @@ function postModal(postNo) {
 
 $(".select").on('focus', function() {
 	path = this.value;
-	console.log(path);
+	// console.log(path);
 })
 
 
@@ -341,7 +341,7 @@ function changeStatus(event, postNo) {
 	// 변경 처리 후에도 화면을 유지하기 위한 변수
 	const statusValue = $("#statusValue option:selected").val();
 
-	console.log(postNo, status);
+	// console.log(postNo, status);
 	const e = $(event.target);
 	if (status == 502) {
 		blind = prompt("사유를 입력해주세요");
@@ -389,7 +389,7 @@ function changeStatus(event, postNo) {
 
 			$($(".postListContent")[9]).html("");
 			if (blind != null) {
-				console.log(blind);
+				// console.log(blind);
 				$($(".postListContent")[9]).html(blind);
 
 			}
@@ -427,7 +427,7 @@ function showMemberDetail(memberNo) {
 
 			if (member != null) {
 
-				console.log("정보 조회 성공");
+				// console.log("정보 조회 성공");
 
 				// 요소에 값 추가하기
 				$(".inputMemberProfileImage").attr("src", contextPath + member.profileImage.imgPath + member.profileImage.imgName);
@@ -440,8 +440,8 @@ function showMemberDetail(memberNo) {
 				$(".inputMemberStatusName").text(member.memberStatusName);
 				$(".inputViolationCount").text(member.violationCount);
 
-				console.log(member);
-				console.log(contextPath);
+				// console.log(member);
+				// console.log(contextPath);
 
 				$("#memberDetail").modal('show');
 
@@ -750,7 +750,7 @@ function findPost(cp, statusValue, sortColumn, sortMethod) {
 
 					$(select).on('focus', function() {
 						path = this.value;
-						console.log(path);
+						// console.log(path);
 					});
 
 

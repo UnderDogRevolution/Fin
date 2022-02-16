@@ -30,10 +30,13 @@ function showAskDetail(askNo){
         $(".askMemberName").text(AdminAsk.memberName);
         $(".askDate").text(AdminAsk.askDate);
 
+        // console.log(AdminAsk);
+
         $("#askDetail").modal('show');
 
       }else{
         console.log("문의글 상세 조회 실패");
+        // console.log(AdminAsk);
       }
 
     },
@@ -46,6 +49,7 @@ function showAskDetail(askNo){
       
       } else if( request.status == 500){
           console.log("서버 내부 에러 발생");
+          // console.log(request.responseText);
       }
     },
 
@@ -65,6 +69,8 @@ if (cp == undefined) {
 	
   const sk = $("#sk").val();
   const sv = $("#sv").val();
+
+  // console.log(sk);
 
   $.ajax({
 
