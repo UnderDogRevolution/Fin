@@ -767,8 +767,8 @@ function msgUp() { //메세지 보내기
 							alramSock.send(JSON.stringify(alramObj));
 		
 							
-							
 							$('.notice-num').show();
+							
 		
 
 
@@ -783,7 +783,7 @@ chattingSock.onmessage = function(e) {
 	const obj = JSON.parse(e.data);
 	const p = $("<p>");
 	if (obj.message != undefined) {// 메세지가 있는 경우
-
+		
 		//let chat = XSS(obj.message);
 		p.html(obj.message);
 		$.ajax({
@@ -801,7 +801,7 @@ chattingSock.onmessage = function(e) {
 					if (memberNo != obj.memberNo) {
 						const path1 = "'" + obj.path + "'";
 						selectchatting(obj.targetNo, obj.memberNo, obj.chatRoomNo, path1)
-
+						
 					}
 
 				}
@@ -817,7 +817,7 @@ chattingSock.onmessage = function(e) {
 	if (chattingNo == obj.chatRoomNo) {
 
 		if (memberNo == obj.memberNo) {
-
+			
 			const ul = $("#chattingwrap")
 			const img = $("<img style = 'width: 30px; height: 30px'>");
 			const div = $("<div style =  width: 40px; height : 60px; padding-left : 10px;'>")
