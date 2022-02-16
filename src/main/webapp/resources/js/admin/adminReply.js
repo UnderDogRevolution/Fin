@@ -45,7 +45,7 @@ function selectReplyList(cp) {//검색
 	const searchPost = $(".selectPostsend").val(); // select 값
 	const inputResult = $("#searchPost").val(); //input 값
 
-	console.log(inputResult)
+	// console.log(inputResult)
 
 	$.ajax({
 		url: contextPath + "/admin/searchReply",
@@ -57,7 +57,7 @@ function selectReplyList(cp) {//검색
 			$(".tbody").html("");
 			$(".pagination").html("");
 
-			console.log(map.List);
+			// console.log(map.List);
 			if (map.List.length == 0) {
 				$(".tbody").html("<tr><td colspan='8'>등록된게시글이 존재하지 않습니다.</td></tr>")
 
@@ -85,7 +85,7 @@ function selectReplyList(cp) {//검색
 				
 				const select = $('<select  name="statusCd"  class="select"></select>');
 				select.attr("onchange", "changeStatus(event," + reply.replyNo + ")");
-				console.log(select);
+				// console.log(select);
 				for (let i = 600; i < 603; i++) {
 					const option = $("<option>");
 					option.val(i);
@@ -210,7 +210,7 @@ function postModal(replyNo) {
 			}
 			select.on('focus', function() {
 				path = this.value;
-				console.log(path);
+				// console.log(path);
 			})
 
 			$($(".postListContent")[0]).html(reply.replyNo);
@@ -251,17 +251,17 @@ function postModal(replyNo) {
 
 $(".select").on('focus', function() {
 	path = this.value;
-	console.log(path);
+	// console.log(path);
 })
 
 
 
 function changeStatus(event, replyNo) {
-	console.log(path);
+	// console.log(path);
 
 	const status = $(event.target).val();
 
-	console.log(replyNo, status);
+	// console.log(replyNo, status);
 	const e = $(event.target);
 	if (status == 602) {
 		blind = prompt("사유를 입력해주세요");
@@ -339,8 +339,8 @@ function showMemberDetail(memberNo){
         $(".inputMemberStatusName").text(member.memberStatusName);
         $(".inputViolationCount").text(member.violationCount);
 
-        console.log(member);
-        console.log(contextPath);
+        // console.log(member);
+        // console.log(contextPath);
 
         $("#memberDetail").modal('show');
 

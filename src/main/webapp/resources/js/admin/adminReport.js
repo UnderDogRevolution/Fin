@@ -39,7 +39,7 @@ function selectReplyList(cp) {//검색
 	const searchPost = $(".selectPostsend").val(); // select 값
 	const inputResult = $("#searchPost").val(); //input 값
 
-	console.log(inputResult)
+	// console.log(inputResult)
 
 	$.ajax({
 		url: contextPath + "/admin/searchReport",
@@ -51,7 +51,7 @@ function selectReplyList(cp) {//검색
 			$(".tbody").html("");
 			$(".pagination").html("");
 
-			console.log(map.List);
+			// console.log(map.List);
 			if (map.List.length == 0) {
 				$(".tbody").html("<tr><td colspan='6'>등록된게시글이 존재하지 않습니다.</td></tr>")
 
@@ -144,7 +144,7 @@ function reportModal(reportNo) {
 
 
 		success: function(result) {
-			console.log(result);
+			// console.log(result);
 			const a2 = $('<a style="text-decoration: none; color: white;"'
 				+ 'href="' + contextPath + '/board1/myBoard/' + result.memberNo + '">' + result.memberNo + '</a>')
 
@@ -172,7 +172,7 @@ function reportModal(reportNo) {
 
 $(".select").on('focus', function() {
 	path = this.value;
-	console.log(path);
+	// console.log(path);
 })
 
 
@@ -202,7 +202,7 @@ function showMemberDetail(memberNo) {
 
 			if (member != null) {
 
-				console.log("정보 조회 성공");
+				// console.log("정보 조회 성공");
 
 				// 요소에 값 추가하기
 				$(".inputMemberProfileImage").attr("src", contextPath + member.profileImage.imgPath + member.profileImage.imgName);
@@ -215,8 +215,8 @@ function showMemberDetail(memberNo) {
 				$(".inputMemberStatusName").text(member.memberStatusName);
 				$(".inputViolationCount").text(member.violationCount);
 
-				console.log(member);
-				console.log(contextPath);
+				// console.log(member);
+				// console.log(contextPath);
 
 				$("#memberDetail").modal('show');
 

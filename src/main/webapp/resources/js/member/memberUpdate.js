@@ -30,17 +30,17 @@ document.getElementById("nickInput").addEventListener("change", (e) => {
 
 			success: function(result) {
 
-				console.log(result);
+				// console.log(result);
 
 				if (result == 0) { // 닉네임 사용 가능
 
 					updateCheckObj.nickInput = true;
-					console.log("사용가능");
+					// console.log("사용가능");
 
 				} else { // 닉네임 중복
 
 					updateCheckObj.nickInput = false;
-					console.log("사용불가능");
+					// console.log("사용불가능");
 				}
 			},
 
@@ -59,7 +59,7 @@ document.getElementById("nickInput").addEventListener("change", (e) => {
 			complete: function() {
 				// (마지막에 무조건 수행)
 
-				console.log("complete 수행");
+				// console.log("complete 수행");
 			}
 
 		});
@@ -133,7 +133,7 @@ function loadImg(input, num) {
 		}
 
 	} else{
-		console.log("취소 클릭");
+		// console.log("취소 클릭");
 		$(input).before(fileClone[num].clone());
 		$(input).remove(); 
    
@@ -144,5 +144,5 @@ function loadImg(input, num) {
 $("#deleteImg").on("click", function(){
 	$('#img').attr('src','../resources/images/common/defaultProfileImage.png');
 	$("[name=deleteCheck]").val(1);
-	console.log("기본이미지로 변경");
+	// console.log("기본이미지로 변경");
 })
