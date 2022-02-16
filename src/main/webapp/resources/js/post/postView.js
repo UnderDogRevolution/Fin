@@ -32,7 +32,6 @@ for (const items of whitePopcorn) {
 
 					alramSock.send(JSON.stringify(alramObj));
 					
-					$('.notice-num').show();
 
 
 				} else {
@@ -163,7 +162,6 @@ function insertReply(e) {
 								
 						alramSock.send(JSON.stringify(alramObj));	
 					
-						$('.notice-num').show();
 
 				} else {
 					alert("댓글 등록 중 문제가 발생했습니다.")
@@ -234,7 +232,6 @@ function insertComment(e, replyNo, replyMemberNo) {
 								
 								alramSock.send(JSON.stringify(alramObj));
 								
-								$('.notice-num').show();
 				}
 				
 				
@@ -549,7 +546,6 @@ function selectReply(postNo) {
 
 								alramSock.send(JSON.stringify(alramObj));
 
-								$('.notice-num').show();
 
 							} else {
 								alert("좋아요 기능에 오류가 발생했습니다.")
