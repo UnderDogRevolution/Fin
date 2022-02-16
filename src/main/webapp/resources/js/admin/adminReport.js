@@ -1,3 +1,5 @@
+selectReplyList();
+
 function getParam(key) {
 	return new URLSearchParams(location.search).get(key)
 }
@@ -53,7 +55,7 @@ function selectReplyList(cp) {//검색
 
 			// console.log(map.List);
 			if (map.List.length == 0) {
-				$(".tbody").html("<tr><td colspan='6'>등록된게시글이 존재하지 않습니다.</td></tr>")
+				$(".tbody").html("<tr><td colspan='6'>신고내역이 존재하지 않습니다.</td></tr>")
 
 			};
 
@@ -61,7 +63,7 @@ function selectReplyList(cp) {//검색
 			$.each(map.List, function(index, report) {
 				const body = $(".tbody");
 				const tr = $("<tr>");
-				const td1 = $('<td class="postModalShow" onclick= "reportModal(' + report.replyNo + ')">');
+				const td1 = $('<td class="postModalShow" onclick= "reportModal(' + report.reportNo + ')">');
 				const td2 = $("<td  onclick = 'showMemberDetail(" + report.memberNo + ")'>");
 				const td3 = $("<td class ='MemberView'>");
 				const td4 = $("<td class = 'reportContent'>");

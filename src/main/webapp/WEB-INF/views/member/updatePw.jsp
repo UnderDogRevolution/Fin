@@ -31,7 +31,7 @@
 				</div>
 
 				<div class="row-mb-3-con">
-					<label for="currentPw" class="form-label">비밀번호 수정</label> <input
+					<label for="currentPw" class="form-label">현재 비밀번호</label> <input
 						type="password" class="inputform" id="currentPw" name="currentPw">
 				</div>
 

@@ -173,7 +173,7 @@ if (cp == undefined) {
         console.log("ajax 요청 주소가 올바르지 않습니다.");
 
       } else if( request.status == 500){
-          console.log("서버 내부 에러 발생");
+        console.log("서버 내부 에러 발생");
       }
    
     },

@@ -193,7 +193,7 @@ select:focus {
 
 									</thead>
 									<tbody class="tbody">
-										<c:choose>
+										<%-- <c:choose>
 											
 											<c:when test="${empty report}">
 												<tr>
@@ -222,10 +222,10 @@ select:focus {
 															<td>댓글</td>
 														</c:if>
 															
-															<%-- <td class="MemberView"
-															onclick="showMemberDetail(${report.memberNo})">${report.memberNm}</td> --%>
+															<td class="MemberView"
+															onclick="showMemberDetail(${report.memberNo})">${report.memberNm}</td>
 
-												<%-- 		<td><select name="statusCd" id="" class="select"
+														<td><select name="statusCd" id="" class="select"
 															onchange="changeStatus(event,${reply.replyNo})">
 																<c:forEach items="${cd}" var="c">
 																	<c:if test="${reply.statusNm == c.statusNm}">
@@ -240,11 +240,11 @@ select:focus {
 
 
 
-														</select></td> --%>
+														</select></td>
 													</tr>
 												</c:forEach>
 											</c:otherwise>
-										</c:choose>
+										</c:choose> --%>
 									</tbody>
 									<tfoot>
 

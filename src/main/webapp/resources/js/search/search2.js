@@ -1,5 +1,3 @@
-console.log("search2")
-
 const postContainer = document.getElementById("container-post")
 // postContainer.innerHTML = "";
 	
@@ -12,7 +10,6 @@ const option = {
 const io = new IntersectionObserver((entries, observer) => {
 	entries.forEach((entry) => {
 		if(entry.isIntersecting){
-			console.log(entry);
 			searchPostList()
 		} else {
 		}
@@ -44,14 +41,12 @@ if(searchType == "movie"){
 function searchPostList(){
 	
 	const searchWord = searchParam("searchResult");
-	console.log(searchWord)
 	$.ajax({
 		url: searchURL,
 		data: {"searchWord": searchWord, "cp":cp},
 		type: "GET",
 		dataType: 'json',
 		success: function (postList) {
-			console.log(postList)
 			if(cp ==1 && postList.length == 0){
 				const templateLiterals = ` <div id="no-search-result">
 											<img src="${contextPath}/resources/images/temp/search_icon.png">
@@ -350,7 +345,6 @@ function searchPostList(){
 						return target;
 					}
 				})
-				// console.log(text)
 				divContent2.innerHTML = text;
 				divContent2.setAttribute("onclick", "location.href='"+contextPath+"/post/view/"+items.postNo+"'")
 				postContent.append(divContent2) 
@@ -440,7 +434,6 @@ function searchPostList(){
 								element.previousElementSibling.style.display = "block";
 								count.innerText = Number(count.innerText)+1;
 								
-								//console.log($(e.target).parent().parent().parent().children().eq(0).find("img").attr("id"));
 								const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = $(e.target).parent().parent().parent().children().eq(0).find("img").attr("id");
@@ -451,6 +444,8 @@ function searchPostList(){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 								
 								
 							}else{
@@ -522,9 +517,7 @@ function searchPostList(){
 						e.target.style.height = "auto"
 						let scHeight = e.target.scrollHeight; //여기선 this가 안먹는다! 이유는 모름
 						e.target.style.height = `${scHeight}px`
-						console.log(scHeight)
 						if(e.key == "Enter"){
-							console.log(e.target.value)
 							e.target.value = e.target.value.replaceAll("\n", "");
 							e.preventDefault();
 							replyImg.click();
@@ -607,7 +600,6 @@ function searchPostList(){
 				io.disconnect()
 			}else{
 				cp++;
-				console.log(temp)
 				io.observe(temp)
 			}
 		} 
@@ -659,6 +651,7 @@ function insertReply(e){
 								
 								
 						alramSock.send(JSON.stringify(alramObj));	
+						$('.notice-num').show();
 					
 
 				}else{
@@ -687,7 +680,6 @@ function selectReply(postNo){
 		dataType: "JSON",
 		async : false,
 		success: function (replyList) {
-			console.log(replyList);
 			let plag = 0;
 			for(const items of replyList){
 				const replyDiv1 = document.createElement("div");
@@ -770,7 +762,6 @@ function selectReply(postNo){
 				dropLi1.append(a1);
 				dropLi2.append(a2);
 				dropLi3.append(a3);
-				// console.log(items.memberNo == memberNo)
 				if(typeof memberNo != "undefined"){
 					if(items.memberNo == memberNo){ //아 여기서 = 해가지고 대입되는 문제가 생겼내
 						dropUl.append(dropLi1);
@@ -857,10 +848,6 @@ function selectReply(postNo){
 								element.previousElementSibling.style.display = "inline";
 								count.innerText = Number(count.innerText)+1;
 								
-								console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								console.log(post.getElementsByClassName("profile-img")[0].getAttribute("id"));
-								
-								
 								const alramObj = {};
 								
 								alramObj.alramTakeMemberNo = post.getElementsByClassName("profile-img")[0].getAttribute("id");
@@ -871,6 +858,8 @@ function selectReply(postNo){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 								
 								
 								
@@ -1009,6 +998,8 @@ function insertComment(e, replyNo, replyMemberNo){
 								
 								
 								alramSock.send(JSON.stringify(alramObj));
+								
+								$('.notice-num').show();
 					
 
 				}else{

@@ -168,6 +168,8 @@ function flInsert(event, friendNo) {
 							
 							
 							alramSock.send(JSON.stringify(alramObj));
+							
+							$('.notice-num').show();
 				
 
 			},

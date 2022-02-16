@@ -15,7 +15,7 @@ enctype="multipart/form-data" role="form" onsubmit="return postValidate();"> -->
                 <div class="modal-review-title">
                 </div>
                 <!-- 왜 flex를 주니까 margin auto가 먹는가? -->
-                <input class="moviedb-input" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 30px; margin-top: 10px;">
+                <input class="moviedb-input" placeholder="영화 제목을 입력해 주세요!" type="text" style=" width: 80%; margin: auto; flex-grow: 1; font-size: 20px; margin-top: 10px; padding-block: 8px;">
                 <div class="search-result">
                 </div>
                 <div class="insert-container-textarea">

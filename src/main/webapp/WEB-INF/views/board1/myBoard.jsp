@@ -129,7 +129,7 @@ html::-webkit-scrollbar {
 											<a class="follower">팔로잉</a>
 										</c:otherwise>
 									</c:choose>
-									<a>메세지 보내기</a>
+									<a href="${contextPath}/chat/myChat">메세지 보내기</a>
 								</c:otherwise>
 							</c:choose>
 
@@ -166,7 +166,7 @@ html::-webkit-scrollbar {
 			<div id="board-list">
 				<ul class="save">
 					<li class="active pre-board" data-mode="post">게시글</li>
-					<li class="save-board" data-mode="save">저장됨</li>
+					<li class="save-board" data-mode="save">좋아요</li>
 
 				</ul>
 				<div class="board-show">
@@ -545,13 +545,13 @@ html::-webkit-scrollbar {
 								for (var i = 0; i < list.length; i++) {
 								
 									
-								if(list[i].thumbnail !== undefined){
+								if(list[i].thumbnail !== undefined && list[i].postContent !== undefined){
 									html.push('<div  onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url('
 											+ list[i].thumbnail
 											+ ') no-repeat center center; background-size: cover;"></div>');
 								
 								}else if (list[i].poster !== undefined
-											& list[i].postContent !== undefined) {
+											&& list[i].postContent !== undefined) {
 										html.push('<div  onclick = "postSubmit1('+list[i].postNo+');" class="show postBox" style="background: url('
 														+ list[i].poster
 														+ ') no-repeat center center; background-size: cover;"></div>');
@@ -600,6 +600,7 @@ html::-webkit-scrollbar {
 					});
 
 		}
+
 
 		$(document).on("click", '.follow', function() {
 					
@@ -724,7 +725,6 @@ html::-webkit-scrollbar {
 									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
 									'<div onclick = "memberView('+list[i].memberNo+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
-										'<span>'+ list[i].memberNm +'</span>' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
 									'</div>' +
@@ -774,7 +774,6 @@ html::-webkit-scrollbar {
 									'<div class="img"><img src = '+contextPath + list[i].imgPath+ list[i].imgNm+'></div>' +
 									'<div onclick = "memberView('+list[i].toUser+')" class="info">' +
 										'<span>'+ list[i].memberNickNm +'</span>'+ 
-										'<span>'+ list[i].memberNm +'</span>' +
 										'<input type="hidden" name="friendNo" value="' +list[i].memberNo + '">' +
 									'</div>' +
 									'<div class="del-button-wrap">'+
@@ -848,10 +847,7 @@ html::-webkit-scrollbar {
 		};
 
 		
-		
-		
-		
-		
+
 		
 	</script>
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
