@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/main/feed.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main/crud-post.css">
 </head>
+    <style>
+        .post{
+            transform: translate(0) !important;
+        }
+    </style>
 <body>
 
 	<div class="mainContainer">
@@ -25,6 +30,7 @@
     </div>
     <div id="container-post" style="padding-left: 0;">
     </div>
+    <img class="top-button" src="${contextPath}/resources/images/temp/top_button.png">
 	<jsp:include page="../main/crud-post.jsp"></jsp:include>
     <script>
 		const contextPath = "${contextPath}";

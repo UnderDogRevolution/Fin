@@ -14,7 +14,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <link rel="stylesheet" href="${contextPath}/resources/css/member/memberPage.css">
-
+<link rel="stylesheet"
+href="${contextPath}/resources/css/main/crud-post.css">
 </head>
 <body>
 
@@ -113,6 +114,10 @@
 		})
 	</script>
 </c:if>
-
+<script>
+	const memberNo = loginMemberNo;
+	const contextPath = "${contextPath}"
+</script>
+<jsp:include page="../main/crud-post.jsp"></jsp:include>
 </body>
 </html>
