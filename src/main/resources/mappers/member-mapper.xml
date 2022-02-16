@@ -51,7 +51,7 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		AND STATUS_CD = 200
 		AND
-		GRADE_CD = 100
+		GRADE_CD = 100;
 	</select>
 
 

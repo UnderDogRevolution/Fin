@@ -95,7 +95,7 @@ function resetPwValidate(){
 
   if(resetPwCheckObj.password == true){
     $("#resetPw-btn").removeAttr("disabled");
-    console.log("실행");
+    // console.log("실행");
   }else{
     $("#resetPw-btn").attr("disabled", true);
   }
@@ -120,7 +120,7 @@ function sendResetLink(){
 
     success : function(result){
 
-      console.log(result + " : 이메일 중복체크 결과");
+      // console.log(result + " : 이메일 중복체크 결과");
 
       if(result  ==  0){ // 가입하지 않은 이메일
 
@@ -199,7 +199,7 @@ function sendResetLink(){
       
             } else if( request.status == 500){
                 console.log("[메일 전송] 서버 내부 에러 발생");
-                console.log(request.responseText);
+                // console.log(request.responseText);
             }
          
           }
@@ -218,7 +218,7 @@ function sendResetLink(){
 
       } else if( request.status == 500){
           console.log("[이메일 중복체크] 서버 내부 에러 발생");
-          console.log(request.responseText);
+          // console.log(request.responseText);
       }
    
     }

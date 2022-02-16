@@ -89,7 +89,7 @@ public class MemberController {
 			resp.addCookie(cookie);
 			
 			
-			System.out.println("[이전페이지 주소] : " + referer);
+//			System.out.println("[이전페이지 주소] : " + referer);
 			
 			// 직접 주소치고 들어오면 null 반환하므로 조건 걸어줘야함
 			if(referer != null) {
@@ -126,7 +126,7 @@ public class MemberController {
 		// 이전 페이지 주소를 세션에 담기
 		ra.addFlashAttribute("prevURL", referer);
 		
-		System.out.println("[이전페이지 주소] : " + referer);
+//		System.out.println("[이전페이지 주소] : " + referer);
 		
 		String path = null;
 		// 직접 주소치고 들어오면 null 반환하므로 조건 걸어줘야함

@@ -191,7 +191,7 @@ function authEmail(){
   
         } else if( request.status == 500){
             console.log("서버 내부 에러 발생");
-            console.log(request.responseText);
+            // console.log(request.responseText);
         }
      
       }
@@ -220,7 +220,7 @@ function checkAuth(){
     success : function(result){
 
       if(result > 0){
-        console.log("인증 성공");
+        // console.log("인증 성공");
         $("#emailCheck-btn").next().html(validIcon);
         
         // 이메일 입력창 읽기전용으로 변경
@@ -269,7 +269,7 @@ function checkAuth(){
 
       } else if( request.status == 500){
           console.log("서버 내부 에러 발생");
-          console.log(request.responseText);
+          // console.log(request.responseText);
       }
    
     },
@@ -369,7 +369,7 @@ $("#memberEmail").on("input", function(){
 
       success : function(result){
 
-        console.log(result);
+        // console.log(result);
 
         if(result  ==  0){ // 이메일 사용 가능
 
@@ -397,7 +397,7 @@ $("#memberEmail").on("input", function(){
 
         } else if( request.status == 500){
             console.log("서버 내부 에러 발생");
-            console.log(request.responseText);
+            // console.log(request.responseText);
         }
      
       }
@@ -495,7 +495,7 @@ $("#memberNickName").on("input", function(){
 
       success : function(result){
 
-        console.log(result);
+        // console.log(result);
 
         if(result  ==  0){ // 닉네임 사용 가능
 
@@ -523,7 +523,7 @@ $("#memberNickName").on("input", function(){
 
         } else if( request.status == 500){
             console.log("서버 내부 에러 발생");
-            console.log(request.responseText);
+            // console.log(request.responseText);
         }
      
       }
@@ -577,11 +577,11 @@ $("#terms1, #terms2").on("change", function(){
   let getId = $(this).attr("id");
 
   if($(this).is(":checked")){
-    console.log("checked");
-    console.log($(this).attr("id"));
+    // console.log("checked");
+    // console.log($(this).attr("id"));
     signUpCheckObj[getId] = true;
   }else{
-    console.log("unchecked");
+    // console.log("unchecked");
     signUpCheckObj[getId] = false;
   }
   

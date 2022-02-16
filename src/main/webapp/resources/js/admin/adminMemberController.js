@@ -388,7 +388,7 @@ function findMember(cp, statusValue, sortColumn, sortMethod){
   const sk = $("#sk").val();
   const sv = $("#sv").val();
 
-  console.log(sk);
+  // console.log(sk);
 
   $.ajax({
 
